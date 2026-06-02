@@ -1,0 +1,295 @@
+.featured-designers {
+  width: 100%;
+  min-height: 100vh;
+  padding: 80px 30px;
+
+  background: repeating-radial-gradient(
+    circle at top center,
+    #f5ebeb,
+    #f5ebeb 20px,
+    #ffffff 20px,
+    #ffffff 40px
+  );
+}
+
+.featured-designers h1 {
+  text-align: center;
+  font-size: 56px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 60px;
+}
+
+.cards {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.card {
+  width: 32%;
+  height: 580px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.verified {
+  background: #e5f8ea;
+  color: #1f8d43;
+
+  padding: 8px 14px;
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.card h3 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.specialty {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 18px;
+}
+
+.info {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.bottom-section {
+  margin-top: auto;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  margin-bottom: 12px;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+
+  background: #e6e6e6;
+  border-radius: 30px;
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #7b001c;
+}
+
+.delivery {
+  margin-top: 12px;
+  margin-bottom: 20px;
+
+  font-size: 15px;
+  color: #555;
+}
+
+.profile-btn {
+  width: 100%;
+  height: 55px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #7b001c;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.mobile-controls {
+  display: none;
+}
+
+/* TABLET */
+
+@media screen and (max-width: 1024px) {
+  .cards {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 48%;
+    height: 560px;
+  }
+}
+
+/* MOBILE CAROUSEL */
+
+@media screen and (max-width: 768px) {
+  .featured-designers {
+    padding: 60px 15px;
+  }
+
+  .featured-designers h1 {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 25px;
+  }
+
+  .mobile-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .mobile-controls button {
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 10%;
+
+    background: #7b001c;
+    color: white;
+
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .cards {
+    width: 100%;
+
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 92%;
+    width: 92%;
+    height: 540px;
+  }
+
+  .avatar {
+    width: 75px;
+    height: 75px;
+  }
+
+  .card h3 {
+    font-size: 24px;
+  }
+}
+
+/* SMALL PHONES */
+
+@media screen and (max-width: 480px) {
+  .featured-designers h1 {
+    font-size: 28px;
+  }
+
+  .featured-designers p {
+    text-align: center;
+    width: 70%;
+    color: #666;
+  }
+
+  .featured-designers {
+    height: 188px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cards {
+    min-width: 100%;
+    min-height: 450px;
+    margin: none;
+    overflow-x: none;
+  }
+  .card {
+    flex: 0 0 96%;
+    width: 100%;
+    height: inherit;
+    padding: 20px;
+    margin: none;
+    overflow-x: none;
+    justify-content: space-around;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .specialty {
+    font-size: 16px;
+  }
+
+  .info {
+    font-size: 14px;
+  }
+
+  .score {
+    font-size: 16px;
+  }
+
+  .profile-btn {
+    height: 50px;
+  }
+
+  .mobile-controls {
+    margin-top: 25px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
