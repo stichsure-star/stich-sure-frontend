@@ -1,0 +1,152 @@
+.Hero_con {
+  width: 100%;
+  min-height: 90vh;
+  background-color: var(--color-backgruond);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "El Messiri", sans-serif;
+}
+
+.Hero_content {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.Hero_text_content {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.Hero_text_content h1 {
+  font-size: 4rem;
+  color: black;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.Hero_text_content p {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 2.5rem;
+}
+
+.Hero_btns {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.Hero_btn_primary,
+.Hero_btn_secondary {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: "El Messiri", sans-serif;
+  font-weight: 500;
+  border: 1.5px solid var(--color-wine);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Hero_btn_primary {
+  background-color: var(--color-wine);
+  color: white;
+}
+
+.Hero_btn_secondary {
+  background-color: transparent;
+  color: var(--color-wine);
+}
+
+.Hero_image_content {
+  width: 45%;
+}
+
+.Hero_img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* TABLET */
+
+@media screen and (max-width: 1024px) {
+  .Hero_text_content h1 {
+    font-size: 3rem;
+  }
+  .Hero_text_content p {
+    font-size: 1.2rem;
+  }
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 768px) {
+  .Hero_content {
+    flex-direction: column;
+    text-align: start;
+    padding: 2rem 0;
+  }
+
+  .Hero_text_content {
+    width: 100%;
+    text-align: start;
+  }
+
+  .Hero_text_content h1 {
+    font-size: 2.5rem;
+  }
+
+  .Hero_btns {
+    justify-content: center;
+  }
+
+  .Hero_image_content {
+    width: 100%;
+  }
+}
+
+/* SMALL PHONES */
+
+@media screen and (max-width: 480px) {
+  .Hero_text_content h1 {
+    font-size: 2rem;
+  }
+  .Hero_text_content p {
+    font-size: 1rem;
+  }
+  .Hero_btns {
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    justify-content: start;
+    gap: 6px;
+  }
+  .Hero_btn_primary,
+  .Hero_btn_secondary {
+    width: 130px;
+    height: 30px;
+    display: flex;
+    font-size: 9px;
+    justify-content: start;
+    align-items: center;
+    gap: 1px;
+  }
+  .Hero_image_content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
