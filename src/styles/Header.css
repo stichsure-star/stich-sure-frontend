@@ -130,6 +130,7 @@
     color: var(--color-wine);
   }
 }
+
 .Header_button {
   width: 28%;
   height: 100%;
@@ -147,6 +148,7 @@
     font-weight: 500;
     font-family: "El Messiri", sans-serif;
     cursor: pointer;
+    background-color: var(--color-white);
   }
   .Header_sign2 {
     width: 35%;

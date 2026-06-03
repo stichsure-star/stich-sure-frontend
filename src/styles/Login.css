@@ -1,0 +1,50 @@
+
+.login_content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.login_header {
+  /* margin-bottom: 60px; */
+  margin-bottom: auto;
+}
+
+.auth_card {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+/* .back_text {
+  display: flex;
+  align-items: center;
+  gap: 4px;     
+
+  font-size: 14px;
+  color: #222;
+  cursor: pointer;
+  margin-bottom: 60px;
+} */
+
+.forgot_password {
+  font-size: 14px;
+  color: #222;
+  cursor: pointer;
+  margin-top: -5px;
+  margin-bottom: 15px;
+}
+
+.create_btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 6px;
+  background: #8b0015;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create_btn:hover {
+  opacity: 0.95;
+}
