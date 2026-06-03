@@ -1,15 +1,15 @@
 import React from "react";
  import "../styles/Designer.css";
-import man from '../assets/Man fashion.jpg'
-import gown from '../assets/Lace Dressed.png'
-import Fine from '../assets/Fine lace.png'
-import Man from '../assets/Men dem.png'
-import lady from '../assets/Lady lace.png'
-import Hair from '../assets/Hairtire.png'
-import senate from '../assets/Senate.png'
-import wear from '../assets/Wear.png'
-import main from '../assets/Main wear.png'
-import elli from '../assets/Ellipse 1.png'
+import man from '../assets/daniel/Man fashion.jpg'
+import gown from '../assets/daniel/Lace Dressed.png'
+import Fine from '../assets/daniel/Fine lace.png'
+import Man from '../assets/daniel/Men dem.png'
+import lady from '../assets/daniel/Lady lace.png'
+import Hair from '../assets/daniel/Hairtire.png'
+import senate from '../assets/daniel/Senate.png'
+import wear from '../assets/daniel/Wear.png'
+import main from '../assets/daniel/Main wear.png'
+import elli from '../assets/daniel/Ellipse 1.png'
 
 const designers = [
   {

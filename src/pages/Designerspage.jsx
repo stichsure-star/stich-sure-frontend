@@ -1,6 +1,6 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import Designer from '../components/Designer'
+import Designer from '../components/daniel/Designer'
 
 const Designerspage = () => {
   return (
