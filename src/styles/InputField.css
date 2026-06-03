@@ -1,0 +1,48 @@
+.input_group {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  /* gap: 5px; */
+}
+
+.input_group label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.input_group input {
+  height: 45px;
+  border: 1px solid #bcbcbc;
+  border-radius: 5px;
+  padding: 0 12px;
+  outline: none;
+}
+
+.input_group input:focus {
+  border-color: #8b0015;
+}
+
+.input_wrapper {
+  position: relative;
+}
+
+.input_wrapper input {
+  width: 100%;
+}
+
+.eye_icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+  color: #777;
+}
+
+
+
+.error {
+  color: red;
+  font-size: 12px;
+}
