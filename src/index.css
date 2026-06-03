@@ -10,4 +10,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "El Messiri", sans-serif;
+}
+
+.NavLink {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.NavLinked {
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
 }

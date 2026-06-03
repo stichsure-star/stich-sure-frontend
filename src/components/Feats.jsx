@@ -51,15 +51,17 @@ function FeaturedDesigners() {
 
   return (
     <section className="featured-designers">
-      <h1>Featured Designers</h1>
+      <div className="headong">
+        <h1>Featured Designers</h1>
 
-      <p className="subtitle">
-        Verified professionals ready to bring your fashion vision to life
-      </p>
+        <p className="subtitle">
+          Verified professionals ready to bring your fashion vision to life
+        </p>
+      </div>
 
-      <div className="cards" ref={sliderRef}>
+      <div className="Feat_cards" ref={sliderRef}>
         {designers.map((designer) => (
-          <div className="card" key={designer.id}>
+          <div className="Feat_card" key={designer.id}>
             <div className="top">
               <img
                 src={designer.image}
