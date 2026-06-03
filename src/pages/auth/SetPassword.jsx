@@ -1,13 +1,14 @@
 import { useState } from "react";
-import "../../styles/ForgetPassword.css";
+import "../../styles/SetPassword.css";
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
 import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
 
-const ForgotPassword = () => {
+
+const SetPassword = () => {
   const [formData, setFormData] = useState({
-    identifier: "", // email or phone number
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -20,30 +21,29 @@ const ForgotPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Forgot Password Request:", formData);
+    console.log("New Password:", formData.password);
 
-    // later: send to backend
-    // axios.post(`${BaseURL}/auth/forgot-password`, formData)
+   
   };
 
   return (
-    <AuthLayout  imageClassName="forgot_image_section">
+    <AuthLayout  imageClassName="setpassword_image_section">
         <p className="back_text">
   <IoChevronBack />
   Back
 </p>
       <AuthCard
-        title="Forgot your password?"
-        subtitle="Enter the email or phone number associated with your account and we will send you a verification code to reset your password"
-        buttonText="Continue"
+        title="Set password"
+        subtitle="Password requires a minimum of 8 characters and contains a capital letter, number and symbols."
         onSubmit={handleSubmit}
       >
         <InputField
-          label="Email / Phone Number"
-          name="identifier"
-          value={formData.identifier}
+          label="Password"
+          type="password"
+          name="password"
+          value={formData.password}
           onChange={handleChange}
-          placeholder="Enter email or phone number"
+          placeholder="Enter new password"
         />
 
           <button
@@ -53,10 +53,10 @@ const ForgotPassword = () => {
     Continue
   </button>
 
-        
+       
       </AuthCard>
     </AuthLayout>
   );
 };
 
-export default ForgotPassword;
+export default SetPassword;
