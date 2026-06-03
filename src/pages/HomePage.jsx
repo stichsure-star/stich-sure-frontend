@@ -7,6 +7,7 @@ import FeaturedDesigners from "../components/Feats";
 import Design from "../components/Design";
 import HowItWorks from "../components/HowitWorks";
 import HeroSection from "../components/HeroSection";
+import Ratings from "../components/Ratings";
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
       <HowItWorks />
       <FeaturedDesigners />
       <Design />
+      <Ratings />
       <Footer />
     </div>
   );
