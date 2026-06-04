@@ -49,7 +49,6 @@ const Header = () => {
               </li>
             </ul>
           </ul>
-          s
         </article>
         <article className="Header_button">
           <button className="Header_sign">
