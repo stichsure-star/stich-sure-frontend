@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 import { IoChevronBack } from "react-icons/io5";
-import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
 import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
-import "../../styles/Verification.css"
-
-
-
-
+import "../../styles/Verification.css";
+import { Flex, Input } from "antd";
 
 const VerifyCode = () => {
   const [code, setCode] = useState("");
@@ -32,7 +28,6 @@ const VerifyCode = () => {
 
     console.log("Verification Code:", code);
 
-    // later:
     // axios.post(`${BaseURL}/auth/verify-code`, { code })
   };
 
@@ -44,16 +39,16 @@ const VerifyCode = () => {
     setTimer(59);
     setCanResend(false);
 
-    // later:
     // axios.post(`${BaseURL}/auth/resend-code`)
   };
 
   return (
     <AuthLayout imageClassName="verification_image_section">
       <p className="back_text">
-  <IoChevronBack />
-  Back
-</p>
+        <IoChevronBack />
+        Back
+      </p>
+
       <AuthCard
         title="Enter verification code"
         subtitle={
@@ -62,36 +57,44 @@ const VerifyCode = () => {
             <strong>Johnwick@gmail.com</strong>
           </>
         }
-        buttonText="Continue"
         onSubmit={handleSubmit}
       >
-        <InputField
-          label="Verification Code"
-          name="code"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          placeholder="Enter code"
-        />
+        <Flex
+          vertical
+          gap="middle"
+          style={{
+            width: "100%",
+            marginTop: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <Input.OTP
+            length={6}
+            value={code}
+            onChange={setCode}
+            autoFocus
+          />
+        </Flex>
 
         <p className="resend_text">
           {canResend ? (
-            <span onClick={handleResend} style={{ cursor: "pointer" }}>
+            <span
+              onClick={handleResend}
+              style={{
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+            >
               Resend code
             </span>
           ) : (
             `Resend after ${timer} seconds`
           )}
         </p>
-          <button
-  className="create_btn"
-  type="submit"
->
-  Continue
-</button>
 
-
-
-        
+        <button className="create_btn" type="submit">
+          Continue
+        </button>
       </AuthCard>
     </AuthLayout>
   );

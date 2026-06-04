@@ -2,7 +2,10 @@
 .login_content {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
+  height: 90%;
+  width: 100%;
+  background-color: purple;
 }
 
 .login_header {
@@ -12,7 +15,7 @@
 
 .auth_card {
   margin-top: auto;
-  margin-bottom: auto;
+  /* margin-bottom: auto; */
 }
 /* .back_text {
   display: flex;
