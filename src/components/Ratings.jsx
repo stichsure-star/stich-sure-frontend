@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Ratings.css";
 import red from "../assets/gbenga/red.png";
 import white from "../assets/gbenga/white.png";

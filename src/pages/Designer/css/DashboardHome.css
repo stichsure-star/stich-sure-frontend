@@ -1,0 +1,208 @@
+.dashboard {
+  width: 100%;
+  min-height: 100vh;
+  padding: 30px;
+  background: #fafafa;
+
+  box-sizing: border-box;
+}
+
+/* title */
+
+.dashboard h2 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.dashboard p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* cards */
+
+.crde {
+  width: 35%;
+}
+
+.stats {
+  width: 100%;
+
+  display: flex;
+
+  gap: 35px;
+
+  margin-top: 45px;
+}
+
+.cardww {
+  width: 25%;
+  height: 170px;
+  background: white;
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 8px 20px #0002;
+}
+
+.cardww span {
+  width: 55px;
+
+  height: 55px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #eee;
+
+  border-radius: 14px;
+
+  font-size: 24px;
+}
+
+.cardww b {
+  right: 35px;
+
+  top: 65px;
+  font-size: 30px;
+
+  font-weight: 700;
+}
+
+.cardww small {
+  font-size: 13px;
+  color: #777;
+}
+
+/* business */
+
+.business {
+  margin-top: 35px;
+
+  width: 100%;
+
+  height: 190px;
+
+  background: #790019;
+
+  border-radius: 16px;
+
+  padding: 35px;
+
+  color: white;
+
+  box-sizing: border-box;
+}
+
+.business h3 {
+  margin: 0;
+
+  font-size: 28px;
+}
+
+.business p {
+  color: white;
+
+  font-size: 18px;
+}
+
+.business button {
+  width: 150px;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: white;
+
+  font-size: 16px;
+}
+
+/* orders */
+
+.orders {
+  margin-top: 40px;
+
+  width: 100%;
+
+  background: white;
+
+  padding: 35px;
+
+  box-sizing: border-box;
+
+  overflow-x: auto;
+}
+
+.orders h3 {
+  font-size: 28px;
+}
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 17px;
+}
+
+th {
+  background: #eee;
+
+  height: 60px;
+}
+
+td {
+  height: 60px;
+
+  text-align: center;
+}
+
+/* tablet */
+
+@media (max-width: 900px) {
+  .stats {
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 45%;
+  }
+}
+
+/* phone */
+
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 90px 20px 30px;
+  }
+
+  .dashboard h2 {
+    font-size: 30px;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+
+    height: 140px;
+  }
+
+  .business {
+    height: auto;
+  }
+
+  table {
+    min-width: 800px;
+  }
+}
