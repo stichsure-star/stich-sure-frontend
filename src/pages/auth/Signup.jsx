@@ -1,9 +1,11 @@
 import { useState } from "react";
-import {FcGoogle} from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
 import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
-import "../../styles/Signup.css"
+import "../../styles/Signup.css";
+import { NavLink } from "react-router-dom";
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -36,7 +38,6 @@ const Signup = () => {
         onSubmit={handleSubmit}
       >
         <div className="name_row">
-
           <InputField
             label="First Name"
             name="firstName"
@@ -54,7 +55,6 @@ const Signup = () => {
             placeholder="Last name"
             error={errors.lastName}
           />
-
         </div>
 
         <InputField
@@ -76,30 +76,22 @@ const Signup = () => {
           error={errors.password}
         />
 
-        <button
-  className="create_btn"
-  type="submit"
->
-  Create Account
-</button>
+        <button className="create_btn" type="submit">
+          <NavLink to="/verification" className="NavLink">
+            Create Account
+          </NavLink>
+        </button>
 
-<div className="divider">
-  <span></span>
-  <p>Or</p>
-  <span></span>
-</div>
+        <div className="divider">
+          <span></span>
+          <p>Or</p>
+          <span></span>
+        </div>
 
-<button
-  type="button"
-  className="google_btn"
->
-  <FcGoogle/>
-  Continue with Google
-</button>
-
-
-
-
+        <button type="button" className="google_btn">
+          <FcGoogle />
+          Continue with Google
+        </button>
 
         {/* <div className="divider">
           <span></span>
@@ -113,7 +105,6 @@ const Signup = () => {
         >
           Continue with Google
         </button> */}
-
       </AuthCard>
     </AuthLayout>
   );

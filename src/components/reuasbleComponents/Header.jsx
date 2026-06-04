@@ -51,8 +51,18 @@ const Header = () => {
           </ul>
         </article>
         <article className="Header_button">
-          <button className="Header_sign">Sign In</button>
-          <button className="Header_sign2">Get Started</button>
+          <button className="Header_sign">
+            <NavLink to="/login" className="NavLinked">
+              Sign In
+            </NavLink>
+          </button>
+
+          <button className="Header_sign2">
+            <NavLink to="/getstarted" className="NavLink">
+              Get Started
+            </NavLink>
+          </button>
+
           <FiAlignJustify
             className="Header_three"
             onClick={() => setShow(!show)}

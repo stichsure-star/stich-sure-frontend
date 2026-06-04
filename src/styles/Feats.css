@@ -1,8 +1,9 @@
 .featured-designers {
   width: 100%;
-  min-height: 100vh;
-  padding: 80px 30px;
-
+  min-height: 120vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   background: repeating-radial-gradient(
     circle at top center,
     #f5ebeb,
@@ -11,22 +12,30 @@
     #ffffff 40px
   );
 }
+.headong {
+  width: 100%;
+  height: 140px;
+  margin-bottom: 60px;
 
-.featured-designers h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.headong h1 {
   text-align: center;
-  font-size: 56px;
+  font-size: 80px;
   font-weight: 600;
-  margin-bottom: 15px;
 }
 
 .subtitle {
   text-align: center;
   font-size: 18px;
-  color: #666;
-  margin-bottom: 60px;
+  color: black;
 }
 
-.cards {
+.Feat_cards {
   width: 95%;
   margin: auto;
   display: flex;
@@ -34,7 +43,7 @@
   gap: 25px;
 }
 
-.card {
+.Feat_card {
   width: 32%;
   height: 580px;
   background: white;
@@ -49,7 +58,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin-bottom: 25px;
 }
 
@@ -79,14 +87,24 @@
 
 .specialty {
   font-size: 18px;
-  color: #555;
+  color: black;
   margin-bottom: 18px;
+  font-weight: 500;
+  font-family: "El Messiri", sans-serif;
+  font-style: bold;
 }
 
 .info {
   font-size: 16px;
-  color: #444;
+  color: black;
   margin-bottom: 15px;
+  font-weight: 500;
+  font-family: "El Messiri", sans-serif;
+  font-style: bold;
+  display: flex;
+  gap: 5px;
+
+  align-items: center;
 }
 
 .bottom-section {
@@ -149,12 +167,12 @@
 /* TABLET */
 
 @media screen and (max-width: 1024px) {
-  .cards {
+  .Feat_cards {
     width: 100%;
     flex-wrap: wrap;
   }
 
-  .card {
+  .Feat_card {
     width: 48%;
     height: 560px;
   }
@@ -197,7 +215,7 @@
     cursor: pointer;
   }
 
-  .cards {
+  .Feat_cards {
     width: 100%;
 
     flex-wrap: nowrap;
@@ -207,11 +225,11 @@
     scrollbar-width: none;
   }
 
-  .cards::-webkit-scrollbar {
+  .Feat_cards::-webkit-scrollbar {
     display: none;
   }
 
-  .card {
+  .Feat_card {
     flex: 0 0 92%;
     width: 92%;
     height: 540px;
@@ -222,7 +240,7 @@
     height: 75px;
   }
 
-  .card h3 {
+  .Feat_card h3 {
     font-size: 24px;
   }
 }
@@ -230,32 +248,32 @@
 /* SMALL PHONES */
 
 @media screen and (max-width: 480px) {
+  .featured-designers {
+    min-height: auto;
+    height: 700px;
+    justify-content: start;
+  }
   .featured-designers h1 {
     font-size: 28px;
+  }
+  .headong {
+    margin-top: 0px;
+    margin-bottom: 50px;
   }
 
   .featured-designers p {
     text-align: center;
-    width: 70%;
+    width: 90%;
     color: #666;
   }
 
-  .featured-designers {
-    height: 188px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .cards {
+  .Feat_cards {
     min-width: 100%;
     min-height: 450px;
     margin: none;
     overflow-x: none;
   }
-  .card {
+  .Feat_card {
     flex: 0 0 96%;
     width: 100%;
     height: inherit;
@@ -287,9 +305,11 @@
   }
 
   .mobile-controls {
-    margin-top: 25px;
-    width: 60%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
   }
 }

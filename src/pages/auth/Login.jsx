@@ -4,6 +4,7 @@ import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
 import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
+import { NavLink } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -25,20 +26,21 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout imageClassName="login_image_section" >
+    <AuthLayout imageClassName="login_image_section">
       <div className="login_content">
         <div className="login_header">
           <p className="back_text">
-             <IoChevronBack />
-               Back
+            <IoChevronBack />
+            Back
           </p>
         </div>
-           <AuthCard
+        <AuthCard
           title="Welcome Back"
           subtitle="Login to continue enjoying our services"
           buttonText="Login"
           onSubmit={handleSubmit}
           >
+        
           <InputField
             label="Email"
             name="email"
@@ -57,17 +59,15 @@ const Login = () => {
           />
 
           <p className="forgot_password">
-            Forget password?
+            <NavLink to="/forgetpassword" className="NavLinked">
+              Forgot Password?
+            </NavLink>
           </p>
 
-          <button
-            className="create_btn"
-            type="submit"
-          >
-          Login
+          <button className="create_btn" type="submit">
+            Login
           </button>
-
-          </AuthCard>
+        </AuthCard>
       </div>
     </AuthLayout>
   );
