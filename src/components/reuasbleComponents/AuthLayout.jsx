@@ -6,10 +6,10 @@ const AuthLayout = ({ children, imageClassName = "" }) => {
       <div className="auth_wrapper">
 
         <div className={`image_section ${imageClassName}`}>
-          <img
+          {/* <img
             src={signupImage}
             alt="signup"
-          />
+          /> */}
         </div>
 
         <div className="form_section">
