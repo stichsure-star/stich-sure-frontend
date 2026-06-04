@@ -13,10 +13,10 @@
 
   background-size: cover;
   background-position: center;
-
   background-blend-mode: screen;
 }
 
+/* ================= HEADER (UNCHANGED) ================= */
 .Ratings_wrapper {
   width: 90%;
   height: 150px;
@@ -39,11 +39,10 @@
     text-align: center;
     font-weight: 700;
     font-style: Bold;
-
-    text-align: center;
   }
 }
 
+/* ================= REVIEW (UNCHANGED) ================= */
 .Ratings_review {
   border-bottom: 4px solid #00000080;
   padding-bottom: 40px;
@@ -52,7 +51,6 @@
 .Ratings_cards {
   width: 100%;
   height: 180%;
-
   display: flex;
   justify-content: center;
 }
@@ -60,11 +58,9 @@
 .Ratings_card {
   width: 30%;
   min-height: 100%;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   gap: 14px;
 }
 
@@ -124,7 +120,6 @@
 .Ratings_image {
   width: 50%;
   min-height: 98%;
-
   display: flex;
   align-items: center;
 
@@ -134,84 +129,41 @@
   }
 }
 
-/* ================= MOBILE/TABLET CAROUSEL ================= */
+/* ======================================================
+   ❌ REMOVE MOBILE SLIDER SYSTEM (NO BUTTONS, NO SCROLL)
+   ====================================================== */
 
-.Ratings_mobile {
+.Ratings_mobile,
+.Ratings_slider,
+.Ratings_controls {
   display: none;
 }
 
-/* ================= TABLET ================= */
-
+/* ================= TABLET + MOBILE ================= */
 @media screen and (max-width: 1024px) {
   .Ratings_container {
     min-height: auto;
     padding-bottom: 40px;
   }
 
-  /* Hide desktop layout */
+  /* convert layout to stacked */
   .Ratings_cards {
-    display: none;
-  }
-
-  /* Show carousel */
-  .Ratings_mobile {
-    width: 100%;
-    display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .Ratings_slider {
-    width: 100%;
-    display: flex;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-  }
-
-  .Ratings_slide {
-    min-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .Ratings_slide .Ratings_testimonial {
-    width: 85%;
-    min-height: 420px;
     height: auto;
-
-    padding: 20px;
-
-    background-color: #fbf8f3;
-    border-radius: 12px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border: #f5ebeb 1px solid;
   }
 
-  .Ratings_controls {
-    width: 100%;
-    height: 80px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+  .Ratings_card {
+    width: 90%;
+    height: auto;
   }
 
-  .Ratings_controls button {
-    width: 50px;
-    height: 50px;
-
-    border: none;
-    border-radius: 50%;
-
-    cursor: pointer;
-    font-size: 1.2rem;
+  .Ratings_image {
+    display: none;
   }
 }
 
-/* ================= MOBILE ================= */
-
+/* ================= MOBILE CLEAN STACK ================= */
 @media screen and (max-width: 768px) {
   .Ratings_wrapper {
     width: 95%;
@@ -232,39 +184,37 @@
     text-align: center;
   }
 
-  .Ratings_slide .Ratings_testimonial {
-    width: 92%;
-    min-height: 380px;
+  .Ratings_card {
+    width: 95%;
+  }
+
+  .Ratings_testimonial {
+    height: auto;
     padding: 18px;
+
+    /* IMPORTANT FIX */
+    align-items: flex-start;
+    text-align: left;
   }
 
   .Ratings_profile {
-    width: 100%;
-    height: auto !important;
+    flex-direction: row; /* keep row, NOT column */
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
   }
 
-  .Ratings_profile img {
-    width: 55px !important;
-    height: 55px !important;
-  }
-
-  .Ratings_details {
-    height: auto !important;
-    padding-top: 12px;
+  .Ratings_info {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .Ratings_review {
     line-height: 1.6;
-  }
-
-  .Ratings_controls button {
-    width: 45px;
-    height: 45px;
+    text-align: left;
   }
 }
-
 /* ================= SMALL PHONES ================= */
-
 @media screen and (max-width: 480px) {
   .Ratings_wrapper h1 {
     font-size: 1.7rem;
@@ -274,19 +224,11 @@
     font-size: 0.9rem;
   }
 
-  .Ratings_slide .Ratings_testimonial {
+  .Ratings_card {
     width: 95%;
-    min-height: 340px;
+  }
+
+  .Ratings_testimonial {
     padding: 15px;
-  }
-
-  .Ratings_profile img {
-    width: 50px !important;
-    height: 50px !important;
-  }
-
-  .Ratings_controls button {
-    width: 40px;
-    height: 40px;
   }
 }
