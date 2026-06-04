@@ -1,9 +1,8 @@
 .featured-designers {
   width: 100%;
-  min-height: 120vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  min-height: 100vh;
+  padding: 80px 0;
+  display: block;
   background: repeating-radial-gradient(
     circle at top center,
     #f5ebeb,
@@ -71,10 +70,8 @@
 .verified {
   background: #e5f8ea;
   color: #1f8d43;
-
   padding: 8px 14px;
   border-radius: 20px;
-
   font-size: 13px;
   font-weight: 600;
 }
@@ -91,7 +88,6 @@
   margin-bottom: 18px;
   font-weight: 500;
   font-family: "El Messiri", sans-serif;
-  font-style: bold;
 }
 
 .info {
@@ -100,10 +96,8 @@
   margin-bottom: 15px;
   font-weight: 500;
   font-family: "El Messiri", sans-serif;
-  font-style: bold;
   display: flex;
   gap: 5px;
-
   align-items: center;
 }
 
@@ -114,20 +108,16 @@
 .score {
   display: flex;
   justify-content: space-between;
-
   font-size: 18px;
   font-weight: 600;
-
   margin-bottom: 12px;
 }
 
 .progress {
   width: 100%;
   height: 10px;
-
   background: #e6e6e6;
   border-radius: 30px;
-
   overflow: hidden;
 }
 
@@ -139,7 +129,6 @@
 .delivery {
   margin-top: 12px;
   margin-bottom: 20px;
-
   font-size: 15px;
   color: #555;
 }
@@ -147,25 +136,16 @@
 .profile-btn {
   width: 100%;
   height: 55px;
-
   border: none;
   border-radius: 8px;
-
   background: #7b001c;
   color: white;
-
   font-size: 16px;
   font-weight: 600;
-
   cursor: pointer;
 }
 
-.mobile-controls {
-  display: none;
-}
-
 /* TABLET */
-
 @media screen and (max-width: 1024px) {
   .Feat_cards {
     width: 100%;
@@ -178,15 +158,19 @@
   }
 }
 
-/* MOBILE CAROUSEL */
-
+/* MOBILE - CLEAN SCROLL ONLY (NO BUTTONS) */
 @media screen and (max-width: 768px) {
   .featured-designers {
-    padding: 60px 15px;
+    min-height: unset;
+    height: auto;
+    padding: 40px 15px;
+    justify-content: flex-start;
   }
-
-  .featured-designers h1 {
-    font-size: 34px;
+  @media screen and (max-width: 768px) {
+    .headong {
+      height: auto;
+      margin-bottom: 25px;
+    }
   }
 
   .subtitle {
@@ -194,35 +178,19 @@
     margin-bottom: 25px;
   }
 
-  .mobile-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 25px;
-  }
-
-  .mobile-controls button {
-    width: 50px;
-    height: 50px;
-
-    border: none;
-    border-radius: 10%;
-
-    background: #7b001c;
-    color: white;
-
-    font-size: 20px;
-    cursor: pointer;
-  }
-
+  /* 🔥 THIS is the real fix */
   .Feat_cards {
     width: 100%;
+    display: flex;
+    flex-wrap: nowrap; /* IMPORTANT */
+    overflow-x: auto; /* enables scroll */
+    overflow-y: hidden;
+    gap: 16px;
 
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 
-    scroll-behavior: smooth;
-    scrollbar-width: none;
+    padding-bottom: 10px;
   }
 
   .Feat_cards::-webkit-scrollbar {
@@ -230,9 +198,9 @@
   }
 
   .Feat_card {
-    flex: 0 0 92%;
-    width: 92%;
-    height: 540px;
+    flex: 0 0 85%; /* makes each card take screen width */
+    scroll-snap-align: center; /* smooth snap effect */
+    height: auto;
   }
 
   .avatar {
@@ -246,41 +214,22 @@
 }
 
 /* SMALL PHONES */
-
 @media screen and (max-width: 480px) {
   .featured-designers {
     min-height: auto;
-    height: 700px;
-    justify-content: start;
+    justify-content: flex-start;
   }
-  .featured-designers h1 {
+
+  .headong {
+    margin-bottom: 40px;
+  }
+
+  .headong h1 {
     font-size: 28px;
   }
-  .headong {
-    margin-top: 0px;
-    margin-bottom: 50px;
-  }
 
-  .featured-designers p {
-    text-align: center;
-    width: 90%;
-    color: #666;
-  }
-
-  .Feat_cards {
-    min-width: 100%;
-    min-height: 450px;
-    margin: none;
-    overflow-x: none;
-  }
   .Feat_card {
-    flex: 0 0 96%;
-    width: 100%;
-    height: inherit;
-    padding: 20px;
-    margin: none;
-    overflow-x: none;
-    justify-content: space-around;
+    flex: 0 0 92%;
   }
 
   .avatar {
@@ -302,14 +251,5 @@
 
   .profile-btn {
     height: 50px;
-  }
-
-  .mobile-controls {
-    display: flex;
-    justify-content: center;
-    gap: 80px;
-    margin-top: 25px;
-    width: 100%;
-    display: flex;
   }
 }

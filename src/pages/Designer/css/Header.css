@@ -1,0 +1,83 @@
+.header {
+  height: 60px;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1px;
+
+  img {
+    width: 150px;
+    height: 40px;
+  }
+}
+
+.right {
+  width: 10%;
+  height: 90%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.notif {
+  position: relative;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.Notify {
+  width: 30px;
+  height: 40px;
+}
+
+.badge {
+  position: absolute;
+  top: 3px;
+  right: -3px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatared {
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua;
+}
+
+.avatar {
+  width: 70px;
+  height: 50px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+  }
+}
