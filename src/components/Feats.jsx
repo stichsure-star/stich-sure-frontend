@@ -1,33 +1,37 @@
 import { useRef } from "react";
 import "../styles/Feats.css";
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
+import { GrLocation } from "react-icons/gr";
+import darky from "../assets/gbenga/darky.png";
+import gold from "../assets/gbenga/Gold.png";
+import manip from "../assets/gbenga/manip.png";
 
 const designers = [
   {
     id: 1,
     name: "Glory Okafor",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300",
+    image: gold,
     specialty: "Bridal & Evening Wear",
     location: "Lagos, Nigeria",
-    reviews: "3,097 Reviews",
+    reviews: "5.0(127 reviews)",
     reliability: "86%",
   },
   {
     id: 2,
     name: "Daniel Mensah",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300",
+    image: darky,
     specialty: "Luxury Fashion",
     location: "Abuja, Nigeria",
-    reviews: "2,547 Reviews",
+    reviews: "5.0(127 reviews)",
     reliability: "91%",
   },
   {
     id: 3,
     name: "Amaka Johnson",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300",
+    image: manip,
     specialty: "Traditional Wear",
     location: "Port Harcourt",
-    reviews: "4,120 Reviews",
+    reviews: "5.0(127 reviews)",
     reliability: "88%",
   },
 ];
@@ -76,7 +80,10 @@ function FeaturedDesigners() {
 
             <p className="specialty">{designer.specialty}</p>
 
-            <p className="info">📍 {designer.location}</p>
+            <p className="info">
+              <GrLocation />
+              {designer.location}
+            </p>
 
             <p className="info">⭐ {designer.reviews}</p>
 
