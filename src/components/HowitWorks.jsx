@@ -7,7 +7,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import "../styles/HowitWorks.css";
-import Background from "../assets/gbenga/StitchCam.png";
+// import Background from "../assets/gbenga/StitchCam.png";
 
 const steps = [
   {
