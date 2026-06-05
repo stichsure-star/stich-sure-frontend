@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 import "../styles/Started.css";
-import Header from "../components/reuasbleComponents/Header"
-import Footer from "../components/reuasbleComponents/Footer"
+import Header from "../components/reuasbleComponents/Header";
+import Footer from "../components/reuasbleComponents/Footer";
+import { NavLink } from "react-router-dom";
 
 const Started = () => {
   return (
-    <div className='get_started_page'>
-      <div className='get_started_page_container'>
-
-        <div className='designer_card'>
-          <div className='card_text'>
+    <div className="get_started_page">
+      <div className="get_started_page_container">
+        <div className="designer_card">
+          <div className="card_text">
             <h2>Designer</h2>
 
             <ul>
@@ -20,11 +20,15 @@ const Started = () => {
             </ul>
           </div>
 
-          <button>Continue as Designer</button>
+          <button>
+            <NavLink to="/signup" className="NavLink">
+              Continue as Designer
+            </NavLink>
+          </button>
         </div>
 
-        <div className='customer_card'>
-          <div className='card_text'>
+        <div className="customer_card">
+          <div className="card_text">
             <h2>Customer</h2>
 
             <ul>
@@ -37,11 +41,9 @@ const Started = () => {
 
           <button>Continue as Customer</button>
         </div>
-
       </div>
-  
     </div>
-  )
-}
+  );
+};
 
-export default Started
+export default Started;
