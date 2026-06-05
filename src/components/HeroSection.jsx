@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/HeroSection.css";
-import Fashion from "../assets/gbenga/StitchCam.png";
 import { BsSearch } from "react-icons/bs";
 
 const HeroSection = () => {
@@ -23,7 +22,7 @@ const HeroSection = () => {
           </div>
         </article>
         <article className="Hero_image_content">
-          <img src={Fashion} alt="Fashion Designer" className="Hero_img" />
+          <img src={"../assets/gbenga/StitchCam.png"} alt="Fashion Designer" className="Hero_img" />
         </article>
       </section>
     </div>

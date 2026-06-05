@@ -6,8 +6,8 @@ const Hero = () => {
   return (
     <div
       className="designer-hero"
-      style={{ backgroundImage: `url(${man})` }}
     >
+      <img src={man} alt="" className="hero-img" />
       <div className="hero-overlay">
         <h1>Browse Verified Designers</h1>
 
