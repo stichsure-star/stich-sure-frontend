@@ -33,9 +33,23 @@ import DashboardLayout from "../src/Layout/DashboardLayout";
 import DashboardHome from "../src/pages/Designer/page/DashboardHome";
 import Orders from "../src/pages/Designer/page/Orders";
 import Products from "../src/pages/Designer/page/Products";
+import Register2 from "./pages/auth/Register2";
+import Login2 from "./pages/auth/Login2";
+import PasswordForgotten2 from "./pages/auth/PasswordForgotten2";
+import PasswordReset2 from "./pages/auth/PasswordReset2";
+import OtpVerification2 from "./pages/auth/OtpVerification2";
 
 const App = () => {
   return (
+    // <>
+
+    // <Register2/>
+    // <Login2/>
+    // <PasswordForgotten2/>
+    // <OtpVerification2/>
+    // <PasswordReset2/>
+    
+    // </>
     <div>
       <BrowserRouter>
         <Routes>
