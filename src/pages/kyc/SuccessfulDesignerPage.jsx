@@ -1,16 +1,16 @@
 import React from "react";
-import Profile from "../../components/Profile";
+import DesignerSuccessful from "../../components/DesignerSuccessful";
 import Header from "../../components/reuasbleComponents/Header";
 import Footer from "../../components/reuasbleComponents/Footer";
 
-const ProfilePage = () => {
+const SuccessfulDesignerPage = () => {
   return (
     <div>
       <Header />
-      <Profile />
+      <DesignerSuccessful />
       <Footer />
     </div>
   );
 };
 
-export default ProfilePage;
+export default SuccessfulDesignerPage;

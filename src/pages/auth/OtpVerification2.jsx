@@ -1,17 +1,13 @@
 import { useState } from "react";
 // import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import AuthLayout2 from "../../components/AuthLayout2";
-import "../../styles/auth-form2.css"
-import "../../styles/otp2.css"
+import "../../styles/auth-form2.css";
+import "../../styles/otp2.css";
 
 const OtpVerification2 = () => {
-  const [otp, setOtp] = useState([
-    "",
-    "",
-    "",
-    "",
-  ]);
+  const [otp, setOtp] = useState(["", "", "", ""]);
 
   const handleChange = (value, index) => {
     const updatedOtp = [...otp];
@@ -19,23 +15,20 @@ const OtpVerification2 = () => {
     updatedOtp[index] = value;
 
     setOtp(updatedOtp);
+    // Navigate("/identitydesigner");
   };
 
   return (
     <AuthLayout2>
       <div className="otp-card">
-
         {/* <Link to="/forgot-password" className="back-link">
           ← Back
         </Link> */}
 
-        <h2 className="auth-form-title">
-          OTP Verification
-        </h2>
+        <h2 className="auth-form-title">OTP Verification</h2>
 
         <p className="auth-form-subtitle">
-          Enter the 4-digit code sent to
-          your email address.
+          Enter the 4-digit code sent to your email address.
         </p>
 
         <div className="otp-inputs">
@@ -44,20 +37,15 @@ const OtpVerification2 = () => {
               key={index}
               maxLength="1"
               value={digit}
-              onChange={(e) =>
-                handleChange(
-                  e.target.value,
-                  index
-                )
-              }
+              onChange={(e) => handleChange(e.target.value, index)}
             />
           ))}
         </div>
 
         <button className="auth-btn">
+          <Navigate to="/identitydesigner" />
           Verify
         </button>
-
       </div>
     </AuthLayout2>
   );

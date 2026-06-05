@@ -7,6 +7,7 @@
   flex-direction: column;
   align-items: center;
   font-family: "El Messiri", sans-serif;
+
   background:
     linear-gradient(rgba(255, 228, 233, 0.65), rgba(255, 228, 233, 0.65)),
     url("../assets/gbenga/Sline.jpg");
@@ -14,20 +15,26 @@
   background-size: cover;
   background-position: center;
   background-blend-mode: screen;
+
+  overflow-x: hidden; /* FIX */
 }
 
 .Ratings_wrapper {
   width: 90%;
   height: 150px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   gap: 20px;
 
   h1 {
     width: 700px;
+    max-width: 100%; /* FIX */
     height: 77px;
+
     font-style: bolder;
     font-weight: 500;
     font-size: 64px;
@@ -49,6 +56,7 @@
 .Ratings_cards {
   width: 100%;
   height: 180%;
+
   display: flex;
   justify-content: center;
 }
@@ -56,21 +64,30 @@
 .Ratings_card {
   width: 30%;
   min-height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   gap: 14px;
+
   margin-left: 90px;
 }
 
 .Ratings_testimonial {
   width: 100%;
   height: 31%;
+
   background-color: #fbf8f3;
+
   border-radius: 12px;
+
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
   border: #f5ebeb 1px solid;
+
   padding-left: 20px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -78,6 +95,7 @@
   .Ratings_profile {
     width: 98%;
     height: 30%;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -85,6 +103,7 @@
     img {
       width: 70px;
       height: 70px;
+
       border-radius: 50%;
       object-fit: cover;
     }
@@ -97,6 +116,7 @@
     .Ratings_info {
       display: flex;
       gap: 12px;
+
       justify-content: center;
 
       h3 {
@@ -118,14 +138,19 @@
 
 .Ratings_image {
   width: 50%;
+
   min-height: 98%;
+
   display: flex;
   align-items: center;
 
   img {
     width: 75%;
     height: 95%;
+
     border-radius: 10px;
+
+    max-width: 100%; /* FIX */
   }
 }
 
@@ -135,23 +160,26 @@
   display: none;
 }
 
-/* ================= TABLET + MOBILE ================= */
+/* ================= TABLET ================= */
+
 @media screen and (max-width: 1024px) {
   .Ratings_container {
     min-height: auto;
     padding-bottom: 40px;
   }
 
-  /* convert layout to stacked */
   .Ratings_cards {
     flex-direction: column;
     align-items: center;
+
     height: auto;
   }
 
   .Ratings_card {
     width: 90%;
     height: auto;
+
+    margin-left: 0; /* FIX */
   }
 
   .Ratings_image {
@@ -159,24 +187,30 @@
   }
 }
 
-/* ================= MOBILE CLEAN STACK ================= */
+/* ================= MOBILE ================= */
+
 @media screen and (max-width: 768px) {
   .Ratings_wrapper {
     width: 95%;
     height: auto;
+
     margin-bottom: 20px;
   }
 
   .Ratings_wrapper h1 {
     width: 100%;
     height: auto;
+
     text-align: center;
+
     font-size: 2rem;
   }
 
   .Ratings_wrapper p {
     width: 100%;
+
     font-size: 1rem;
+
     text-align: center;
   }
 
@@ -186,31 +220,39 @@
 
   .Ratings_testimonial {
     height: auto;
+
     padding: 18px;
 
-    /* IMPORTANT FIX */
     align-items: flex-start;
+
     text-align: left;
   }
 
   .Ratings_profile {
-    flex-direction: row; /* keep row, NOT column */
+    flex-direction: row;
+
     justify-content: space-between;
+
     align-items: center;
+
     gap: 10px;
   }
 
   .Ratings_info {
     align-items: flex-start;
+
     text-align: left;
   }
 
   .Ratings_review {
     line-height: 1.6;
+
     text-align: left;
   }
 }
+
 /* ================= SMALL PHONES ================= */
+
 @media screen and (max-width: 480px) {
   .Ratings_wrapper h1 {
     font-size: 1.7rem;

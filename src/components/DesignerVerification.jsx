@@ -2,11 +2,12 @@ import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
 // import "../styles/DesignerVerification.css"
-import "../styles/DesignerVerification.css"
+import "../styles/DesignerVerification.css";
+import { NavLink } from "react-router-dom";
 
 const steps = [1, 2, 3, 4, 5];
 
-  const  DesignerVerification =() => {
+const DesignerVerification = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleNext = () => {
@@ -17,14 +18,11 @@ const steps = [1, 2, 3, 4, 5];
 
   return (
     <div className="verification-page">
-
       <div className="progress-wrapper">
         {steps.map((step) => (
           <div
             key={step}
-            className={`progress-step ${
-              step <= currentStep ? "active" : ""
-            }`}
+            className={`progress-step ${step <= currentStep ? "active" : ""}`}
           />
         ))}
       </div>
@@ -37,8 +35,8 @@ const steps = [1, 2, 3, 4, 5];
         <h2>Verify Your Identity As A Designer</h2>
 
         <p className="description">
-          Verify your identity to build trust, receive
-          orders, and access designer features.
+          Verify your identity to build trust, receive orders, and access
+          designer features.
         </p>
 
         <ul className="benefits">
@@ -57,11 +55,13 @@ const steps = [1, 2, 3, 4, 5];
         </ul>
 
         <button className="verify-btn" onClick={handleNext}>
-          Start Verification
+          <NavLink to="/informationdesigner" className="NavLink">
+            Start Verification
+          </NavLink>
         </button>
       </div>
     </div>
   );
-}
+};
 
-export default  DesignerVerification
+export default DesignerVerification;
