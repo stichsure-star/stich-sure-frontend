@@ -9,6 +9,8 @@ import SetPassword from "./pages/auth/SetPassword";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import Signup from "./pages/auth/Signup";
 import Verification from "./pages/auth/Verification";
+import OrderDetails from "./components/OrderDetails";
+import OrderTracker from "./components/Ordertracker";
 
 const App = () => {
   return (
