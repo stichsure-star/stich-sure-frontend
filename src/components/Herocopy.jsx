@@ -8,7 +8,7 @@ const Herocopy= () => {
       className="features-hero"
       style={{ backgroundImage: `url(${color})` }}
     >
-      <div className="hero-overlay">
+      <div className="feature-overlay">
         <h1>Platform Features That Solve Real Problems</h1>
 
         <p>
