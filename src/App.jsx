@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
 // import Signp from "./pages/auth/Signup"
-import Login from "./pages/auth/Login"
-import ForgetPassword from "./pages/auth/ForgetPassword"
-import SetPassword from "./pages/auth/SetPassword"
-import Verification from "./pages/auth/Verification"
+import Login from "./pages/auth/Login";
+import ForgetPassword from "./pages/auth/ForgetPassword";
+import SetPassword from "./pages/auth/SetPassword";
+import Verification from "./pages/auth/Verification";
 import Signup from "./pages/auth/Signup";
 import DesignerVerification from "./components/DesignerVerification";
 import IdentityDesignerPage from "./pages/kyc/IdentityDesignerPage";
@@ -37,6 +37,17 @@ const App = () => {
           <Route path="/designers" element={<Designerspage />} />
           <Route path="/features" element={<Featurepage />} />
           <Route path="/getstarted" element={<StartedPage />} />
+          <Route
+            path="/designerverification"
+            element={<DesignerVerification />}
+          />
+          <Route path="/identitydesigner" element={<IdentityDesignerPage />} />
+          <Route
+            path="/informationdesigner"
+            element={<InformationDesigner />}
+          />
+          <Route path="/walletdesigner" element={<WalletDesigner />} />
+          <Route path="/profilepage" element={<ProfilePage />} />
 
           {/* AUTH */}
           <Route path="/login" element={<Login />} />

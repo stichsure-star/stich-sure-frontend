@@ -52,7 +52,7 @@ function FeaturedDesigners() {
               <img
                 src={designer.image}
                 alt={designer.name}
-                className="avatar"
+                className="avatars"
               />
               <span className="verified">✓ Verified</span>
             </div>
