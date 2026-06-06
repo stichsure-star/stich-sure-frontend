@@ -1,0 +1,20 @@
+.filter-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s ease;
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  transform: scale(1.03);
+}
+
+.filter-btn.active {
+  background: #8b0015; /* your red theme */
+  color: white;
+  border: 1px solid #8b0015;
+}

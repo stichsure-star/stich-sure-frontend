@@ -1,65 +1,97 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Ordertracker.css";
-import { FaInstagram, FaTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
+import { IoCheckmarkCircleOutline } from "react-icons/io5";
+import { GiCardPickup } from "react-icons/gi";
 
 const OrderTracker = () => {
+  const steps = [
+    { step: "Picked Up", icon: <GiCardPickup /> },
+    { step: "Ready", icon: <IoCheckmarkCircleOutline /> },
+    { step: "Delivered", icon: <TbTruckDelivery /> },
+  ];
+
+  const [completedSteps, setCompletedSteps] = useState([]);
+
+  const handleStatusChange = (step) => {
+    setCompletedSteps((prev) => {
+      if (prev.includes(step)) return prev;
+      return [...prev, step];
+    });
+  };
+
+  const progress = (completedSteps.length / steps.length) * 100;
+
   return (
     <div className="tracker-page-wrapper">
       <div className="tracker-main-card">
-        
+        {/* HEADER */}
         <div className="tracker-header-row">
           <div className="header-meta-left">
-            <h1 className="item-title">Coperate Suit</h1>
+            <h1 className="item-title">Corporate Suit</h1>
             <p className="client-assignee">for Faith E.</p>
             <p className="order-id-tag">Order ID: ORD-101</p>
           </div>
+
           <div className="header-meta-right">
-            <span className="currency-amount">&#8358;300,000</span>
-            <div className="badge-pill-status">Ready</div>
+            <span className="currency-amount">₦300,000</span>
+
+            <div className="badge-pill-status">
+              {completedSteps.length === 0
+                ? "Pending"
+                : completedSteps.length === steps.length
+                  ? "Delivered"
+                  : "In Progress"}
+            </div>
+
             <p className="calendar-due-date">Due: June 04, 2026</p>
           </div>
         </div>
 
-        <div className="milestones-stack">
-          <div className="milestone-interactive-row">
-            <span className="milestone-name">Picked Up</span>
-            <span className="milestone-action-prompt">Click to update current status</span>
-          </div>
-
-          <div className="milestone-interactive-row">
-            <span className="milestone-name">Ready</span>
-            <span className="milestone-action-prompt">Click to update current status</span>
-          </div>
-
-          <div className="milestone-interactive-row">
-            <span className="milestone-name">Delivered</span>
-            <span className="milestone-action-prompt">Click to update current status</span>
-          </div>
-        </div>
-
+        {/* PROGRESS */}
         <div className="progress-section-block">
           <div className="progress-label-row">
             <span className="progress-title-text">Overall Progress</span>
-            <strong className="progress-value-numeric">60%</strong>
+            <strong className="progress-value-numeric">
+              {Math.round(progress)}%
+            </strong>
           </div>
+
           <div className="progress-bar-track-line">
-            <div className="progress-bar-fill-indicator"></div>
+            <div
+              className="progress-bar-fill-indicator"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
 
+        {/* MILESTONES */}
+        <div className="milestones-stack">
+          {steps.map((item) => {
+            const isActive = completedSteps.includes(item.step);
+            const className = item.step.toLowerCase().replace(/\s/g, "-");
+
+            return (
+              <div
+                key={item.step}
+                className={`milestone-interactive-row ${className} ${
+                  isActive ? "active" : ""
+                }`}
+                onClick={() => handleStatusChange(item.step)}
+              >
+                <span className="milestone-name">
+                  {isActive && <span className="icon">{item.icon}</span>}
+                  {item.step}
+                </span>
+
+                <span className="milestone-action-prompt">
+                  {isActive ? "Completed" : "Click to mark complete"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
-
-      <footer className="tracker-page-footer">
-        <div className="footer-alignment-container">
-          <p className="legal-copyright-text">&copy; 2026 Stichsure. All rights reserved.</p>
-          <div className="social-networks-anchors">
-            <a href="#instagram" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#twitter" aria-label="Twitter"><FaTwitter /></a>
-            <a href="#facebook" aria-label="Facebook"><FaFacebookF /></a>
-            <a href="#linkedin" aria-label="LinkedIn"><FaLinkedinIn /></a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

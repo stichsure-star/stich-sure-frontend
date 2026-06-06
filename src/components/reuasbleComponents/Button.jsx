@@ -1,15 +1,13 @@
 import React from "react";
+import "../../styles/Button.css";
 
-const Button = ({ text, onClick, className, type, disabled, onChange }) => {
+const Button = ({ label, active, onClick }) => {
   return (
     <button
-      type={type}
-      className={`custom-button ${className || ""}`}
+      className={`filter-btn ${active ? "active" : ""}`}
       onClick={onClick}
-      disabled={disabled}
-      onChange={onChange}
     >
-      {text}
+      {label}
     </button>
   );
 };

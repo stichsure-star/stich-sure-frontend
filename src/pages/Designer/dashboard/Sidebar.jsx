@@ -30,7 +30,7 @@ const Sidebar = () => {
           Active Orders
         </NavLink>
 
-        <NavLink to="/designer/wallet" className="link">
+        <NavLink to="/designer/earning" className="link">
           <IoIosCard className="trd" />
           Earnings & Wallet
         </NavLink>
