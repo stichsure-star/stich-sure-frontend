@@ -3,12 +3,10 @@ import BasicInfo from "../../components/BasicInfo";
 import Header from "../../components/reuasbleComponents/Header";
 import Footer from "../../components/reuasbleComponents/Footer";
 
-const InformationDesigner = () => {
+const InformationDesigner = ({ onNext, onPrev }) => {
   return (
     <div>
-      <Header />
-      <BasicInfo />
-      <Footer />
+      <BasicInfo onNext={onNext} onPrev={onPrev} />
     </div>
   );
 };

@@ -3,12 +3,10 @@ import DesignerSuccessful from "../../components/DesignerSuccessful";
 import Header from "../../components/reuasbleComponents/Header";
 import Footer from "../../components/reuasbleComponents/Footer";
 
-const SuccessfulDesignerPage = () => {
+const SuccessfulDesignerPage = ({ onNext, onPrev }) => {
   return (
     <div>
-      <Header />
-      <DesignerSuccessful />
-      <Footer />
+      <DesignerSuccessful onNext={onNext} onPrev={onPrev} />
     </div>
   );
 };

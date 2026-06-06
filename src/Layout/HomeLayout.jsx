@@ -1,16 +1,16 @@
 import React from "react";
-import Herocopy from "../components/Herocopy";
-import Features from "../components/Features";
 import Header from "../components/reuasbleComponents/Header";
 import Footer from "../components/reuasbleComponents/Footer";
+import { Outlet } from "react-router-dom";
 
-const Featurepage = () => {
+const HomeLayout = () => {
   return (
     <div>
-      <Herocopy />
-      <Features />
+      <Header />
+      <Outlet />
+      <Footer />
     </div>
   );
 };
 
-export default Featurepage;
+export default HomeLayout;

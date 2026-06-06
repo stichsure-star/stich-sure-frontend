@@ -4,7 +4,7 @@ import { useState } from "react";
 import AuthLayout2 from "../../components/AuthLayout2";
 import "../../styles/auth-form2.css";
 import "../../styles/register2.css";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Register2 = ({ userType = "designer" }) => {
   const [formData, setFormData] = useState({

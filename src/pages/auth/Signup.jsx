@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
-import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
 import "../../styles/Signup.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const urlRole = searchParams.get("role") || "user";
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    role: urlRole,
   });
 
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, role: urlRole }));
+  }, [urlRole]);
 
   const handleChange = (e) => {
     setFormData({
@@ -26,14 +35,22 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    console.log("Submitting registration data:", formData);
+
+    // 1. Send the user to the verification page
+    // 2. Pass the user's role securely in the background state
+    navigate("/verification", { state: { role: formData.role } });
   };
 
   return (
-    <AuthLayout imageClassName="signup_image_section">
+    <div className="signup_content">
       <AuthCard
-        title="Create an account"
-        subtitle="Create your account to manage fashion orders, track deliveries and connect with trusted designers."
+        title={`Create a ${formData.role} account`}
+        subtitle={
+          formData.role === "designer"
+            ? "Create your professional designer account to receive orders, manage deliveries and grow your fashion business."
+            : "Create your account to manage fashion orders, track deliveries and connect with trusted designers."
+        }
         buttonText="Create Account"
         onSubmit={handleSubmit}
       >
@@ -77,10 +94,15 @@ const Signup = () => {
         />
 
         <button className="create_btn" type="submit">
-          <NavLink to="/verification" className="NavLink">
-            Create Account
-          </NavLink>
+          Create Account
         </button>
+
+        <p className="forgot_password">
+          Already have an account?{" "}
+          <NavLink to="/login" className="NavLinked">
+            Login
+          </NavLink>
+        </p>
 
         <div className="divider">
           <span></span>
@@ -92,21 +114,8 @@ const Signup = () => {
           <FcGoogle />
           Continue with Google
         </button>
-
-        {/* <div className="divider">
-          <span></span>
-          <p>Or</p>
-          <span></span>
-        </div>
-
-        <button
-          type="button"
-          className="google_btn"
-        >
-          Continue with Google
-        </button> */}
       </AuthCard>
-    </AuthLayout>
+    </div>
   );
 };
 
