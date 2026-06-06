@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Sidebar.css";
+("../../User/css/Sidebar.css");
 import { GoHome } from "react-icons/go";
 import { RiImageAddFill } from "react-icons/ri";
 import { IoIosCard } from "react-icons/io";
@@ -15,39 +15,29 @@ const Sidebar = () => {
     <aside className="sidebar">
       {/* TOP MENU */}
       <div className="menu">
-        <NavLink to="/designer/dashboard" className="link">
+        <NavLink to="/user/dashboard" className="link">
           <GoHome className="trd" />
           Dashboard
         </NavLink>
 
-        <NavLink to="/designer/upload" className="link">
+        <NavLink to="/user/browsedesigners" className="link">
           <RiImageAddFill className="trd" />
-          Upload Designs
+          Browse Designers
         </NavLink>
 
-        <NavLink to="/designer/ordertracker" className="link">
+        <NavLink to="/user/browsedesigns" className="link">
           <HiCube className="trd" />
-          Active Orders
+          Browse Designs
         </NavLink>
 
-        <NavLink to="/designer/wallet" className="link">
+        <NavLink to="/user/myorders" className="link">
           <IoIosCard className="trd" />
-          Earnings & Wallet
+          MY Orders
         </NavLink>
 
-        <NavLink to="/designer/collaboration" className="link">
+        <NavLink to="/user/saveddesigners" className="link">
           <PiHandshakeFill className="trd" />
-          Collaboration
-        </NavLink>
-
-        <NavLink to="/designer/ratings" className="link">
-          <FaStar className="trd" />
-          Reliability Ratings
-        </NavLink>
-
-        <NavLink to="/designer/templates" className="link">
-          <IoShirtOutline className="trd" />
-          Style Templates
+          Saved Designs
         </NavLink>
 
         <NavLink to="/settings" className="link">

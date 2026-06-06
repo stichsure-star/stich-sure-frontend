@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../pages/Designer/dashboard/Sidebar";
-import Header from "../pages/Designer/dashboard/Header";
-import Footer from "../pages/Designer/dashboard/Footer";
+import Sidebar from "../pages/User/dashboard/Sidebar";
+import Header from "../pages/User/dashboard/Header";
+import Footer from "../pages/User/dashboard/Footer";
 
 const DashboardLayout = () => {
   return (

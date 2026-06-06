@@ -12,13 +12,11 @@ import Ratings from "../components/Ratings";
 const HomePage = () => {
   return (
     <div>
-      <Header />
       <HeroSection />
       <HowItWorks />
       <FeaturedDesigners />
       <Design />
       <Ratings />
-      <Footer />
     </div>
   );
 };

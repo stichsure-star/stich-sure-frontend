@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  background-color: blue;
   /* gap: 5px; */
 }
 
@@ -25,7 +24,6 @@
 
 .input_wrapper {
   position: relative;
-  background-color: chartreuse;
 }
 
 .input_wrapper input {
@@ -35,14 +33,12 @@
 .eye_icon {
   position: absolute;
   right: 12px;
-  top: 50%;
+  top: 60%;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 20px;
   color: #777;
 }
-
-
 
 .error {
   color: red;

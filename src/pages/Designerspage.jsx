@@ -7,10 +7,8 @@ import Footer from "../components/reuasbleComponents/Footer";
 const Designerspage = () => {
   return (
     <div>
-      <Header />
       <Hero />
       <Designer />
-      <Footer />
     </div>
   );
 };
