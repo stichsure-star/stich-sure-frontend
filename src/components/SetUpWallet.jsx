@@ -1,32 +1,12 @@
-import { useState } from 'react';
+import { useState } from "react";
 // import "../styles/SetUpWallet.css"
-import "../styles/SetUpWallet.css"
+import { NavLink } from "react-router-dom";
+import "../styles/SetUpWallet.css";
 
-const steps = [1, 2, 3, 4, 5];
-
-const SetUpWallet = () => {
-      const [currentStep, setCurrentStep] = useState(1);
-        
-      const handleNext = () => {
-        if (currentStep < steps.length) {
-              setCurrentStep((prev) => prev + 1);
-          }
-        };
-
+const SetUpWallet = ({ onNext }) => {
   return (
-    <div className='set-info-page'>
-      <div className="progress-wrapper">
-        {steps.map((step) => (
-          <div
-            key={step}
-            className={`progress-step ${
-              step <= currentStep ? "active" : ""
-            }`}
-          />
-        ))}
-      </div>
-
-      <div className='set-up-card'>
+    <div className="set-info-page">
+      <div className="set-up-card">
         <h4>Set Up Your Wallet</h4>
         <form className="set-up-form">
           <label htmlFor="businessName">Bank Name</label>
@@ -38,11 +18,13 @@ const SetUpWallet = () => {
           <label htmlFor="phone">Account Name</label>
           <input id="phone" type="text" />
 
-          <button type="submit">Verify Account</button>
+          <button type="submit" onClick={onNext}>
+            Verify Account
+          </button>
         </form>
-      </div> 
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SetUpWallet
+export default SetUpWallet;

@@ -1,13 +1,14 @@
-import React from 'react'
-import Profile from '../../components/Profile'
+import React from "react";
+import Profile from "../../components/Profile";
+import Header from "../../components/reuasbleComponents/Header";
+import Footer from "../../components/reuasbleComponents/Footer";
 
-const ProfilePage = () => {
+const ProfilePage = ({ onNext, onPrev }) => {
   return (
     <div>
-        <Profile/>
-      
+      <Profile onNext={onNext} onPrev={onPrev} />
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;

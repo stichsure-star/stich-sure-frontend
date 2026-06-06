@@ -1,15 +1,14 @@
-import React from 'react'
-import BasicInfo from '../../components/BasicInfo'
-import Header from '../../components/reuasbleComponents/Header'
+import React from "react";
+import BasicInfo from "../../components/BasicInfo";
+import Header from "../../components/reuasbleComponents/Header";
+import Footer from "../../components/reuasbleComponents/Footer";
 
-const InformationDesigner = () => {
+const InformationDesigner = ({ onNext, onPrev }) => {
   return (
     <div>
-        {/* <Header/> */}
-      <BasicInfo/>
-      {/* <Footer/> */}
+      <BasicInfo onNext={onNext} onPrev={onPrev} />
     </div>
-  )
-}
+  );
+};
 
-export default InformationDesigner
+export default InformationDesigner;

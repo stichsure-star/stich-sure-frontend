@@ -1,17 +1,14 @@
-import React from 'react'
-import SetUpWallet from '../../components/SetUpWallet'
-import Header from '../../components/reuasbleComponents/Header'
-import Footer from '../../components/reuasbleComponents/Footer'
+import React from "react";
+import SetUpWallet from "../../components/SetUpWallet";
+import Header from "../../components/reuasbleComponents/Header";
+import Footer from "../../components/reuasbleComponents/Footer";
 
-const WalletDesigner = () => {
+const WalletDesigner = ({ onNext, onPrev }) => {
   return (
     <div>
-        {/* <Header/> */}
-        <SetUpWallet/>
-        {/* <Footer/> */}
-      
+      <SetUpWallet onNext={onNext} onPrev={onPrev} />
     </div>
-  )
-}
+  );
+};
 
-export default WalletDesigner
+export default WalletDesigner;

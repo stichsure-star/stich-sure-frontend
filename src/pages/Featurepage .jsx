@@ -7,10 +7,8 @@ import Footer from "../components/reuasbleComponents/Footer";
 const Featurepage = () => {
   return (
     <div>
-      <Header />
       <Herocopy />
       <Features />
-      <Footer />
     </div>
   );
 };

@@ -1,0 +1,41 @@
+.Footing {
+  width: 100%;
+  height: 10%;
+  background: #000;
+}
+
+.Footer {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.Footer p {
+  font-size: 14px;
+  color: #222;
+}
+
+.Footer_icons {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+
+  font-size: 20px;
+}
+
+.Footer_icons svg {
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.Footer_icons svg:hover {
+  transform: translateY(-3px);
+}

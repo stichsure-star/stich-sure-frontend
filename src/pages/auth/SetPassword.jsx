@@ -3,8 +3,6 @@ import "../../styles/SetPassword.css";
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
-import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
-
 
 const SetPassword = () => {
   const [formData, setFormData] = useState({
@@ -22,16 +20,16 @@ const SetPassword = () => {
     e.preventDefault();
 
     console.log("New Password:", formData.password);
-
-   
   };
 
   return (
-    <AuthLayout  imageClassName="setpassword_image_section">
+    <div className="setpassword_content">
+      <div className="setpassword_header">
         <p className="back_text">
-  <IoChevronBack />
-  Back
-</p>
+          <IoChevronBack />
+          Back
+        </p>
+      </div>
       <AuthCard
         title="Set password"
         subtitle="Password requires a minimum of 8 characters and contains a capital letter, number and symbols."
@@ -45,17 +43,12 @@ const SetPassword = () => {
           onChange={handleChange}
           placeholder="Enter new password"
         />
-
-          <button
-    className="create_btn"
-    type="submit"
-  >
-    Continue
-  </button>
-
-       
       </AuthCard>
-    </AuthLayout>
+
+      <button className="create_btn" type="submit">
+        Login
+      </button>
+    </div>
   );
 };
 

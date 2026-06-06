@@ -2,8 +2,9 @@ import { useState } from "react";
 // import { Link } from "react-router-dom";
 
 import AuthLayout2 from "../../components/AuthLayout2";
-import "../../styles/auth-form2.css"
-import "../../styles/register2.css"
+import "../../styles/auth-form2.css";
+import "../../styles/register2.css";
+import { NavLink } from "react-router-dom";
 
 const Register2 = ({ userType = "designer" }) => {
   const [formData, setFormData] = useState({
@@ -49,6 +50,7 @@ const Register2 = ({ userType = "designer" }) => {
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
+    Navigate("/verification");
   };
 
   const handleSubmit = (e) => {
@@ -63,119 +65,105 @@ const Register2 = ({ userType = "designer" }) => {
     <AuthLayout2>
       {/* <AuthImage2 /> */}
 
-        <div className="register-card">
-          <h2 className="auth-form-title">Create an account</h2>
+      <div className="register-card">
+        <h2 className="auth-form-title">Create an account</h2>
 
-          <p className="auth-form-subtitle">
-            Register as a {userType} and start using StitchSuite.
-          </p>
+        <p className="auth-form-subtitle">
+          Register as a {userType} and start using StitchSuite.
+        </p>
 
-          <form className="auth-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="form-group">
-                <label>First Name</label>
-
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-
-                {errors.firstName && (
-                  <span className="error-text">
-                    {errors.firstName}
-                  </span>
-                )}
-              </div>
-
-              <div className="form-group">
-                <label>Last Name</label>
-
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                />
-
-                {errors.lastName && (
-                  <span className="error-text">
-                    {errors.lastName}
-                  </span>
-                )}
-              </div>
-            </div>
-
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="form-row">
             <div className="form-group">
-              <label>Email</label>
-
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-
-              {errors.email && (
-                <span className="error-text">
-                  {errors.email}
-                </span>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label>Phone Number</label>
+              <label>First Name</label>
 
               <input
                 type="text"
-                name="phone"
-                value={formData.phone}
+                name="firstName"
+                value={formData.firstName}
                 onChange={handleChange}
               />
 
-              {errors.phone && (
-                <span className="error-text">
-                  {errors.phone}
-                </span>
+              {errors.firstName && (
+                <span className="error-text">{errors.firstName}</span>
               )}
             </div>
 
             <div className="form-group">
-              <label>Password</label>
+              <label>Last Name</label>
 
               <input
-                type="password"
-                name="password"
-                value={formData.password}
+                type="text"
+                name="lastName"
+                value={formData.lastName}
                 onChange={handleChange}
               />
 
-              {errors.password && (
-                <span className="error-text">
-                  {errors.password}
-                </span>
+              {errors.lastName && (
+                <span className="error-text">{errors.lastName}</span>
               )}
             </div>
-
-            <button type="submit" className="auth-btn">
-              Create Account
-            </button>
-          </form>
-
-          <div className="auth-divider">
-            <span>OR</span>
           </div>
 
-          <button className="google-btn">
-            Continue with Google
-          </button>
+          <div className="form-group">
+            <label>Email</label>
 
-          {/* <div className="register-footer">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+
+            {errors.email && <span className="error-text">{errors.email}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Phone Number</label>
+
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+
+            {errors.phone && <span className="error-text">{errors.phone}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+
+            {errors.password && (
+              <span className="error-text">{errors.password}</span>
+            )}
+          </div>
+
+          <button type="submit" className="auth-btn">
+            <NavLink to="/verification" className="NavLink">
+              Create Account
+            </NavLink>
+          </button>
+        </form>
+
+        <div className="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <button className="google-btn">Continue with Google</button>
+
+        {/* <div className="register-footer">
             Already have an account?{" "}
             <Link to="/login">Login</Link>
           </div> */}
-        </div>
+      </div>
     </AuthLayout2>
   );
 };

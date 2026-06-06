@@ -15,37 +15,37 @@ const Sidebar = () => {
     <aside className="sidebar">
       {/* TOP MENU */}
       <div className="menu">
-        <NavLink to="/dashboard" className="link">
+        <NavLink to="/designer/dashboard" className="link">
           <GoHome className="trd" />
           Dashboard
         </NavLink>
 
-        <NavLink to="/upload" className="link">
+        <NavLink to="/designer/upload" className="link">
           <RiImageAddFill className="trd" />
           Upload Designs
         </NavLink>
 
-        <NavLink to="/orders" className="link">
+        <NavLink to="/designer/ordertracker" className="link">
           <HiCube className="trd" />
           Active Orders
         </NavLink>
 
-        <NavLink to="/wallet" className="link">
+        <NavLink to="/designer/wallet" className="link">
           <IoIosCard className="trd" />
           Earnings & Wallet
         </NavLink>
 
-        <NavLink to="/collaboration" className="link">
+        <NavLink to="/designer/collaboration" className="link">
           <PiHandshakeFill className="trd" />
           Collaboration
         </NavLink>
 
-        <NavLink to="/ratings" className="link">
+        <NavLink to="/designer/ratings" className="link">
           <FaStar className="trd" />
           Reliability Ratings
         </NavLink>
 
-        <NavLink to="/templates" className="link">
+        <NavLink to="/designer/templates" className="link">
           <IoShirtOutline className="trd" />
           Style Templates
         </NavLink>

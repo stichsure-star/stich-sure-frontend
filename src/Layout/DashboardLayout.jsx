@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../pages/Designer/dashboard/Sidebar";
 import Header from "../pages/Designer/dashboard/Header";
+import Footer from "../pages/Designer/dashboard/Footer";
 
 const DashboardLayout = () => {
   return (
@@ -15,6 +16,7 @@ const DashboardLayout = () => {
           <Outlet />
         </main>
       </div>
+      <Footer />
     </div>
   );
 };

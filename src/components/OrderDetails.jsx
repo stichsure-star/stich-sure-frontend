@@ -1,19 +1,19 @@
 // import React from 'react';
 // import { LogOut, User, ShoppingBag, Lock, CheckCircle2, ShieldCheck } from 'lucide-react';
-// import { FaEye, FaLock, FaEnvelope, FaInstagram, FaLinkedin, FaFacebook, FaTwitter } from 'react-icons/fa'; 
+// import { FaEye, FaLock, FaEnvelope, FaInstagram, FaLinkedin, FaFacebook, FaTwitter } from 'react-icons/fa';
 // import '../../src/styles/OrderDetails.css';
 
 // const OrderDetails = () => {
 //     const currentPrice = 300000;
 //     const priceFormatted = currentPrice.toLocaleString('en-NG', { style: 'currency', currency: 'NGN' });
-//     const overallProgress = 60; 
+//     const overallProgress = 60;
 
 //     return (
 //         <div className="orders-wrapper">
 //             <header className="orders-navbar">
 //                 <div className="navbar-content">
 //                     <div className="brand-identifier">
-//                         <ShoppingBag size={22} className="brand-icon" /> 
+//                         <ShoppingBag size={22} className="brand-icon" />
 //                         <h2>STISCHURE</h2>
 //                     </div>
 //                     <nav className="navbar-actions">
@@ -31,12 +31,12 @@
 //                             <ShieldCheck size={20} className="header-icon" />
 //                             <h3>Update Password</h3>
 //                         </div>
-                        
+
 //                         <div className="security-card-body">
 //                             <p className="security-info">
 //                                 For security reasons, please update your password regularly. It must be at least 8 characters long.
 //                             </p>
-                            
+
 //                             <form className="password-form">
 //                                 <div className="input-with-icon">
 //                                     <FaLock className="input-icon" />
@@ -129,4 +129,12 @@
 //     );
 // };
 
-// export default OrderDetails;
+// export default OrderDetails;r
+
+import React from "react";
+
+const OrderDetails = () => {
+  return <div></div>;
+};
+
+export default OrderDetails;
