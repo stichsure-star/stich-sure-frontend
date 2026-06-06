@@ -3,12 +3,10 @@ import Profile from "../../components/Profile";
 import Header from "../../components/reuasbleComponents/Header";
 import Footer from "../../components/reuasbleComponents/Footer";
 
-const ProfilePage = () => {
+const ProfilePage = ({ onNext, onPrev }) => {
   return (
     <div>
-      <Header />
-      <Profile />
-      <Footer />
+      <Profile onNext={onNext} onPrev={onPrev} />
     </div>
   );
 };

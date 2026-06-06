@@ -4,9 +4,9 @@ import { MdVerifiedUser } from "react-icons/md";
 // import "../styles/DesignerVerification.css"
 // import "../styles/DesignerVerification.css"
 import "../styles/DesignerSuccessful.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 
-const Desgn = () => {
+const Desgn = ({ onNext, onPrev }) => {
   return (
     <div className="verification-page">
       <div className="verification-card">
@@ -23,10 +23,9 @@ const Desgn = () => {
 
         <ul className="benefits">You’re now a Verified Designer</ul>
 
-        <button className="submit-btn">
-          <NavLink to="/dashboard" className="NavLink">
-            Proceed to Dashboard
-          </NavLink>
+        <button className="submit-btn ">
+          Proceed to dashboard
+          <Navigate to="/designer/dashboard" />
         </button>
       </div>
     </div>

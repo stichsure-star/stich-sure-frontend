@@ -1,5 +1,5 @@
 import React from "react";
-import "../../Designer/css/Header.css";
+import "../../User/css/Header.css";
 import Img from "../../../assets/gbenga/stitchsure.png";
 import pif from "../../../assets/gbenga/Gold.png";
 import { IoNotificationsSharp } from "react-icons/io5";

@@ -1,6 +1,8 @@
-/* .signup_image_section{
-  height:600px ;
-} */
+.signup_content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 .name_row {
   display: flex;
@@ -15,7 +17,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 12px 0;
+  margin: 20px 0;
 }
 
 .divider span {

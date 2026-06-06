@@ -4,10 +4,7 @@ import { FaCamera } from "react-icons/fa";
 import "../styles/Profile.css";
 import { NavLink } from "react-router-dom";
 
-const steps = [1, 2, 3, 4, 5];
-
-const Profile = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+const Profile = ({ onNext, onPrev }) => {
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -21,14 +18,6 @@ const Profile = () => {
 
   return (
     <div className="complete-profile-page">
-      <div className="progress-wrapper">
-        {steps.map((step) => (
-          <div
-            key={step}
-            className={`progress-step ${step <= currentStep ? "active" : ""}`}
-          />
-        ))}
-      </div>
       <div className="profile-content">
         <h2>Complete Your Profile</h2>
 
@@ -78,10 +67,8 @@ const Profile = () => {
           <p className="labed">Short Bio</p>
           <textarea rows="4"></textarea>
 
-          <button className="submit-btn">
-            <NavLink to="/successfull" className="NavLink">
-              Continue
-            </NavLink>
+          <button className="submit-btn" onClick={onNext}>
+            Continue
           </button>
         </form>
       </div>
