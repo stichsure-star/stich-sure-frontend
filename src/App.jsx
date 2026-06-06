@@ -1,4 +1,4 @@
-import React from "react";
+~import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
@@ -23,6 +23,11 @@ import PasswordReset2 from "./pages/auth/PasswordReset2";
 import OtpVerification2 from "./pages/auth/OtpVerification2";
 import SuccessfulDesignerPage from "./pages/kyc/SuccessfulDesignerPage";
 import Upload from "../src/pages/Designer/page/Upload";
+import DesignerProfile from "./pages/Designer/page/DesignerProfile";
+import DesignersGrid from "./pages/Designer/page/DesignersGrid";
+import RateDesigner from "./pages/Designer/page/RateDesigner";
+import ActiveOrderTracker from "./pages/Designer/page/ActiveOrderTracker";
+import DesignersCatalog from "./pages/Designer/page/DesignersCatalog";
 
 const App = () => {
   return (
@@ -70,6 +75,11 @@ const App = () => {
             <Route path="/orders" element={<Orders />} />
             <Route path="/ordertracker" element={<OrderTracker />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="/Profile" element={<DesignerProfile />} />
+            <Route path="/grid" element={<DesignersGrid />} />
+            <Route path="/rate" element={<RateDesigner />} />
+            <Route path="/Active" element={<ActiveOrderTracker />} />
+            <Route path="/Catalog" element={<DesignersCatalog />} />
           </Route>
         </Routes>
       </BrowserRouter>
