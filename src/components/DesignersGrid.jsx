@@ -1,9 +1,26 @@
-import React from "react";
-import { HiMapPin, HiStar, HiOutlineHeart } from "react-icons/hi2";
+import React, { useState } from "react";
+import { HiMapPin, HiStar, HiOutlineHeart, HiHeart } from "react-icons/hi2";
 import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin } from "react-icons/fa";
-import "../../../styles/DesignerGrid.css";
+import "../styles/DesignerGrid.css";
 
- function DesignersGrid() {
+import Containlace from "../assets/daniel/Contain lace.png";
+import mensenator from "../assets/daniel/Mensenitor.png";
+import womendesign from "../assets/daniel/Container women.png";
+import fibre from "../assets/daniel/Fiber.png";
+import menstyle from "../assets/daniel/Manstyle.png"
+import cleanwear from "../assets/daniel/Cleanwear.png"
+
+
+function DesignersGrid() {
+  const [favorites, setFavorites] = useState({});
+
+  const toggleFavorite = (id) => {
+    setFavorites((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
   const designers = [
     {
       id: 1,
@@ -13,7 +30,7 @@ import "../../../styles/DesignerGrid.css";
       description: "Specialist in Yoruba traditional attire with 15+ years experience",
       location: "Lagos",
       orders: "156 orders",
-      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&auto=format&fit=crop&q=80"
+      image: Containlace,
     },
     {
       id: 2,
@@ -23,7 +40,7 @@ import "../../../styles/DesignerGrid.css";
       description: "Award-winning bridal designer creating dream wedding outfits",
       location: "Abuja",
       orders: "211 orders",
-      image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500&auto=format&fit=crop&q=80"
+      image: mensenator,
     },
     {
       id: 3,
@@ -33,7 +50,7 @@ import "../../../styles/DesignerGrid.css";
       description: "Premium corporate suits and professional menswear tailoring",
       location: "Port Harcourt",
       orders: "98 orders",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80"
+      image: womendesign,
     },
     {
       id: 4,
@@ -43,7 +60,7 @@ import "../../../styles/DesignerGrid.css";
       description: "Contemporary casual styles for the modern day individual",
       location: "Ibadan",
       orders: "142 orders",
-      image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=80"
+      image: fibre,
     },
     {
       id: 5,
@@ -53,7 +70,7 @@ import "../../../styles/DesignerGrid.css";
       description: "Master craftsman in all traditional Nigerian styles and fittings",
       location: "Lagos",
       orders: "178 orders",
-      image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80"
+      image: menstyle,
     },
     {
       id: 6,
@@ -63,7 +80,7 @@ import "../../../styles/DesignerGrid.css";
       description: "Elegant and sophisticated bridal collections for custom orders",
       location: "Enugu",
       orders: "96 orders",
-      image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&auto=format&fit=crop&q=80"
+      image: cleanwear,
     }
   ];
 
@@ -75,8 +92,12 @@ import "../../../styles/DesignerGrid.css";
             <div key={designer.id} className="dg-designer-card">
               <div className="dg-card-image-wrap">
                 <img src={designer.image} alt={designer.name} className="dg-card-img" />
-                <button className="dg-heart-btn" aria-label="Favorite">
-                  <HiOutlineHeart />
+                <button 
+                  className={`dg-heart-btn ${favorites[designer.id] ? "is-active" : ""}`} 
+                  onClick={() => toggleFavorite(designer.id)}
+                  aria-label="Favorite"
+                >
+                  {favorites[designer.id] ? <HiHeart /> : <HiOutlineHeart />}
                 </button>
               </div>
 
@@ -106,19 +127,8 @@ import "../../../styles/DesignerGrid.css";
           ))}
         </div>
       </main>
-
-      <footer className="dg-footer">
-        <div className="dg-footer-inner">
-          <p className="dg-copyright">© 2026 Stichsure. All rights reserved.</p>
-          <div className="dg-footer-socials">
-            <a href="#instagram" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#twitter" aria-label="Twitter"><FaTwitter /></a>
-            <a href="#facebook" aria-label="Facebook"><FaFacebook /></a>
-            <a href="#linkedin" aria-label="Linkedin"><FaLinkedin /></a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
-export default DesignersGrid
+
+export default DesignersGrid;

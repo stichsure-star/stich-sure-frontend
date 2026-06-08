@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/DesignerProfile.css";
 import { 
   HiMapPin, 
   HiBriefcase, 
@@ -12,7 +13,7 @@ import {
   FaFacebook, 
   FaLinkedin 
 } from "react-icons/fa";
-import "../../../styles/DesignerProfile.css";
+
 
  function DesignerProfile() {
   const portfolioItems = [
@@ -114,17 +115,6 @@ import "../../../styles/DesignerProfile.css";
 
       </main>
 
-      <footer className="dp-footer">
-        <div className="dp-footer-inner">
-          <p className="dp-copyright">© 2026 Stichsure. All rights reserved.</p>
-          <div className="dp-footer-socials">
-            <a href="#instagram" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#twitter" aria-label="Twitter"><FaTwitter /></a>
-            <a href="#facebook" aria-label="Facebook"><FaFacebook /></a>
-            <a href="#linkedin" aria-label="Linkedin"><FaLinkedin /></a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

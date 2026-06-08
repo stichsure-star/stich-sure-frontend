@@ -35,9 +35,10 @@
 
 .link:hover {
   background: #ce7386;
+  color: white;
 }
 
-/* ACTIVE LINK (React Router adds "active") */
+
 .link.active {
   background: #7a0018;
   color: white;

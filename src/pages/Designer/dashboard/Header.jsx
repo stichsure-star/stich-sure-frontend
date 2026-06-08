@@ -21,7 +21,7 @@ const Header = () => {
           <span className="badge">5</span>
         </div>
 
-        <div clasName="avatared">
+        <div className="avatared">
           <div className="avatar">
             <img src={pif} alt="" />
             <RiArrowDropDownLine />

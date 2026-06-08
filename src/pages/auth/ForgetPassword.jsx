@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "../../styles/ForgetPassword.css";
+import { NavLink } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
-import AuthLayout from "../../components/reuasbleComponents/AuthLayout";
 
 const ForgotPassword = () => {
   const [formData, setFormData] = useState({
@@ -27,11 +27,13 @@ const ForgotPassword = () => {
   };
 
   return (
-    <AuthLayout  imageClassName="forgot_image_section">
+    <div className="forgot_content">
+      <div className="forgot_header">
         <p className="back_text">
-  <IoChevronBack />
-  Back
-</p>
+          <IoChevronBack />
+          Back
+        </p>
+      </div>
       <AuthCard
         title="Forgot your password?"
         subtitle="Enter the email or phone number associated with your account and we will send you a verification code to reset your password"
@@ -46,16 +48,13 @@ const ForgotPassword = () => {
           placeholder="Enter email or phone number"
         />
 
-          <button
-    className="create_btn"
-    type="submit"
-  >
-    Continue
-  </button>
-
-        
+        <button className="create_btn" type="submit">
+          <NavLink to="/verification" className="NavLink">
+            Create Account
+          </NavLink>
+        </button>
       </AuthCard>
-    </AuthLayout>
+    </div>
   );
 };
 

@@ -22,6 +22,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "86%",
+    scoreNum: 86,
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "90%",
+    scoreNum: 90,
   },
   {
     id: 3,
@@ -40,6 +42,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "96%",
+    scoreNum: 96,
   },
   {
     id: 4,
@@ -49,6 +52,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "79%",
+    scoreNum: 79,
   },
   {
     id: 5,
@@ -58,6 +62,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "88%",
+    scoreNum: 88,
   },
   {
     id: 6,
@@ -67,6 +72,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "92%",
+    scoreNum: 92,
   },
   {
     id: 7,
@@ -75,7 +81,8 @@ const designers = [
     role: "Bridal & Evening Wear",
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
-    score: "87%",
+    score: "83%",
+    scoreNum: 83,
   },
   {
     id: 8,
@@ -85,6 +92,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "96%",
+    scoreNum: 96,
   },
   {
     id: 9,
@@ -94,6 +102,7 @@ const designers = [
     location: "Lagos, Nigeria",
     reviews: "5.0 (127 reviews)",
     score: "70%",
+    scoreNum: 70,
   }
 ];
 
@@ -103,45 +112,43 @@ const Designer = () => {
       {designers.map((designer) => (
         <div className="designer-card" key={designer.id}>
           
-          <div className="card-header">
-            <div className="card-top">
-              <img src={designer.image} alt={designer.name} />
-              <div className="designer-meta">
-                <h3>{designer.name}</h3>
-                <p className="role">{designer.role}</p>
-                <span className="location">
-                  <IoLocationSharp className="location-icon" />
-                  {designer.location}
-                </span>
-              </div>
-            </div>
-
+          <div className="card-top-header-row">
+            <img src={designer.image} alt={designer.name} className="designer-avatar" />
             <div className="verified-badge">
               <GoCheckCircleFill className="verified-icon" />
               Verified
             </div>
           </div>
 
-          <p className="reviews">
-            <span className="star-icon">⭐</span>
-            {designer.reviews}
-          </p>
+          <div className="designer-details-block">
+            <h3>{designer.name}</h3>
+            <p className="role">{designer.role}</p>
+            
+            <div className="location-row">
+              <IoLocationSharp className="location-icon" />
+              <span>{designer.location}</span>
+            </div>
 
-          <div className="score-section">
-          <div className="score-header">
-           <span>Reliability Score</span>
-          <strong>{designer.score}</strong>
+            <p className="reviews-row">
+              <span className="star-icon">⭐</span>
+              {designer.reviews}
+            </p>
           </div>
 
-         <div className="progress-bar">
-    <div
-      className="progress"
-      style={{ width: designer.score }}>
-        
-      </div>
-  </div>
-  <p className="delivery-text">On-Time Deliveries</p>
-</div>
+          <div className="score-section">
+            <div className="score-header">
+              <span>Reliability Score</span>
+              <strong>{designer.score}</strong>
+            </div>
+
+            <div className="progress-bar">
+              <div
+                className="progress"
+                style={{ width: `${designer.scoreNum}%` }}>
+              </div>
+            </div>
+            <p className="delivery-text">On-Time Deliveries</p>
+          </div>
 
           <button className="view-profile-btn">View Profile</button>
         </div>

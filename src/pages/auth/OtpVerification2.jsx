@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 
 import AuthLayout2 from "../../components/AuthLayout2";
 import "../../styles/auth-form2.css";
@@ -43,8 +43,9 @@ const OtpVerification2 = () => {
         </div>
 
         <button className="auth-btn">
-          <Navigate to="/identitydesigner" />
-          Verify
+          <NavLink to="/identitydesigner" className="NavLink">
+            Verify
+          </NavLink>
         </button>
       </div>
     </AuthLayout2>

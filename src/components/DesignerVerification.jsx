@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
-import { MdVerifiedUser } from "react-icons/md";
-// import "../styles/DesignerVerification.css"
 import "../styles/DesignerVerification.css";
-import { NavLink } from "react-router-dom";
+
+import IdentityDesignerPage from "../pages/kyc/IdentityDesignerPage";
+import InformationDesigner from "../pages/kyc/InformationDesigner";
+import ProfilePage from "../pages/kyc/ProfilePage";
+import SuccessfulDesignerPage from "../pages/kyc/SuccessfulDesignerPage";
+import WalletDesigner from "../pages/kyc/WalletDesigner";
 
 const steps = [1, 2, 3, 4, 5];
 
@@ -13,6 +15,29 @@ const DesignerVerification = () => {
   const handleNext = () => {
     if (currentStep < steps.length) {
       setCurrentStep((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      // case 1:
+      //   return <IdentityDesignerPage onNext={handleNext} />;
+      case 1:
+        return <InformationDesigner onNext={handleNext} onPrev={handlePrev} />;
+      case 2:
+        return <WalletDesigner onNext={handleNext} onPrev={handlePrev} />;
+      case 3:
+        return <ProfilePage onNext={handleNext} onPrev={handlePrev} />;
+      case 4:
+        return <SuccessfulDesignerPage />;
+      default:
+        return null;
     }
   };
 
@@ -27,39 +52,7 @@ const DesignerVerification = () => {
         ))}
       </div>
 
-      <div className="verification-card">
-        <div className="icon-circle">
-          <MdVerifiedUser className="shield-icon" />
-        </div>
-
-        <h2>Verify Your Identity As A Designer</h2>
-
-        <p className="description">
-          Verify your identity to build trust, receive orders, and access
-          designer features.
-        </p>
-
-        <ul className="benefits">
-          <li>
-            <FaCheckCircle /> Build customer trust
-          </li>
-          <li>
-            <FaCheckCircle /> Receive secure payments
-          </li>
-          <li>
-            <FaCheckCircle /> Increase visibility on the platform
-          </li>
-          <li>
-            <FaCheckCircle /> Get verified designer badge
-          </li>
-        </ul>
-
-        <button className="verify-btn" onClick={handleNext}>
-          <NavLink to="/informationdesigner" className="NavLink">
-            Start Verification
-          </NavLink>
-        </button>
-      </div>
+      <div className="step-content-container">{renderStepContent()}</div>
     </div>
   );
 };

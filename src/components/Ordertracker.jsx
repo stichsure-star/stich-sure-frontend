@@ -10,6 +10,7 @@ const OrderTracker = () => {
         <div className="tracker-header-row">
           <div className="header-meta-left">
             <h1 className="item-title">Coperate Suit</h1>
+            <button></button>
             <p className="client-assignee">for Faith E.</p>
             <p className="order-id-tag">Order ID: ORD-101</p>
           </div>
@@ -49,17 +50,7 @@ const OrderTracker = () => {
 
       </div>
 
-      <footer className="tracker-page-footer">
-        <div className="footer-alignment-container">
-          <p className="legal-copyright-text">&copy; 2026 Stichsure. All rights reserved.</p>
-          <div className="social-networks-anchors">
-            <a href="#instagram" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#twitter" aria-label="Twitter"><FaTwitter /></a>
-            <a href="#facebook" aria-label="Facebook"><FaFacebookF /></a>
-            <a href="#linkedin" aria-label="LinkedIn"><FaLinkedinIn /></a>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 };

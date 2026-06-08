@@ -1,28 +1,25 @@
 .auth_card {
   width: 100%;
-  background-color: hotpink;
 }
 
 .auth_title {
   font-size: 32px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: #222;
-
 }
 
 .auth_subtitle {
   font-size: 14px;
   color: #666;
   line-height: 1.5;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .auth_form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #666;
 }
 
 .create_btn {

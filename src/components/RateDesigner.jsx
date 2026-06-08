@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../styles/RateDesigner.css";
+import "../styles/RateDesigner.css";
 import { FaInstagram, FaTwitter, FaFacebookF, FaLinkedinIn, FaRegStar, FaStar } from "react-icons/fa";
 
 const RateDesigner = () => {

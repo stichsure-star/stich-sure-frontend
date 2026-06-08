@@ -1,0 +1,81 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #eee;
+  position: static;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 20px 10px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.logoed {
+  width: 100%;
+  height: 40%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  background-color: #7a0018;
+
+  .trd {
+    width: 20%;
+    height: 90%;
+  }
+}
+
+.link:hover {
+  background: #ce7386;
+  color: white;
+}
+
+.link.active {
+  background: #7a0018;
+  color: white;
+}
+
+.logout {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.logoutBtn {
+  width: 100%;
+  padding: 10px;
+
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  color: red;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  gap: 2px;
+
+  .trd {
+    width: 50%;
+    height: 90%;
+  }
+}

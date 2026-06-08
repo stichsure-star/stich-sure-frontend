@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../styles/ActiveOrdertracker.css";
+import "../styles/ActiveOrdertracker.css";
 import { FaInstagram, FaTwitter, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
 const ActiveOrderTracker = () => {

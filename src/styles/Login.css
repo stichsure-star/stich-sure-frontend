@@ -1,32 +1,27 @@
-
 .login_content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 90%;
-  width: 100%;
-  background-color: purple;
+  height: 100%;
 }
 
 .login_header {
-  /* margin-bottom: 60px; */
   margin-bottom: auto;
 }
 
-.auth_card {
-  margin-top: auto;
-  /* margin-bottom: auto; */
-}
-/* .back_text {
+.back_text {
   display: flex;
   align-items: center;
-  gap: 4px;     
-
+  gap: 4px;
   font-size: 14px;
   color: #222;
   cursor: pointer;
-  margin-bottom: 60px;
-} */
+  margin-bottom: 40px;
+  transition: opacity 0.2s ease;
+}
+
+.back_text:hover {
+  opacity: 0.7;
+}
 
 .forgot_password {
   font-size: 14px;
@@ -34,6 +29,11 @@
   cursor: pointer;
   margin-top: -5px;
   margin-bottom: 15px;
+  transition: opacity 0.2s ease;
+}
+
+.forgot_password:hover {
+  opacity: 0.7;
 }
 
 .create_btn {
@@ -46,6 +46,7 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
 .create_btn:hover {

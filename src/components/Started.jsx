@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Started.css";
 import Header from "../components/reuasbleComponents/Header";
 import Footer from "../components/reuasbleComponents/Footer";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Started = () => {
   return (
@@ -20,11 +20,9 @@ const Started = () => {
             </ul>
           </div>
 
-          <button>
-            <NavLink to="/signup" className="NavLink">
-              Continue as Designer
-            </NavLink>
-          </button>
+          <Link to="/signup?role=user">
+            <button> Continue as Designer</button>
+          </Link>
         </div>
 
         <div className="customer_card">
@@ -39,7 +37,9 @@ const Started = () => {
             </ul>
           </div>
 
-          <button>Continue as Customer</button>
+          <Link to="/signup?role=designer" className="btn">
+            <button>Sign Up as Designer</button>
+          </Link>
         </div>
       </div>
     </div>
