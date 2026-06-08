@@ -43,6 +43,9 @@ import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
 import Earning from "./pages/Designer/page/Earning";
 import CollaborationPage from "./pages/Designer/page/Collaboration";
 import Relaibiy from "./pages/Designer/page/Relaibiy";
+import CustomerProfile from "./pages/User/profile/CustomerProfile";
+import CustomerSecurity from "./pages/User/profile/CustomerSecurity";
+import DesignerIsVerifiedSuccessfullyPage from "./pages/kyc/DesignerIsVerifiedSuccessfullyPage";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -61,6 +64,9 @@ const router = createBrowserRouter([
       { path: "profilepage", element: <ProfilePage /> },
       { path: "orderdetails", element: <OrderDetails /> },
       { path: "/successfull", element: <SuccessfulDesignerPage /> },
+      { path: "/designerVerified", element: <DesignerIsVerifiedSuccessfullyPage /> },
+
+
     ],
   },
 
@@ -128,6 +134,11 @@ const router = createBrowserRouter([
       { path: "browsedesigners", element: <BrowseDesigners /> },
       { path: "browsedesigns", element: <BrowseDesign /> },
       { path: "saveddesigners", element: <SavedDesigners /> },
+      { path: "customer-profile", element: <CustomerProfile /> },
+      { path: "customer-security", element: <CustomerSecurity /> },
+
+
+
     ],
   },
 ]);
