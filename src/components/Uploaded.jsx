@@ -24,8 +24,6 @@ const Upload = () => {
         <div className="Image_upload">
           <h2>Add New Design</h2>
           <div className="Upload_box">
-            <h4>Design Image</h4>
-
             {/* The label acts as our main interactive custom container */}
             <label className="Upload_Container_Label">
               {/* Hide the native input completely using an inline style */}
@@ -81,7 +79,7 @@ const Upload = () => {
 
           <div className="Input_box">
             <label>Description</label>
-            <textarea placeholder="Describe the design..." />
+            <input placeholder="Describe the design..." className="boxtext" />
           </div>
         </div>
 

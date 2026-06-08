@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/HeroSection.css";
 import { BsSearch } from "react-icons/bs";
+import imged from "../assets/gbenga/StitchCam.png";
 
 const HeroSection = () => {
   return (
@@ -22,7 +23,7 @@ const HeroSection = () => {
           </div>
         </article>
         <article className="Hero_image_content">
-          <img src={"../assets/gbenga/StitchCam.png"} alt="Fashion Designer" className="Hero_img" />
+          <img src={imged} alt="Fashion Designer" className="Hero_img" />
         </article>
       </section>
     </div>

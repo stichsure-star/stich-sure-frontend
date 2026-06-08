@@ -3,10 +3,8 @@
   min-height: 100vh;
   background-color: #f1eff5;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px 24px 0 24px;
+  justify-content: center;
+  padding: 40px 24px;
   box-sizing: border-box;
   font-family:
     system-ui,
@@ -23,202 +21,147 @@
   background-color: white;
   border-radius: 12px;
   padding: 35px;
-  box-sizing: border-box;
-  margin-bottom: 60px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
+/* HEADER */
 .tracker-header-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  padding-bottom: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .item-title {
   font-size: 24px;
   font-weight: 700;
-  color: #171124;
-  margin: 0 0 6px 0;
 }
 
-.client-assignee {
-  font-size: 14px;
-  color: #554f61;
-  margin: 0 0 6px 0;
-}
-
+.client-assignee,
 .order-id-tag {
   font-size: 14px;
-  color: #171124;
-  font-weight: 600;
-  margin: 0;
-}
-
-.header-meta-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  color: #555;
 }
 
 .currency-amount {
   font-size: 24px;
   font-weight: 700;
-  color: #171124;
-  margin-bottom: 8px;
 }
 
 .badge-pill-status {
-  background-color: #6d8e8a;
-  color: #e5f0ee;
-  padding: 6px 20px;
+  background: #00800033;
+  color: #008000;
+  padding: 6px 34px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.calendar-due-date {
   font-size: 13px;
-  color: #554f61;
-  margin: 0;
+  margin-top: 6px;
 }
 
-.milestones-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 40px;
-}
-
-.milestone-interactive-row {
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.25);
-  border: 1.5px solid #231932;
-  border-radius: 10px;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-.milestone-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a1625;
-  width: 20%;
-  text-align: left;
-}
-
-.milestone-action-prompt {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a1625;
-  width: 80%;
-  text-align: center;
-}
-
+/* PROGRESS */
 .progress-section-block {
-  width: 100%;
+  margin-bottom: 30px;
 }
 
 .progress-label-row {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  font-weight: 700;
-  color: #201830;
-  margin-bottom: 12px;
-}
-
-.progress-title-text {
-  font-weight: 700;
-}
-
-.progress-value-numeric {
   font-weight: 700;
 }
 
 .progress-bar-track-line {
   width: 100%;
   height: 8px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background: #eee;
   border-radius: 4px;
   overflow: hidden;
+  margin-top: 10px;
 }
 
 .progress-bar-fill-indicator {
-  width: 60%;
   height: 100%;
-  background-color: #125631;
-  border-radius: 4px;
+  background: #125631;
+  transition: width 0.3s ease;
 }
 
-.tracker-page-footer {
-  width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 20px 0;
-  margin-top: auto;
-  background-color: white;
+/* MILESTONES */
+.milestones-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.footer-alignment-container {
-  max-width: 940px;
-  margin: 0 auto;
+.milestone-interactive-row {
+  border: 1.5px solid #231932;
+  padding: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  background: white;
 }
 
-.legal-copyright-text {
-  font-size: 13px;
-  color: #554f61;
-  margin: 0;
+.milestone-interactive-row.active {
+  border: 2px solid #125631;
 }
 
-.social-networks-anchors {
-  display: flex;
-  gap: 20px;
-}
-
-.social-networks-anchors a {
-  color: #231932;
-  font-size: 16px;
+/* ICON */
+.icon {
+  margin-right: 8px;
   display: flex;
   align-items: center;
-  text-decoration: none;
+  font-size: 18px;
 }
 
+/* TEXT */
+.milestone-name {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  gap: 6px;
+}
+
+.milestone-action-prompt {
+  font-size: 14px;
+  color: #444;
+}
+
+/* STEP COLORS (CSS ONLY) */
+
+/* Picked Up */
+.picked-up.active {
+  background: #fff4e6;
+}
+.picked-up .icon {
+  color: #f97316;
+}
+
+/* Ready */
+.ready.active {
+  background: #e0f2fe;
+}
+.ready .icon {
+  color: #3b82f6;
+}
+
+/* Delivered */
+.delivered.active {
+  background: #dcfce7;
+}
+.delivered .icon {
+  color: #22c55e;
+}
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
   .tracker-header-row {
     flex-direction: column;
-    gap: 16px;
-  }
-
-  .header-meta-right {
-    align-items: flex-start;
+    gap: 12px;
   }
 
   .milestone-interactive-row {
     flex-direction: column;
+    text-align: center;
     gap: 6px;
-    padding: 14px;
-    text-align: center;
-  }
-
-  .milestone-name,
-  .milestone-action-prompt {
-    width: 100%;
-    text-align: center;
-  }
-
-  .footer-alignment-container {
-    flex-direction: column-reverse;
-    gap: 16px;
-    text-align: center;
   }
 }

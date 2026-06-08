@@ -21,7 +21,7 @@ const DesignerPayment = () => {
 
           <label className="payment-field">
             <span>Account Number</span>
-            <input type="number" placeholder="0123456789" inputMode="numeric" />
+            <input type="text" placeholder="0123456789" inputMode="numeric" />
           </label>
 
           <button type="submit" className="payment-update-button">
