@@ -1,0 +1,125 @@
+.profile-settings-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #f8f8f8;
+  padding: 44px 22px;
+  /* font-family: Georgia, "Times New Roman", serif; */
+  color: #111111;
+}
+
+.profile-settings-card {
+  width: min(100%, 898px);
+  margin: 0 auto;
+  /* background: #ffffff; */
+  background-color: red;
+  border-radius: 8px;
+  padding: 38px 33px 60px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+.profile-settings-card h1 {
+  margin: 0 0 28px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.1;
+  /* background-color: yellow; */
+}
+
+.profile-settings-form {
+  display: grid;
+  gap: 21px;
+}
+
+.profile-field {
+  display: grid;
+  gap: 8px;
+}
+
+.profile-field span {
+  font-size: 11px;
+  line-height: 1;
+  color: #111111;
+}
+
+.profile-field input,
+.profile-field textarea {
+  width: 100%;
+  border: 1px solid #cfd5db;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #8c9299;
+  /* font: 400 11px/1.2 Georgia, "Times New Roman", serif; */
+  outline: none;
+}
+
+.profile-field input {
+  height: 52px;
+  padding: 0 17px;
+}
+
+.profile-field textarea {
+  min-height: 124px;
+  resize: none;
+  padding: 14px 17px;
+}
+
+.profile-field input:focus,
+.profile-field textarea:focus {
+  border-color: #8a001c;
+  box-shadow: 0 0 0 2px rgba(138, 0, 28, 0.08);
+}
+
+.save-profile-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  height: 45px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 7px;
+  background: #8a001c;
+  color: #ffffff;
+  /* font: 700 12px/1 Arial, Helvetica, sans-serif; */
+  cursor: pointer;
+}
+
+.save-profile-button svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+@media (max-width: 768px) {
+  .profile-settings-page {
+    padding: 18px;
+  }
+
+  .profile-settings-card {
+    padding: 14px 0 31px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .profile-settings-card h1 {
+    margin-bottom: 32px;
+    font-size: 18px;
+  }
+
+  .profile-settings-form {
+    gap: 25px;
+  }
+
+  .profile-field {
+    gap: 7px;
+  }
+
+  .profile-field input {
+    height: 52px;
+  }
+
+  .profile-field textarea {
+    min-height: 124px;
+  }
+}

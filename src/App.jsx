@@ -37,6 +37,9 @@ import Signup from "./pages/auth/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
+import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
+import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
+import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -75,6 +78,14 @@ const router = createBrowserRouter([
       { path: "orders", element: <Orders /> },
       { path: "ordertracker", element: <OrderTracker /> },
       { path: "upload", element: <Upload /> },
+      { path: "designerprofile", element: <DesignerProfile /> },
+      { path: "designersecurity", element: <DesignerSecurity /> },
+      { path: "designerpayment", element: <DesignerPayment /> },
+
+
+
+
+
     ],
   },
 
@@ -117,6 +128,7 @@ const router = createBrowserRouter([
 
 // 2. Render the RouterProvider with the defined configuration
 const App = () => {
+
   return <RouterProvider router={router} />;
 };
 
