@@ -37,6 +37,9 @@ import Signup from "./pages/auth/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
+import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
+import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
+import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
 import Earning from "./pages/Designer/page/Earning";
 import CollaborationPage from "./pages/Designer/page/Collaboration";
 import Relaibiy from "./pages/Designer/page/Relaibiy";
@@ -78,6 +81,14 @@ const router = createBrowserRouter([
       { path: "orders", element: <Orders /> },
       { path: "ordertracker", element: <OrderTracker /> },
       { path: "upload", element: <Upload /> },
+      { path: "designerprofile", element: <DesignerProfile /> },
+      { path: "designersecurity", element: <DesignerSecurity /> },
+      { path: "designerpayment", element: <DesignerPayment /> },
+
+
+
+
+
       { path: "earning", element: <Earning /> },
       { path: "collaboration", element: <CollaborationPage /> },
       { path: "ratings", element: <Relaibiy /> },
@@ -123,6 +134,7 @@ const router = createBrowserRouter([
 
 // 2. Render the RouterProvider with the defined configuration
 const App = () => {
+
   return <RouterProvider router={router} />;
 };
 
