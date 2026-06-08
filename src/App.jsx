@@ -17,7 +17,7 @@ import OrderTracker from "./pages/Designer/page/Ordertrackerpage";
 import DashboardLayout from "../src/Layout/DashboardLayout";
 import DashboardHome from "../src/pages/Designer/page/DashboardHome";
 import UserLayout from "../src/Layout/UserLayout";
-import Orders from "../src/pages/Designer/page/Orders";
+import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
 import Register2 from "./pages/auth/Register2";
 import Login2 from "./pages/auth/Login2";
@@ -37,6 +37,12 @@ import Signup from "./pages/auth/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
+import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
+import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
+import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
+import Earning from "./pages/Designer/page/Earning";
+import CollaborationPage from "./pages/Designer/page/Collaboration";
+import Relaibiy from "./pages/Designer/page/Relaibiy";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -75,6 +81,17 @@ const router = createBrowserRouter([
       { path: "orders", element: <Orders /> },
       { path: "ordertracker", element: <OrderTracker /> },
       { path: "upload", element: <Upload /> },
+      { path: "designerprofile", element: <DesignerProfile /> },
+      { path: "designersecurity", element: <DesignerSecurity /> },
+      { path: "designerpayment", element: <DesignerPayment /> },
+
+
+
+
+
+      { path: "earning", element: <Earning /> },
+      { path: "collaboration", element: <CollaborationPage /> },
+      { path: "ratings", element: <Relaibiy /> },
     ],
   },
 
@@ -117,6 +134,7 @@ const router = createBrowserRouter([
 
 // 2. Render the RouterProvider with the defined configuration
 const App = () => {
+
   return <RouterProvider router={router} />;
 };
 

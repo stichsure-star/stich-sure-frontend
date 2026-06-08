@@ -1,0 +1,54 @@
+/* Layout Container for Side-by-Side Cards */
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Tabs Container */
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Base Tab Button Styling */
+.tab-btn {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: #666666;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+/* Active State (e.g., Selected maroon tab) */
+.tab-btn.active {
+  background: #581c24; /* Maroon background from your design */
+  color: #ffffff;
+  border-color: #581c24;
+}
+
+/* Status Badge Variations */
+.status-badge.pending {
+  background-color: #fdf3e7;
+  color: #e29a47;
+}
+.status-badge.active {
+  background-color: #e6f7ed;
+  color: #2e7d32;
+}
+
+/* Dynamic Hiding Class managed by JavaScript */
+.collab-card.hidden {
+  display: none !important;
+}
