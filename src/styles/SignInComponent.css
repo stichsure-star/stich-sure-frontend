@@ -11,7 +11,6 @@
 .get_started_page_container{
     width:min(90%, 900px);
     display:flex;
-    /* background-color: red; */
     justify-content:center;
     align-items:center;
     gap:20px;
@@ -20,9 +19,9 @@
 .designer_card,
 .customer_card{
     width:45%;
-    min-height:55vh;
+    min-height:65vh;
 
-    /* background:white; */
+    background:white;
     background-image:url("../assets/faith/figmaNoiseEffect.png");
     background-size:cover;
     background-position:center;
@@ -43,11 +42,12 @@
     font-weight:500;
 }
 
-.card_text ul{
-    padding-left:20px;
+.card_text h5{
+    font-size: 20px;
+    /* padding-left:20px; */
 }
 
-.card_text li{
+.card_text span{
     font-size:16px;
     line-height:1.8;
     margin-bottom:12px;
@@ -70,7 +70,7 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media(max-width: 768px) {
 
     .get_started_page{
         height: auto;

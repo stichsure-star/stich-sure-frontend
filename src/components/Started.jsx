@@ -20,9 +20,9 @@ const Started = () => {
             </ul>
           </div>
 
-          <Link to="/signup?role=user">
-            <button> Signup as a Designer</button>
-          </Link>
+         
+            <button> Continue as a Designer</button>
+         
         </div>
 
         <div className="customer_card">
@@ -30,16 +30,16 @@ const Started = () => {
             <h2>Customer</h2>
 
             <ul>
-              <li>Get discovered by more customers</li>
-              <li>Manage orders and deadlines easily</li>
-              <li>Build your brand profile online</li>
-              <li>Earn more with reliable delivery</li>
+              <li>Find trusted designers easily</li>
+              <li>Order custom outfits stress-free</li>
+              <li>Track orders in real time </li>
+              <li>View Reviews before choosing</li>
             </ul>
           </div>
 
-          <Link to="/signup?role=designer" className="btn">
-            <button>Sign Up as a Customer</button>
-          </Link>
+          
+            <button> Continue as a Customer</button>
+          
         </div>
       </div>
     </div>
