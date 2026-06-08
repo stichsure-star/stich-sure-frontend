@@ -4,6 +4,7 @@
   background: #fff;
   border-bottom: 1px solid #eee;
   position: sticky;
+  z-index: 9999;
   top: 0;
   display: flex;
   justify-content: space-between;
@@ -78,5 +79,99 @@
     width: 50px;
     height: 50px;
     background-size: contain;
+  }
+}
+
+.Goldie {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+}
+
+/* =========================
+   MAIN BODY
+========================= */
+
+/* =====================
+ MOBILE DRAWER SIDEBAR
+===================== */
+
+.mobile-drawer {
+  position: fixed;
+
+  top: 0;
+  left: -280px;
+
+  width: 260px;
+
+  height: 100vh;
+
+  background: white;
+
+  z-index: 20000;
+
+  transition: 0.3s ease;
+
+  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-drawer.active {
+  left: 0;
+}
+
+.drawer-top {
+  height: 55px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  padding-right: 20px;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.mobile-drawer ul {
+  list-style: none;
+
+  padding: 0;
+
+  margin: 0;
+}
+
+.mobile-drawer li {
+  padding: 18px 20px;
+
+  border-bottom: 1px solid #eee;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+.mobile-drawer li:hover {
+  background: #fafafa;
+}
+
+.overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+
+  z-index: 15000;
+}
+
+@media (min-width: 769px) {
+  .mobile-drawer,
+  .overlay {
+    display: none;
   }
 }

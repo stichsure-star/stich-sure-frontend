@@ -5,7 +5,7 @@
 .Reliability_dashboard {
   width: 100%;
   height: auto;
-  background: #ffffff;
+  background: #92919133;
   border-radius: 12px;
   padding: 24px;
 }
@@ -40,6 +40,7 @@
   height: 20px;
   border-radius: 10px;
   font-weight: bolder;
+  font-size: 10px;
 }
 .Ben {
   font-size: 40px;
@@ -48,9 +49,7 @@
 .Reliability_header {
   width: 99%;
   height: 250px;
-
   background: #6c0319;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -142,12 +141,46 @@
 .Reliability_metrics {
   width: 100%;
   padding: 24px;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 16px;
 }
 
+.Reliability_iconed {
+  width: 50px;
+  height: 50px;
+  color: #eb058c;
+
+  animation: floatUpLoop 2s ease-in-out infinite;
+}
+
+@keyframes floatUpLoop {
+  0% {
+    transform: translateY(10px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0.6;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.Templates_cardContainer {
+  animation: slideUp 0.6s ease forwards;
+}
 .Reliability_metricCard {
   width: 100%;
   height: 110px;
@@ -156,8 +189,9 @@
   border-radius: 12px;
 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  background-color: #ffff;
+
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -178,10 +212,7 @@
 
 .Reliability_content {
   width: 100%;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
+  display: flex;
   gap: 20px;
   padding: 0 24px 24px;
 }
@@ -194,6 +225,7 @@
   border-radius: 12px;
 
   padding: 24px;
+  background-color: #ffff;
 }
 
 .Reliability_card h3 {
@@ -205,14 +237,39 @@
 
 .Reliability_benefitItem {
   width: 100%;
-
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
-
   padding: 14px 0;
-
   border-bottom: 1px solid #f1f1f1;
+  border-top: 1px solid #f1f1f1;
+  background-color: #ffff;
+}
+
+.Reliability_bene {
+  small {
+    padding-left: 30px;
+  }
+}
+.lasyt {
+  h5 {
+    background-color: #6b7280;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.Premium_bat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.blut {
+  width: 30px;
+  height: 30px;
 }
 
 .Reliability_check {
@@ -275,13 +332,13 @@
   width: 100%;
   height: 140px;
 
-  background: #8b0015;
+  background: #6c0319;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  border-radius: 10px;
   gap: 15px;
 }
 
@@ -332,5 +389,237 @@
 
   .Reliability_score {
     font-size: 50px;
+  }
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 1024px) {
+  .Reliability_dashboard {
+    padding: 15px;
+  }
+
+  .Reliability_header {
+    width: 100%;
+    height: auto;
+
+    padding: 30px;
+
+    flex-direction: column;
+
+    gap: 30px;
+  }
+
+  .Reliability_scoreDetails {
+    width: 100%;
+
+    align-items: center;
+  }
+
+  .Reliability_badge,
+  .Reliability_scors {
+    width: 100%;
+  }
+
+  .Reliability_metrics {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    padding: 15px;
+  }
+
+  .Reliability_content {
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 15px;
+  }
+
+  .Reliability_card {
+    width: 100%;
+  }
+}
+
+/* =======================
+   MOBILE
+======================= */
+
+@media (max-width: 600px) {
+  .Reliability_dashboard {
+    padding: 10px;
+  }
+
+  .Reliability_header {
+    width: 100%;
+
+    height: auto;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    flex-direction: row; /* side by side */
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .Reliability_scoreDetails {
+    width: 60%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+  .Reliability_badge {
+    width: 100%;
+
+    justify-content: flex-start;
+
+    gap: 5px;
+  }
+
+  .Reliability_badge p {
+    width: 85px;
+
+    font-size: 9px;
+  }
+
+  .Ben {
+    font-size: 28px;
+  }
+
+  .Reliability_title {
+    font-size: 14px;
+  }
+
+  .Reliability_score {
+    font-size: 36px;
+  }
+
+  /* CIRCLE FIX */
+
+  .Reliability_circle {
+    width: 120px;
+
+    height: 120px;
+
+    flex-shrink: 0;
+  }
+
+  .Reliability_circleInner {
+    width: 90px;
+
+    height: 90px;
+  }
+
+  .Reliability_circleInner span {
+    font-size: 12px;
+  }
+
+  .Reliability_circleInner small {
+    font-size: 14px;
+  }
+
+  .Reliability_metrics {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    padding: 10px 0;
+  }
+
+  .Reliability_metricCard {
+    height: 140px;
+  }
+
+  .Reliability_content {
+    padding: 0;
+
+    gap: 15px;
+  }
+
+  .Reliability_card {
+    padding: 15px;
+
+    min-height: auto;
+  }
+
+  .Reliability_benefitItem {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .Reliability_deliveryRow {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+  .lasyt {
+    width: 100%;
+  }
+
+  .Reliability_footer {
+    height: auto;
+
+    padding: 30px 15px;
+  }
+
+  .Reliability_button {
+    width: 150px;
+  }
+}
+
+/* =======================
+   SMALL PHONES
+======================= */
+
+@media (max-width: 380px) {
+  .Reliability_header {
+    padding: 12px;
+  }
+
+  .Reliability_scoreDetails {
+    width: 55%;
+  }
+
+  .Reliability_circle {
+    width: 100px;
+
+    height: 100px;
+  }
+
+  .Reliability_circleInner {
+    width: 75px;
+
+    height: 75px;
+  }
+
+  .Reliability_score {
+    font-size: 30px;
+  }
+
+  .Reliability_card h3 {
+    font-size: 18px;
   }
 }

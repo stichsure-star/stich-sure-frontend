@@ -79,7 +79,10 @@ const Upload = () => {
 
           <div className="Input_box">
             <label>Description</label>
-            <input placeholder="Describe the design..." className="boxtext" />
+            <textarea
+              placeholder="Describe the design..."
+              className="boxtext"
+            />
           </div>
         </div>
 

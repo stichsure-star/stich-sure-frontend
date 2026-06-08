@@ -40,6 +40,7 @@ import AuthLayout from "./components/AuthLayout";
 import Earning from "./pages/Designer/page/Earning";
 import CollaborationPage from "./pages/Designer/page/Collaboration";
 import Relaibiy from "./pages/Designer/page/Relaibiy";
+import Template from "./pages/Designer/page/Template";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
       { path: "earning", element: <Earning /> },
       { path: "collaboration", element: <CollaborationPage /> },
       { path: "ratings", element: <Relaibiy /> },
+      { path: "templates", element: <Template /> },
     ],
   },
 

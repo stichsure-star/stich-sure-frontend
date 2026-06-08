@@ -1,30 +1,39 @@
 .dashboard {
   width: 100%;
   min-height: 100vh;
+
   padding: 30px;
+
   background: #fafafa;
 
   box-sizing: border-box;
 }
 
-/* title */
+/* =====================
+   TITLE
+===================== */
 
 .dashboard h2 {
   margin: 0;
+
   font-size: 42px;
+
   font-weight: 700;
+}
+
+.mobile-icon-menu-btn {
+  display: none;
 }
 
 .dashboard p {
   font-size: 18px;
+
   color: #555;
 }
 
-/* cards */
-
-.crde {
-  width: 35%;
-}
+/* =====================
+   STATS
+===================== */
 
 .stats {
   width: 100%;
@@ -38,14 +47,24 @@
 
 .cardww {
   width: 25%;
+
   height: 170px;
+
   background: white;
+
   border-radius: 18px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: space-around;
+
   box-shadow: 0 8px 20px #0002;
+}
+
+.crde {
+  width: 35%;
 }
 
 .cardww span {
@@ -55,20 +74,37 @@
 
   display: flex;
 
-  align-items: center;
   justify-content: center;
 
-  background: #eee;
+  align-items: center;
+
+  background: #00800033;
 
   border-radius: 14px;
 
   font-size: 24px;
 }
 
-.cardww b {
-  right: 35px;
+.father {
+  width: 55px;
 
-  top: 65px;
+  height: 55px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #c8a96b;
+
+  border-radius: 14px;
+
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.cardww b {
   font-size: 30px;
 
   font-weight: 700;
@@ -76,10 +112,13 @@
 
 .cardww small {
   font-size: 13px;
+
   color: #777;
 }
 
-/* business */
+/* =====================
+   BUSINESS
+===================== */
 
 .business {
   margin-top: 35px;
@@ -125,7 +164,9 @@
   font-size: 16px;
 }
 
-/* orders */
+/* =====================
+   ORDERS
+===================== */
 
 .orders {
   margin-top: 40px;
@@ -136,73 +177,243 @@
 
   padding: 35px;
 
-  box-sizing: border-box;
+  border-radius: 16px;
 
-  overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .orders h3 {
   font-size: 28px;
 }
 
-table {
+.order-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.order-card {
   width: 100%;
 
-  border-collapse: collapse;
+  background: white;
 
-  font-size: 17px;
+  border: 1px solid #eee;
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 5px 15px #0001;
 }
 
-th {
-  background: #eee;
+.order-card h4 {
+  margin: 0 0 15px;
 
-  height: 60px;
+  font-size: 20px;
 }
 
-td {
-  height: 60px;
+.order-card p {
+  margin: 8px 0;
 
-  text-align: center;
+  font-size: 15px;
+
+  color: #555;
 }
 
-/* tablet */
+.order-card b {
+  color: #111;
+}
 
-@media (max-width: 900px) {
+/* hide old table */
+
+.orders table {
+  display: none;
+}
+
+/* =====================
+   TABLET
+===================== */
+
+@media (max-width: 1000px) {
+  .dashboard {
+    padding: 25px 20px;
+  }
+
   .stats {
-    flex-wrap: wrap;
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
   }
 
-  .card {
-    width: 45%;
+  .cardww {
+    width: 100%;
+  }
+
+  .Picky {
+    display: none;
   }
 }
 
-/* phone */
+/* =====================
+   MOBILE
+===================== */
 
 @media (max-width: 600px) {
   .dashboard {
-    padding: 90px 20px 30px;
+    padding: 75px 15px 30px;
   }
 
   .dashboard h2 {
-    font-size: 30px;
+    font-size: 24px;
   }
+
+  .dashboard p {
+    font-size: 14px;
+  }
+
+  /* stats */
 
   .stats {
+    display: flex;
+
     flex-direction: column;
+
+    gap: 18px;
+
+    margin-top: 25px;
   }
 
-  .card {
+  .cardww {
     width: 100%;
 
-    height: 140px;
+    height: 160px;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
   }
+
+  .crde {
+    width: auto;
+  }
+
+  .cardww span {
+    width: 55px;
+
+    height: 55px;
+
+    font-size: 22px;
+  }
+
+  .cardww small {
+    font-size: 15px;
+  }
+
+  .cardww b {
+    font-size: 32px;
+  }
+
+  /* business */
 
   .business {
     height: auto;
+
+    padding: 25px 20px;
+
+    margin-top: 25px;
   }
 
-  table {
-    min-width: 800px;
+  .business h3 {
+    font-size: 22px;
+  }
+
+  .business p {
+    font-size: 15px;
+  }
+
+  .business button {
+    width: 130px;
+
+    height: 42px;
+
+    font-size: 13px;
+  }
+
+  /* orders */
+
+  .orders {
+    margin-top: 30px;
+
+    padding: 15px;
+  }
+
+  .orders h3 {
+    font-size: 22px;
+  }
+
+  .order-card {
+    padding: 18px;
+
+    border-radius: 14px;
+  }
+
+  .order-card h4 {
+    font-size: 18px;
+  }
+
+  .order-card p {
+    font-size: 14px;
+
+    margin: 10px 0;
+  }
+
+  .mobile-icon-menu-btn {
+    display: block;
+  }
+
+  .Picky {
+    display: none;
+  }
+}
+
+/* SMALL PHONE */
+
+@media (max-width: 380px) {
+  .dashboard {
+    padding-left: 10px;
+
+    padding-right: 10px;
+  }
+
+  .cardww {
+    height: 145px;
+  }
+
+  .cardww b {
+    font-size: 26px;
+  }
+
+  .business {
+    padding: 20px 15px;
+  }
+
+  .order-card {
+    padding: 15px;
+  }
+
+  .mobile-icon-menu-btn {
+    display: block;
+  }
+
+  .Picky {
+    display: none;
   }
 }

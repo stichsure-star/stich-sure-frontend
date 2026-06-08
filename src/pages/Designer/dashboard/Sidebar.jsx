@@ -2,12 +2,13 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import { GoHome } from "react-icons/go";
-import { RiImageAddFill } from "react-icons/ri";
-import { IoIosCard } from "react-icons/io";
-import { PiHandshakeFill } from "react-icons/pi";
-import { FaStar } from "react-icons/fa6";
-import { IoShirtOutline, IoSettings } from "react-icons/io5";
-import { HiCube } from "react-icons/hi2";
+import { RiImageAddLine } from "react-icons/ri";
+import { GoCreditCard } from "react-icons/go";
+import { PiHandshakeLight } from "react-icons/pi";
+import { IoStarOutline } from "react-icons/io5";
+import { IoShirtOutline, IoSettingsOutline } from "react-icons/io5";
+import { IoCubeOutline } from "react-icons/io5";
+
 import { MdLogout } from "react-icons/md";
 
 const Sidebar = () => {
@@ -21,27 +22,27 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink to="/designer/upload" className="link">
-          <RiImageAddFill className="trd" />
+          <RiImageAddLine className="trd" />
           Upload Designs
         </NavLink>
 
         <NavLink to="/designer/ordertracker" className="link">
-          <HiCube className="trd" />
+          <IoCubeOutline className="trd" />
           Active Orders
         </NavLink>
 
         <NavLink to="/designer/earning" className="link">
-          <IoIosCard className="trd" />
+          <GoCreditCard className="trd" />
           Earnings & Wallet
         </NavLink>
 
         <NavLink to="/designer/collaboration" className="link">
-          <PiHandshakeFill className="trd" />
+          <PiHandshakeLight className="trd" />
           Collaboration
         </NavLink>
 
         <NavLink to="/designer/ratings" className="link">
-          <FaStar className="trd" />
+          <IoStarOutline className="trd" />
           Reliability Ratings
         </NavLink>
 
@@ -51,7 +52,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink to="/settings" className="link">
-          <IoSettings className="trd" />
+          <IoSettingsOutline className="trd" />
           Settings
         </NavLink>
       </div>
