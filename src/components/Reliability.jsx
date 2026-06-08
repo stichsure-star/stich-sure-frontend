@@ -10,6 +10,7 @@ import { PiHandshakeBold } from "react-icons/pi";
 import { CiCalendar } from "react-icons/ci";
 import { GrLineChart } from "react-icons/gr";
 import { MdOutlineTimer } from "react-icons/md";
+import { SiActiveloop } from "react-icons/si";
 
 const Reliability = () => {
   const Templates_benefits = [
@@ -127,7 +128,7 @@ const Reliability = () => {
 
         <div className="Reliability_metricCard">
           <div>
-            <IoMdCheckmarkCircleOutline className="Reliability_iconed" />
+            <SiActiveloop className="Reliability_iconed" />
           </div>
           <div>
             <h3>12</h3>

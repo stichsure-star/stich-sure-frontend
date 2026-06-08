@@ -44,7 +44,7 @@ const Header = () => {
 
       <div className={`mobile-drawer ${open ? "active" : ""}`}>
         <div className="drawer-top" onClick={() => setOpen(false)}>
-          ✕
+          <img src={Img} alt="Logo" className="bet" />
         </div>
 
         <ul>

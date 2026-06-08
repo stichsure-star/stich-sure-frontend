@@ -37,10 +37,16 @@ import Signup from "./pages/auth/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
+import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
+import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
+import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
 import Earning from "./pages/Designer/page/Earning";
 import CollaborationPage from "./pages/Designer/page/Collaboration";
 import Relaibiy from "./pages/Designer/page/Relaibiy";
 import Template from "./pages/Designer/page/Template";
+import Setting from "./pages/Designer/page/Setting";
+import Try from "./pages/Designer/page/Try";
+import ActiveOrder from "./pages/Designer/page/Active";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -83,6 +89,8 @@ const router = createBrowserRouter([
       { path: "collaboration", element: <CollaborationPage /> },
       { path: "ratings", element: <Relaibiy /> },
       { path: "templates", element: <Template /> },
+      { path: "setting", element: <Setting /> },
+      { path: "active", element: <ActiveOrder /> },
     ],
   },
 

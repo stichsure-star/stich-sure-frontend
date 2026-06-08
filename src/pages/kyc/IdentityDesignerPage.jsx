@@ -6,7 +6,7 @@ import Footer from "../../components/reuasbleComponents/Footer";
 const IdentityDesignerPage = ({ onNext, onPrev }) => {
   return (
     <div>
-      <DesignerVerification />
+      <hi>hi</hi>
     </div>
   );
 };

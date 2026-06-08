@@ -26,7 +26,7 @@ const Sidebar = () => {
           Upload Designs
         </NavLink>
 
-        <NavLink to="/designer/ordertracker" className="link">
+        <NavLink to="/designer/active" className="link">
           <IoCubeOutline className="trd" />
           Active Orders
         </NavLink>
@@ -51,7 +51,7 @@ const Sidebar = () => {
           Style Templates
         </NavLink>
 
-        <NavLink to="/settings" className="link">
+        <NavLink to="/designer/setting" className="link">
           <IoSettingsOutline className="trd" />
           Settings
         </NavLink>

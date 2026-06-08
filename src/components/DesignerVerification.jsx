@@ -26,16 +26,16 @@ const DesignerVerification = () => {
 
   const renderStepContent = () => {
     switch (currentStep) {
-      // case 1:
-      //   return <IdentityDesignerPage onNext={handleNext} />;
       case 1:
-        return <InformationDesigner onNext={handleNext} onPrev={handlePrev} />;
+        return <IdentityDesignerPage onNext={handleNext} />;
       case 2:
-        return <WalletDesigner onNext={handleNext} onPrev={handlePrev} />;
+        return <InformationDesigner onNext={handleNext} onPrev={handlePrev} />;
       case 3:
-        return <ProfilePage onNext={handleNext} onPrev={handlePrev} />;
+        return <WalletDesigner onNext={handleNext} onPrev={handlePrev} />;
       case 4:
-        return <SuccessfulDesignerPage />;
+        return <ProfilePage onNext={handleNext} onPrev={handlePrev} />;
+      case 5:
+        return <SuccessfulDesignerPage onPrev={handlePrev} />;
       default:
         return null;
     }
