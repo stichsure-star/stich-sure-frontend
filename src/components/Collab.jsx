@@ -4,6 +4,7 @@ import "../pages/Designer/css/Collaborator.css";
 import FindCollaborators from "../pages/Designer/components/FindCollaborators";
 import IncomingCollab from "../pages/Designer/components/IncomingCollab";
 import MyCollab from "../pages/Designer/components/MyCollab";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const Collab = () => {
   const [activeTab, setActiveTab] = useState("find");

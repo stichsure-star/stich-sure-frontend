@@ -5,6 +5,7 @@
   padding: 20px 44px;
   /* font-family: Georgia, "Times New Roman", serif; */
   color: #111111;
+  font-family: "El Messiri", sans-serif;
 }
 
 .designer-payment-panel {
@@ -14,7 +15,7 @@
 
 .designer-payment-panel h1 {
   margin: 0 0 27px;
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 400;
   line-height: 1.1;
 }
@@ -30,7 +31,7 @@
 .payment-current-account span,
 .payment-field span {
   display: block;
-  font-size: 11px;
+  font-size: 18px;
   line-height: 1;
   color: #111111;
 }

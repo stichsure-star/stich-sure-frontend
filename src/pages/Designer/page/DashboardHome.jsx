@@ -1,15 +1,23 @@
 import "../../Designer/css/DashboardHome.css";
+import { TbCubeSpark } from "react-icons/tb";
+import { LuDollarSign } from "react-icons/lu";
+import { FaRegStar } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
     <main className="dashboard">
       <h2>Welcome Back, Adebayo!</h2>
+
       <p>Here's what's happening with your business today</p>
+
+      {/* STATS */}
 
       <div className="stats">
         <div className="cardww">
           <div className="crde">
-            <span>₦</span>
+            <span>
+              <TbCubeSpark />
+            </span>
             <small>Active Orders</small>
           </div>
 
@@ -18,7 +26,9 @@ const Dashboard = () => {
 
         <div className="cardww">
           <div className="crde">
-            <span>₦</span>
+            <span>
+              <LuDollarSign />
+            </span>
             <small>Total Earnings</small>
           </div>
 
@@ -27,15 +37,18 @@ const Dashboard = () => {
 
         <div className="cardww">
           <div className="crde">
-            <span>₦</span>
+            <div className="father">
+              <FaRegStar />
+            </div>
             <small>Avg. Rating</small>
           </div>
+
           <b>4.9</b>
         </div>
 
         <div className="cardww">
           <div className="crde">
-            <span>◎</span>
+            <div className="father">◎</div>
             <small>Completed</small>
           </div>
 
@@ -43,45 +56,70 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* BUSINESS */}
+
       <section className="business">
         <h3>Grow Your Business</h3>
+
         <p>Upload new designs and respond to customer requests</p>
 
         <button>↥ Upload Designs</button>
       </section>
 
+      {/* ACTIVE ORDERS */}
+
       <section className="orders">
         <h3>Active Order</h3>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Time placed</th>
-              <th>Customer</th>
-              <th>Items</th>
-              <th>Order Value</th>
-            </tr>
-          </thead>
+        <div className="order-list">
+          <div className="order-card">
+            <h4>Bridal Gown</h4>
 
-          <tbody>
-            <tr>
-              <td>QI-245678</td>
-              <td>14/04/2026, 5:15</td>
-              <td>Sonayon Peculiar</td>
-              <td>Bridal Gown</td>
-              <td>₦200,000</td>
-            </tr>
+            <p>
+              <b>Name:</b> Sonayon Peculiar
+            </p>
 
-            <tr>
-              <td>QI-245678</td>
-              <td>14/04/2026, 5:15</td>
-              <td>Sonayon Peculiar</td>
-              <td>Bridal Gown</td>
-              <td>₦200,000</td>
-            </tr>
-          </tbody>
-        </table>
+            <p>
+              <b>Order ID:</b> QI-245678
+            </p>
+
+            <p>
+              <b>Items:</b> Bridal Gown
+            </p>
+
+            <p>
+              <b>Price:</b> ₦200,000
+            </p>
+
+            <p>
+              <b>Time placed:</b> 14/04/2026. 3:15
+            </p>
+          </div>
+
+          <div className="order-card">
+            <h4>Bridal Gown</h4>
+
+            <p>
+              <b>Name:</b> Sonayon Peculiar
+            </p>
+
+            <p>
+              <b>Order ID:</b> QI-245678
+            </p>
+
+            <p>
+              <b>Items:</b> Bridal Gown
+            </p>
+
+            <p>
+              <b>Price:</b> ₦200,000
+            </p>
+
+            <p>
+              <b>Time placed:</b> 14/04/2026. 3:15
+            </p>
+          </div>
+        </div>
       </section>
     </main>
   );

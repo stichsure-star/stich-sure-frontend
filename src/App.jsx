@@ -43,6 +43,10 @@ import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
 import Earning from "./pages/Designer/page/Earning";
 import CollaborationPage from "./pages/Designer/page/Collaboration";
 import Relaibiy from "./pages/Designer/page/Relaibiy";
+import Template from "./pages/Designer/page/Template";
+import Setting from "./pages/Designer/page/Setting";
+import Try from "./pages/Designer/page/Try";
+import ActiveOrder from "./pages/Designer/page/Active";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -81,17 +85,12 @@ const router = createBrowserRouter([
       { path: "orders", element: <Orders /> },
       { path: "ordertracker", element: <OrderTracker /> },
       { path: "upload", element: <Upload /> },
-      { path: "designerprofile", element: <DesignerProfile /> },
-      { path: "designersecurity", element: <DesignerSecurity /> },
-      { path: "designerpayment", element: <DesignerPayment /> },
-
-
-
-
-
       { path: "earning", element: <Earning /> },
       { path: "collaboration", element: <CollaborationPage /> },
       { path: "ratings", element: <Relaibiy /> },
+      { path: "templates", element: <Template /> },
+      { path: "setting", element: <Setting /> },
+      { path: "active", element: <ActiveOrder /> },
     ],
   },
 
@@ -134,7 +133,6 @@ const router = createBrowserRouter([
 
 // 2. Render the RouterProvider with the defined configuration
 const App = () => {
-
   return <RouterProvider router={router} />;
 };
 

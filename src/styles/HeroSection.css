@@ -137,10 +137,11 @@
     width: 130px;
     height: 30px;
     display: flex;
-    font-size: 9px;
+    font-size: 12px;
     justify-content: start;
     align-items: center;
     gap: 1px;
+    padding: 10px;
   }
   .Hero_image_content {
     width: 100%;

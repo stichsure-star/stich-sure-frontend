@@ -80,3 +80,98 @@
     background-size: contain;
   }
 }
+
+/* =====================
+ MOBILE DRAWER SIDEBAR
+===================== */
+
+.mobile-drawed {
+  position: fixed;
+
+  top: 0;
+  left: -280px;
+
+  width: 260px;
+
+  height: 100vh;
+
+  background: white;
+
+  z-index: 20000;
+
+  transition: 0.3s ease;
+
+  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.avatared {
+  display: none;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  gap: 2px;
+}
+
+.mobile-drawed.active {
+  left: 0;
+}
+
+.drawer-ted {
+  height: 55px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  padding-right: 20px;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.mobile-drawed ul {
+  list-style: none;
+
+  padding: 0;
+
+  margin: 0;
+}
+
+.mobile-drawed li {
+  padding: 18px 20px;
+
+  border-bottom: 1px solid #eee;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+.mobile-drawed li:hover {
+  background: #fafafa;
+}
+
+.overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+
+  z-index: 15000;
+}
+
+@media (min-width: 769px) {
+  .mobile-drawed,
+  .overlay {
+    display: none;
+  }
+}
