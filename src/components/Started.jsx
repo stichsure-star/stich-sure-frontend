@@ -20,9 +20,9 @@ const Started = () => {
             </ul>
           </div>
 
-          <Link to="/signup?role=user">
+         
             <button> Continue as a Designer</button>
-          </Link>
+         
         </div>
 
         <div className="customer_card">
@@ -37,9 +37,9 @@ const Started = () => {
             </ul>
           </div>
 
-          <Link to="/signup?role=designer" className="btn">
+          
             <button> Continue as a Customer</button>
-          </Link>
+          
         </div>
       </div>
     </div>

@@ -263,13 +263,13 @@
   .Footer_icons {
     width: 80%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: start;
   }
 
   .Footeric {
-    width: 20%;
-    height: 10%;
+    width: 10%;
+    height: 5%;
     color: black;
     background-color: #f1f1f1;
     border-radius: 10px;

@@ -1,24 +1,80 @@
 import React from "react";
 import "../styles/Reliablity.css";
 import { LiaCertificateSolid } from "react-icons/lia";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { RiCoinsLine } from "react-icons/ri";
+import { FaRegStar } from "react-icons/fa";
+import { MdVerifiedUser } from "react-icons/md";
+import { BsLightningCharge } from "react-icons/bs";
+import { PiHandshakeBold } from "react-icons/pi";
+import { CiCalendar } from "react-icons/ci";
+import { GrLineChart } from "react-icons/gr";
+import { MdOutlineTimer } from "react-icons/md";
+import { SiActiveloop } from "react-icons/si";
 
 const Reliability = () => {
-  const benefits = [
-    "Priority Dispatch",
-    "Faster Payouts",
-    "Exclusive Access",
-    "Express Order Support",
-    "Platform Visibility",
+  const Templates_benefits = [
+    {
+      id: 1,
+      title: "Premium Pricing",
+      description: "Charge 15–25% higher prices due to proven reliability",
+      icon: <RiCoinsLine />,
+    },
+    {
+      id: 2,
+      title: "Priority Visibility",
+      description: "Featured in top search results and recommendations",
+      icon: <FaRegStar />,
+    },
+    {
+      id: 3,
+      title: "Verified Badge",
+      description: 'Display "Certified Timely" badge on your profile',
+      icon: <MdVerifiedUser />,
+    },
+    {
+      id: 4,
+      title: "Express Order Access",
+      description: "Eligible to accept high-paying express orders",
+      icon: <BsLightningCharge />,
+    },
+    {
+      id: 5,
+      title: "Platform Partnership",
+      description: "Unlock at 98% on-time rate for exclusive opportunities",
+      icon: <PiHandshakeBold />,
+    },
   ];
-
-  const deliveries = [
-    { title: "Order No.1", status: "DELIVERED" },
-    { title: "Order No.2", status: "DELIVERED" },
-    { title: "Customer Return", status: "RETURNED" },
-    { title: "Address Error", status: "MISSED" },
-    { title: "Late Delivery", status: "DELIVERED" },
+  const Templates_orders = [
+    {
+      id: 1,
+      title: "Bridal Gown",
+      customer: "Faith E.",
+      status: "1 day early",
+      due: "May 10",
+    },
+    {
+      id: 2,
+      title: "Agbada Set",
+      customer: "Kalu D.",
+      status: "On Time",
+      due: "May 12",
+    },
+    {
+      id: 3,
+      title: "Corporate Suit",
+      customer: "Blessing O.",
+      status: "1 day early",
+      due: "May 15",
+    },
+    {
+      id: 4,
+      title: "Ankara Dress",
+      customer: "Prince U.",
+      status: "2 days late",
+      due: "May 18",
+    },
   ];
-
   return (
     <div className="Reliability_dashboard">
       {/* Header */}
@@ -61,23 +117,44 @@ const Reliability = () => {
 
       <div className="Reliability_metrics">
         <div className="Reliability_metricCard">
-          <h3>94%</h3>
-          <p>Rating</p>
+          <div>
+            <GrLineChart className="Reliability_iconed" />
+          </div>
+          <div>
+            <h3>94%</h3>
+            <p>Rating</p>
+          </div>
         </div>
 
         <div className="Reliability_metricCard">
-          <h3>12</h3>
-          <p>Days Active</p>
+          <div>
+            <SiActiveloop className="Reliability_iconed" />
+          </div>
+          <div>
+            <h3>12</h3>
+            <p>Days Active</p>
+          </div>
         </div>
 
         <div className="Reliability_metricCard">
-          <h3>4.9/5</h3>
-          <p>Reviews</p>
+          <div>
+            <IoMdCheckmarkCircleOutline className="Reliability_iconed" />
+          </div>
+          <div>
+            {" "}
+            <h3>4.9/5</h3>
+            <p>Reviews</p>
+          </div>
         </div>
 
         <div className="Reliability_metricCard">
-          <h3>2 hrs</h3>
-          <p>Response</p>
+          <div>
+            <MdOutlineTimer className="Reliability_iconed" />
+          </div>
+          <div>
+            <h3>2 hrs</h3>
+            <p>Response</p>
+          </div>
         </div>
       </div>
 
@@ -87,10 +164,16 @@ const Reliability = () => {
         <div className="Reliability_card">
           <h3>Premium Benefits</h3>
 
-          {benefits.map((benefit, index) => (
-            <div key={index} className="Reliability_benefitItem">
-              <span className="Reliability_check">✓</span>
-              <span>{benefit}</span>
+          {Templates_benefits.map((item, index) => (
+            <div className="Reliability_benefitItem" key={index}>
+              <div className="Reliability_bene">
+                <article className="Premium_bat">
+                  {item.icon}
+                  <h5>{item.title}</h5>
+                  <span className="Reliability_check">✓</span>
+                </article>
+                <small>{item.description}</small>
+              </div>
             </div>
           ))}
         </div>
@@ -98,15 +181,17 @@ const Reliability = () => {
         <div className="Reliability_card">
           <h3>Recent Delivery Performance</h3>
 
-          {deliveries.map((delivery, index) => (
-            <div key={index} className="Reliability_deliveryRow">
-              <span>{delivery.title}</span>
-
-              <span
-                className={`Reliability_badge Reliability_${delivery.status.toLowerCase()}`}
-              >
-                {delivery.status}
-              </span>
+          {Templates_orders.map((item, index) => (
+            <div className="Reliability_deliveryRow">
+              <div>
+                <h5>{item.title} </h5>
+                <small>Customer:{item.customer}</small>
+              </div>
+              <div className="lasyt">
+                <h5>{item.status}</h5>
+                <br />
+                <CiCalendar /> <small>Due:{item.due}</small>
+              </div>
             </div>
           ))}
         </div>

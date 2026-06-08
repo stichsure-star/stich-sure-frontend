@@ -16,7 +16,7 @@
   background-position: center;
   background-blend-mode: screen;
 
-  overflow-x: hidden; /* FIX */
+  overflow-x: hidden;
 }
 
 .Ratings_wrapper {
@@ -32,12 +32,12 @@
 
   h1 {
     width: 700px;
-    max-width: 100%; /* FIX */
+    max-width: 100%;
     height: 77px;
 
     font-style: bolder;
     font-weight: 500;
-    font-size: 64px;
+    font-size: 60px;
   }
 
   p {

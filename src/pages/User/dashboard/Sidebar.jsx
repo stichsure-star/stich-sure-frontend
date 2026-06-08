@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-("../../User/css/Sidebar.css");
+import "../../Designer/dashboard/Sidebar.css";
 import { GoHome } from "react-icons/go";
 import { RiImageAddFill } from "react-icons/ri";
 import { IoIosCard } from "react-icons/io";
