@@ -6,6 +6,7 @@ import InformationDesigner from "../pages/kyc/InformationDesigner";
 import ProfilePage from "../pages/kyc/ProfilePage";
 import SuccessfulDesignerPage from "../pages/kyc/SuccessfulDesignerPage";
 import WalletDesigner from "../pages/kyc/WalletDesigner";
+import DesignerIsVerifiedSuccessfullyPage from "../pages/kyc/DesignerIsVerifiedSuccessfullyPage";
 
 const steps = [1, 2, 3, 4, 5];
 
@@ -26,15 +27,15 @@ const DesignerVerification = () => {
 
   const renderStepContent = () => {
     switch (currentStep) {
-      // case 1:
-      //   return <IdentityDesignerPage onNext={handleNext} />;
       case 1:
-        return <InformationDesigner onNext={handleNext} onPrev={handlePrev} />;
+        return <DesignerIsVerifiedSuccessfullyPage onNext={handleNext} />;
       case 2:
-        return <WalletDesigner onNext={handleNext} onPrev={handlePrev} />;
+        return <InformationDesigner onNext={handleNext} onPrev={handlePrev} />;
       case 3:
-        return <ProfilePage onNext={handleNext} onPrev={handlePrev} />;
+        return <WalletDesigner onNext={handleNext} onPrev={handlePrev} />;
       case 4:
+        return <ProfilePage onNext={handleNext} onPrev={handlePrev} />;
+      case 5:
         return <SuccessfulDesignerPage />;
       default:
         return null;

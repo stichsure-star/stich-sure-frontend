@@ -31,7 +31,7 @@
 }
 
 
-.verification-card {
+/* .verification-card {
   width: 100%;
   max-width:400px;
   text-align: center;
@@ -100,11 +100,11 @@
 
 .verify-btn:hover {
   opacity: 0.9;
-}
+} */
 
 
 @media (max-width: 768px) {
-  .verification-card h2 {
+  /* .verification-card h2 {
     font-size: 24px;
   }
 
@@ -115,7 +115,7 @@
 
   .shield-icon {
     font-size: 50px;
-  }
+  } */
 
   .progress-wrapper {
     max-width: 400px;
