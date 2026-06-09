@@ -7,7 +7,7 @@ import mensenator from "../assets/daniel/Menwear.png";
 import womendesign from "../assets/daniel/Newlady.png";
 import fibre from "../assets/daniel/Crosslane.png";
 import menstyle from "../assets/daniel/Mencross.png";
-import cleanwear from "../assets/daniel/coollace.png";
+import cleanwear from "../assets/daniel/Coollace.png";
 
 
 function DesignersGrid() {
