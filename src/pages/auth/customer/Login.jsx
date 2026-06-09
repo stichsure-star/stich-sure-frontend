@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../../styles/Login.css";
 import { IoChevronBack } from "react-icons/io5";
+import { FaRegDotCircle } from "react-icons/fa";
 import InputField from "../../../components/reuasbleComponents/InputField";
 import AuthCard from "../../../components/reuasbleComponents/AuthCard";
 import { NavLink } from "react-router-dom";
