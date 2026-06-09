@@ -10,7 +10,7 @@
 }
 
 
-.progress-wrapper {
+/* .progress-wrapper {
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -28,7 +28,7 @@
 
 .progress-step.active {
   background: #7c0f2b;
-}
+} */
 
 
 .verification-card {

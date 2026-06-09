@@ -11,6 +11,7 @@
 .get_started_page_container{
     width:min(90%, 900px);
     display:flex;
+    /* background-color: red; */
     justify-content:center;
     align-items:center;
     gap:20px;
@@ -19,9 +20,9 @@
 .designer_card,
 .customer_card{
     width:45%;
-    min-height:65vh;
+    min-height:55vh;
 
-    background:white;
+    /* background:white; */
     background-image:url("../assets/faith/figmaNoiseEffect.png");
     background-size:cover;
     background-position:center;

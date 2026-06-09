@@ -10,6 +10,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+const [role, setRole] = useState("designer");
+
 
   const handleChange = (e) => {
     setFormData({
@@ -27,11 +29,59 @@ const Login = () => {
   return (
     <div className="login_content">
       <div className="login_header">
-        <p className="back_text">
+
+        <NavLink
+          to="/signup"
+          className="back_text_link"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <p className="back_text">
           <IoChevronBack />
           Back
         </p>
+        </NavLink>
       </div>
+
+    <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    marginBottom: "20px",
+  }}
+>
+  <button
+    onClick={() => setRole("designer")}
+    style={{
+      padding: "10px 20px",
+      border: "1px solid #8B0000",
+      borderRadius: "20px",
+      backgroundColor: role === "designer" ? "#8B0000" : "white",
+      color: role === "designer" ? "white" : "#8B0000",
+      cursor: "pointer",
+    }}
+  >
+    Login as Designer
+  </button>
+
+  <button
+    onClick={() => setRole("customer")}
+    style={{
+      padding: "10px 20px",
+      border: "1px solid #8B0000",
+      borderRadius: "20px",
+      backgroundColor: role === "customer" ? "#8B0000" : "white",
+      color: role === "customer" ? "white" : "#8B0000",
+      cursor: "pointer",
+    }}
+  >
+    Login as Customer
+  </button>
+</div>
       <AuthCard
         title="Welcome Back"
         subtitle="Login to continue enjoying our services"
@@ -69,8 +119,8 @@ const Login = () => {
 
         <p className="forgot_password">
           Don't have an account?
-          <NavLink to="/signup" className="NavLinked">
-            Sign Up
+          <NavLink to="/getstarted" className="NavLinked">
+            Get Started
           </NavLink>
         </p>
       </AuthCard>
