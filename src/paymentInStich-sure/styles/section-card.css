@@ -1,0 +1,50 @@
+.section-card {
+  /* background: #ffffff; */
+  /* background-color: yellow; */
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.section-title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.payment-method-kora {
+  display: flex;
+}
+
+.kora-box {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kora-logo {
+  font-weight: 700;
+}
+.checkout-btn {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  background-color: hsl(0, 85%, 50%);
+  color: #fff;
+
+  transition: 0.3s ease;
+}
+
+.checkout-btn:hover {
+  opacity: 0.9;
+}

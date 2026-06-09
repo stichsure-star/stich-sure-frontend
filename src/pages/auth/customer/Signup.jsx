@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoChevronBack } from "react-icons/io5";
-import InputField from "../../components/reuasbleComponents/InputField";
-import AuthCard from "../../components/reuasbleComponents/AuthCard";
-import "../../styles/Signup.css";
+import InputField from "../../../components/reuasbleComponents/InputField";
+import AuthCard from "../../../components/reuasbleComponents/AuthCard";
+import "../../../styles/Signup.css"
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -36,14 +36,14 @@ const Signup = () => {
 
   return (
     <div className="signup_content">
-       <div className="back_home" onClick={() => navigate("/")}>
+    <div className="back_home" onClick={() => navigate("/")}>
       <IoChevronBack />
       <span>Back to Home</span>
    
     </div>
       <AuthCard
-        title="Create an account"
-        subtitle="Create your professional designer account to receive orders, manage deliveries and grow your fashion business."
+        title="Create a customer "
+        subtitle="Create your customer designer account to receive orders, manage deliveries and grow your fashion business."
         buttonText="Create Account"
         onSubmit={handleSubmit}
       >
