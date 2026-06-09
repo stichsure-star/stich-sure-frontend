@@ -20,7 +20,7 @@ import UserLayout from "../src/Layout/UserLayout";
 import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
 import Register2 from "./pages/auth/Register2";
-import Login2 from "./pages/auth/Login2";
+// import Login2 from "./pages/auth/Login2";
 import PasswordForgotten2 from "./pages/auth/PasswordForgotten2";
 import PasswordReset2 from "./pages/auth/PasswordReset2";
 import OtpVerification2 from "./pages/auth/OtpVerification2";
@@ -33,7 +33,9 @@ import BrowseDesigners from "./pages/User/page/BrowseDesigners";
 import BrowseDesign from "./pages/User/page/BrowseDesign";
 import SavedDesigners from "./pages/User/page/SavedDesigners";
 import Login from "./pages/auth/Login";
+import Login2 from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import Signup2 from "./pages/auth/customer/Signup"
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
@@ -50,6 +52,8 @@ import Template from "./pages/Designer/page/Template";
 import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
+import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
+import Login3 from "./pages/auth/customer/Login"
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -69,6 +73,10 @@ const router = createBrowserRouter([
       { path: "orderdetails", element: <OrderDetails /> },
       { path: "/successfull", element: <SuccessfulDesignerPage /> },
       { path: "/designerVerified", element: <DesignerIsVerifiedSuccessfullyPage /> },
+      { path: "/checkout", element: <CheckoutPage /> },
+   
+
+
 
 
     ],
@@ -110,6 +118,15 @@ const router = createBrowserRouter([
   {
     element: <AuthLayout imageClassName="signup_image_section" />,
     children: [{ path: "/signup", element: <Signup /> }],
+  },
+  // Customer
+  {
+    element: <AuthLayout imageClassName="signup_image_section" />,
+    children: [{ path: "/signup2", element: <Signup2 /> }],
+  },
+  {
+    element: <AuthLayout imageClassName="signup_image_section" />,
+    children: [{ path: "/login3", element: <Login3 /> }],
   },
   {
     element: <AuthLayout imageClassName="forgot_image_section" />,

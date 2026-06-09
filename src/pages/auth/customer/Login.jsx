@@ -1,8 +1,9 @@
 import { useState } from "react";
-import "../../styles/Login.css";
+import "../../../styles/Login.css";
 import { IoChevronBack } from "react-icons/io5";
-import InputField from "../../components/reuasbleComponents/InputField";
-import AuthCard from "../../components/reuasbleComponents/AuthCard";
+import { FaRegDotCircle } from "react-icons/fa";
+import InputField from "../../../components/reuasbleComponents/InputField";
+import AuthCard from "../../../components/reuasbleComponents/AuthCard";
 import { NavLink } from "react-router-dom";
 
 const Login = () => {
@@ -10,8 +11,8 @@ const Login = () => {
     email: "",
     password: "",
   });
-const [role, setRole] = useState("designer");
 
+  const [role, setRole] = useState("customer");
 
   const handleChange = (e) => {
     setFormData({
@@ -29,22 +30,10 @@ const [role, setRole] = useState("designer");
   return (
     <div className="login_content">
       <div className="login_header">
-
-        <NavLink
-          to="/signup"
-          className="back_text_link"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textDecoration: "none",
-            color: "inherit",
-          }}
-        >
-          <p className="back_text">
+        <p className="back_text">
           <IoChevronBack />
           Back
         </p>
-        </NavLink>
       </div>
 
     <div
@@ -119,8 +108,8 @@ const [role, setRole] = useState("designer");
 
         <p className="forgot_password">
           Don't have an account?
-          <NavLink to="/getstarted" className="NavLinked">
-            Get Started
+          <NavLink to="/signup" className="NavLinked">
+            Sign Up
           </NavLink>
         </p>
       </AuthCard>
