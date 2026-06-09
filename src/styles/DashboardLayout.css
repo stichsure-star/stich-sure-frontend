@@ -1,0 +1,35 @@
+.dashboard-layout {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.dashboard-body {
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+}
+
+.sidebar-wrapper {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.dashboard-content {
+  flex: 1;
+  width: calc(100% - 260px);
+}
+
+/* Tablet + Mobile */
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    display: none;
+  }
+
+  .dashboard-body {
+    display: block;
+  }
+
+  .dashboard-content {
+    width: 100%;
+  }
+}

@@ -1,233 +1,199 @@
 .rate-page-container {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px 0 20px;
-    box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  
-  .rate-page-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #111111;
-    margin: 0 0 40px 0;
-    font-family: Georgia, serif;
-  }
-  
-  .rate-card-box {
-    width: 100%;
-    max-width: 960px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 30px;
-    box-sizing: border-box;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    margin-bottom: 60px;
-  }
-  
-  /* Tabs Navigation Alignment */
-  .order-tabs-row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 40px;
-  }
-  
-  .tab-btn {
-    height: 38px;
-    padding: 0 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    box-sizing: border-box;
-    transition: all 0.2s ease;
-  }
-  
-  .active-order-tab {
-    background-color: transparent;
-    border: 1px solid #cccccc;
-    color: #333333;
-  }
-  
-  .completed-order-tab {
-    background-color: #6a041d; /* Deep burgundy tone matching your UI design buttons */
-    border: none;
-    color: #ffffff;
-  }
-  
-  /* Card Content Split Layout */
+  width: 100%;
+  min-height: 100vh;
+  background: #f9f9f9;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.rate-page-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 40px;
+  font-family: Georgia, serif;
+}
+
+.rate-card-box {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 12px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Tabs */
+.order-tabs-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 50px;
+}
+
+.tab-btn {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.selected-tab {
+  background: #6c0319;
+  border-color: #6c0319;
+  color: #fff;
+}
+
+/* Main Content */
+.item-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.item-details-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.dress-name {
+  font-size: 30px;
+  font-family: Georgia, serif;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.designer-by {
+  font-size: 14px;
+  color: #777;
+  margin: 0 0 15px;
+}
+
+.timestamps-row {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 15px;
+}
+
+.timestamps-row span {
+  font-size: 12px;
+  color: #999;
+}
+
+.price-tag-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Right Side */
+.item-details-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+.stars-rating-container {
+  display: flex;
+  gap: 8px;
+}
+
+.star-click-element {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.star-icon {
+  font-size: 24px;
+}
+
+.star-icon.outline {
+  color: #d4d4d4;
+}
+
+.star-icon.filled {
+  color: #6c0319;
+}
+
+/* Buttons */
+.action-buttons-group {
+  display: flex;
+  gap: 12px;
+}
+
+.reorder-action-btn {
+  height: 42px;
+  padding: 0 24px;
+  background: #6c0319;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reorder-action-btn:hover {
+  background: #550214;
+}
+
+.review-action-btn {
+  height: 42px;
+  padding: 0 24px;
+  background: #fff;
+  color: #333;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.review-action-btn:hover {
+  background: #f7f7f7;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
   .item-details-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-  }
-  
-  /* Left Metadata Column */
-  .item-details-left {
-    display: flex;
     flex-direction: column;
+    gap: 30px;
   }
-  
-  .dress-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: #111111;
-    margin: 0 0 6px 0;
-    font-family: Georgia, serif;
-  }
-  
-  .designer-by {
-    font-size: 13px;
-    color: #666666;
-    margin: 0 0 12px 0;
-  }
-  
-  .timestamps-row {
-    display: flex;
-    gap: 20px;
-    font-size: 12px;
-    color: #888888;
-    margin-bottom: 16px;
-  }
-  
-  .price-tag-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: #111111;
-  }
-  
-  /* Right Controls Column */
+
   .item-details-right {
-    display: flex;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .timestamps-row {
     flex-direction: column;
-    align-items: flex-end;
-    gap: 20px;
+    gap: 8px;
   }
-  
-  /* Stars Selection Row styling */
-  .stars-rating-container {
-    display: flex;
-    gap: 6px;
+
+  .dress-name {
+    font-size: 24px;
   }
-  
-  .star-click-element {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    outline: none;
+
+  .price-tag-value {
+    font-size: 30px;
   }
-  
-  .star-icon {
-    font-size: 20px;
-  }
-  
-  .star-icon.outline {
-    color: #cccccc;
-  }
-  
-  .star-icon.filled {
-    color: #6a041d; /* Deep burgundy match */
-  }
-  
-  /* Action Buttons Grid Layout */
+
   .action-buttons-group {
-    display: flex;
-    gap: 12px;
-  }
-  
-  .reorder-action-btn {
-    height: 38px;
-    padding: 0 24px;
-    background-color: #6a041d;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  
-  .review-action-btn {
-    height: 38px;
-    padding: 0 24px;
-    background-color: transparent;
-    color: #333333;
-    border: 1px solid #cccccc;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  
-  /* Bottom Fixed Page Footer */
-  .rate-page-footer {
     width: 100%;
-    border-top: 1px solid #eaeaea;
-    padding: 24px 0;
-    margin-top: auto;
-    background-color: #f9f9f9;
+    flex-wrap: wrap;
   }
-  
-  .footer-width-limiter {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .copyright-notice {
-    font-size: 13px;
-    color: #777777;
-    margin: 0;
-  }
-  
-  .footer-social-anchors {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .footer-social-anchors a {
-    color: #111111;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-  }
-  
-  .footer-social-anchors a:hover {
-    opacity: 0.7;
-  }
-  
-  /* Mobile Responsive Breakpoints */
-  @media (max-width: 768px) {
-    .item-details-row {
-      flex-direction: column;
-      gap: 30px;
-    }
-  
-    .item-details-right {
-      align-items: flex-start;
-      width: 100%;
-    }
-  
-    .timestamps-row {
-      flex-direction: column;
-      gap: 6px;
-    }
-  
-    .footer-width-limiter {
-      flex-direction: column-reverse;
-      gap: 16px;
-      text-align: center;
-    }
-  }
+}

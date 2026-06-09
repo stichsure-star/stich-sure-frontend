@@ -1,17 +1,17 @@
 import React from "react";
 import "../styles/Designer.css";
-import { IoLocationSharp } from "react-icons/io5"; 
-import { GoCheckCircleFill } from "react-icons/go"; 
+import { IoLocationSharp } from "react-icons/io5";
+import { GoCheckCircleFill } from "react-icons/go";
 
-import gown from '../assets/daniel/Lace Dressed.png';
-import Fine from '../assets/daniel/Fine lace.png';
-import Man from '../assets/daniel/Men dem.png';
-import lady from '../assets/daniel/Lady lace.png';
-import Hair from '../assets/daniel/Hairtire.png';
-import senate from '../assets/daniel/Senate.png';
-import wear from '../assets/daniel/Wear.png';
-import main from '../assets/daniel/Main wear.png';
-import elli from '../assets/daniel/Ellipse 1.png';
+import gown from "../assets/daniel/Lace Dressed.png";
+import Fine from "../assets/daniel/Fine lace.png";
+import Man from "../assets/daniel/Men dem.png";
+import lady from "../assets/daniel/Lady lace.png";
+import Hair from "../assets/daniel/Hairtire.png";
+import senate from "../assets/daniel/Senate.png";
+import wear from "../assets/daniel/Wear.png";
+import main from "../assets/daniel/Main wear.png";
+import elli from "../assets/daniel/Ellipse 1.png";
 
 const designers = [
   {
@@ -103,7 +103,7 @@ const designers = [
     reviews: "5.0 (127 reviews)",
     score: "70%",
     scoreNum: 70,
-  }
+  },
 ];
 
 const Designer = () => {
@@ -111,9 +111,12 @@ const Designer = () => {
     <div className="designers-grid">
       {designers.map((designer) => (
         <div className="designer-card" key={designer.id}>
-          
           <div className="card-top-header-row">
-            <img src={designer.image} alt={designer.name} className="designer-avatar" />
+            <img
+              src={designer.image}
+              alt={designer.name}
+              className="designer-avatar"
+            />
             <div className="verified-badge">
               <GoCheckCircleFill className="verified-icon" />
               Verified
@@ -123,7 +126,7 @@ const Designer = () => {
           <div className="designer-details-block">
             <h3>{designer.name}</h3>
             <p className="role">{designer.role}</p>
-            
+
             <div className="location-row">
               <IoLocationSharp className="location-icon" />
               <span>{designer.location}</span>
@@ -144,8 +147,8 @@ const Designer = () => {
             <div className="progress-bar">
               <div
                 className="progress"
-                style={{ width: `${designer.scoreNum}%` }}>
-              </div>
+                style={{ width: `${designer.scoreNum}%` }}
+              ></div>
             </div>
             <p className="delivery-text">On-Time Deliveries</p>
           </div>

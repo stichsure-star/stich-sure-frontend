@@ -1,0 +1,84 @@
+.designer-payment-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #ffffff;
+  padding: 20px 44px;
+  /* font-family: Georgia, "Times New Roman", serif; */
+  color: #111111;
+  font-family: "El Messiri", sans-serif;
+}
+
+.designer-payment-panel {
+  width: min(100%, 901px);
+  margin: 0 auto;
+}
+
+.designer-payment-panel h1 {
+  margin: 0 0 27px;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.designer-payment-form {
+  display: grid;
+}
+
+.payment-current-account {
+  margin-bottom: 14px;
+}
+
+.payment-current-account span,
+.payment-field span {
+  display: block;
+  font-size: 18px;
+  line-height: 1;
+  color: #111111;
+}
+
+.payment-current-account p {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1;
+  color: #7c8288;
+}
+
+.payment-current-account p + p {
+  margin-top: 3px;
+}
+
+.payment-field {
+  display: grid;
+  gap: 13px;
+  margin-bottom: 24px;
+}
+
+.payment-field input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #d8dde2;
+  border-radius: 0;
+  background: #ffffff;
+  color: #111111;
+  /* font: 400 11px/1.2 Georgia, "Times New Roman", serif; */
+  outline: none;
+  padding: 0 14px;
+}
+
+.payment-update-button {
+  width: 100%;
+  height: 45px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 6px;
+  background: #8a001c;
+  color: #ffffff;
+  /* font: 700 12px/1 Arial, Helvetica, sans-serif; */
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .designer-payment-page {
+    padding: 18px;
+  }
+}

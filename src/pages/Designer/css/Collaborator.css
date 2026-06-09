@@ -1,0 +1,292 @@
+.Outsource_page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 25px;
+
+  background: #fafafa;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+
+  box-sizing: border-box;
+}
+
+/* TOP HEADER */
+
+.Outsource_header {
+  width: 100%;
+  height: 100px;
+
+  background: #650014;
+
+  color: white;
+
+  border-radius: 12px;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+.Outsource_header h2 {
+  margin: 0;
+
+  font-size: 24px;
+}
+
+.Outsource_header p {
+  margin: 8px 0 0;
+
+  font-size: 14px;
+}
+
+/* STATS */
+
+.Stats_container {
+  width: 100%;
+  height: 100px;
+
+  display: flex;
+
+  gap: 20px;
+
+  justify-content: space-between;
+}
+
+.Stat_card {
+  width: 25%;
+
+  height: 90px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  box-shadow: 0 5px 15px #0001;
+}
+
+.Stat_card h3 {
+  margin: 0;
+
+  font-size: 24px;
+}
+
+.Stat_card p {
+  margin: 5px;
+
+  color: #777;
+}
+
+/* TABS */
+
+.Filter_container {
+  width: 100%;
+
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.Filter_container button {
+  height: 35px;
+
+  padding: 0 18px;
+
+  border-radius: 20px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.Filter_container .active {
+  background: #650014;
+
+  color: white;
+
+  border: none;
+}
+
+/* CARDS AREA */
+
+.Cards_container {
+  width: 100%;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 25px;
+}
+
+/* REUSABLE DESIGNER CARD */
+
+.Profile_card {
+  width: 45%;
+
+  min-height: 230px;
+
+  background: white;
+
+  border-radius: 15px;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  box-shadow: 0 5px 20px #0002;
+}
+
+.Profile_top {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.Profile_top img {
+  width: 60px;
+
+  height: 60px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.Profile_top h3 {
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.Profile_top p {
+  margin: 5px 0;
+
+  color: #777;
+}
+
+.Profile_text {
+  color: #555;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.Profile_buttons {
+  width: 100%;
+
+  display: flex;
+
+  gap: 15px;
+}
+
+.Profile_buttons button {
+  width: 100px;
+
+  height: 35px;
+
+  border-radius: 20px;
+
+  background: white;
+
+  border: 1px solid #ddd;
+
+  cursor: pointer;
+}
+
+.Profile_buttons .primary {
+  background: #650014;
+
+  color: white;
+
+  border: none;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .Outsource_page {
+    padding: 15px;
+  }
+
+  .Stats_container {
+    height: auto;
+
+    flex-wrap: wrap;
+  }
+
+  .Stat_card {
+    width: 45%;
+  }
+
+  .Profile_card {
+    width: 100%;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .Outsource_header {
+    height: 120px;
+  }
+
+  .Stats_container {
+    flex-direction: column;
+  }
+
+  .Stat_card {
+    width: 100%;
+  }
+
+  .Filter_container {
+    overflow-x: auto;
+  }
+
+  .Filter_container button {
+    flex-shrink: 0;
+  }
+
+  .Profile_card {
+    width: 100%;
+  }
+
+  .Profile_buttons button {
+    width: 90px;
+  }
+}

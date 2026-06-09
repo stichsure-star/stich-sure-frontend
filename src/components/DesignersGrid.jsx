@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { HiMapPin, HiStar, HiOutlineHeart, HiHeart } from "react-icons/hi2";
-import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin } from "react-icons/fa";
-import "../styles/DesignerGrid.css";
+import "../styles/DesignersGrid.css"
 
-import Containlace from "../assets/daniel/Contain lace.png";
-import mensenator from "../assets/daniel/Mensenitor.png";
-import womendesign from "../assets/daniel/Container women.png";
-import fibre from "../assets/daniel/Fiber.png";
-import menstyle from "../assets/daniel/Manstyle.png"
-import cleanwear from "../assets/daniel/Cleanwear.png"
+import Containlace from "../assets/daniel/beauty.png";
+import mensenator from "../assets/daniel/Menwear.png";
+import womendesign from "../assets/daniel/Newlady.png";
+import fibre from "../assets/daniel/Crosslane.png";
+import menstyle from "../assets/daniel/Mencross.png";
+import cleanwear from "../assets/daniel/coollace.png";
 
 
 function DesignersGrid() {

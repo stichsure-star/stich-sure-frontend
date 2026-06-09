@@ -1,13 +1,14 @@
 .sidebar {
   width: 240px;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background: #fff;
   border-right: 1px solid #eee;
-  position: static;
+  position: sticky;
+  top: 60px;
   left: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-
   padding: 20px 10px;
 }
 
@@ -30,18 +31,29 @@
   .trd {
     width: 12%;
     height: 90%;
+    color: #7a0018;
   }
 }
 
 .link:hover {
   background: #ce7386;
   color: white;
-}
 
+  .trd {
+    width: 12%;
+    height: 90%;
+    color: black;
+  }
+}
 
 .link.active {
   background: #7a0018;
   color: white;
+  .trd {
+    width: 12%;
+    height: 90%;
+    color: white;
+  }
 }
 
 .logout {

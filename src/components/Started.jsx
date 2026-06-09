@@ -21,7 +21,7 @@ const Started = () => {
           </div>
 
           <Link to="/signup?role=user">
-            <button> Continue as Designer</button>
+            <button> Signup as a Designer</button>
           </Link>
         </div>
 
@@ -38,7 +38,7 @@ const Started = () => {
           </div>
 
           <Link to="/signup?role=designer" className="btn">
-            <button>Sign Up as Designer</button>
+            <button>Sign Up as a Customer</button>
           </Link>
         </div>
       </div>

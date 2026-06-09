@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { HiMapPin, HiStar, HiOutlineHeart, HiHeart } from "react-icons/hi2";
 import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin } from "react-icons/fa";
-import "../styles/DesignerGrid.css";
+import "../styles/SavedDesign.css";
 
-import Containlace from "../assets/daniel/Contain lace.png";
-import mensenator from "../assets/daniel/Mensenitor.png";
-import womendesign from "../assets/daniel/Container women.png";
-import fibre from "../assets/daniel/Fiber.png";
-import menstyle from "../assets/daniel/Manstyle.png"
-import cleanwear from "../assets/daniel/Cleanwear.png"
+import green from "../assets/daniel/lightgreen.png";
+import chioma from "../assets/daniel/chiomalace.png";
+import thicker from "../assets/daniel/Thickgreener.png"
+import elder from "../assets/daniel/Elderwar.png"
+import mengreen from "../assets/daniel/Anothergreen.png"
+import cleanwear from "../assets/daniel/Containlace.png"
 
 
 function DesignersGrid() {
@@ -30,7 +30,7 @@ function DesignersGrid() {
       description: "Specialist in Yoruba traditional attire with 15+ years experience",
       location: "Lagos",
       orders: "156 orders",
-      image: Containlace,
+      image: green,
     },
     {
       id: 2,
@@ -40,7 +40,7 @@ function DesignersGrid() {
       description: "Award-winning bridal designer creating dream wedding outfits",
       location: "Abuja",
       orders: "211 orders",
-      image: mensenator,
+      image:chioma,
     },
     {
       id: 3,
@@ -50,7 +50,7 @@ function DesignersGrid() {
       description: "Premium corporate suits and professional menswear tailoring",
       location: "Port Harcourt",
       orders: "98 orders",
-      image: womendesign,
+      image:thicker,
     },
     {
       id: 4,
@@ -60,7 +60,7 @@ function DesignersGrid() {
       description: "Contemporary casual styles for the modern day individual",
       location: "Ibadan",
       orders: "142 orders",
-      image: fibre,
+      image: elder,
     },
     {
       id: 5,
@@ -70,7 +70,7 @@ function DesignersGrid() {
       description: "Master craftsman in all traditional Nigerian styles and fittings",
       location: "Lagos",
       orders: "178 orders",
-      image: menstyle,
+      image: mengreen,
     },
     {
       id: 6,

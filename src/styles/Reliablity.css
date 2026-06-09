@@ -1,0 +1,625 @@
+/* =======================
+   MAIN CONTAINER
+======================= */
+
+.Reliability_dashboard {
+  width: 100%;
+  height: auto;
+  background: #92919133;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+/* =======================
+   HEADER
+======================= */
+
+.Reliability_badge {
+  display: flex;
+  width: 140%;
+  align-items: center;
+  gap: 10px;
+  justify-content: start;
+}
+.Reliability_scors {
+  display: flex;
+  flex-direction: column;
+  width: 140%;
+  padding-left: 10px;
+  gap: 10px;
+  justify-content: start;
+}
+
+.Reliability_badge p {
+  background-color: #ffff;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 20px;
+  border-radius: 10px;
+  font-weight: bolder;
+  font-size: 10px;
+}
+.Ben {
+  font-size: 40px;
+}
+
+.Reliability_header {
+  width: 99%;
+  height: 250px;
+  background: #6c0319;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  padding: 40px;
+  padding-right: 80px;
+}
+
+.Reliability_scoreDetails {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Reliability_title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.Reliability_score {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 0.2;
+}
+
+.Reliability_score span {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.Reliability_level {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.Reliability_rank {
+  margin-top: 5px;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* =======================
+   CIRCLE
+======================= */
+
+.Reliability_circle {
+  width: 170px;
+  height: 170px;
+  border-radius: 90%;
+
+  background: conic-gradient(
+    #ffffff 0deg,
+    #ffffff 338deg,
+    rgba(255, 255, 255, 0.2) 338deg,
+    rgba(255, 255, 255, 0.2) 360deg
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Reliability_circleInner {
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+  background: #6c0319;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+}
+
+.Reliability_circleInner small {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+/* =======================
+   METRICS
+======================= */
+
+.Reliability_metrics {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+.Reliability_iconed {
+  width: 50px;
+  height: 50px;
+  color: #8b0015;
+
+  animation: floatUpLoop 2s ease-in-out infinite;
+}
+
+@keyframes floatUpLoop {
+  0% {
+    transform: translateY(10px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0.6;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.Templates_cardContainer {
+  animation: slideUp 0.6s ease forwards;
+}
+.Reliability_metricCard {
+  width: 100%;
+  height: 110px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  display: flex;
+  background-color: #ffff;
+
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Reliability_metricCard h3 {
+  color: #8b0015;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.Reliability_metricCard p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* =======================
+   CONTENT
+======================= */
+
+.Reliability_content {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 0 24px 24px;
+}
+
+.Reliability_card {
+  width: 100%;
+  min-height: 350px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  padding: 24px;
+  background-color: #ffff;
+}
+
+.Reliability_card h3 {
+  margin-bottom: 24px;
+  color: #111827;
+}
+
+/* Benefits */
+
+.Reliability_benefitItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f1f1f1;
+  border-top: 1px solid #f1f1f1;
+  background-color: #ffff;
+}
+
+.Reliability_bene {
+  small {
+    padding-left: 30px;
+  }
+}
+.lasyt {
+  h5 {
+    background-color: #6b7280;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.Premium_bat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.blut {
+  width: 30px;
+  height: 30px;
+}
+
+.Reliability_check {
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bold;
+}
+
+/* Deliveries */
+
+.Reliability_deliveryRow {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.Reliability_badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.Reliability_delivered {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.Reliability_returned {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.Reliability_missed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* =======================
+   FOOTER
+======================= */
+
+.Reliability_footer {
+  width: 100%;
+  height: 140px;
+
+  background: #6c0319;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  gap: 15px;
+}
+
+.Reliability_footer h3 {
+  color: white;
+}
+
+.Reliability_button {
+  width: 180px;
+  height: 45px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: white;
+  color: #8b0015;
+
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 768px) {
+  .Reliability_header {
+    height: auto;
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .Reliability_metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Reliability_content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .Reliability_metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .Reliability_score {
+    font-size: 50px;
+  }
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 1024px) {
+  .Reliability_dashboard {
+    padding: 15px;
+  }
+
+  .Reliability_header {
+    width: 100%;
+    height: auto;
+
+    padding: 30px;
+
+    flex-direction: column;
+
+    gap: 30px;
+  }
+
+  .Reliability_scoreDetails {
+    width: 100%;
+
+    align-items: center;
+  }
+
+  .Reliability_badge,
+  .Reliability_scors {
+    width: 100%;
+  }
+
+  .Reliability_metrics {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    padding: 15px;
+  }
+
+  .Reliability_content {
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 15px;
+  }
+
+  .Reliability_card {
+    width: 100%;
+  }
+}
+
+/* =======================
+   MOBILE
+======================= */
+
+@media (max-width: 600px) {
+  .Reliability_dashboard {
+    padding: 10px;
+  }
+
+  .Reliability_header {
+    width: 100%;
+
+    height: auto;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    flex-direction: row; /* side by side */
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .Reliability_scoreDetails {
+    width: 60%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+  .Reliability_badge {
+    width: 100%;
+
+    justify-content: flex-start;
+
+    gap: 5px;
+  }
+
+  .Reliability_badge p {
+    width: 85px;
+
+    font-size: 9px;
+  }
+
+  .Ben {
+    font-size: 28px;
+  }
+
+  .Reliability_title {
+    font-size: 14px;
+  }
+
+  .Reliability_score {
+    font-size: 36px;
+  }
+
+  /* CIRCLE FIX */
+
+  .Reliability_circle {
+    width: 120px;
+
+    height: 120px;
+
+    flex-shrink: 0;
+  }
+
+  .Reliability_circleInner {
+    width: 90px;
+
+    height: 90px;
+  }
+
+  .Reliability_circleInner span {
+    font-size: 12px;
+  }
+
+  .Reliability_circleInner small {
+    font-size: 14px;
+  }
+
+  .Reliability_metrics {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    padding: 10px 0;
+  }
+
+  .Reliability_metricCard {
+    height: 140px;
+  }
+
+  .Reliability_content {
+    padding: 0;
+
+    gap: 15px;
+  }
+
+  .Reliability_card {
+    padding: 15px;
+
+    min-height: auto;
+  }
+
+  .Reliability_benefitItem {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .Reliability_deliveryRow {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+  .lasyt {
+    width: 100%;
+  }
+
+  .Reliability_footer {
+    height: auto;
+
+    padding: 30px 15px;
+  }
+
+  .Reliability_button {
+    width: 150px;
+  }
+}
+
+/* =======================
+   SMALL PHONES
+======================= */
+
+@media (max-width: 380px) {
+  .Reliability_header {
+    padding: 12px;
+  }
+
+  .Reliability_scoreDetails {
+    width: 55%;
+  }
+
+  .Reliability_circle {
+    width: 100px;
+
+    height: 100px;
+  }
+
+  .Reliability_circleInner {
+    width: 75px;
+
+    height: 75px;
+  }
+
+  .Reliability_score {
+    font-size: 30px;
+  }
+
+  .Reliability_card h3 {
+    font-size: 18px;
+  }
+}

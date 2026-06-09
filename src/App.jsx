@@ -12,11 +12,11 @@ import ProfilePage from "./pages/kyc/ProfilePage";
 import Featurepage from "./pages/Featurepage ";
 import StartedPage from "./pages/StartedPage";
 import OrderDetails from "./components/OrderDetails";
-import OrderTracker from "./pages/Designer/page/Ordertrackerpage";
+import Tracker from "./components/Tracker";
 import DashboardLayout from "../src/Layout/DashboardLayout";
 import DashboardHome from "./pages/Designer/page/DashboardHome";
 import UserLayout from "../src/Layout/UserLayout";
-import Orders from "../src/pages/Designer/page/Orders";
+import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
 import Register2 from "./pages/auth/Register2";
 import Login2 from "./pages/auth/Login2";
@@ -25,7 +25,6 @@ import PasswordReset2 from "./pages/auth/PasswordReset2";
 import OtpVerification2 from "./pages/auth/OtpVerification2";
 import SuccessfulDesignerPage from "./pages/kyc/SuccessfulDesignerPage";
 import Upload from "../src/pages/Designer/page/Upload";
-import DesignerProfile from "./components/DesignerProfile";
 import DesignersGrid from "./components/DesignersGrid";
 import RateDesigner from "../src/components/RateDesigner";
 import ActiveOrderTracker from "./components/ActiveOrderTracker";
@@ -42,6 +41,16 @@ import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
 // import DesignerDirectory from "./components/DesignerDirectory";
+import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
+import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
+import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
+import Earning from "./pages/Designer/page/Earning";
+import CollaborationPage from "./pages/Designer/page/Collaboration";
+import Relaibiy from "./pages/Designer/page/Relaibiy";
+import Template from "./pages/Designer/page/Template";
+import Setting from "./pages/Designer/page/Setting";
+import Try from "./pages/Designer/page/Try";
+import ActiveOrder from "./pages/Designer/page/Active";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -78,8 +87,14 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <DashboardHome /> },
       { path: "products", element: <Products /> },
       { path: "orders", element: <Orders /> },
-      { path: "ordertracker", element: <OrderTracker /> },
+      { path: "tracker", element: <Tracker /> },
       { path: "upload", element: <Upload /> },
+      { path: "earning", element: <Earning /> },
+      { path: "collaboration", element: <CollaborationPage /> },
+      { path: "ratings", element: <Relaibiy /> },
+      { path: "templates", element: <Template /> },
+      { path: "setting", element: <Setting /> },
+      { path: "active", element: <ActiveOrder /> },
     ],
   },
 
