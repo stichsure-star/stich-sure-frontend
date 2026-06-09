@@ -6,7 +6,7 @@ import PaymentMethod from "./PaymentMethod";
 // import CheckoutButton from "../shared/CheckoutButton";
 import CheckoutButton from "../Shared/CheckoutButton";
 // import SectionCard from "../shared/SectionCard";
-import SectionCard from "../shared/SectionCard";
+import SectionCard from "../Shared/SectionCard";
 import "../../../paymentInStich-sure/styles/checkoutform.css"
 
 
