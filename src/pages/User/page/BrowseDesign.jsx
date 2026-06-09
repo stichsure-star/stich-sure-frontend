@@ -1,9 +1,12 @@
 import React from "react";
+import DesignersCatalog from "../../../components/DesignersCatalog";
+import DesignerProfile from "../../../components/DesignerProfile";
+import DesignersGrid from "../../../components/DesignersGrid";
 
 const BrowseDesign = () => {
   return (
     <div>
-      <h1>Browse Designers</h1>
+      <DesignersCatalog />
     </div>
   );
 };

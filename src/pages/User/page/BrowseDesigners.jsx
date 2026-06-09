@@ -1,10 +1,11 @@
 import React from "react";
+import DesignersGrid from "../../../components/DesignersGrid";
+import DesignersCatalog from "../../../components/DesignersCatalog";
 
 const BrowseDesigners = () => {
   return (
     <div>
-      <h1>Browse Designers</h1>
-      <h1>Browse Designers</h1>
+      <DesignersGrid />
     </div>
   );
 };

@@ -1,0 +1,121 @@
+import React from "react";
+import "../styles/DesignerProfile.css";
+import { 
+  HiMapPin, 
+  HiBriefcase, 
+  HiCheckBadge, 
+  HiStar, 
+  HiOutlineHeart 
+} from "react-icons/hi2";
+import { 
+  FaInstagram, 
+  FaTwitter, 
+  FaFacebook, 
+  FaLinkedin 
+} from "react-icons/fa";
+
+
+ function DesignerProfile() {
+  const portfolioItems = [
+    { id: 1, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=60", title: "Royal Agbada", category: "Traditional" },
+    { id: 2, image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500&auto=format&fit=crop&q=60", title: "Yoruba Bride", category: "Bridal" },
+    { id: 3, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&auto=format&fit=crop&q=60", title: "Aso-Oke Set", category: "Traditional" },
+    { id: 4, image: "https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=500&auto=format&fit=crop&q=60", title: "Ankara Gown", category: "Casual" },
+    { id: 5, image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&auto=format&fit=crop&q=60", title: "Senator Style", category: "Corporate" },
+    { id: 6, image: "https://images.unsplash.com/photo-1611590027211-b954fd027b51?w=500&auto=format&fit=crop&q=60", title: "Festival Outfit", category: "Traditional" },
+    { id: 7, image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=60", title: "Festival Outfit", category: "Traditional" }
+  ];
+
+  return (
+    <div className="dp-page-container">
+      <main className="dp-main-content">
+        
+        <div className="dp-profile-card">
+          <button className="dp-favorite-btn" aria-label="Add to favorites">
+            <HiOutlineHeart />
+          </button>
+
+          <div className="dp-card-body">
+            <img 
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" 
+              alt="Adebayo Styles" 
+              className="dp-avatar"
+            />
+            
+            <div className="dp-info-section">
+              <h1 className="dp-designer-name">Adebayo Styles</h1>
+              <h2 className="dp-designer-type">Traditional Wear</h2>
+              
+              <div className="dp-meta-row">
+                <span className="dp-meta-item"><HiMapPin className="dp-meta-icon" /> Lagos, Nigeria</span>
+                <span className="dp-meta-item"><HiBriefcase className="dp-meta-icon" /> 15 years experience</span>
+                <span className="dp-meta-item"><HiBriefcase className="dp-meta-icon" /> 156 completed orders</span>
+              </div>
+
+              <div className="dp-rating-row">
+                <div className="dp-stars">
+                  <HiStar className="dp-star active" />
+                  <HiStar className="dp-star active" />
+                  <HiStar className="dp-star active" />
+                  <HiStar className="dp-star active" />
+                  <HiStar className="dp-star active" />
+                </div>
+                <span className="dp-rating-score">4.9</span>
+                <span className="dp-review-count">(3 reviews)</span>
+                <span className="dp-verified-tag">
+                  <HiCheckBadge className="dp-verified-icon" /> Verified Designer
+                </span>
+              </div>
+
+              <p className="dp-bio">
+                Award-winning fashion designer specializing in traditional Nigerian attire. With over 15 years of experience, I bring cultural heritage and modern elegance together in every piece I create.
+              </p>
+
+              <div className="dp-specializations">
+                <span className="dp-spec-label">Specializations:</span>
+                <div className="dp-spec-tags">
+                  <span className="dp-spec-tag">Traditional Wear</span>
+                  <span className="dp-spec-tag">Aso-Oke</span>
+                  <span className="dp-spec-tag">Agbada</span>
+                  <span className="dp-spec-tag">Ankara Styles</span>
+                  <span className="dp-spec-tag">Custom Embroidery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="dp-action-row">
+            <button className="dp-hire-btn">Hire Designer</button>
+          </div>
+
+          <div className="dp-reliability-section">
+            <div className="dp-reliability-labels">
+              <span className="dp-reliability-title">Reliability Score</span>
+              <span className="dp-reliability-value">86%</span>
+            </div>
+            <div className="dp-progress-track">
+              <div className="dp-progress-fill" style={{ width: "86%" }}></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="dp-portfolio-grid">
+          {portfolioItems.map((item) => (
+            <div key={item.id} className="dp-portfolio-card">
+              <div className="dp-image-container">
+                <img src={item.image} alt={item.title} className="dp-portfolio-img" />
+              </div>
+              <div className="dp-portfolio-details">
+                <h3 className="dp-item-title">{item.title}</h3>
+                <p className="dp-item-category">{item.category}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </main>
+
+    </div>
+  );
+}
+export default DesignerProfile
