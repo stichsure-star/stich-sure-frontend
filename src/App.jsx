@@ -1,6 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Updated imports
-
+import { createBrowserRouter, Route, RouterProvider } from "react-router-dom"; // Updated imports
 // Page & Component Imports
 import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
@@ -13,19 +12,23 @@ import ProfilePage from "./pages/kyc/ProfilePage";
 import Featurepage from "./pages/Featurepage ";
 import StartedPage from "./pages/StartedPage";
 import OrderDetails from "./components/OrderDetails";
-import OrderTracker from "./pages/Designer/page/Ordertrackerpage";
+import Tracker from "./components/Tracker";
 import DashboardLayout from "../src/Layout/DashboardLayout";
-import DashboardHome from "../src/pages/Designer/page/DashboardHome";
+import DashboardHome from "./pages/Designer/page/DashboardHome";
 import UserLayout from "../src/Layout/UserLayout";
 import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
-import Register2 from "./pages/auth/Register2";
+// import Register2 from "./pages/auth/Register2";
 // import Login2 from "./pages/auth/Login2";
 import PasswordForgotten2 from "./pages/auth/PasswordForgotten2";
 import PasswordReset2 from "./pages/auth/PasswordReset2";
 import OtpVerification2 from "./pages/auth/OtpVerification2";
 import SuccessfulDesignerPage from "./pages/kyc/SuccessfulDesignerPage";
 import Upload from "../src/pages/Designer/page/Upload";
+import DesignersGrid from "./components/DesignersGrid";
+import RateDesigner from "../src/components/RateDesigner";
+import ActiveOrderTracker from "./components/ActiveOrderTracker";
+import DesignersCatalog from "../src/components/DesignersCatalog";
 import HomeLayout from "./Layout/HomeLayout";
 import UserDashboard from "./pages/User/page/UserDashboard";
 import MyOrders from "./pages/User/page/MyOrders";
@@ -33,12 +36,13 @@ import BrowseDesigners from "./pages/User/page/BrowseDesigners";
 import BrowseDesign from "./pages/User/page/BrowseDesign";
 import SavedDesigners from "./pages/User/page/SavedDesigners";
 import Login from "./pages/auth/Login";
-import Login2 from "./pages/auth/Login";
+// import Login2 from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Signup2 from "./pages/auth/customer/Signup"
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
+// import DesignerDirectory from "./components/DesignerDirectory";
 import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
 import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
 import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
@@ -108,7 +112,7 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <DashboardHome /> },
       { path: "products", element: <Products /> },
       { path: "orders", element: <Orders /> },
-      { path: "ordertracker", element: <OrderTracker /> },
+      { path: "tracker", element: <Tracker /> },
       { path: "upload", element: <Upload /> },
       { path: "earning", element: <Earning /> },
       { path: "collaboration", element: <CollaborationPage /> },
@@ -170,6 +174,9 @@ const router = createBrowserRouter([
       { path: "browsedesigners", element: <BrowseDesigners /> },
       { path: "browsedesigns", element: <BrowseDesign /> },
       { path: "saveddesigners", element: <SavedDesigners /> },
+      // { path: "directory", element: <DesignerDirectory /> },
+      { path: "designerscatalog", element: <DesignersCatalog /> },
+      { path: "des", element: <RateDesigner /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
       

@@ -1,10 +1,10 @@
 import React from "react";
+import SecondTracker from "../../../components/SecondTracker";
 
 const MyOrders = () => {
   return (
     <div>
-      <h1>My Orders</h1>
-      <h1>My Orders</h1>
+      <SecondTracker />
     </div>
   );
 };
