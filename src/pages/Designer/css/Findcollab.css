@@ -1,0 +1,185 @@
+.findcollab_board {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  font-family: Arial;
+  background: #fafafa;
+}
+
+/* FILTER */
+.findcollab_filter_bar {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.findcollab_btn {
+  padding: 1px 18px;
+  border-radius: 15px;
+  border: none;
+  background: #f2f2f2;
+  border: 1px solid #535151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+
+.findcollab_active_btn {
+  padding: 10px 18px;
+  border-radius: 15px;
+  border: none;
+  background: #7a0019;
+  color: white;
+}
+
+/* CARD LIST */
+.findcollab_card_list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* CARD */
+.findcollab_card {
+  width: 420px;
+  min-height: 430px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* TOP */
+.findcollab_top {
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LEFT GROUP */
+.findcollab_left_group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* AVATAR */
+.findcollab_avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.findcollab_avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* INFO */
+.findcollab_info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.findcollab_name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.findcollab_location {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* STATUS */
+.findcollab_status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* STATUS COLORS */
+.findcollab_Pending {
+  background: #fff3e0;
+  color: #ff9800;
+  border: 1px solid #ff9800;
+}
+
+.findcollab_Active {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.findcollab_InReview {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+}
+
+/* MESSAGE */
+.findcollab_message {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* TAGS */
+.findcollab_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.findcollab_tag {
+  padding: 6px 10px;
+  border: 1px solid #7a0019;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #7a0019;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ACTION */
+.findcollab_action {
+  margin-top: 20px;
+}
+
+.findcollab_primary,
+.findcollab_primary_full {
+  width: 100%;
+  height: 45px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+.findcollab_primary {
+  background: #7a0019;
+  color: white;
+}
+
+.findcollab_primary_full {
+  background: #111;
+  color: white;
+}

@@ -1,23 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
 import "../../styles/Signup.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const urlRole = searchParams.get("role") || "user";
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    role: "user",
+    role: urlRole,
   });
 
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, role: urlRole }));
+  }, [urlRole]);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,22 +34,18 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("Submitting registration data:", formData);
-
-    navigate("/verification");
+    navigate("/verification", { state: { role: formData.role } });
   };
 
   return (
     <div className="signup_content">
-       <div className="back_home" onClick={() => navigate("/")}>
-      <IoChevronBack />
-      <span>Back to Home</span>
-   
-    </div>
       <AuthCard
-        title="Create an account"
-        subtitle="Create your professional designer account to receive orders, manage deliveries and grow your fashion business."
+        title={`Create a ${formData.role} account`}
+        subtitle={
+          formData.role === "designer"
+            ? "Create your professional designer account to receive orders, manage deliveries and grow your fashion business."
+            : "Create your account to manage fashion orders, track deliveries and connect with trusted designers."
+        }
         buttonText="Create Account"
         onSubmit={handleSubmit}
       >
@@ -91,7 +93,7 @@ const Signup = () => {
         </button>
 
         <p className="forgot_password">
-          Already have an account?
+          Already have an account?{" "}
           <NavLink to="/login" className="NavLinked">
             login user
           </NavLink>

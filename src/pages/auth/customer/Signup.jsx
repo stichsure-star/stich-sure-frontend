@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../../components/reuasbleComponents/InputField";
 import AuthCard from "../../../components/reuasbleComponents/AuthCard";
-import "../../../styles/Signup.css"
+import "../../../styles/Signup.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -36,11 +36,10 @@ const Signup = () => {
 
   return (
     <div className="signup_content">
-    <div className="back_home" onClick={() => navigate("/")}>
-      <IoChevronBack />
-      <span>Back to Home</span>
-   
-    </div>
+      <div className="back_home" onClick={() => navigate("/")}>
+        <IoChevronBack />
+        <span>Back to Home</span>
+      </div>
       <AuthCard
         title="Create a customer "
         subtitle="Create your customer designer account to receive orders, manage deliveries and grow your fashion business."
@@ -56,6 +55,9 @@ const Signup = () => {
             placeholder="First name"
             error={errors.firstName}
           />
+          {errors.firstName && (
+            <span className="error-text">{errors.firstName}</span>
+          )}
 
           <InputField
             label="Last Name"
@@ -90,12 +92,7 @@ const Signup = () => {
           Create Account
         </button>
 
-        <p className="forgot_password">
-          Already have an account?
-          <NavLink to="/login" className="NavLinked">
-            Login
-          </NavLink>
-        </p>
+        <p className="forgot_password">Already have an account? Login</p>
 
         <div className="divider">
           <span></span>
