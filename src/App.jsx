@@ -50,9 +50,15 @@ import Template from "./pages/Designer/page/Template";
 import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
+import NotFound from "./components/NotFound";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+
   {
     path: "/",
     element: <HomeLayout />,
@@ -68,9 +74,10 @@ const router = createBrowserRouter([
       { path: "profilepage", element: <ProfilePage /> },
       { path: "orderdetails", element: <OrderDetails /> },
       { path: "/successfull", element: <SuccessfulDesignerPage /> },
-      { path: "/designerVerified", element: <DesignerIsVerifiedSuccessfullyPage /> },
-
-
+      {
+        path: "/designerVerified",
+        element: <DesignerIsVerifiedSuccessfullyPage />,
+      },
     ],
   },
 
@@ -97,6 +104,9 @@ const router = createBrowserRouter([
       { path: "templates", element: <Template /> },
       { path: "setting", element: <Setting /> },
       { path: "active", element: <ActiveOrder /> },
+      { path: "profile", element: <DesignerProfile /> },
+      { path: "payment", element: <DesignerPayment /> },
+      { path: "security", element: <DesignerSecurity /> },
     ],
   },
 
@@ -135,9 +145,6 @@ const router = createBrowserRouter([
       { path: "saveddesigners", element: <SavedDesigners /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
-
-
-
     ],
   },
 ]);

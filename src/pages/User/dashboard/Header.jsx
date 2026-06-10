@@ -51,7 +51,6 @@ const Header = () => {
 
         <ul>
           <li>
-            {" "}
             <NavLink to="/designer/dashboard" className="link">
               <GoHome className="trd" />
               Dashboard

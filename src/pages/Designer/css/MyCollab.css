@@ -1,54 +1,159 @@
-/* Layout Container for Side-by-Side Cards */
-.cards-grid {
-  display: flex;
+.list_container {
   flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 24px;
-}
-
-/* Tabs Container */
-.filter-tabs {
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  gap: 20px;
+  justify-content: center;
 }
 
-/* Base Tab Button Styling */
-.tab-btn {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  padding: 10px 24px;
-  border-radius: 30px;
+.card {
+  width: 470px;
+  height: 500px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+
+  padding-left: 25px;
+  padding-right: 25px;
+  font-family: Arial;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TOP */
+.card_top {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar_wrap {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.verified {
+  width: 110px;
+  height: 30px;
+  background: #d6f5d6;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: green;
+  font-size: 13px;
+}
+
+/* TEXT */
+.name {
+  width: 100%;
+  height: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.role {
+  width: 100%;
+  height: 25px;
+  color: #444;
+}
+
+/* LOCATION + RATING */
+.location,
+.rating {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+/* SCORE */
+.score_block {
+  width: 100%;
+  height: 120px;
+  margin-top: 15px;
+}
+
+.score_header {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.score_header h2 {
+  font-size: 26px;
+}
+
+.bar {
+  width: 100%;
+  height: 10px;
+  border: 1px solid #7a0019;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.fill {
+  width: 86%;
+  height: 100%;
+  background: #7a0019;
+}
+
+/* ON TIME */
+.ontime {
+  width: 100%;
+  height: 25px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* BUTTONS */
+.buttons {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.btn_primary {
+  width: 48%;
+  height: 45px;
+  border: none;
+  border-radius: 25px;
+  background: #7a0019;
+  color: white;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  color: #666666;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
 }
 
-/* Active State (e.g., Selected maroon tab) */
-.tab-btn.active {
-  background: #581c24; /* Maroon background from your design */
-  color: #ffffff;
-  border-color: #581c24;
-}
-
-/* Status Badge Variations */
-.status-badge.pending {
-  background-color: #fdf3e7;
-  color: #e29a47;
-}
-.status-badge.active {
-  background-color: #e6f7ed;
-  color: #2e7d32;
-}
-
-/* Dynamic Hiding Class managed by JavaScript */
-.collab-card.hidden {
-  display: none !important;
+.btn_outline {
+  width: 48%;
+  height: 45px;
+  border: 2px solid #7a0019;
+  border-radius: 25px;
+  background: transparent;
+  color: #7a0019;
+  cursor: pointer;
 }
