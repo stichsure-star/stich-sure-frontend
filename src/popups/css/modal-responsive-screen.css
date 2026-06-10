@@ -1,0 +1,29 @@
+
+
+.custom-modal {
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .custom-modal {
+    width: 90% !important;
+    max-width: 90%;
+    padding: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-modal {
+    width: 95% !important;
+    max-width: 95%;
+    padding: 20px !important;
+  }
+
+  .modal-footer {
+    flex-direction: column !important;
+  }
+
+  .modal-footer button {
+    width: 100% !important;
+  }
+}

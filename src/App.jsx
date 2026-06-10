@@ -54,6 +54,16 @@ import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
 import Login3 from "./pages/auth/customer/Login"
+import WithdrawFunds from "../src/popups/WithdrawFunds";
+import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
+import Warning from "../src/popups/Warning";
+import SavedChanges from "../src/popups/SavedChanges";
+import RequestSent from "../src/popups/RequestSent";
+import ProposalSent from "../src/popups/ProposalSent";
+import ProductionIsDone from "../src/popups/ProductionIsDone";
+import DesignPublished from "../src/popups/DesignPublished";
+import AddedRatings from "../src/popups/AddedRatings ";
+import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -73,6 +83,7 @@ const router = createBrowserRouter([
       { path: "orderdetails", element: <OrderDetails /> },
       { path: "/successfull", element: <SuccessfulDesignerPage /> },
       { path: "/designerVerified", element: <DesignerIsVerifiedSuccessfullyPage /> },
+      { path: "/successfulpayment", element: <PaymentSuccessful /> },
       { path: "/checkout", element: <CheckoutPage /> },
    
 
@@ -105,6 +116,15 @@ const router = createBrowserRouter([
       { path: "templates", element: <Template /> },
       { path: "setting", element: <Setting /> },
       { path: "active", element: <ActiveOrder /> },
+      { path: "withdraw", element: <WithdrawFunds /> },
+      { path: "withdraw-successful", element: <WithdrawalSuccessful /> },
+      { path: "warning", element: <Warning /> },
+      { path: "saved-changes", element: <SavedChanges /> },
+      { path: "request-sent", element: <RequestSent /> },
+      { path: "proposal", element: <ProposalSent /> },
+      { path: "production", element: <ProductionIsDone /> },
+      { path: "published", element: <DesignPublished /> },
+      { path: "ratings", element: <AddedRatings /> },
     ],
   },
 
@@ -152,6 +172,17 @@ const router = createBrowserRouter([
       { path: "saveddesigners", element: <SavedDesigners /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
+      
+
+
+
+      
+
+
+
+
+
+
 
 
 
