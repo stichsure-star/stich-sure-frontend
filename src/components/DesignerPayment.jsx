@@ -3,10 +3,12 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
 // import "../styles/DesignerVerification.css"
 // import "../styles/DesignerVerification.css"
-import "../styles/DesignerSuccessful.css";
-import { NavLink, Navigate } from "react-router-dom";
+// import "../styles/DesignerSuccessful.css";
+import "../styles/DesignerPayment.css";
 
-const Desgn = ({ onNext, onPrev }) => {
+// import { NavLink, Navigate } from "react-router-dom";
+
+const DesignerPayment = ({ onNext, onPrev }) => {
   return (
     <div className="verification-page">
       <div className="verification-card">
@@ -14,23 +16,20 @@ const Desgn = ({ onNext, onPrev }) => {
           <MdVerifiedUser className="shield-icon" />
         </div>
 
-        <h2>Verification Successful !</h2>
+        <h2>Payment Successful !</h2>
 
         <p className="description">
-          Your identity has been verified successfully. You now have access to
-          all designer features.
+          Your order has been successfully
+           processed and your fashion project is
+           now moving to the next stage.
         </p>
 
-        <ul className="benefits">You’re now a Verified Designer</ul>
-
         <button className="submit-btn ">
-          {/* Complete Profile */}
-          Proceed to dashboard  
-          <Navigate to="/designer/dashboard" />
+            Go Back
         </button>
       </div>
     </div>
   );
 };
 
-export default Desgn;
+export default DesignerPayment;
