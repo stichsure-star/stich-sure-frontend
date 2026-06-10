@@ -1,0 +1,123 @@
+
+.verification-page {
+  min-height: 100vh;
+  padding: 30px 20px;
+  background: #faf7f7;
+  background-image: url();
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* .progress-wrapper {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 60px;
+}
+
+.progress-step {
+  flex: 1;
+  height: 8px;
+  border-radius: 10px;
+  background: #e5c9cf;
+  transition: 0.3s ease;
+}
+
+.progress-step.active {
+  background: #7c0f2b;
+} */
+
+
+.verification-card {
+  width: 100%;
+  max-width:400px;
+  text-align: center;
+}
+
+.icon-circle {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  background: #d8f0d5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shield-icon {
+  font-size: 60px;
+  color: #149414;
+}
+
+.verification-card h2 {
+  margin-top: 30px;
+  font-size: 28px;
+  font-weight: 400;
+  color: #111;
+}
+
+.description {
+  margin-top: 12px;
+  color: #666;
+}
+
+.benefits {
+  list-style: none;
+  margin-top: 25px;
+}
+
+.benefits li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 14px;
+  color: #333;
+  font-size: 15px;
+}
+
+.benefits svg {
+  color: #aaa9a9;
+}
+
+.verify-btn {
+  margin-top: 35px;
+  width: 300px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: #7c0f2b;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.verify-btn:hover {
+  opacity: 0.9;
+}
+
+
+@media (max-width: 768px) {
+  .verification-card h2 {
+    font-size: 24px;
+  }
+
+  .icon-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .shield-icon {
+    font-size: 50px;
+  }
+
+  .progress-wrapper {
+    max-width: 400px;
+  }
+}

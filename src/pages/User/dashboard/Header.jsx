@@ -51,7 +51,8 @@ const Header = () => {
 
         <ul>
           <li>
-            <NavLink to="/designer/dashboard" className="link">
+            {" "}
+            <NavLink to="/user/dashboard" className="link">
               <GoHome className="trd" />
               Dashboard
             </NavLink>
@@ -59,7 +60,7 @@ const Header = () => {
 
           <li>
             {" "}
-            <NavLink to="/designer/upload" className="link">
+            <NavLink to="/user/browsedesigners" className="link">
               <RiImageAddFill className="trd" />
               Browse Designers
             </NavLink>
@@ -67,7 +68,7 @@ const Header = () => {
 
           <li>
             {" "}
-            <NavLink to="/designer/ordertracker" className="link">
+            <NavLink to="/user/browsedesigns" className="link">
               <HiCube className="trd" />
               Browse Designs
             </NavLink>
@@ -75,14 +76,14 @@ const Header = () => {
 
           <li>
             {" "}
-            <NavLink to="/designer/earning" className="link">
+            <NavLink to="/user/myorders" className="link">
               <IoIosCard className="trd" />
               My Orders
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/designer/collaboration" className="link">
+            <NavLink to="/user/saveddesigners" className="link">
               <PiHandshakeFill className="trd" />
               Saved Designs
             </NavLink>

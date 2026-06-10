@@ -1,9 +1,11 @@
 import React from "react";
+import SaveDesign from "../../../components/SavedDesign";
+// import DesignerDirectory from "../../../components/DesignerDirectory";
 
 const SavedDesigners = () => {
   return (
     <div>
-      <h1>Saved Designers</h1>
+      <SaveDesign />
     </div>
   );
 };

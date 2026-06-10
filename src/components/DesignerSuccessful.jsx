@@ -14,7 +14,7 @@ const Desgn = ({ onNext, onPrev }) => {
           <MdVerifiedUser className="shield-icon" />
         </div>
 
-        <h2>Verification Successful</h2>
+        <h2>Verification Successful !</h2>
 
         <p className="description">
           Your identity has been verified successfully. You now have access to
@@ -24,7 +24,8 @@ const Desgn = ({ onNext, onPrev }) => {
         <ul className="benefits">You’re now a Verified Designer</ul>
 
         <button className="submit-btn ">
-          Proceed to dashboard
+          {/* Complete Profile */}
+          Proceed to dashboard  
           <Navigate to="/designer/dashboard" />
         </button>
       </div>

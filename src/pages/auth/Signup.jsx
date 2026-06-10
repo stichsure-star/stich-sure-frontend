@@ -34,11 +34,6 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("Submitting registration data:", formData);
-
-    // 1. Send the user to the verification page
-    // 2. Pass the user's role securely in the background state
     navigate("/verification", { state: { role: formData.role } });
   };
 
