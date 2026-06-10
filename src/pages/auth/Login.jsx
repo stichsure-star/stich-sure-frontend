@@ -83,7 +83,7 @@ const [role, setRole] = useState("designer");
   </button>
 </div>
       <AuthCard
-        title="Welcome Back"
+        title="Welcome Back Designer"
         subtitle="Login to continue enjoying our services"
         buttonText="Login"
         onSubmit={handleSubmit}

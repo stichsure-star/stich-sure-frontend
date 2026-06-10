@@ -72,7 +72,7 @@ const Login = () => {
   </button>
 </div>
       <AuthCard
-        title="Welcome Back"
+        title="Welcome Back Customer"
         subtitle="Login to continue enjoying our services"
         buttonText="Login"
         onSubmit={handleSubmit}

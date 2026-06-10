@@ -93,7 +93,7 @@ const Signup = () => {
         <p className="forgot_password">
           Already have an account?
           <NavLink to="/login" className="NavLinked">
-            Login
+            Login your customer account
           </NavLink>
         </p>
 
