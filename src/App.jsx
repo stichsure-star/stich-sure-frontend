@@ -38,7 +38,7 @@ import SavedDesigners from "./pages/User/page/SavedDesigners";
 import Login from "./pages/auth/Login";
 // import Login2 from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
-import Signup2 from "./pages/auth/customer/Signup"
+import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
@@ -56,8 +56,9 @@ import Template from "./pages/Designer/page/Template";
 import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
+import NotFound from "./components/NotFound";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
-import Login3 from "./pages/auth/customer/Login"
+import Login3 from "./pages/auth/customer/Login";
 import WithdrawFunds from "../src/popups/WithdrawFunds";
 import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
 import Warning from "../src/popups/Warning";
@@ -71,6 +72,11 @@ import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+
   {
     path: "/",
     element: <HomeLayout />,
@@ -86,14 +92,12 @@ const router = createBrowserRouter([
       { path: "profilepage", element: <ProfilePage /> },
       { path: "orderdetails", element: <OrderDetails /> },
       { path: "/successfull", element: <SuccessfulDesignerPage /> },
-      { path: "/designerVerified", element: <DesignerIsVerifiedSuccessfullyPage /> },
+      {
+        path: "/designerVerified",
+        element: <DesignerIsVerifiedSuccessfullyPage />,
+      },
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
       { path: "/checkout", element: <CheckoutPage /> },
-   
-
-
-
-
     ],
   },
 
@@ -120,6 +124,9 @@ const router = createBrowserRouter([
       { path: "templates", element: <Template /> },
       { path: "setting", element: <Setting /> },
       { path: "active", element: <ActiveOrder /> },
+      { path: "profile", element: <DesignerProfile /> },
+      { path: "payment", element: <DesignerPayment /> },
+      { path: "security", element: <DesignerSecurity /> },
       { path: "withdraw", element: <WithdrawFunds /> },
       { path: "withdraw-successful", element: <WithdrawalSuccessful /> },
       { path: "warning", element: <Warning /> },
@@ -174,25 +181,10 @@ const router = createBrowserRouter([
       { path: "browsedesigners", element: <BrowseDesigners /> },
       { path: "browsedesigns", element: <BrowseDesign /> },
       { path: "saveddesigners", element: <SavedDesigners /> },
-      // { path: "directory", element: <DesignerDirectory /> },
       { path: "designerscatalog", element: <DesignersCatalog /> },
       { path: "des", element: <RateDesigner /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
-      
-
-
-
-      
-
-
-
-
-
-
-
-
-
     ],
   },
 ]);
