@@ -92,7 +92,12 @@ const Signup = () => {
           Create Account
         </button>
 
-        <p className="forgot_password">Already have an account? Login</p>
+        <p className="forgot_password">
+          Already have an account?
+          <NavLink to="/login" className="NavLinked">
+            Login your customer account
+          </NavLink>
+        </p>
 
         <div className="divider">
           <span></span>
