@@ -23,7 +23,7 @@ import DashboardHome from "./pages/Designer/page/DashboardHome";
 import UserLayout from "../src/Layout/UserLayout";
 import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
-import Register2 from "./pages/auth/Register2";
+// import Register2 from "./pages/auth/Register2";
 // import Login2 from "./pages/auth/Login2";
 import PasswordForgotten2 from "./pages/auth/PasswordForgotten2";
 import PasswordReset2 from "./pages/auth/PasswordReset2";
@@ -41,7 +41,7 @@ import BrowseDesigners from "./pages/User/page/BrowseDesigners";
 import BrowseDesign from "./pages/User/page/BrowseDesign";
 import SavedDesigners from "./pages/User/page/SavedDesigners";
 import Login from "./pages/auth/Login";
-import Login2 from "./pages/auth/Login";
+// import Login2 from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
@@ -61,17 +61,36 @@ import Template from "./pages/Designer/page/Template";
 import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
+import NotFound from "./components/NotFound";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
 import Login3 from "./pages/auth/customer/Login";
+<<<<<<< HEAD
 import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
 import requiredetails from "../src/components/RequestDetails";
 import RequestDetails from "../src/components/RequestDetails";
 
 
+=======
+import WithdrawFunds from "../src/popups/WithdrawFunds";
+import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
+import Warning from "../src/popups/Warning";
+import SavedChanges from "../src/popups/SavedChanges";
+import RequestSent from "../src/popups/RequestSent";
+import ProposalSent from "../src/popups/ProposalSent";
+import ProductionIsDone from "../src/popups/ProductionIsDone";
+import DesignPublished from "../src/popups/DesignPublished";
+import AddedRatings from "../src/popups/AddedRatings ";
+import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
+>>>>>>> 5fea5020b755e61c7a5227f915f95206257be1e8
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+
   {
     path: "/",
     element: <HomeLayout />,
@@ -91,7 +110,12 @@ const router = createBrowserRouter([
         path: "/designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
+<<<<<<< HEAD
       { path: "/checkout", element: <CheckoutPage /> }
+=======
+      { path: "/successfulpayment", element: <PaymentSuccessful /> },
+      { path: "/checkout", element: <CheckoutPage /> },
+>>>>>>> 5fea5020b755e61c7a5227f915f95206257be1e8
     ],
   },
 
@@ -118,6 +142,18 @@ const router = createBrowserRouter([
       { path: "templates", element: <Template /> },
       { path: "setting", element: <Setting /> },
       { path: "active", element: <ActiveOrder /> },
+      { path: "profile", element: <DesignerProfile /> },
+      { path: "payment", element: <DesignerPayment /> },
+      { path: "security", element: <DesignerSecurity /> },
+      { path: "withdraw", element: <WithdrawFunds /> },
+      { path: "withdraw-successful", element: <WithdrawalSuccessful /> },
+      { path: "warning", element: <Warning /> },
+      { path: "saved-changes", element: <SavedChanges /> },
+      { path: "request-sent", element: <RequestSent /> },
+      { path: "proposal", element: <ProposalSent /> },
+      { path: "production", element: <ProductionIsDone /> },
+      { path: "published", element: <DesignPublished /> },
+      { path: "ratings", element: <AddedRatings /> },
     ],
   },
 
@@ -163,15 +199,17 @@ const router = createBrowserRouter([
       { path: "browsedesigners", element: <BrowseDesigners /> },
       { path: "browsedesigns", element: <BrowseDesign /> },
       { path: "saveddesigners", element: <SavedDesigners /> },
-      // { path: "directory", element: <DesignerDirectory /> },
       { path: "designerscatalog", element: <DesignersCatalog /> },
       { path: "des", element: <RateDesigner /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
+<<<<<<< HEAD
       {path: "requiredetails", element:<RequestDetails />} ,
       // { path: "rating-adebayor",   element: <RatingAdebayor /> },
       { path: "designer-profile", element: <DanDesignerProfile /> },
   
+=======
+>>>>>>> 5fea5020b755e61c7a5227f915f95206257be1e8
     ],
   },
 ]);
