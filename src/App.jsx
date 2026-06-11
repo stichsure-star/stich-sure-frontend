@@ -1,5 +1,10 @@
 import React from "react";
-import { createBrowserRouter, Route, RouterProvider } from "react-router-dom"; // Updated imports
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom"; // Updated imports
 // Page & Component Imports
 import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
@@ -38,7 +43,7 @@ import SavedDesigners from "./pages/User/page/SavedDesigners";
 import Login from "./pages/auth/Login";
 import Login2 from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
-import Signup2 from "./pages/auth/customer/Signup"
+import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
@@ -57,7 +62,13 @@ import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
-import Login3 from "./pages/auth/customer/Login"
+import Login3 from "./pages/auth/customer/Login";
+import RatingAdebayor from "./components/RatingAdebayor";
+import DanDesignerProfile from "./components/DanDesignerProfile";
+import requiredetails from "../src/components/RequestDetails";
+import RequestDetails from "../src/components/RequestDetails";
+
+
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -76,13 +87,11 @@ const router = createBrowserRouter([
       { path: "profilepage", element: <ProfilePage /> },
       { path: "orderdetails", element: <OrderDetails /> },
       { path: "/successfull", element: <SuccessfulDesignerPage /> },
-      { path: "/designerVerified", element: <DesignerIsVerifiedSuccessfullyPage /> },
-      { path: "/checkout", element: <CheckoutPage /> },
-   
-
-
-
-
+      {
+        path: "/designerVerified",
+        element: <DesignerIsVerifiedSuccessfullyPage />,
+      },
+      { path: "/checkout", element: <CheckoutPage /> }
     ],
   },
 
@@ -159,9 +168,10 @@ const router = createBrowserRouter([
       { path: "des", element: <RateDesigner /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
-
-
-
+      {path: "requiredetails", element:<RequestDetails />} ,
+      // { path: "rating-adebayor",   element: <RatingAdebayor /> },
+      { path: "designer-profile", element: <DanDesignerProfile /> },
+  
     ],
   },
 ]);

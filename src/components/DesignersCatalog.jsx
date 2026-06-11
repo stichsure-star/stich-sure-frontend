@@ -6,16 +6,17 @@ import {
   FiHeart, 
   FiShoppingBag 
 } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import beautifullace from "../assets/daniel/beautifullace.png"
-import frame from "../assets/daniel/Framelace.png"
-import green from "../assets/daniel/Greensenate.png"
-import Brown from "../assets/daniel/Brownfit.png"
-import Purple from "../assets/daniel/PurpleAkara.png"
-import wine from "../assets/daniel/wine.png"
-import native from "../assets/daniel/native.png"
-import white from "../assets/daniel/whitenative.png"
-import children from "../assets/daniel/childrenAnkara.png"
+import beautifullace from "../assets/daniel/Orangelace.png"
+import frame from "../assets/daniel/purplelace.png"
+import green from "../assets/daniel/greenlace.png"
+import Brown from "../assets/daniel/brownlace.png"
+import native from "../assets/daniel/Frame CULTURE.png"
+import Purple from "../assets/daniel/couplet.png"
+import wine from "../assets/daniel/Menframe.png"
+import white from "../assets/daniel/whiteagbada.png"
+import children from "../assets/daniel/childrenlace.png"
 
 const DesignersCatalog = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -87,7 +88,6 @@ const DesignersCatalog = () => {
 
   return (
     <div className="catalog-outer-container">
-      {/* Top Search Operations Header Bar Section */}
       <div className="catalog-search-header">
         <div className="search-bar-input-box">
           <FiSearch className="search-input-icon" />
@@ -98,7 +98,7 @@ const DesignersCatalog = () => {
         </button>
       </div>
 
-      <p className="items-counter-caption">Showing 9 designers</p>
+      <p className="items-counter-caption">Showing 6 designers</p>
       <div className="categories-pill-row">
         {filterCategories.map((cat) => (
           <button
@@ -131,11 +131,12 @@ const DesignersCatalog = () => {
                 <p className="designer-sub-title">by {item.designer}</p>
                 <span className="price-numeric-tag">&#8358;{item.price.toLocaleString()}</span>
               </div>
-              <button className="cart-action-square-btn" aria-label="View product workspace">
-                <FiShoppingBag size={15} />
-              </button>
-            </div>
 
+                
+              <NavLink to="/user/requiredetails" >
+                  <button className="cart-action-square-btn" aria-label="View product workspace">   <FiShoppingBag size={15} /></button>
+                </NavLink>
+            </div>
           </div>
         ))}
       </div>
