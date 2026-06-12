@@ -33,13 +33,13 @@ const Header = () => {
             <IoNotificationsSharp className="Notify" />
             <span className="badge">5</span>
           </div>
-          <div>
-            <FiMenu onClick={() => setOpen(true)} />
-          </div>
-          <div className="avatared">
-            <div className="avatar">
+          <div className="dammy">
+            <div className="avatarde">
               <img src={pif} alt="" />
             </div>
+          </div>
+          <div className="dropdown">
+            <FiMenu onClick={() => setOpen(true)} />
           </div>
         </div>
       </header>
