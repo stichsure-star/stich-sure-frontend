@@ -5,16 +5,13 @@ import InputField from "../../../components/reuasbleComponents/InputField";
 import AuthCard from "../../../components/reuasbleComponents/AuthCard";
 import "../../../styles/Signup.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { designerAuth } from "../../../config/designer";
-import { setCredientials } from "../../../global/authSlice";
-import { FaSpinner } from "react-icons/fa";
-import { authed } from "../../../config/google";
 import { onboardingApi } from "../../../config/onBoarding";
+import { FaSpinner } from "react-icons/fa";
 
 const Signup = () => {
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -32,7 +29,6 @@ const Signup = () => {
       [e.target.name]: e.target.value,
     });
 
-    // remove error while typing
     setErrors({
       ...errors,
       [e.target.name]: "",
@@ -42,25 +38,18 @@ const Signup = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.firstName.trim()) {
+    if (!formData.firstName.trim())
       newErrors.firstName = "First name is required";
-    }
 
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
-    }
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Enter a valid email address";
-    }
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = "Enter valid email";
 
-    if (!formData.password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 8) {
+    if (!formData.password.trim()) newErrors.password = "Password is required";
+    else if (formData.password.length < 8)
       newErrors.password = "Password must be at least 8 characters";
-    }
 
     setErrors(newErrors);
 
@@ -69,16 +58,13 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    const isValid = validateForm();
-    if (!isValid) {
-      setLoading(false);
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
-      const res = await onboardingApi.designerSignup(formData);
+      setLoading(true);
+
+      const res = await onboardingApi.customerSignup(formData);
 
       Swal.fire({
         icon: "success",
@@ -87,12 +73,17 @@ const Signup = () => {
         showConfirmButton: false,
       });
 
+      // ✅ SAVE ONLY AFTER SUCCESS
       localStorage.setItem("email", formData.email);
+
+      // ❌ DO NOT HARD-CODE ROLE
+      // Instead rely on backend OR set it here safely:
+      localStorage.setItem("role", res.data?.role || "customer");
 
       navigate("/verification", {
         state: {
           flow: "signup",
-          role: "designer", // or whatever role they are
+          role: "customer", // or whatever role they are
         },
       });
     } catch (error) {
@@ -101,13 +92,9 @@ const Signup = () => {
         title: "Signup failed",
         text: error.response?.data?.message,
       });
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-  };
-
-  const handleGoogleLogin = () => {
-    authed.google();
   };
 
   return (
@@ -118,9 +105,8 @@ const Signup = () => {
       </div>
 
       <AuthCard
-        title="Create an account"
-        subtitle="Create your professional designer account to receive orders, manage deliveries and grow your fashion business."
-        buttonText="Create Account"
+        title="Create a customer"
+        subtitle="Create your customer account"
         onSubmit={handleSubmit}
       >
         <div className="name_row">
@@ -129,10 +115,7 @@ const Signup = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            placeholder="First name"
-            error={errors.firstName}
           />
-
           {errors.firstName && (
             <span className="error-text">{errors.firstName}</span>
           )}
@@ -142,8 +125,6 @@ const Signup = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            placeholder="Last name"
-            error={errors.lastName}
           />
           {errors.lastName && (
             <span className="error-text">{errors.lastName}</span>
@@ -155,8 +136,6 @@ const Signup = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Your email"
-          error={errors.email}
         />
         {errors.email && <span className="error-text">{errors.email}</span>}
 
@@ -166,40 +145,26 @@ const Signup = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Create a password"
-          error={errors.password}
         />
         {errors.password && (
           <span className="error-text">{errors.password}</span>
         )}
 
-        <button className="create_btn" type="submit">
-          Create Account
+        <button className="create_btn">
+          {loading ? (
+            <>
+              Loading...
+              <FaSpinner />
+            </>
+          ) : (
+            "Create Account"
+          )}
         </button>
 
         <p className="forgot_password">
           Already have an account?
-          <NavLink to="/login" className="NavLinked">
-            Login into your account
-          </NavLink>
+          <NavLink to="/login">Login</NavLink>
         </p>
-
-        <div className="divider">
-          <span></span>
-
-          <p>Or</p>
-
-          <span></span>
-        </div>
-
-        <button
-          type="button"
-          className="google_btn"
-          onClick={handleGoogleLogin}
-        >
-          <FcGoogle />
-          Continue with Google
-        </button>
       </AuthCard>
     </div>
   );

@@ -18,11 +18,7 @@ import DashboardHome from "./pages/Designer/page/DashboardHome";
 import UserLayout from "../src/Layout/UserLayout";
 import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
-// import Register2 from "./pages/auth/Register2";
-// import Login2 from "./pages/auth/Login2";
-import PasswordForgotten2 from "./pages/auth/PasswordForgotten2";
-import PasswordReset2 from "./pages/auth/PasswordReset2";
-import OtpVerification2 from "./pages/auth/OtpVerification2";
+
 import SuccessfulDesignerPage from "./pages/kyc/SuccessfulDesignerPage";
 import Upload from "../src/pages/Designer/page/Upload";
 import DesignersGrid from "./components/DesignersGrid";
@@ -35,9 +31,8 @@ import MyOrders from "./pages/User/page/MyOrders";
 import BrowseDesigners from "./pages/User/page/BrowseDesigners";
 import BrowseDesign from "./pages/User/page/BrowseDesign";
 import SavedDesigners from "./pages/User/page/SavedDesigners";
-import Login from "./pages/auth/Login";
-// import Login2 from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
+import Login from "./pages/auth/customer/Login";
+
 import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
@@ -69,6 +64,10 @@ import ProductionIsDone from "../src/popups/ProductionIsDone";
 import DesignPublished from "../src/popups/DesignPublished";
 import AddedRatings from "../src/popups/AddedRatings ";
 import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
+import Signup from "./pages/auth/customer/Signup";
+import CustomerSignup from "./pages/auth/customer/CustomerSignup";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
+import GoogleSuccess from "./pages/auth/GoogleSuccess";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -101,17 +100,13 @@ const router = createBrowserRouter([
     ],
   },
 
-  ,
-  /* AUTH ROUTES */
-  // { path: "/login", element: <Login2 /> },
-  // { path: "/setpassword", element: <PasswordReset2 /> },
-  // { path: "/forgetpassword", element: <PasswordForgotten2 /> },
-  // { path: "/signup", element: <Register2 /> },
-  // { path: "/verification", element: <OtpVerification2 /> },
-  /* DASHBOARD ROUTES (Pathless Layout Route) */
   {
     path: "/designer",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoutes role="designer">
+        <DashboardLayout />
+      </ProtectedRoutes>
+    ),
     children: [
       { path: "dashboard", element: <DashboardHome /> },
       { path: "products", element: <Products /> },
@@ -153,12 +148,9 @@ const router = createBrowserRouter([
   // Customer
   {
     element: <AuthLayout imageClassName="signup_image_section" />,
-    children: [{ path: "/signup2", element: <Signup2 /> }],
+    children: [{ path: "/customersignup", element: <CustomerSignup /> }],
   },
-  {
-    element: <AuthLayout imageClassName="signup_image_section" />,
-    children: [{ path: "/login3", element: <Login3 /> }],
-  },
+
   {
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/forgetpassword", element: <ForgetPassword /> }],
@@ -171,10 +163,15 @@ const router = createBrowserRouter([
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/verification", element: <Verification /> }],
   },
+  <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
 
   {
     path: "/user",
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoutes role="customer">
+        <UserLayout />
+      </ProtectedRoutes>
+    ),
     children: [
       { path: "dashboard", element: <UserDashboard /> },
       { path: "myorders", element: <MyOrders /> },
