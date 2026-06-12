@@ -173,7 +173,14 @@ const Signup = () => {
         )}
 
         <button className="create_btn" type="submit">
-          Create Account
+          {loading ? (
+            <>
+              Processing...
+              <FaSpinner className="loading_icon" />
+            </>
+          ) : (
+            "Create Account"
+          )}
         </button>
 
         <p className="forgot_password">
