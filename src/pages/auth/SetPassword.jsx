@@ -3,8 +3,17 @@ import "../../styles/SetPassword.css";
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
+import { useNavigate, useLocation } from "react-router-dom";
+import { authApi } from "../../config/auth";
+import Swal from "sweetalert2";
 
 const SetPassword = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const email = location.state?.email || localStorage.getItem("email");
+  const role = localStorage.getItem("role") || "customer";
+
   const [formData, setFormData] = useState({
     password: "",
   });
@@ -16,23 +25,59 @@ const SetPassword = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("New Password:", formData.password);
+    if (!email) {
+      Swal.fire({
+        icon: "error",
+        title: "Email missing",
+        text: "Please restart the reset flow",
+      });
+      return navigate("/forgot-password");
+    }
+
+    try {
+      await authApi.resetPassword(role, {
+        password: formData.password,
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Password reset successful",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      // clear temp data
+      localStorage.removeItem("email");
+
+      navigate("/login");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Reset failed",
+        text: error.response?.data?.message,
+      });
+    }
   };
 
   return (
     <div className="setpassword_content">
-      <div className="setpassword_header">
+      <div
+        className="setpassword_header"
+        onClick={() => navigate("/login")}
+        style={{ cursor: "pointer" }}
+      >
         <p className="back_text">
           <IoChevronBack />
           Back
         </p>
       </div>
+
       <AuthCard
         title="Set password"
-        subtitle="Password requires a minimum of 8 characters and contains a capital letter, number and symbols."
+        subtitle="Enter your new password"
         onSubmit={handleSubmit}
       >
         <InputField
@@ -43,11 +88,11 @@ const SetPassword = () => {
           onChange={handleChange}
           placeholder="Enter new password"
         />
-      </AuthCard>
 
-      <button className="create_btn" type="submit">
-        Login
-      </button>
+        <button className="create_btn" type="submit">
+          Reset Password
+        </button>
+      </AuthCard>
     </div>
   );
 };

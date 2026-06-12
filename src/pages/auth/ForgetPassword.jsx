@@ -1,57 +1,95 @@
 import { useState } from "react";
 import "../../styles/ForgetPassword.css";
-import { NavLink } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
+import { useNavigate } from "react-router-dom";
+import { authApi } from "../../config/auth";
+import Swal from "sweetalert2";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    identifier: "", // email or phone number
+    email: "",
   });
+
+  const role = localStorage.getItem("role") || "customer";
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      email: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Forgot Password Request:", formData);
+    if (!formData.email) {
+      Swal.fire({
+        icon: "warning",
+        title: "Email required",
+      });
+      return;
+    }
 
-    // later: send to backend
-    // axios.post(`${BaseURL}/auth/forgot-password`, formData)
+    try {
+      const res = await authApi.forgotPassword(role, {
+        email: formData.email,
+      });
+      console.log("res", res.data);
+
+      Swal.fire({
+        icon: "success",
+        title: "Reset link sent",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      // store correct email for next step
+      localStorage.setItem("email", formData.email);
+
+      navigate("/verification", {
+        state: {
+          flow: "forget-password",
+          role: "customer",
+        },
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: error.response?.data?.message,
+      });
+    }
   };
+  console.log("res", res.data);
 
   return (
     <div className="forgot_content">
-      <div className="forgot_header">
+      <div className="forgot_header" onClick={() => navigate(-1)}>
         <p className="back_text">
           <IoChevronBack />
           Back
         </p>
       </div>
+
       <AuthCard
         title="Forgot your password?"
-        subtitle="Enter the email or phone number associated with your account and we will send you a verification code to reset your password"
-        buttonText="Continue"
+        subtitle="Enter your email to receive reset instructions"
         onSubmit={handleSubmit}
       >
         <InputField
-          label="Email / Phone Number"
-          name="identifier"
-          value={formData.identifier}
+          label="Email"
+          name="email"
+          value={formData.email}
           onChange={handleChange}
-          placeholder="Enter email or phone number"
+          placeholder="Enter email"
         />
 
         <button className="create_btn" type="submit">
-          <NavLink to="/verification" className="NavLink">
-            Create Account
-          </NavLink>
+          Continue
         </button>
       </AuthCard>
     </div>

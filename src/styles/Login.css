@@ -7,6 +7,19 @@
 .login_header {
   margin-bottom: auto;
 }
+.loading_icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .back_text {
   display: flex;
@@ -43,10 +56,14 @@
   border-radius: 6px;
   background: #8b0015;
   color: white;
-  font-size: 15px;
+  font-size: 25px;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .create_btn:hover {
