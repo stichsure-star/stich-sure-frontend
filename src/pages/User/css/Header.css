@@ -107,7 +107,12 @@
   box-shadow: 8px 0 25px rgba(0, 0, 0, 0.2);
 }
 
-.avatared {
+.dropdown {
+  display: flex;
+  width: 70px;
+}
+
+.dammy {
   display: none;
 }
 
