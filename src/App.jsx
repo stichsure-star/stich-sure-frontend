@@ -86,7 +86,7 @@ const router = createBrowserRouter([
       { path: "designers", element: <Designerspage /> },
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
-      { path: "designerverification", element: <DesignerVerification /> },
+
       // { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
@@ -102,6 +102,7 @@ const router = createBrowserRouter([
       { path: "/checkoutpayment", element: <CheckoutPayment /> },
     ],
   },
+  { path: "designerverification", element: <DesignerVerification /> },
 
   {
     path: "/designer",
