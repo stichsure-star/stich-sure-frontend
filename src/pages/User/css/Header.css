@@ -25,7 +25,6 @@
 .right {
   width: 10%;
   height: 90%;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,6 +40,7 @@
 .Notify {
   width: 30px;
   height: 40px;
+  display: flex;
 }
 
 .badge {
@@ -58,17 +58,20 @@
   align-items: center;
 }
 
-.avatared {
+.dammy {
   width: 100px;
   height: 50px;
   display: flex;
   justify-content: space-between;
 }
 
-.avatar {
-  width: 70px;
-  height: 50px;
+.dropdown {
+  display: none;
+}
 
+.avatarde {
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: space-around;
   align-items: center;
