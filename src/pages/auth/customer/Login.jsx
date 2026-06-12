@@ -98,7 +98,7 @@ const Login = () => {
       const userRole = res.data.data.role;
 
       if (userRole === "designer") {
-        navigate("/designer/dashboard");
+        navigate("/designerverification");
       } else {
         navigate("/user/dashboard");
       }
