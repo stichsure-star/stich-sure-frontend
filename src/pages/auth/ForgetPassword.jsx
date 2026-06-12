@@ -70,3 +70,5 @@ const ForgotPassword = () => {
     </AuthCard>
   );
 };
+
+export default ForgotPassword;
