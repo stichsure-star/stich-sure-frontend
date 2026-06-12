@@ -2,9 +2,10 @@ import { useState } from "react";
 import "../styles/BasicInfo.css";
 import { NavLink } from "react-router-dom";
 
+
 const BasicInfo = ({ onNext, onPrev }) => {
   return (
-    <div className="basic-info-page">
+    <div className="BasicInfo-page">
       <div className="basic-info-card">
         <h4>Basic Information</h4>
         <form className="basic-info-form">

@@ -5,7 +5,7 @@ import "../styles/DesignerIsVerified.css"
 
 const DesignerIsVerified = ({onNext,onPrev}) => {
   return (
-    <div className="designer-is-verified-page">
+    <div className="DesignerIsVerified-page">
 
       <div className="verification-card">
         <div className="icon-circle">

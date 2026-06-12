@@ -12,7 +12,7 @@
   font-weight: 600;
 }
 
-.payment-method-kora {
+/* .payment-method-kora {
   display: flex;
 }
 
@@ -28,7 +28,7 @@
 
 .kora-logo {
   font-weight: 700;
-}
+} */
 .checkout-btn {
   width: 100%;
   border: none;
@@ -39,7 +39,7 @@
   font-size: 16px;
   font-weight: 600;
 
-  background-color: hsl(0, 85%, 50%);
+  background-color: hwb(0 1% 77%);
   color: #fff;
 
   transition: 0.3s ease;
