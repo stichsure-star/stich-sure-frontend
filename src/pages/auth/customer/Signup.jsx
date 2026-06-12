@@ -32,7 +32,6 @@ const Signup = () => {
       [e.target.name]: e.target.value,
     });
 
-    // remove error while typing
     setErrors({
       ...errors,
       [e.target.name]: "",
@@ -92,7 +91,7 @@ const Signup = () => {
       navigate("/verification", {
         state: {
           flow: "signup",
-          role: "designer", // or whatever role they are
+          role: "designer",
         },
       });
     } catch (error) {
@@ -179,13 +178,8 @@ const Signup = () => {
 
         <p className="forgot_password">
           Already have an account?
-<<<<<<< HEAD
           <NavLink to="/login" className="NavLinked">
             Login into your account
-=======
-          <NavLink to="/login3" className="NavLinked">
-            Login your customer account
->>>>>>> 2d877004f20e558353cb7dd5616b2e8e1e1fd20f
           </NavLink>
         </p>
 
