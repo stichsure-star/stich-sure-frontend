@@ -30,10 +30,22 @@ const Login = () => {
   return (
     <div className="login_content">
       <div className="login_header">
-        <p className="back_text">
+
+      <NavLink
+          to="/signup"
+          className="back_text_link"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <p className="back_text">
           <IoChevronBack />
           Back
         </p>
+        </NavLink>
       </div>
 
     <div
@@ -108,8 +120,8 @@ const Login = () => {
 
         <p className="forgot_password">
           Don't have an account?
-          <NavLink to="/signup" className="NavLinked">
-            Sign Up
+          <NavLink to="/getstarted" className="NavLinked">
+             Get Started
           </NavLink>
         </p>
       </AuthCard>

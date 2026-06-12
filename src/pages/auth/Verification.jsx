@@ -83,7 +83,9 @@ const VerifyCode = () => {
     // Dynamic routing path based on the user's role profile
     if (userRole === "designer") {
       // Designers proceed straight to their professional verification/KYC setup
-      navigate("/designerverification");
+      // navigate("/designerverification");
+      navigate("/designerVerified");
+
     } else {
       // Regular users/customers proceed straight to their standard hub dashboard
       navigate("/user/dashboard");

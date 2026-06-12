@@ -13,7 +13,7 @@ const AddressFields = () => {
         </div>
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>Phone Number</label>
         <input placeholder="Enter phone number" />
       </div>
@@ -31,7 +31,7 @@ const AddressFields = () => {
       <div className="form-group">
         <label>Country</label>
         <input placeholder="Enter country" />
-      </div>
+      </div> */}
     </>
   );
 };

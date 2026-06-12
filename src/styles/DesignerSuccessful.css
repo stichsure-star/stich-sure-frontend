@@ -1,5 +1,5 @@
 
-.verification-page {
+/* .desgn-page {
   min-height: 100vh;
   padding: 30px 20px;
   background: #faf7f7;
@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 
 /* .progress-wrapper {
@@ -85,7 +85,7 @@
   color: #aaa9a9;
 }
 
-.verify-btn {
+.submit-btn {
   margin-top: 35px;
   width: 300px;
   height: 48px;
@@ -98,7 +98,7 @@
   transition: 0.3s;
 }
 
-.verify-btn:hover {
+.submit-btn:hover {
   opacity: 0.9;
 }
 
@@ -117,7 +117,7 @@
     font-size: 50px;
   }
 
-  .progress-wrapper {
+  /* .progress-wrapper {
     max-width: 400px;
-  }
+  } */
 }

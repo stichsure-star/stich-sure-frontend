@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import DesignerVerification from "./components/DesignerVerification";
-import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
+// import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
 import InformationDesigner from "./pages/kyc/InformationDesigner";
 import WalletDesigner from "./pages/kyc/WalletDesigner";
 import ProfilePage from "./pages/kyc/ProfilePage";
@@ -69,6 +69,7 @@ import ProductionIsDone from "../src/popups/ProductionIsDone";
 import DesignPublished from "../src/popups/DesignPublished";
 import AddedRatings from "../src/popups/AddedRatings ";
 import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
+import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -86,18 +87,21 @@ const router = createBrowserRouter([
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
       { path: "designerverification", element: <DesignerVerification /> },
-      { path: "identitydesigner", element: <IdentityDesignerPage /> },
+      // { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
       { path: "profilepage", element: <ProfilePage /> },
       { path: "orderdetails", element: <OrderDetails /> },
-      { path: "/successfull", element: <SuccessfulDesignerPage /> },
+      { path: "successfull", element: <SuccessfulDesignerPage /> },
       {
         path: "/designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
       { path: "/checkout", element: <CheckoutPage /> },
+      { path: "/checkoutpayment", element: <CheckoutPayment /> },
+
+
     ],
   },
 

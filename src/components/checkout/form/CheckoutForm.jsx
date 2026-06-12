@@ -1,7 +1,7 @@
 import PersonalInfoFields from "./PersonalInfoFields";
 import AddressFields from "./AddressFields";
 import SaveInfoCheckbox from "./SaveInfoCheckbox";
-import PaymentMethod from "./PaymentMethod";
+// import PaymentMethod from "./PaymentMethod";
 
 // import CheckoutButton from "../shared/CheckoutButton";
 import CheckoutButton from "../Shared/CheckoutButton";
@@ -27,9 +27,9 @@ const CheckoutForm = () => {
 
         <SaveInfoCheckbox />
 
-        <SectionCard title="Payment Method">
+        {/* <SectionCard title="Payment Method">
           <PaymentMethod />
-        </SectionCard>
+        </SectionCard> */}
 
         <CheckoutButton />
 
