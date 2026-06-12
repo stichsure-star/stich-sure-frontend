@@ -1,12 +1,3 @@
-import { useState } from "react";
-import "../../styles/ForgetPassword.css";
-import { IoChevronBack } from "react-icons/io5";
-import InputField from "../../components/reuasbleComponents/InputField";
-import AuthCard from "../../components/reuasbleComponents/AuthCard";
-import { useNavigate } from "react-router-dom";
-import { authApi } from "../../config/auth";
-import Swal from "sweetalert2";
-
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
@@ -35,10 +26,9 @@ const ForgotPassword = () => {
     }
 
     try {
-      const res = await authApi.forgotPassword(role, {
+      await authApi.forgotPassword(role, {
         email: formData.email,
       });
-      console.log("res", res.data);
 
       Swal.fire({
         icon: "success",
@@ -47,13 +37,13 @@ const ForgotPassword = () => {
         showConfirmButton: false,
       });
 
-      // store correct email for next step
       localStorage.setItem("email", formData.email);
 
+      // ✅ FIX IS HERE
       navigate("/verification", {
         state: {
           flow: "forget-password",
-          role: "customer",
+          role, // 👈 dynamic now
         },
       });
     } catch (error) {
@@ -64,35 +54,20 @@ const ForgotPassword = () => {
       });
     }
   };
-  console.log("res", res.data);
 
   return (
-    <div className="forgot_content">
-      <div className="forgot_header" onClick={() => navigate(-1)}>
-        <p className="back_text">
-          <IoChevronBack />
-          Back
-        </p>
-      </div>
+    <AuthCard onSubmit={handleSubmit}>
+      <InputField
+        label="Email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+      />
 
-      <AuthCard
-        title="Forgot your password?"
-        subtitle="Enter your email to receive reset instructions"
-        onSubmit={handleSubmit}
-      >
-        <InputField
-          label="Email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Enter email"
-        />
-
-        <button className="create_btn" type="submit">
-          Continue
-        </button>
-      </AuthCard>
-    </div>
+      <button className="create_btn" type="submit">
+        Continue
+      </button>
+    </AuthCard>
   );
 };
 

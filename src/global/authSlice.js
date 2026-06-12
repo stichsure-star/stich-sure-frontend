@@ -10,7 +10,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setCredientials: (state, action) => {
+    // 1. Fixed spelling here
+    setCredentials: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
@@ -24,5 +25,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredientials, setRole, logout } = authSlice.actions;
+// 2. Fixed spelling here too
+export const { setCredentials, setRole, logout } = authSlice.actions;
 export default authSlice.reducer;
