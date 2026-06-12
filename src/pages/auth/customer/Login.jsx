@@ -219,7 +219,7 @@ const Login = () => {
         <button type="submit" disabled={loading} className="create_btn">
           {loading ? (
             <>
-              Loading...
+              Logging in...
               <FaSpinner className="loading_icon" />
             </>
           ) : (
