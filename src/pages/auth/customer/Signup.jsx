@@ -7,7 +7,7 @@ import "../../../styles/Signup.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { designerAuth } from "../../../config/designer";
+
 import { setCredentials } from "../../../global/authSlice";
 import { FaSpinner } from "react-icons/fa";
 import { authed } from "../../../config/google";

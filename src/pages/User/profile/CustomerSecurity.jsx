@@ -1,25 +1,92 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import "../../../styles/designer-security.css";
-import "../../../styles/customer-security.css"
+import "../../../styles/customer-security.css";
+import { authApi } from "../../../config/customer";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../global/authSlice";
 
 const CustomerSecurity = () => {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const [form, setForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 🔥 VALIDATION
+    if (!form.currentPassword.trim()) {
+      return alert("Current password is required");
+    }
+
+    if (!form.newPassword.trim()) {
+      return alert("New password is required");
+    }
+
+    if (form.newPassword.length < 6) {
+      return alert("New password must be at least 6 characters");
+    }
+
+    if (form.newPassword !== form.confirmPassword) {
+      return alert("Passwords do not match");
+    }
+
+    console.log("READY TO SEND:", form);
+
+    try {
+      const res = await authApi.updatepassword({
+        currentPassword: form.currentPassword,
+        newPassword: form.newPassword,
+        confirmPassword: form.confirmPassword,
+      });
+
+      console.log("SUCCESS:", res.data);
+      dispatch(
+        setCredentials({
+          currentPassword: form.currentPassword,
+          password: form.newPassword,
+          confirmPassword: form.confirmPassword,
+        }),
+      );
+      alert("Password updated successfully");
+    } catch (error) {
+      console.log("API ERROR:", error.response?.data || error.message);
+      alert(error.response?.data?.message || error.message);
+    }
+
+    //
+  };
+
   return (
     <main className="customer-security-page">
       <section className="customer-security-panel">
         <h1>Security Settings</h1>
 
-        <form className="customer-security-form">
+        <form className="customer-security-form" onSubmit={handleSubmit}>
+          {/* CURRENT PASSWORD */}
           <label className="security-field">
             <span>Current Password</span>
 
             <div className="security-input-wrapper">
               <input
+                name="currentPassword"
                 type={showCurrent ? "text" : "password"}
+                value={form.currentPassword}
+                onChange={handleChange}
               />
 
               <button
@@ -32,12 +99,16 @@ const CustomerSecurity = () => {
             </div>
           </label>
 
+          {/* NEW PASSWORD */}
           <label className="security-field">
             <span>New Password</span>
 
             <div className="security-input-wrapper">
               <input
+                name="newPassword"
                 type={showNew ? "text" : "password"}
+                value={form.newPassword}
+                onChange={handleChange}
               />
 
               <button
@@ -50,12 +121,16 @@ const CustomerSecurity = () => {
             </div>
           </label>
 
+          {/* CONFIRM PASSWORD */}
           <label className="security-field">
             <span>Confirm New Password</span>
 
             <div className="security-input-wrapper">
               <input
+                name="confirmPassword"
                 type={showConfirm ? "text" : "password"}
+                value={form.confirmPassword}
+                onChange={handleChange}
               />
 
               <button

@@ -7,6 +7,7 @@ import Vector from "../assets/daniel/Vectorcontainer.png";
 import Save from "../assets/daniel/Savecontainer.png";
 import Complete from "../assets/daniel/Container.png";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const stats = [
   { id: 1, label: "Active Orders", value: 2, icon: Vector },
@@ -57,11 +58,13 @@ export default function DashboardOverview() {
       image: queen,
     },
   ];
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <div className="dashboard-content-wrapper">
       <div className="dashboard-title-area">
-        <h1>Dashboard Overview</h1>
+        <h1>Welcome {user.lastName}!</h1>
+        <p>Dashboard Overview</p>
         <p>Track your order and discover new designers</p>
       </div>
 

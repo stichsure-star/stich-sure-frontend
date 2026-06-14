@@ -2,7 +2,7 @@ import React from "react";
 import "../css/Header.css";
 import Img from "../../../assets/gbenga/stitchsure.png";
 import pif from "../../../assets/gbenga/Gold.png";
-import { IoNotificationsSharp } from "react-icons/io5";
+import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
@@ -14,9 +14,12 @@ import { IoShirtOutline, IoSettings } from "react-icons/io5";
 import { HiCube } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [open, setOpen] = React.useState(false);
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   return (
     <>
@@ -30,15 +33,15 @@ const Header = () => {
         <div className="right">
           {/* NOTIFICATION */}
           <div className="notif">
-            <IoNotificationsSharp className="Notify" />
+            <IoMdNotificationsOutline className="Notify" />
             <span className="badge">5</span>
           </div>
           <div className="dammy">
             <div className="avatarde">
-              <img src={pif} alt="" />
+              <img src={user?.profilePhoto || pif} alt="" />
             </div>
           </div>
-          <div className="dropdown">
+          <div className="dropdowned">
             <FiMenu onClick={() => setOpen(true)} />
           </div>
         </div>
