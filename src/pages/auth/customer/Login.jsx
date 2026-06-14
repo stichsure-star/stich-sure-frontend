@@ -1,13 +1,17 @@
 import { useState } from "react";
 import "../../../styles/Login.css";
+
 import { IoChevronBack } from "react-icons/io5";
 import InputField from "../../../components/reuasbleComponents/InputField";
 import AuthCard from "../../../components/reuasbleComponents/AuthCard";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaSpinner } from "react-icons/fa";
-import { setCredientials } from "../../../global/authSlice";
+
+import { setCredentials } from "../../../global/authSlice";
 import { useDispatch } from "react-redux";
+
 import { authApi } from "../../../config/auth";
 
 const Login = () => {
@@ -15,6 +19,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
+
   const [role, setRole] = useState("designer");
 
   const [formData, setFormData] = useState({
@@ -24,19 +29,24 @@ const Login = () => {
 
   const [errors, setErrors] = useState({});
 
+  const [serverError, setServerError] = useState("");
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
+
       [e.target.name]: e.target.value,
     });
 
     setErrors({
       ...errors,
+
       [e.target.name]: "",
     });
+
+    setServerError("");
   };
 
-  // ✅ FIXED VALIDATION
   const validateForm = () => {
     const newErrors = {};
 
@@ -65,19 +75,16 @@ const Login = () => {
     try {
       setLoading(true);
 
-      console.log("LOGIN CALLING:", role, formData);
-
-      // ✅ API CALL
       const res = await authApi.login(role, formData);
+      console.log("res", res);
 
       dispatch(
-        setCredientials({
+        setCredentials({
           user: res.data.data,
+
           token: res.data.token,
         }),
       );
-
-      const userRole = res.data.data.role;
 
       Swal.fire({
         icon: "success",
@@ -86,16 +93,67 @@ const Login = () => {
         showConfirmButton: false,
       });
 
-      navigate(
-        userRole === "designer" ? "/designerVerified" : "/user/dashboard",
-      );
+      const userRole = res.data.data.role;
+
+      if (userRole === "designer") {
+        navigate("/designerverification");
+      } else {
+        navigate("/user/dashboard");
+      }
     } catch (err) {
-      console.log("LOGIN ERROR:", err);
+      const message = err.response?.data?.message;
+      const data = err.response?.data;
+
+      console.error("The exact login error:", err);
+
+      // ================= EMAIL NOT VERIFIED FLOW =================
+      if (
+        message === "Please verify your email to continue" ||
+        data?.code === "EMAIL_NOT_VERIFIED"
+      ) {
+        const email = formData.email;
+        const userRole = role || data?.role || "customer";
+
+        Swal.fire({
+          icon: "warning",
+          title: "Email not verified",
+          text: "We are sending you a verification code...",
+        });
+
+        try {
+          // 🔥 resend OTP automatically
+          await authApi.resendOtp(userRole, {
+            email,
+          });
+
+          // 🔁 redirect to verification page
+          navigate("/verification", {
+            state: {
+              email,
+              role: userRole,
+              flow: "verify-email",
+            },
+          });
+
+          return;
+        } catch (otpError) {
+          Swal.fire({
+            icon: "error",
+            title: "OTP resend failed",
+            text: otpError.response?.data?.message || "Try again",
+          });
+
+          return;
+        }
+      }
+
+      // ================= NORMAL LOGIN ERROR =================
+      setServerError(message);
 
       Swal.fire({
         icon: "error",
         title: "Login Failed",
-        text: err.response?.data?.message || "Something went wrong",
+        text: message,
       });
     } finally {
       setLoading(false);
@@ -113,17 +171,27 @@ const Login = () => {
         </NavLink>
       </div>
 
-      {/* ROLE SELECT */}
-      <div style={{ display: "flex", gap: "15px", marginBottom: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "15px",
+          marginBottom: "20px",
+        }}
+      >
         <button
           type="button"
           onClick={() => setRole("designer")}
           style={{
             padding: "10px 20px",
+
             border: "1px solid #8B0000",
+
             borderRadius: "20px",
-            backgroundColor: role === "designer" ? "#8B0000" : "white",
+
+            background: role === "designer" ? "#8B0000" : "white",
+
             color: role === "designer" ? "white" : "#8B0000",
+
             cursor: "pointer",
           }}
         >
@@ -135,10 +203,15 @@ const Login = () => {
           onClick={() => setRole("customer")}
           style={{
             padding: "10px 20px",
+
             border: "1px solid #8B0000",
+
             borderRadius: "20px",
-            backgroundColor: role === "customer" ? "#8B0000" : "white",
+
+            background: role === "customer" ? "#8B0000" : "white",
+
             color: role === "customer" ? "white" : "#8B0000",
+
             cursor: "pointer",
           }}
         >
@@ -174,17 +247,18 @@ const Login = () => {
           <span className="error-text">{errors.password}</span>
         )}
 
+        {serverError && <p className="error-text">{serverError}</p>}
+
         <p className="forgot_password">
           <NavLink to="/forgetpassword" className="NavLinked">
             Forgot Password?
           </NavLink>
         </p>
 
-        {/* ✅ FIX: submit button */}
-        <button type="submit" className="create_btn">
+        <button type="submit" disabled={loading} className="create_btn">
           {loading ? (
             <>
-              Loading...
+              Logging in...
               <FaSpinner className="loading_icon" />
             </>
           ) : (

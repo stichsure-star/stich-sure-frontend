@@ -7,8 +7,8 @@ import "../../../styles/Signup.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { designerAuth } from "../../../config/designer";
-import { setCredientials } from "../../../global/authSlice";
+
+import { setCredentials } from "../../../global/authSlice";
 import { FaSpinner } from "react-icons/fa";
 import { authed } from "../../../config/google";
 import { onboardingApi } from "../../../config/onBoarding";
@@ -173,7 +173,14 @@ const Signup = () => {
         )}
 
         <button className="create_btn" type="submit">
-          Create Account
+          {loading ? (
+            <>
+              Processing...
+              <FaSpinner className="loading_icon" />
+            </>
+          ) : (
+            "Create Account"
+          )}
         </button>
 
         <p className="forgot_password">

@@ -1,3 +1,4 @@
+import { logout } from "../global/authSlice";
 import { ApiClient } from "./AxiosInstance";
 
 export const authApi = {
@@ -12,6 +13,8 @@ export const authApi = {
 
   resetPassword: (role, data) =>
     ApiClient.post(`/${role}/reset-password`, data),
+
+  logoutUser: () => ApiClient.post("/logout"),
 
   google: () => ApiClient.get("/auth/google"),
 };
