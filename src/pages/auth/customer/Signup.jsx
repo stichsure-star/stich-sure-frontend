@@ -79,6 +79,10 @@ const Signup = () => {
     try {
       const res = await onboardingApi.designerSignup(formData);
 
+      console.log("res", res.data);
+      const role = res?.data?.user?.role;
+      console.log("role", role);
+
       Swal.fire({
         icon: "success",
         title: "Account created",
@@ -86,14 +90,18 @@ const Signup = () => {
         showConfirmButton: false,
       });
 
-      localStorage.setItem("email", formData.email);
+      // localStorage.setItem("email", formData.email);
 
       navigate("/verification", {
         state: {
           flow: "signup",
           role: "designer",
+          email: formData.email,
         },
       });
+      sessionStorage.setItem("otp_email", formData.email);
+      sessionStorage.setItem("otp_role", "customer");
+      sessionStorage.setItem("otp_flow", "signup");
     } catch (error) {
       Swal.fire({
         icon: "error",
