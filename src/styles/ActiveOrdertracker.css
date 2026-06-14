@@ -1,0 +1,250 @@
+.active-tracker-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 0 20px;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
+  .active-tracker-card {
+    width: 100%;
+    max-width: 960px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+    margin-bottom: 60px;
+  }
+  
+  .order-filter-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 35px;
+  }
+  
+  .filter-tab-btn {
+    height: 38px;
+    padding: 0 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+  }
+  
+  .filter-tab-btn.active-state {
+    background-color: #6a041d;
+    border: none;
+    color: #ffffff;
+  }
+  
+  .filter-tab-btn.completed-state {
+    background-color: transparent;
+    border: 1px solid #cccccc;
+    color: #333333;
+  }
+  
+  .order-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 35px;
+  }
+  
+  .apparel-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 6px 0;
+    font-family: Georgia, serif;
+  }
+  
+  .designer-attribution {
+    font-size: 13px;
+    color: #666666;
+    margin: 0 0 6px 0;
+  }
+  
+  .order-reference-code {
+    font-size: 12px;
+    color: #888888;
+    margin: 0;
+  }
+  
+  .summary-right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .price-tag-display {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 8px;
+    font-family: system-ui, sans-serif;
+  }
+  
+  .status-indicator-pill {
+    background-color: #d1ebd9;
+    color: #1e5631;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  
+  .due-calendar-date {
+    font-size: 12px;
+    color: #666666;
+    margin: 0;
+  }
+  
+  .interactive-status-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .status-interactive-row {
+    width: 100%;
+    background-color: transparent;
+    border: 1.5px solid #6C0319;
+    border-radius: 8px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .status-interactive-row:hover {
+    background-color: rgba(106, 4, 29, 0.02);
+  }
+  
+  .status-title-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+    width: 20%;
+    text-align: left;
+  }
+  
+  .status-action-hint {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111111;
+    width: 80%;
+    text-align: center;
+  }
+  
+  .overall-tracker-progress {
+    width: 100%;
+  }
+  
+  .progress-text-alignment {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111111;
+    margin-bottom: 12px;
+  }
+  
+  .progress-track-baseline {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .progress-fill-accent {
+    width: 60%;
+    height: 100%;
+    background-color: #1e5631;
+    border-radius: 4px;
+  }
+  
+  .active-tracker-footer {
+    width: 100%;
+    border-top: 1px solid #eaeaea;
+    padding: 24px 0;
+    margin-top: auto;
+    background-color: #f9f9f9;
+  }
+  
+  .footer-width-container {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .copyright-info-text {
+    font-size: 13px;
+    color: #777777;
+    margin: 0;
+  }
+  
+  .social-media-channels {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .social-media-channels a {
+    color: #111111;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .social-media-channels a:hover {
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 768px) {
+    .order-summary-header {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .summary-right-side {
+      align-items: flex-start;
+    }
+  
+    .status-interactive-row {
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+  
+    .status-title-label,
+    .status-action-hint {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .footer-width-container {
+      flex-direction: column-reverse;
+      gap: 16px;
+      text-align: center;
+    }
+  }

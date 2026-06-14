@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/DesignerVerification.css";
 
-import IdentityDesignerPage from "../pages/kyc/IdentityDesignerPage";
+// import IdentityDesignerPage from "../pages/kyc/IdentityDesignerPage";
 import InformationDesigner from "../pages/kyc/InformationDesigner";
 import ProfilePage from "../pages/kyc/ProfilePage";
 import SuccessfulDesignerPage from "../pages/kyc/SuccessfulDesignerPage";

@@ -1,8 +1,5 @@
-// import CheckoutForm from "../components/checkout/form/CheckoutForm";
 import CheckoutForm from "../components/checkout/form/CheckoutForm";
-// import OrderSummary from "../components/checkout/summary/OrderSummary";
 import OrderSummary from "../components/checkout/summary/OrderSummary";
-// import "../styles/checkout.css";
 import "./styles/checkout.css"
 
 const CheckoutPage = () => {

@@ -1,5 +1,5 @@
 
-.designer-is-verified-page {
+/* .designer-is-verified-page {
   min-height: 100vh;
   padding: 30px 20px;
   background: #faf7f7;
@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 
 /* .progress-wrapper {
@@ -35,6 +35,7 @@
   width: 100%;
   max-width:400px;
   text-align: center;
+  ;
 }
 
 .icon-circle {
@@ -117,7 +118,7 @@
     font-size: 50px;
   }
 
-  .progress-wrapper {
+  /* .progress-wrapper {
     max-width: 400px;
-  }
+  } */
 }

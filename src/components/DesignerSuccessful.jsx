@@ -8,13 +8,13 @@ import { NavLink, Navigate } from "react-router-dom";
 
 const Desgn = ({ onNext, onPrev }) => {
   return (
-    <div className="verification-page">
+    <div className="Desgn-page">
       <div className="verification-card">
         <div className="icon-circle">
           <MdVerifiedUser className="shield-icon" />
         </div>
 
-        <h2>Verification Successful</h2>
+        <h2>Verification Successful !</h2>
 
         <p className="description">
           Your identity has been verified successfully. You now have access to
@@ -23,9 +23,8 @@ const Desgn = ({ onNext, onPrev }) => {
 
         <ul className="benefits">You’re now a Verified Designer</ul>
 
-        <button className="submit-btn ">
-          Proceed to dashboard
-          <Navigate to="/designer/dashboard" />
+        <button className="submit-btn " onClick={onNext}> 
+          Proceed to dashboard  
         </button>
       </div>
     </div>

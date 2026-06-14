@@ -1,71 +1,114 @@
-import Ccard from "../../../components/reuasbleComponents/Ccard";
+import React from "react";
+import { FaStar } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 import "../css/MyCollab.css";
 
-const MyCollab = () => {
+const DesignersPage = () => {
+  const designers = [
+    {
+      id: 1,
+      name: "Apan Okoro",
+      role: "Suit & Corporate Attire",
+      location: "Lagos, Nigeria",
+      rating: "5.0 (127 reviews)",
+      score: 86,
+    },
+    {
+      id: 2,
+      name: "Chinedu Mark",
+      role: "Streetwear Designer",
+      location: "Abuja, Nigeria",
+      rating: "4.8 (98 reviews)",
+      score: 78,
+    },
+    {
+      id: 3,
+      name: "Aisha Bello",
+      role: "Luxury Fashion",
+      location: "Lagos, Nigeria",
+      rating: "4.9 (210 reviews)",
+      score: 92,
+    },
+    {
+      id: 4,
+      name: "David Kings",
+      role: "Menswear Specialist",
+      location: "Port Harcourt",
+      rating: "4.7 (65 reviews)",
+      score: 74,
+    },
+    {
+      id: 5,
+      name: "Zainab Musa",
+      role: "Evening Wear Designer",
+      location: "Kano, Nigeria",
+      rating: "4.6 (88 reviews)",
+      score: 81,
+    },
+    {
+      id: 6,
+      name: "Emeka John",
+      role: "Tailoring Expert",
+      location: "Lagos, Nigeria",
+      rating: "5.0 (301 reviews)",
+      score: 95,
+    },
+  ];
+
   return (
-    <section>
-      <div class="filter-tabs">
-        <button class="tab-btn" data-filter="all">
-          All
-        </button>
-        <button class="tab-btn" data-filter="active">
-          Active
-        </button>
-        <button class="tab-btn active" data-filter="pending">
-          Pending
-        </button>
-        <button class="tab-btn" data-filter="review">
-          In Review
-        </button>
-      </div>
-
-      <div class="cards-grid">
-        <div class="collab-card" data-status="pending">
-          <div class="card-header">
-            <div class="profile-area">
+    <div className="list_container">
+      {designers.map((item) => (
+        <div className="card" key={item.id}>
+          {/* TOP */}
+          <div className="card_top">
+            <div className="avatar_wrap">
               <img
-                src="https://via.placeholder.com/80"
-                alt="Adebayo Styles"
-                class="profile-img"
+                className="avatar"
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+                alt="profile"
               />
-              <div class="profile-info">
-                <h2 class="profile-name">Adebayo Styles</h2>
-                <div class="profile-location">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    class="icon-location"
-                  >
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                  <span>Lagos State</span>
-                </div>
-              </div>
             </div>
-            <span class="status-badge pending">Pending</span>
-          </div>
-          <div class="card-body">
-            <p class="collab-text">
-              "Hi! I'm currently overloaded with 12 active bridal orders..."
-            </p>
-          </div>
-          <div class="card-footer">
-            <div class="tag">
-              <span class="tag-icon">✂</span>
-              <span>Bridal Gown</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="collab-card" data-status="active">
-          <Ccard />
+            <div className="verified">✔ Verified</div>
+          </div>
+
+          {/* TEXT */}
+          <div className="name">{item.name}</div>
+          <div className="role">{item.role}</div>
+
+          <div className="location">
+            <FaLocationDot />
+            <span>{item.location}</span>
+          </div>
+
+          <div className="rating">
+            <FaStar />
+            <span>{item.rating}</span>
+          </div>
+
+          {/* SCORE */}
+          <div className="score_block">
+            <div className="score_header">
+              <span>Reliability Score</span>
+              <h2>{item.score}%</h2>
+            </div>
+
+            <div className="bar">
+              <div className="fill" style={{ width: `${item.score}%` }} />
+            </div>
+
+            <div className="ontime">On-Time Deliveries</div>
+          </div>
+
+          {/* BUTTONS */}
+          <div className="buttons">
+            <button className="btn_primary">Send Request</button>
+            <button className="btn_outline">View Profile</button>
+          </div>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
   );
 };
 
-export default MyCollab;
+export default DesignersPage;

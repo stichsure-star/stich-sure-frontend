@@ -1,13 +1,25 @@
 import { useState } from "react";
-import "../../styles/SetPassword.css";
-import { IoChevronBack } from "react-icons/io5";
+import "../../styles/ForgetPassword.css";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
+import { useNavigate, useLocation } from "react-router-dom";
+import { authApi } from "../../config/auth";
+import Swal from "sweetalert2";
+import { FaSpinner } from "react-icons/fa";
 
-const SetPassword = () => {
+const ResetPassword = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const email = location.state?.email || localStorage.getItem("email");
+  const role =
+    location.state?.role || localStorage.getItem("role") || "customer";
+
   const [formData, setFormData] = useState({
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -16,40 +28,73 @@ const SetPassword = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("New Password:", formData.password);
+    if (!formData.password) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Password required",
+      });
+    }
+
+    try {
+      setLoading(true);
+
+      await authApi.resetPassword(role, {
+        password: formData.password,
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Password reset successful",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      // cleanup
+      localStorage.removeItem("email");
+      localStorage.removeItem("role");
+
+      navigate("/login");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Reset failed",
+        text: error.response?.data?.message || "Try again",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="setpassword_content">
-      <div className="setpassword_header">
-        <p className="back_text">
-          <IoChevronBack />
-          Back
-        </p>
-      </div>
-      <AuthCard
-        title="Set password"
-        subtitle="Password requires a minimum of 8 characters and contains a capital letter, number and symbols."
-        onSubmit={handleSubmit}
-      >
-        <InputField
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter new password"
-        />
-      </AuthCard>
+    <AuthCard
+      title="Reset Password"
+      subtitle="Enter your new password"
+      onSubmit={handleSubmit}
+    >
+      <InputField
+        label="New Password"
+        name="password"
+        type="password"
+        value={formData.password}
+        onChange={handleChange}
+        placeholder="Enter new password"
+      />
 
       <button className="create_btn" type="submit">
-        Login
+        {loading ? (
+          <>
+            Resetting...
+            <FaSpinner className="loading_icon" />
+          </>
+        ) : (
+          "Reset Password"
+        )}
       </button>
-    </div>
+    </AuthCard>
   );
 };
 
-export default SetPassword;
+export default ResetPassword;

@@ -1,10 +1,17 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setRole } from "../global/authSlice";
 import "../styles/Started.css";
-import Header from "../components/reuasbleComponents/Header";
-import Footer from "../components/reuasbleComponents/Footer";
-import { Link } from "react-router-dom";
 
 const Started = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const chooseRole = (role, route) => {
+    dispatch(setRole(role));
+    navigate(route);
+  };
+
   return (
     <div className="get_started_page">
       <div className="get_started_page_container">
@@ -20,9 +27,9 @@ const Started = () => {
             </ul>
           </div>
 
-         
-            <button> Continue as a Designer</button>
-         
+          <button onClick={() => chooseRole("designer", "/signup")}>
+            Continue as a Designer
+          </button>
         </div>
 
         <div className="customer_card">
@@ -32,14 +39,14 @@ const Started = () => {
             <ul>
               <li>Find trusted designers easily</li>
               <li>Order custom outfits stress-free</li>
-              <li>Track orders in real time </li>
+              <li>Track orders in real time</li>
               <li>View Reviews before choosing</li>
             </ul>
           </div>
 
-          
-            <button> Continue as a Customer</button>
-          
+          <button onClick={() => chooseRole("customer", "/customersignup")}>
+            Continue as a Customer
+          </button>
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "../styles/Ordertracker.css";
+import "../styles/Tracker.css";
 import { TbTruckDelivery } from "react-icons/tb";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { GiCardPickup } from "react-icons/gi";
 
-const OrderTracker = () => {
+const Tracker = () => {
   const steps = [
     { step: "Picked Up", icon: <GiCardPickup /> },
     { step: "Ready", icon: <IoCheckmarkCircleOutline /> },
@@ -25,10 +25,10 @@ const OrderTracker = () => {
   return (
     <div className="tracker-page-wrapper">
       <div className="tracker-main-card">
-        {/* HEADER */}
         <div className="tracker-header-row">
           <div className="header-meta-left">
-            <h1 className="item-title">Corporate Suit</h1>
+            <h1 className="item-title">Coperate Suit</h1>
+            <button></button>
             <p className="client-assignee">for Faith E.</p>
             <p className="order-id-tag">Order ID: ORD-101</p>
           </div>
@@ -92,8 +92,10 @@ const OrderTracker = () => {
           })}
         </div>
       </div>
+
+      
     </div>
   );
 };
 
-export default OrderTracker;
+export default Tracker;
