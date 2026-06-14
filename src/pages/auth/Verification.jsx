@@ -10,7 +10,6 @@ const VerifyCode = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ================= SAFE FLOW VALUES =================
   const email = location.state?.email || sessionStorage.getItem("otp_email");
 
   const role = location.state?.role || sessionStorage.getItem("otp_role");
@@ -25,7 +24,6 @@ const VerifyCode = () => {
 
   const inputRefs = useRef([]);
 
-  // ================= TIMER =================
   useEffect(() => {
     if (timer <= 0) {
       setCanResend(true);

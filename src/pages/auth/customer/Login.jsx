@@ -76,7 +76,8 @@ const Login = () => {
       setLoading(true);
 
       const res = await authApi.login(role, formData);
-      console.log("res", res);
+      console.log("res", res.data);
+      console.log("res", res.data.data);
 
       dispatch(
         setCredentials({
