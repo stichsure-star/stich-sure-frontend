@@ -66,6 +66,9 @@ const Signup = () => {
 
       const res = await onboardingApi.customerSignup(formData);
 
+      console.log("res", res.data);
+      const role = res?.data?.user?.role;
+      console.log("role", role);
       Swal.fire({
         icon: "success",
         title: "Account created",
@@ -74,18 +77,17 @@ const Signup = () => {
       });
 
       // ✅ SAVE ONLY AFTER SUCCESS
-      localStorage.setItem("email", formData.email);
-
-      // ❌ DO NOT HARD-CODE ROLE
-      // Instead rely on backend OR set it here safely:
-      localStorage.setItem("role", res.data?.role || "customer");
 
       navigate("/verification", {
         state: {
+          email: formData.email,
+          role: role,
           flow: "signup",
-          role: "customer", // or whatever role they are
         },
       });
+      sessionStorage.setItem("otp_email", formData.email);
+      sessionStorage.setItem("otp_role", "customer");
+      sessionStorage.setItem("otp_flow", "signup");
     } catch (error) {
       Swal.fire({
         icon: "error",

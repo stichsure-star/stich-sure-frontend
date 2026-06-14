@@ -76,6 +76,7 @@ const Login = () => {
       setLoading(true);
 
       const res = await authApi.login(role, formData);
+      console.log("res", res);
 
       dispatch(
         setCredentials({
@@ -87,11 +88,8 @@ const Login = () => {
 
       Swal.fire({
         icon: "success",
-
         title: "Login Successful",
-
         timer: 1500,
-
         showConfirmButton: false,
       });
 
@@ -103,17 +101,58 @@ const Login = () => {
         navigate("/user/dashboard");
       }
     } catch (err) {
-      const message = err.response?.data?.message || "Something went wrong";
+      const message = err.response?.data?.message;
+      const data = err.response?.data;
 
       console.error("The exact login error:", err);
 
+      // ================= EMAIL NOT VERIFIED FLOW =================
+      if (
+        message === "Please verify your email to continue" ||
+        data?.code === "EMAIL_NOT_VERIFIED"
+      ) {
+        const email = formData.email;
+        const userRole = role || data?.role || "customer";
+
+        Swal.fire({
+          icon: "warning",
+          title: "Email not verified",
+          text: "We are sending you a verification code...",
+        });
+
+        try {
+          // 🔥 resend OTP automatically
+          await authApi.resendOtp(userRole, {
+            email,
+          });
+
+          // 🔁 redirect to verification page
+          navigate("/verification", {
+            state: {
+              email,
+              role: userRole,
+              flow: "verify-email",
+            },
+          });
+
+          return;
+        } catch (otpError) {
+          Swal.fire({
+            icon: "error",
+            title: "OTP resend failed",
+            text: otpError.response?.data?.message || "Try again",
+          });
+
+          return;
+        }
+      }
+
+      // ================= NORMAL LOGIN ERROR =================
       setServerError(message);
 
       Swal.fire({
         icon: "error",
-
         title: "Login Failed",
-
         text: message,
       });
     } finally {

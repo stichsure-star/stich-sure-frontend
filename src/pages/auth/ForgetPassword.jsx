@@ -7,16 +7,19 @@ import { useNavigate } from "react-router-dom";
 import { authApi } from "../../config/auth";
 import Swal from "sweetalert2";
 import { FaSpinner } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
+  const roleFromRedux = useSelector((state) => state.auth.role);
+  const role = roleFromRedux || localStorage.getItem("role") || "customer";
+
   const [formData, setFormData] = useState({
     email: "",
   });
-  const [loading, setLoading] = useState(false);
 
-  const role = localStorage.getItem("role") || "customer";
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -27,7 +30,6 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     if (!formData.email) {
       Swal.fire({
@@ -38,33 +40,38 @@ const ForgotPassword = () => {
     }
 
     try {
-      const res = await authApi.forgotPassword(role, {
+      setLoading(true);
+
+      await authApi.forgotPassword(role, {
         email: formData.email,
       });
 
+      // store for next step
+      localStorage.setItem("email", formData.email);
+
       Swal.fire({
         icon: "success",
-        title: "Reset link sent",
+        title: "OTP sent",
         timer: 1500,
         showConfirmButton: false,
       });
 
-      // store correct email for next step
-      localStorage.setItem("email", formData.email);
       navigate("/verification", {
         state: {
-          flow: "forget-password",
-          role, // 👈 THIS IS THE FIX
+          flow: "forgot-password",
+          email: formData.email,
+          role,
         },
       });
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Failed",
-        text: error.response?.data?.message,
+        text: error.response?.data?.message || "Something went wrong",
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

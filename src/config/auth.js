@@ -13,19 +13,8 @@ export const authApi = {
 
   resetPassword: (role, data) =>
     ApiClient.post(`/${role}/reset-password`, data),
-  logout: async (dispatch) => {
-    try {
-      await ApiClient.post("/logout");
 
-      dispatch(logoutUser());
-
-      window.location.href = "/login";
-    } catch (error) {
-      console.log(error);
-      dispatch(logoutUser());
-      window.location.href = "/login";
-    }
-  },
+  logoutUser: () => ApiClient.post("/logout"),
 
   google: () => ApiClient.get("/auth/google"),
 };
