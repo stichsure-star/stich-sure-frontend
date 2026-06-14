@@ -2,8 +2,12 @@ import "../../Designer/css/DashboardHome.css";
 import { TbCubeSpark } from "react-icons/tb";
 import { LuDollarSign } from "react-icons/lu";
 import { FaRegStar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+
+  const navigate =useNavigate();
+
   return (
     <main className="dashboard">
       <h2>Welcome Back, Adebayo!</h2>
@@ -63,7 +67,7 @@ const Dashboard = () => {
 
         <p>Upload new designs and respond to customer requests</p>
 
-        <button>↥ Upload Designs</button>
+        <button onClick={() => navigate("/upload")}>↥ Upload Designs</button>
       </section>
 
       {/* ACTIVE ORDERS */}

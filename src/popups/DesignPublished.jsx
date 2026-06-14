@@ -1,4 +1,5 @@
 import React from 'react'
+import { CheckCircle } from "lucide-react";
 import "./css/modal-responsive-screen.css"
 
 
@@ -58,7 +59,9 @@ const styles = {
   },
 };
 
-const DesignPublished = () => {
+const DesignPublished = ({onClose}) => {
+
+
   return (
   <div className="custom-modal" style={styles.modal}>
     <div style={styles.iconWrapper}>
@@ -73,7 +76,9 @@ const DesignPublished = () => {
       Your design is now live and visible to customers
     </p>
 
-    <button style={styles.button}>
+    <button
+     onClick={onClose}
+      style={styles.button}>
       Go to Dashboard
     </button>
   </div>

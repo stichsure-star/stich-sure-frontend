@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import "../styles/Upload.css";
 import { MdLogout } from "react-icons/md";
 import { BsUpload } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import DesignPublished from "../popups/DesignPublished";
 
 const Upload = () => {
+  // const navigate =useNavigate();
+
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState(""); // Fixed: Declared the missing fileName state
+  const [showPublished, setShowPublished] = useState(false); 
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -127,8 +132,18 @@ const Upload = () => {
           </div>
         </div>
 
-        <button className="Publish">Publish Design</button>
+        <button 
+         onClick={() => setShowPublished(true)}
+         className="Publish"
+         >
+          Publish Design
+        </button>
       </div>
+       {showPublished && (
+      <DesignPublished 
+      onClose={() => setShowPublished(false)}
+      />
+      )}
     </div>
   );
 };

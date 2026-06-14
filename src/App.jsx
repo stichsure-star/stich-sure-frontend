@@ -165,7 +165,9 @@ const router = createBrowserRouter([
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/verification", element: <Verification /> }],
   },
+  
   <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
+
 
   {
     path: "/user",
