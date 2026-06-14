@@ -2,6 +2,7 @@ import React from "react";
 import "../css/Header.css";
 import Img from "../../../assets/gbenga/stitchsure.png";
 import pif from "../../../assets/gbenga/Gold.png";
+import empty from "../../../assets/gbenga/empty.jpg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
@@ -38,7 +39,7 @@ const Header = () => {
           </div>
           <div className="dammy">
             <div className="avatarde">
-              <img src={user?.profilePhoto || pif} alt="" />
+              <img src={user?.profilePhoto || empty} alt="" />
             </div>
           </div>
           <div className="dropdowned">
