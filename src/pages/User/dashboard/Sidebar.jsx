@@ -46,7 +46,7 @@ const Sidebar = () => {
         </NavLink>
       </div>
 
-      {/* BOTTOM LOGOUT */}
+      {/* BOTTOM LOGOUT */}   
       <div className="logout">
         <button className="logoutBtn">
           <MdLogout className="trd" />

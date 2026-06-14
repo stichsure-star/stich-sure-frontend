@@ -3,9 +3,9 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/SetUpWallet.css";
 
-const SetUpWallet = ({ onNext }) => {
+const SetUpWallet = ({ onNext, onPrev }) => {
   return (
-    <div className="set-info-page">
+    <div className="SetUpWallet-page">
       <div className="set-up-card">
         <h4>Set Up Your Wallet</h4>
         <form className="set-up-form">

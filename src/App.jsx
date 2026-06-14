@@ -10,7 +10,7 @@ import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import DesignerVerification from "./components/DesignerVerification";
-import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
+// import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
 import InformationDesigner from "./pages/kyc/InformationDesigner";
 import WalletDesigner from "./pages/kyc/WalletDesigner";
 import ProfilePage from "./pages/kyc/ProfilePage";
@@ -23,11 +23,7 @@ import DashboardHome from "./pages/Designer/page/DashboardHome";
 import UserLayout from "../src/Layout/UserLayout";
 import Orders from "./pages/Designer/page/Relaibiy";
 import Products from "../src/pages/Designer/page/Products";
-// import Register2 from "./pages/auth/Register2";
-// import Login2 from "./pages/auth/Login2";
-import PasswordForgotten2 from "./pages/auth/PasswordForgotten2";
-import PasswordReset2 from "./pages/auth/PasswordReset2";
-import OtpVerification2 from "./pages/auth/OtpVerification2";
+
 import SuccessfulDesignerPage from "./pages/kyc/SuccessfulDesignerPage";
 import Upload from "../src/pages/Designer/page/Upload";
 import DesignersGrid from "./components/DesignersGrid";
@@ -40,9 +36,8 @@ import MyOrders from "./pages/User/page/MyOrders";
 import BrowseDesigners from "./pages/User/page/BrowseDesigners";
 import BrowseDesign from "./pages/User/page/BrowseDesign";
 import SavedDesigners from "./pages/User/page/SavedDesigners";
-import Login from "./pages/auth/Login";
-// import Login2 from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
+import Login from "./pages/auth/customer/Login";
+
 import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
@@ -64,14 +59,12 @@ import ActiveOrder from "./pages/Designer/page/Active";
 import NotFound from "./components/NotFound";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
 import Login3 from "./pages/auth/customer/Login";
-<<<<<<< HEAD
 import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
 import requiredetails from "../src/components/RequestDetails";
 import RequestDetails from "../src/components/RequestDetails";
 
 
-=======
 import WithdrawFunds from "../src/popups/WithdrawFunds";
 import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
 import Warning from "../src/popups/Warning";
@@ -82,7 +75,11 @@ import ProductionIsDone from "../src/popups/ProductionIsDone";
 import DesignPublished from "../src/popups/DesignPublished";
 import AddedRatings from "../src/popups/AddedRatings ";
 import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
->>>>>>> 5fea5020b755e61c7a5227f915f95206257be1e8
+import Signup from "./pages/auth/customer/Signup";
+import CustomerSignup from "./pages/auth/customer/CustomerSignup";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
+import GoogleSuccess from "./pages/auth/GoogleSuccess";
+import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -100,36 +97,31 @@ const router = createBrowserRouter([
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
       { path: "designerverification", element: <DesignerVerification /> },
-      { path: "identitydesigner", element: <IdentityDesignerPage /> },
+      // { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
-      { path: "profilepage", element: <ProfilePage /> },
-      { path: "orderdetails", element: <OrderDetails /> },
-      { path: "/successfull", element: <SuccessfulDesignerPage /> },
+      { path: "profilepage", element: <ProfilePage /> },      { path: "orderdetails", element: <OrderDetails /> },
+      { path: "successfull", element: <SuccessfulDesignerPage /> },
       {
         path: "/designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
-<<<<<<< HEAD
-      { path: "/checkout", element: <CheckoutPage /> }
-=======
+
+      { path: "/checkout", element: <CheckoutPage /> },
+
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
       { path: "/checkout", element: <CheckoutPage /> },
->>>>>>> 5fea5020b755e61c7a5227f915f95206257be1e8
+      { path: "/checkoutpayment", element: <CheckoutPayment /> },
     ],
   },
 
-  ,
-  /* AUTH ROUTES */
-  // { path: "/login", element: <Login2 /> },
-  // { path: "/setpassword", element: <PasswordReset2 /> },
-  // { path: "/forgetpassword", element: <PasswordForgotten2 /> },
-  // { path: "/signup", element: <Register2 /> },
-  // { path: "/verification", element: <OtpVerification2 /> },
-  /* DASHBOARD ROUTES (Pathless Layout Route) */
   {
     path: "/designer",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoutes role="designer">
+        <DashboardLayout />
+      </ProtectedRoutes>
+    ),
     children: [
       { path: "dashboard", element: <DashboardHome /> },
       { path: "products", element: <Products /> },
@@ -171,12 +163,9 @@ const router = createBrowserRouter([
   // Customer
   {
     element: <AuthLayout imageClassName="signup_image_section" />,
-    children: [{ path: "/signup2", element: <Signup2 /> }],
+    children: [{ path: "/customersignup", element: <CustomerSignup /> }],
   },
-  {
-    element: <AuthLayout imageClassName="signup_image_section" />,
-    children: [{ path: "/login3", element: <Login3 /> }],
-  },
+
   {
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/forgetpassword", element: <ForgetPassword /> }],
@@ -189,10 +178,15 @@ const router = createBrowserRouter([
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/verification", element: <Verification /> }],
   },
+  <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
 
   {
     path: "/user",
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoutes role="customer">
+        <UserLayout />
+      </ProtectedRoutes>
+    ),
     children: [
       { path: "dashboard", element: <UserDashboard /> },
       { path: "myorders", element: <MyOrders /> },
@@ -203,13 +197,10 @@ const router = createBrowserRouter([
       { path: "des", element: <RateDesigner /> },
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
-<<<<<<< HEAD
       {path: "requiredetails", element:<RequestDetails />} ,
       // { path: "rating-adebayor",   element: <RatingAdebayor /> },
       { path: "designer-profile", element: <DanDesignerProfile /> },
   
-=======
->>>>>>> 5fea5020b755e61c7a5227f915f95206257be1e8
     ],
   },
 ]);
