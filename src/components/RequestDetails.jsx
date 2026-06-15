@@ -6,12 +6,30 @@ const RequestDetails = () => {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  
+  // State to track which action button is clicked ('back' or 'next')
+  const [activeButton, setActiveButton] = useState(null);
+
   const [formData, setFormData] = useState({
     fullName: "",
     deadline: "",
     measurements: "Chest\nShoulder\nSleeve Length\nTop Length\nNeck\nBust",
     description: "",
   });
+
+  // Handle the 'Back' button click logic
+  const handleBack = () => {
+    setActiveButton('back');
+    console.log("Back button clicked");
+    // Add any additional multi-step routing/view code here
+  };
+
+  // Handle the 'Next' button click logic
+  const handleNext = () => {
+    setActiveButton('next');
+    console.log("Next button clicked. Form Data:", formData);
+    // Add your API logic or next-page progression here
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,17 +46,16 @@ const RequestDetails = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      // Create a temporary object URL to display the image preview directly in the UI
       setImagePreview(URL.createObjectURL(file));
     }
   };
 
   const handleRemoveImage = (e) => {
-    e.stopPropagation(); // Prevents reopening the file dialog selector
+    e.stopPropagation();
     setSelectedFile(null);
     setImagePreview(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Resets the input cache file reference
+      fileInputRef.current.value = "";
     }
   };
 
@@ -120,6 +137,7 @@ const RequestDetails = () => {
                     src={imagePreview} 
                     alt="Inspiration Preview" 
                     className="rd-image-preview" 
+                    setImagePreview
                   />
                   <button 
                     type="button" 
@@ -142,10 +160,27 @@ const RequestDetails = () => {
 
           {/* Navigation Action Footer */}
           <div className="rd-action-footer">
-            <button type="button" className="rd-back-btn">
+            <button 
+              type="button" 
+              className="rd-back-btn" 
+              onClick={handleBack}
+              style={{
+                backgroundColor: activeButton === 'back' ? '#6c0319' : '',
+                color: activeButton === 'back' ? '#ffffff' : ''
+              }}
+            >
               Back
             </button>
-            <button type="button" className="rd-next-btn">
+
+            <button 
+              type="button" 
+              className="rd-next-btn" 
+              onClick={handleNext}
+              style={{
+                backgroundColor: activeButton === 'next' ? '#6c0319' : '',
+                color: activeButton === 'next' ? '#ffffff' : ''
+              }}
+            >
               Next
             </button>
           </div>

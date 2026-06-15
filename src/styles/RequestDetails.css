@@ -205,8 +205,8 @@
   }
   
   .rd-next-btn {
-    background-color: #6c0319;
-    color: #ffffff;
+    /* background-color: #6c0319; */
+    color: black;
     border: none;
     border-radius: 8px;
     padding: 10px 28px;
@@ -214,8 +214,4 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
-  }
-  
-  .rd-next-btn:hover {
-    background-color: #540213;
   }
