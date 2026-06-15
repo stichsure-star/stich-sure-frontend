@@ -10,9 +10,12 @@ const VerifyCode = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ================= FLOW CONTROL =================
-  const flow = location.state?.flow || "signup";
-  const role = location.state?.role || "customer";
+  const email = location.state?.email || sessionStorage.getItem("otp_email");
+
+  const role = location.state?.role || sessionStorage.getItem("otp_role");
+
+  const flow =
+    location.state?.flow || sessionStorage.getItem("otp_flow") || "signup";
 
   // ================= STATE =================
   const [codeArray, setCodeArray] = useState(Array(6).fill(""));
@@ -20,11 +23,7 @@ const VerifyCode = () => {
   const [canResend, setCanResend] = useState(false);
 
   const inputRefs = useRef([]);
-  const email = localStorage.getItem("email");
 
-  console.log("FLOW:", flow);
-  console.log("ROLE:", role);
-  // ================= TIMER =================
   useEffect(() => {
     if (timer <= 0) {
       setCanResend(true);
@@ -89,51 +88,61 @@ const VerifyCode = () => {
     const otp = codeArray.join("");
 
     if (otp.length !== 6) {
-      Swal.fire({
+      return Swal.fire({
         icon: "warning",
         title: "Incomplete OTP",
-        text: "Enter all 6 digits",
       });
-      return;
     }
 
     if (!email) {
-      Swal.fire({
+      return Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Email missing, please restart flow",
+        title: "Missing email",
+        text: "Please restart the process",
       });
-      return navigate("/signup");
     }
 
     try {
-      await authApi.verifyOtp(role, {
-        email,
-        otp,
-      });
+      // ================= FORGOT PASSWORD FLOW =================
+      if (flow === "forgot-password") {
+        await authApi.verifyOtp(role, { email, otp });
+
+        Swal.fire({
+          icon: "success",
+          title: "Verified",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        // cleanup
+        sessionStorage.removeItem("otp_email");
+        sessionStorage.removeItem("otp_role");
+        sessionStorage.removeItem("otp_flow");
+
+        return navigate("/setpassword", { state: { email, role } });
+      }
+
+      // ================= SIGNUP FLOW =================
+      await authApi.verifyOtp(role, { email, otp });
 
       Swal.fire({
         icon: "success",
-        title: "Verified",
+        title: "Account Verified",
         timer: 1500,
         showConfirmButton: false,
       });
 
-      // ================= FLOW ROUTING =================
-      if (flow === "signup") {
-        navigate("/login");
-      }
+      // cleanup
+      sessionStorage.removeItem("otp_email");
+      sessionStorage.removeItem("otp_role");
+      sessionStorage.removeItem("otp_flow");
 
-      if (flow === "forget-password") {
-        navigate("/setpassword", {
-          state: { email },
-        });
-      }
+      return navigate("/login");
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Verification failed",
-        text: error.response?.data?.message,
+        text: error.response?.data?.message || "Invalid OTP",
       });
     }
   };

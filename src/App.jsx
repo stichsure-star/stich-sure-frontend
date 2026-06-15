@@ -80,6 +80,7 @@ import CustomerSignup from "./pages/auth/customer/CustomerSignup";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import GoogleSuccess from "./pages/auth/GoogleSuccess";
 import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
+import Settings from "./pages/User/page/Settings";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -96,7 +97,7 @@ const router = createBrowserRouter([
       { path: "designers", element: <Designerspage /> },
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
-      { path: "designerverification", element: <DesignerVerification /> },
+
       // { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
@@ -114,38 +115,40 @@ const router = createBrowserRouter([
       { path: "/checkoutpayment", element: <CheckoutPayment /> },
     ],
   },
+  { path: "designerverification", element: <DesignerVerification /> },
 
   {
     path: "/designer",
-    element: (
-      <ProtectedRoutes role="designer">
-        <DashboardLayout />
-      </ProtectedRoutes>
-    ),
+    element: <ProtectedRoutes role="designer" />,
     children: [
-      { path: "dashboard", element: <DashboardHome /> },
-      { path: "products", element: <Products /> },
-      { path: "orders", element: <Orders /> },
-      { path: "tracker", element: <Tracker /> },
-      { path: "upload", element: <Upload /> },
-      { path: "earning", element: <Earning /> },
-      { path: "collaboration", element: <CollaborationPage /> },
-      { path: "ratings", element: <Relaibiy /> },
-      { path: "templates", element: <Template /> },
-      { path: "setting", element: <Setting /> },
-      { path: "active", element: <ActiveOrder /> },
-      { path: "profile", element: <DesignerProfile /> },
-      { path: "payment", element: <DesignerPayment /> },
-      { path: "security", element: <DesignerSecurity /> },
-      { path: "withdraw", element: <WithdrawFunds /> },
-      { path: "withdraw-successful", element: <WithdrawalSuccessful /> },
-      { path: "warning", element: <Warning /> },
-      { path: "saved-changes", element: <SavedChanges /> },
-      { path: "request-sent", element: <RequestSent /> },
-      { path: "proposal", element: <ProposalSent /> },
-      { path: "production", element: <ProductionIsDone /> },
-      { path: "published", element: <DesignPublished /> },
-      { path: "ratings", element: <AddedRatings /> },
+      {
+        element: <DashboardLayout />,
+        children: [
+          { path: "dashboard", element: <DashboardHome /> },
+          { path: "products", element: <Products /> },
+          { path: "orders", element: <Orders /> },
+          { path: "tracker", element: <Tracker /> },
+          { path: "upload", element: <Upload /> },
+          { path: "earning", element: <Earning /> },
+          { path: "collaboration", element: <CollaborationPage /> },
+          { path: "ratings", element: <Relaibiy /> },
+          { path: "templates", element: <Template /> },
+          { path: "setting", element: <Setting /> },
+          { path: "active", element: <ActiveOrder /> },
+          { path: "profile", element: <DesignerProfile /> },
+          { path: "payment", element: <DesignerPayment /> },
+          { path: "security", element: <DesignerSecurity /> },
+          { path: "withdraw", element: <WithdrawFunds /> },
+          { path: "withdraw-successful", element: <WithdrawalSuccessful /> },
+          { path: "warning", element: <Warning /> },
+          { path: "saved-changes", element: <SavedChanges /> },
+          { path: "request-sent", element: <RequestSent /> },
+          { path: "proposal", element: <ProposalSent /> },
+          { path: "production", element: <ProductionIsDone /> },
+          { path: "published", element: <DesignPublished /> },
+          { path: "ratings", element: <AddedRatings /> },
+        ],
+      },
     ],
   },
 
@@ -182,11 +185,7 @@ const router = createBrowserRouter([
 
   {
     path: "/user",
-    element: (
-      <ProtectedRoutes role="customer">
-        <UserLayout />
-      </ProtectedRoutes>
-    ),
+    element: <ProtectedRoutes role="customer" />,
     children: [
       { path: "dashboard", element: <UserDashboard /> },
       { path: "myorders", element: <MyOrders /> },

@@ -1,17 +1,8 @@
-import { resumeToPipeableStream } from "react-dom/server";
-import { ApiClient } from "./AxiosInstance";
+import { ApiClient } from "../config/AxiosInstance";
 
-export const customerAuth = {
-  register: (requestBody) => ApiClient.post("/customer/register", requestBody),
-  login: (requestBody) => ApiClient.post("/customer/login", requestBody),
-  verify: (requestBody) => ApiClient.post("/customer/verify", requestBody),
-  forgetpassword: (requestBody) =>
-    ApiClient.post("/customer/forget-password", requestBody),
-  resendotp: (requestBody) =>
-    ApiClient.post("/customer/resend-otp", requestBody),
-  resetpassword: (requestBody) =>
-    ApiClient.post("/customer/reset-password", requestBody),
-  google: (requestBody) => ApiClient.post("/auth/google", requestBody),
-  googlecallback: (requestBody) =>
-    ApiClient.post("/auth/google/callback", requestBody),
+export const authApi = {
+  updateprofile: (id, data) =>
+    ApiClient.put(`/customer/update-profile/${id}`, data),
+
+  updatepassword: (data) => ApiClient.put(`/customer/update-password/`, data),
 };

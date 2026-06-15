@@ -8,16 +8,34 @@ import { PiHandshakeLight } from "react-icons/pi";
 import { IoStarOutline } from "react-icons/io5";
 import { IoShirtOutline, IoSettingsOutline } from "react-icons/io5";
 import { IoCubeOutline } from "react-icons/io5";
-
 import { MdLogout } from "react-icons/md";
+import { logout } from "../../../global/authSlice";
+import { useDispatch } from "react-redux";
+import { authApi } from "../../../config/auth";
 
 const Sidebar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const isSettings =
     location.pathname.startsWith("/designer/setting") ||
     location.pathname.startsWith("/designer/security") ||
     location.pathname.startsWith("/designer/payment");
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logoutUser();
+
+      dispatch(logout());
+
+      window.location.href = "/login";
+    } catch (error) {
+      console.log(error);
+
+      dispatch(logout());
+      window.location.href = "/login";
+    }
+  };
 
   return (
     <aside className="sidebar">
@@ -86,7 +104,7 @@ const Sidebar = () => {
       </div>
 
       <div className="logout">
-        <button className="logoutBtn">
+        <button className="logoutBtn" onClick={handleLogout}>
           <MdLogout className="trd" />
           Logout
         </button>

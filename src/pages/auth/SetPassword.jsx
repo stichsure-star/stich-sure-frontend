@@ -1,22 +1,25 @@
 import { useState } from "react";
-import "../../styles/SetPassword.css";
-import { IoChevronBack } from "react-icons/io5";
+import "../../styles/ForgetPassword.css";
 import InputField from "../../components/reuasbleComponents/InputField";
 import AuthCard from "../../components/reuasbleComponents/AuthCard";
 import { useNavigate, useLocation } from "react-router-dom";
 import { authApi } from "../../config/auth";
 import Swal from "sweetalert2";
+import { FaSpinner } from "react-icons/fa";
 
-const SetPassword = () => {
+const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const email = location.state?.email || localStorage.getItem("email");
-  const role = localStorage.getItem("role") || "customer";
+  const role =
+    location.state?.role || localStorage.getItem("role") || "customer";
 
   const [formData, setFormData] = useState({
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,16 +31,16 @@ const SetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) {
-      Swal.fire({
-        icon: "error",
-        title: "Email missing",
-        text: "Please restart the reset flow",
+    if (!formData.password) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Password required",
       });
-      return navigate("/forgot-password");
     }
 
     try {
+      setLoading(true);
+
       await authApi.resetPassword(role, {
         password: formData.password,
       });
@@ -49,52 +52,49 @@ const SetPassword = () => {
         showConfirmButton: false,
       });
 
-      // clear temp data
+      // cleanup
       localStorage.removeItem("email");
+      localStorage.removeItem("role");
 
       navigate("/login");
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Reset failed",
-        text: error.response?.data?.message,
+        text: error.response?.data?.message || "Try again",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="setpassword_content">
-      <div
-        className="setpassword_header"
-        onClick={() => navigate("/login")}
-        style={{ cursor: "pointer" }}
-      >
-        <p className="back_text">
-          <IoChevronBack />
-          Back
-        </p>
-      </div>
+    <AuthCard
+      title="Reset Password"
+      subtitle="Enter your new password"
+      onSubmit={handleSubmit}
+    >
+      <InputField
+        label="New Password"
+        name="password"
+        type="password"
+        value={formData.password}
+        onChange={handleChange}
+        placeholder="Enter new password"
+      />
 
-      <AuthCard
-        title="Set password"
-        subtitle="Enter your new password"
-        onSubmit={handleSubmit}
-      >
-        <InputField
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter new password"
-        />
-
-        <button className="create_btn" type="submit">
-          Reset Password
-        </button>
-      </AuthCard>
-    </div>
+      <button className="create_btn" type="submit">
+        {loading ? (
+          <>
+            Resetting...
+            <FaSpinner className="loading_icon" />
+          </>
+        ) : (
+          "Reset Password"
+        )}
+      </button>
+    </AuthCard>
   );
 };
 
-export default SetPassword;
+export default ResetPassword;

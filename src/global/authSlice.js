@@ -10,19 +10,31 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setCredientials: (state, action) => {
+    setCredentials: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.role = action.payload.user.role;
     },
+
     setRole: (state, action) => {
       state.role = action.payload;
+    },
+
+    updateUser: (state, action) => {
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.role = null;
     },
   },
 });
 
-export const { setCredientials, setRole, logout } = authSlice.actions;
+// 2. Fixed spelling here too
+export const { setCredentials, setRole, updateUser, logout } =
+  authSlice.actions;
 export default authSlice.reducer;

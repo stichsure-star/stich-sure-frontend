@@ -3,21 +3,16 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoutes = ({ role }) => {
-  const token = useSelector((state) => state.auth.token);
-  const user = useSelector((state) => state.auth.user);
+  const { token, user } = useSelector((state) => state.auth);
 
-  // 🔥 prevent crash
   if (!token) {
     return <Navigate to="/login" replace />;
   }
-  console.log("user", user);
-  console.log(" this is token", token);
 
   if (!user) {
-    return null;
+    return <div>Loading...</div>;
   }
 
-  // 🔥 role protection
   if (role && user.role !== role) {
     return <Navigate to="/login" replace />;
   }
