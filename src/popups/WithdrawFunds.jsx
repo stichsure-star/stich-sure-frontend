@@ -1,14 +1,16 @@
 import React from 'react'
+import { useState } from 'react';
 import "./css/modal-responsive-screen.css"
+import WithdrawalSuccessful from './WithdrawalSuccessful';
 
 
 const styles = {
   modal: {
     width: "448px",
-    height: "520px",
+    // height: "520px",
     borderRadius: "16px",
     padding: "32px",
-    // background: "#FFFFFF",
+    background: "#FFFFFF",
     display: "flex",
     flexDirection: "column",
     gap: "24px",
@@ -110,10 +112,12 @@ const styles = {
   },
 };
 
-const WithdrawFunds = () => {
+const WithdrawFunds = ({onClose}) => {
+  const [showSuccessful , setShowSuccessful] = useState(false);
+  
   return (
-
-  <div className="custom-modal" style={styles.modal}>
+    <div className='modal-overlay'>
+       <div className="custom-modal" style={styles.modal}>
     <h2 style={styles.heading}>Withdraw Funds</h2>
 
     <div style={styles.balanceSection}>
@@ -147,6 +151,7 @@ const WithdrawFunds = () => {
       <button
         type="button"
         style={styles.cancelButton}
+        onClick={onClose}
       >
         Cancel
       </button>
@@ -154,11 +159,25 @@ const WithdrawFunds = () => {
       <button
         type="button"
         style={styles.confirmButton}
+        onClick={() => setShowSuccessful(true)}
       >
         Confirm Withdrawal
       </button>
     </div>
+    { showSuccessful && (
+      <WithdrawalSuccessful
+      onClose ={() => setShowSuccessful(false)}
+      />
+    )}
   </div>
+
+
+
+
+
+    </div>
+
+ 
 );
     
 }

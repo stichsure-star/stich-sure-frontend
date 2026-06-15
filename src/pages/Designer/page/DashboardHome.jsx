@@ -67,7 +67,7 @@ const Dashboard = () => {
 
         <p>Upload new designs and respond to customer requests</p>
 
-        <button onClick={() => navigate("/upload")}>↥ Upload Designs</button>
+        <button onClick={() => navigate("/designer/upload")}>↥ Upload Designs</button>
       </section>
 
       {/* ACTIVE ORDERS */}
