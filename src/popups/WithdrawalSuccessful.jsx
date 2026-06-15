@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import { CheckCircle } from "lucide-react";
-import "./css/modal-responsive-screen.css"
+import "./css/modal-responsive-screen.css";
 
 const styles = {
   modal: {
@@ -36,30 +36,30 @@ const styles = {
   },
 };
 
-const WithdrawalSuccessful = ({onClose}) => {
+const WithdrawalSuccessful = ({ onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose?.(); // auto close after 3 seconds
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
   return (
-    <div  className='modal-overlay'>
-      <div className="custom-modal" style={styles.modal}>
-    <div style={styles.iconWrapper}>
-      <CheckCircle size={40} color="#34A853" />
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="custom-modal"
+        style={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={styles.iconWrapper}>
+          <CheckCircle size={40} color="#34A853" />
+        </div>
+
+        <h2 style={styles.title}>Withdrawal Successful!</h2>
+      </div>
     </div>
+  );
+};
 
-    <h2
-    type="button" 
-    onClick={onClose}
-    style={styles.title}>
-      Withdrawal Successful!
-    </h2>
- </div>
- {/* <button onClick={onClose}>
-  Done
-</button> */}
-
-
-
-    </div>
- 
-  )
-}
-
-export default WithdrawalSuccessful
+export default WithdrawalSuccessful;

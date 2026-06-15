@@ -7,9 +7,7 @@ import "../styles/DesignerSuccessful.css";
 import { useNavigate } from "react-router-dom";
 
 const Desgn = ({ onNext, onPrev }) => {
-    const navigate  = useNavigate();
-
-
+  const navigate = useNavigate();
 
   return (
     <div className="Desgn-page">
@@ -27,12 +25,13 @@ const Desgn = ({ onNext, onPrev }) => {
 
         <ul className="benefits">You’re now a Verified Designer</ul>
 
-        <button className="submit-btn " 
-        onClick= {() => {
-          // onNext();
-          navigate("/designer/dashboard");
-        }}> 
-          Proceed to dashboard  
+        <button
+          className="submit-btn"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Proceed to dashboard
         </button>
       </div>
     </div>

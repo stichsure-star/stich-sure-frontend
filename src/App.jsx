@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import DesignerVerification from "./components/DesignerVerification";
-// import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
+import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
 import InformationDesigner from "./pages/kyc/InformationDesigner";
 import WalletDesigner from "./pages/kyc/WalletDesigner";
 import ProfilePage from "./pages/kyc/ProfilePage";
@@ -89,22 +89,23 @@ const router = createBrowserRouter([
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
 
-      // { path: "identitydesigner", element: <IdentityDesignerPage /> },
-      { path: "informationdesigner", element: <InformationDesigner /> },
-      { path: "walletdesigner", element: <WalletDesigner /> },
       { path: "profilepage", element: <ProfilePage /> },
       // { path: "orderdetails", element: <OrderDetails /> },
+
+      { path: "/successfulpayment", element: <PaymentSuccessful /> },
+      { path: "/checkout", element: <CheckoutPage /> },
+      { path: "/checkoutpayment", element: <CheckoutPayment /> },
+      { path: "informationdesigner", element: <InformationDesigner /> },
+      { path: "designerverification", element: <DesignerVerification /> },
+      { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "successfull", element: <SuccessfulDesignerPage /> },
       {
         path: "/designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
-      { path: "/successfulpayment", element: <PaymentSuccessful /> },
-      { path: "/checkout", element: <CheckoutPage /> },
-      { path: "/checkoutpayment", element: <CheckoutPayment /> },
+      { path: "walletdesigner", element: <WalletDesigner /> },
     ],
   },
-  { path: "designerverification", element: <DesignerVerification /> },
 
   {
     path: "/designer",
@@ -119,9 +120,9 @@ const router = createBrowserRouter([
           { path: "tracker", element: <Tracker /> },
           { path: "upload", element: <Upload /> },
           { path: "earning", element: <Earning /> },
-          { path: "collaboration", element: <CollaborationPage />  },
-          { path: "designer-page", element: <Designerspage />  },
-          { path: "send-request", element: <CollaborationRequestPage />  },
+          { path: "collaboration", element: <CollaborationPage /> },
+          { path: "designer-page", element: <Designerspage /> },
+          { path: "send-request", element: <CollaborationRequestPage /> },
 
           { path: "ratings", element: <Relaibiy /> },
           { path: "templates", element: <Template /> },
@@ -173,9 +174,8 @@ const router = createBrowserRouter([
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/verification", element: <Verification /> }],
   },
-  
-  <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
 
+  <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
 
   {
     path: "/user",

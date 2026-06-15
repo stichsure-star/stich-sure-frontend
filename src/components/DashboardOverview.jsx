@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/DashboardOverview.css";
 import ladyhairtire from "../assets/daniel/Ladyhairtire.png";
 import greenman from "../assets/daniel/greenman.png";
@@ -8,6 +8,7 @@ import Save from "../assets/daniel/Savecontainer.png";
 import Complete from "../assets/daniel/Container.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { authApi } from "../config/customer";
 
 const stats = [
   { id: 1, label: "Active Orders", value: 2, icon: Vector },
@@ -58,7 +59,27 @@ export default function DashboardOverview() {
       image: queen,
     },
   ];
+
+  const [product, setProduct] = useState([]);
   const user = useSelector((state) => state.auth.user);
+  const fetchData = async () => {
+    try {
+      const response = await authApi.userDashboard();
+      console.log("response", response.data);
+      setProduct(response.data.data);
+      console.log("product", product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("product updated:", product);
+  }, [product]);
 
   return (
     <div className="dashboard-content-wrapper">
@@ -75,7 +96,7 @@ export default function DashboardOverview() {
               <div className="stat-icon">
                 <img src={stat.icon} alt={stat.label} />
               </div>
-              <h3 className="stat-value">{stat.value}</h3>
+              <h3 className="stat-value">{product.activeOrders}</h3>
             </div>
             <div className="stat-info">
               <p className="stat-label">{stat.label}</p>
