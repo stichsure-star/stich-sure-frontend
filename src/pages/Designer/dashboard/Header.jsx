@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../Designer/css/Header.css";
 import Img from "../../../assets/gbenga/stitchsure.png";
 import Gold from "../../../assets/gbenga/Gold.png";
+import empty from "../../../assets/gbenga/empty.jpg";
 
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
@@ -29,7 +30,7 @@ const Header = () => {
           </div>
 
           <div className="Picky" onClick={() => setOpen(true)}>
-            <img src={Gold} alt="Logo" className="Goldie" />
+            <img src={empty} alt="Logo" className="Goldie" />
           </div>
         </div>
       </header>

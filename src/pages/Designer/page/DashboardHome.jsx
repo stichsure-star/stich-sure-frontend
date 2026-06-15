@@ -2,11 +2,15 @@ import "../../Designer/css/DashboardHome.css";
 import { TbCubeSpark } from "react-icons/tb";
 import { LuDollarSign } from "react-icons/lu";
 import { FaRegStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+
   return (
     <main className="dashboard">
-      <h2>Welcome Back, Adebayo!</h2>
+      <h2>Welcome Back,{user.lastName}</h2>
 
       <p>Here's what's happening with your business today</p>
 

@@ -11,7 +11,13 @@ import DesignerIsVerifiedSuccessfullyPage from "../pages/kyc/DesignerIsVerifiedS
 const steps = [1, 2, 3, 4, 5];
 
 const DesignerVerification = () => {
+  const [designerInfo, setDesignerInfo] = useState({});
+  console.log("setDesignerInfo", setDesignerInfo);
+  console.log("designerInfo", designerInfo);
+
   const [currentStep, setCurrentStep] = useState(1);
+  console.log("designerInfo", designerInfo);
+  console.log("setDesignerInfo", setDesignerInfo);
 
   const handleNext = () => {
     if (currentStep < steps.length) {
@@ -30,11 +36,32 @@ const DesignerVerification = () => {
       case 1:
         return <DesignerIsVerifiedSuccessfullyPage onNext={handleNext} />;
       case 2:
-        return <InformationDesigner onNext={handleNext} onPrev={handlePrev} />;
+        return (
+          <InformationDesigner
+            onNext={handleNext}
+            onPrev={handlePrev}
+            designerInfo={designerInfo}
+            setDesignerInfo={setDesignerInfo}
+          />
+        );
       case 3:
-        return <WalletDesigner onNext={handleNext} onPrev={handlePrev} />;
+        return (
+          <WalletDesigner
+            onNext={handleNext}
+            onPrev={handlePrev}
+            designerInfo={designerInfo}
+            setDesignerInfo={setDesignerInfo}
+          />
+        );
       case 4:
-        return <ProfilePage onNext={handleNext} onPrev={handlePrev} />;
+        return (
+          <ProfilePage
+            onNext={handleNext}
+            onPrev={handlePrev}
+            designerInfo={designerInfo}
+            setDesignerInfo={setDesignerInfo}
+          />
+        );
       case 5:
         return <SuccessfulDesignerPage />;
       default:

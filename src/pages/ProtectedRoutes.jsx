@@ -17,6 +17,10 @@ const ProtectedRoutes = ({ role }) => {
     return <Navigate to="/login" replace />;
   }
 
+  // if (!user.isProfileCompleted) {
+  //   return <Navigate to="/designerverification" />;
+  // }
+
   return <Outlet />;
 };
 

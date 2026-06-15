@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/Upload.css";
 import { MdLogout } from "react-icons/md";
 import { BsUpload } from "react-icons/bs";
+import { designerApi } from "../config/designer";
 
 const Upload = () => {
   const [image, setImage] = useState(null);

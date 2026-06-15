@@ -97,7 +97,7 @@ const Login = () => {
       const userRole = res.data.data.role;
 
       if (userRole === "designer") {
-        navigate("/designerverification");
+        navigate("/designer/dashboard");
       } else {
         navigate("/user/dashboard");
       }
@@ -128,7 +128,7 @@ const Login = () => {
           });
 
           // 🔁 redirect to verification page
-          navigate("/verification", {
+          navigate("/verifcation", {
             state: {
               email,
               role: userRole,
