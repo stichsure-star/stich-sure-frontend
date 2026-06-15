@@ -1,4 +1,5 @@
 import React from 'react'
+import { CheckCircle } from "lucide-react";
 import "./css/modal-responsive-screen.css"
 
 const styles = {
@@ -35,17 +36,29 @@ const styles = {
   },
 };
 
-const WithdrawalSuccessful = () => {
+const WithdrawalSuccessful = ({onClose}) => {
   return (
- <div className="custom-modal" style={styles.modal}>
+    <div  className='modal-overlay'>
+      <div className="custom-modal" style={styles.modal}>
     <div style={styles.iconWrapper}>
       <CheckCircle size={40} color="#34A853" />
     </div>
 
-    <h2 style={styles.title}>
+    <h2
+    type="button" 
+    onClick={onClose}
+    style={styles.title}>
       Withdrawal Successful!
     </h2>
  </div>
+ {/* <button onClick={onClose}>
+  Done
+</button> */}
+
+
+
+    </div>
+ 
   )
 }
 

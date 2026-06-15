@@ -202,7 +202,10 @@ const Reliability = () => {
       <div className="Reliability_footer">
         <h3>Want to increase your score?</h3>
 
-        <button className="Reliability_button">Explore Guidelines</button>
+        <button 
+        className="Reliability_button">Explore Guidelines</button>
+        {/* on click of this take me to find collaborators */}
+        
       </div>
     </div>
   );

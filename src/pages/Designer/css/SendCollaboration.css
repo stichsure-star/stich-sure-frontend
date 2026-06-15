@@ -1,0 +1,111 @@
+.collab-request-card {
+  width: 100%;
+  max-width: 640px;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.collab-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+}
+
+.collab-recipient {
+  margin-top: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #444;
+}
+
+.collab-recipient span {
+  font-weight: 500;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #b3b3b3;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #8b0024;
+}
+
+.form-group textarea {
+  resize: none;
+  min-height: 110px;
+}
+
+.button-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.cancel-btn,
+.submit-btn {
+  flex: 1;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  border-radius: 12px;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+.cancel-btn {
+  border: 1px solid #d7d7d7;
+  background: #fff;
+  color: #222;
+}
+
+.submit-btn {
+  border: 1px solid #8b0024; 
+  background: #8b0024;
+  color: #fff;
+  gap: 8px;
+}
+
+.submit-btn:hover {
+  background: #73001d;
+}
+
+.send-icon {
+  font-size: 13px;
+}

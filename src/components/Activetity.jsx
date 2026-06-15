@@ -1,3 +1,4 @@
+
 import React from "react";
 import "../styles/Activetity.css";
 
@@ -8,8 +9,13 @@ import { FiTrendingUp } from "react-icons/fi";
 import { IoStatsChartOutline } from "react-icons/io5";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
+import WithdrawFunds from "../popups/WithdrawFunds";
+import { useState } from "react";
 
 const Dashboard = () => {
+
+    const [showWithdrawal, setShowWithdrawal] = useState(false);
+  
   return (
     <div className="dashboard-container">
       {/* HEADER */}
@@ -53,8 +59,18 @@ const Dashboard = () => {
         <h3>Recent Transactions</h3>
 
         <div className="">
-          <button className="withdraw-btn">Withdraw</button>
+          <button 
+          onClick={() => setShowWithdrawal(true)}
+          className="withdraw-btn"
+          >
+            Withdraw
+          </button>
         </div>
+        { showWithdrawal && (
+          <WithdrawFunds
+          onClose ={() => setShowWithdrawal(false)}
+          />
+        )}
       </div>
 
       {/* SCROLLABLE HISTORY */}
