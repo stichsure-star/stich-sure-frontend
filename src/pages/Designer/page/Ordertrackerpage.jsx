@@ -1,10 +1,12 @@
 import React from "react";
-import Ordertracker from "../../../components/Ordertracker";
+import OrderTracker from "../../../components/OrderTracker";
+// import Ordertracker from "../../../components/Ordertracker";
 
 const Ordertrackerpage = () => {
   return (
     <div>
-      <Ordertracker />
+      <OrderTracker/>
+      {/* <Ordertracker /> */}
     </div>
   );
 };

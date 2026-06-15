@@ -72,6 +72,7 @@ import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
 import Settings from "./pages/User/page/Settings";
 import SendCollaborationRequest from "./pages/Designer/components/SendCollaborationRequest";
 import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequestPage";
+import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -120,13 +121,15 @@ const router = createBrowserRouter([
           { path: "upload", element: <Upload /> },
           { path: "earning", element: <Earning /> },
           { path: "collaboration", element: <CollaborationPage />  },
-          { path: "designer-page", element: <Designerspage />  },
           { path: "send-request", element: <CollaborationRequestPage />  },
 
           { path: "ratings", element: <Relaibiy /> },
           { path: "templates", element: <Template /> },
           { path: "setting", element: <Setting /> },
           { path: "active", element: <ActiveOrder /> },
+          { path: "order-tracking", element: <Ordertrackerpage /> },
+
+
           { path: "profile", element: <DesignerProfile /> },
           { path: "payment", element: <DesignerPayment /> },
           { path: "security", element: <DesignerSecurity /> },
