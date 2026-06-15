@@ -11,7 +11,7 @@ import WalletDesigner from "./pages/kyc/WalletDesigner";
 import ProfilePage from "./pages/kyc/ProfilePage";
 import Featurepage from "./pages/Featurepage ";
 import StartedPage from "./pages/StartedPage";
-import OrderDetails from "./components/OrderDetails";
+// import OrderDetails from "./components/OrderDetails";
 import Tracker from "./components/Tracker";
 import DashboardLayout from "../src/Layout/DashboardLayout";
 import DashboardHome from "./pages/Designer/page/DashboardHome";
@@ -70,6 +70,8 @@ import ProtectedRoutes from "./pages/ProtectedRoutes";
 import GoogleSuccess from "./pages/auth/GoogleSuccess";
 import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
 import Settings from "./pages/User/page/Settings";
+import SendCollaborationRequest from "./pages/Designer/components/SendCollaborationRequest";
+import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequestPage";
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -88,7 +90,7 @@ const router = createBrowserRouter([
       { path: "getstarted", element: <StartedPage /> },
 
       { path: "profilepage", element: <ProfilePage /> },
-      { path: "orderdetails", element: <OrderDetails /> },
+      // { path: "orderdetails", element: <OrderDetails /> },
 
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
       { path: "/checkout", element: <CheckoutPage /> },
@@ -119,6 +121,9 @@ const router = createBrowserRouter([
           { path: "upload", element: <Upload /> },
           { path: "earning", element: <Earning /> },
           { path: "collaboration", element: <CollaborationPage /> },
+          { path: "designer-page", element: <Designerspage /> },
+          { path: "send-request", element: <CollaborationRequestPage /> },
+
           { path: "ratings", element: <Relaibiy /> },
           { path: "templates", element: <Template /> },
           { path: "setting", element: <Setting /> },
@@ -169,6 +174,7 @@ const router = createBrowserRouter([
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/verification", element: <Verification /> }],
   },
+
   <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
 
   {

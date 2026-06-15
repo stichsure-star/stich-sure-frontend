@@ -11,8 +11,12 @@ import { CiCalendar } from "react-icons/ci";
 import { GrLineChart } from "react-icons/gr";
 import { MdOutlineTimer } from "react-icons/md";
 import { SiActiveloop } from "react-icons/si";
+import { useSelector } from "react-redux";
 
 const Reliability = () => {
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+
   const Templates_benefits = [
     {
       id: 1,
@@ -88,7 +92,7 @@ const Reliability = () => {
             <p className="Reliability_title">Reliability Score</p>
 
             <h1 className="Reliability_score">
-              94 <span>/100</span>
+              {user.profile.nextReliabilityTierProgress} <span>/100</span>
             </h1>
 
             <p className="Reliability_level">Premium Level</p>
@@ -96,11 +100,11 @@ const Reliability = () => {
           <div className="Reliability_badge">
             <article>
               <small>Total Orders</small>
-              <h2>156</h2>
+              <h2>{user.profile.ratingCount}</h2>
             </article>
             <article>
               <small>Total Orders</small>
-              <h2>156</h2>
+              <h2>{user.profile.ratingCount}</h2>
             </article>
           </div>
         </div>
@@ -108,7 +112,7 @@ const Reliability = () => {
         <div className="Reliability_circle">
           <div className="Reliability_circleInner">
             <span>Excellent</span>
-            <small>94%</small>
+            <small>{user.profile.ratingCount}%</small>
           </div>
         </div>
       </div>
@@ -121,7 +125,7 @@ const Reliability = () => {
             <GrLineChart className="Reliability_iconed" />
           </div>
           <div>
-            <h3>94%</h3>
+            <h3>{user.profile.ratingCount}%</h3>
             <p>Rating</p>
           </div>
         </div>
@@ -131,7 +135,7 @@ const Reliability = () => {
             <SiActiveloop className="Reliability_iconed" />
           </div>
           <div>
-            <h3>12</h3>
+            <h3>{user.profile.ratingCount}</h3>
             <p>Days Active</p>
           </div>
         </div>
@@ -142,7 +146,7 @@ const Reliability = () => {
           </div>
           <div>
             {" "}
-            <h3>4.9/5</h3>
+            <h3>{user.profile.ratingCount}/5</h3>
             <p>Reviews</p>
           </div>
         </div>
@@ -152,7 +156,7 @@ const Reliability = () => {
             <MdOutlineTimer className="Reliability_iconed" />
           </div>
           <div>
-            <h3>2 hrs</h3>
+            <h3>{user.profile.ratingCount} hrs</h3>
             <p>Response</p>
           </div>
         </div>
@@ -203,6 +207,7 @@ const Reliability = () => {
         <h3>Want to increase your score?</h3>
 
         <button className="Reliability_button">Explore Guidelines</button>
+        {/* on click of this take me to find collaborators */}
       </div>
     </div>
   );

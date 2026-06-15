@@ -1,5 +1,7 @@
 import React from 'react'
+import { CheckCircle } from "lucide-react";
 import "./css/modal-responsive-screen.css"
+import { useNavigate } from 'react-router-dom';
 
 
 const styles = {
@@ -58,9 +60,13 @@ const styles = {
   },
 };
 
-const DesignPublished = () => {
+const DesignPublished = ({onClose}) => {
+  const navigate = useNavigate();
+
+
   return (
-  <div className="custom-modal" style={styles.modal}>
+    <div className='modal-overlay'>
+       <div className="custom-modal" style={styles.modal}>
     <div style={styles.iconWrapper}>
       <CheckCircle size={40} color="#34A853" />
     </div>
@@ -73,10 +79,23 @@ const DesignPublished = () => {
       Your design is now live and visible to customers
     </p>
 
-    <button style={styles.button}>
+    <button
+     onClick= {() => {
+      onClose
+      navigate("/designer/dashboard")
+     }}
+    
+      style={styles.button}
+      >
       Go to Dashboard
     </button>
   </div>
+
+
+
+
+    </div>
+ 
 );
 }
 

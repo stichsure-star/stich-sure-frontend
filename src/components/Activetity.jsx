@@ -8,8 +8,16 @@ import { FiTrendingUp } from "react-icons/fi";
 import { IoStatsChartOutline } from "react-icons/io5";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
+import WithdrawFunds from "../popups/WithdrawFunds";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+
+  const [showWithdrawal, setShowWithdrawal] = useState(false);
+
   return (
     <div className="dashboard-container">
       {/* HEADER */}
@@ -25,7 +33,7 @@ const Dashboard = () => {
             <IoStatsChartOutline />
           </p>
           <div className="card-info">
-            <h3>₦850,000</h3>
+            <h3>{user.profile.totalEarnings}</h3>
 
             <p>Total Earnings</p>
           </div>
@@ -34,7 +42,7 @@ const Dashboard = () => {
         <div className="stats-card">
           <MdAccountBalanceWallet className="card-icon" />
           <div className="card-info">
-            <h3>₦320,000</h3>
+            <h3>{user.profile.availableBalance}</h3>
             <p>Wallet Balance</p>
           </div>
         </div>
@@ -42,7 +50,7 @@ const Dashboard = () => {
         <div className="stats-card withdraw-card">
           <BiMoneyWithdraw className="card-icon" />
           <div className="card-info">
-            <h3>₦530,000</h3>
+            <h3>{user.profile.withdrawn}</h3>
             <p>Withdrawable</p>
           </div>
         </div>
@@ -53,104 +61,19 @@ const Dashboard = () => {
         <h3>Recent Transactions</h3>
 
         <div className="">
-          <button className="withdraw-btn">Withdraw</button>
+          <button
+            onClick={() => setShowWithdrawal(true)}
+            className="withdraw-btn"
+          >
+            Withdraw
+          </button>
         </div>
+        {showWithdrawal && (
+          <WithdrawFunds onClose={() => setShowWithdrawal(false)} />
+        )}
       </div>
 
       {/* SCROLLABLE HISTORY */}
-      <div className="transactions-wrapper">
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-
-        <div className="transaction-item">
-          <div className="transaction-left">
-            <div className="trend-icon">
-              <FiTrendingUp />
-            </div>
-            <div>
-              <h4>Bridal Gown for Faith E.</h4>
-              <small>May 15, 2026 • ORD-101</small>
-            </div>
-          </div>
-          <div className="transaction-right">+₦180,000</div>
-        </div>
-      </div>
     </div>
   );
 };

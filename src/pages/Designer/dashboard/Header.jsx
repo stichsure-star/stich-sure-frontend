@@ -8,9 +8,12 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
 
 import Sidebar from "../dashboard/Sidebar";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   return (
     <>
@@ -30,7 +33,11 @@ const Header = () => {
           </div>
 
           <div className="Picky" onClick={() => setOpen(true)}>
-            <img src={empty} alt="Logo" className="Goldie" />
+            <img
+              src={user.profile.profilePhoto || empty}
+              alt="Logo"
+              className="Goldie"
+            />
           </div>
         </div>
       </header>

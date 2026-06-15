@@ -13,4 +13,6 @@ export const designerApi = {
         "Content-Type": "multipart/form-data",
       },
     }),
+
+  getProfile: (id) => ApiClient.get(`/designer/one/${id}`),
 };

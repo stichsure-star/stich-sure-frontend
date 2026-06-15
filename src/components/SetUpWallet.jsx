@@ -89,10 +89,6 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
           )}
 
           <div className="btn-group">
-            <button type="button" onClick={onPrev}>
-              Back
-            </button>
-
             <button type="submit">Continue</button>
           </div>
         </form>

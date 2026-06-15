@@ -1,4 +1,5 @@
 import React from 'react'
+import { CheckCircle } from "lucide-react";
 import "./css/modal-responsive-screen.css"
 
 const styles = {
@@ -46,9 +47,10 @@ const styles = {
 
 };
 
-const RequestSent = () => {
+const RequestSent = ({onClose}) => {
   return (
- <div className="custom-modal" style={styles.modal}>
+    <div  className='modal-overlay'>
+      <div className="custom-modal" style={styles.modal}>
     <div style={styles.iconWrapper}>
       <CheckCircle size={40} color="#34A853" />
     </div>
@@ -60,7 +62,16 @@ const RequestSent = () => {
     <p style={styles.description}>
       The Fashion Designer will review your request and get back to you.
     </p>
+
+       <button
+          onClick={onClose}
+          className="submit-btn"
+        >
+          OK
+        </button>
  </div>
+    </div>
+ 
   )
 }
 

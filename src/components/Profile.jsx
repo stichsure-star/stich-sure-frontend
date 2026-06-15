@@ -2,9 +2,10 @@ import { useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import "../styles/Profile.css";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../global/authSlice";
+import { setCredentials, updateUser } from "../global/authSlice";
 import Swal from "sweetalert2";
 import { designerApi } from "../config/designer";
+import { Navigate } from "react-router-dom";
 
 const Profile = ({ onNext, onPrev, designerInfo }) => {
   const dispatch = useDispatch();
@@ -81,12 +82,11 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
       const res = await designerApi.setUpProfile(payload);
       console.log("res", res.data);
       console.log("wassup");
+      dispatch(updateUser(res.data.data));
 
-      dispatch(
-        setCredentials({
-          user: res.data.data,
-        }),
-      );
+      // navigate("/designer/dashboard");
+
+      onNext();
 
       Swal.fire({
         icon: "success",
@@ -94,8 +94,6 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
         timer: 1500,
         showConfirmButton: false,
       });
-
-      onNext();
     } catch (error) {
       console.log(error?.response?.data || error);
     }
