@@ -19,8 +19,10 @@ const VerifyCode = () => {
 
   // ================= STATE =================
   const [codeArray, setCodeArray] = useState(Array(6).fill(""));
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(300);
   const [canResend, setCanResend] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const inputRefs = useRef([]);
 
@@ -103,6 +105,7 @@ const VerifyCode = () => {
     }
 
     try {
+      setIsVerifying(true);
       // ================= FORGOT PASSWORD FLOW =================
       if (flow === "forgot-password") {
         await authApi.verifyOtp(role, { email, otp });
@@ -144,12 +147,17 @@ const VerifyCode = () => {
         title: "Verification failed",
         text: error.response?.data?.message || "Invalid OTP",
       });
+    } finally {
+      setIsVerifying(false);
     }
   };
 
   // ================= RESEND OTP =================
   const handleResend = async () => {
-    if (timer > 0) return;
+    setCanResend(false);
+setTimer(300);
+
+    if (timer > 0 || isResending) return;
 
     try {
       await authApi.resendOtp(role, { email });
@@ -161,14 +169,19 @@ const VerifyCode = () => {
         showConfirmButton: false,
       });
 
-      setTimer(60);
       setCodeArray(Array(6).fill(""));
+      setCanResend(false);
+       setTimer(300);
+
+
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Failed",
         text: error.response?.data?.message,
       });
+      } finally {
+        setIsResending(false);
     }
   };
 
@@ -210,14 +223,24 @@ const VerifyCode = () => {
 
         <p className="resend_text">
           {canResend ? (
-            <span onClick={handleResend}>Resend code</span>
+            <span
+            className={`resend_btn ${isResending ? "disabled" : ""}`}
+             onClick={handleResend}
+             >
+              {isResending ? "Sending..." : "Resend Code"}
+              Resend code
+            </span>
           ) : (
             `Resend after ${formatTime(timer)}`
           )}
         </p>
 
-        <button type="submit" className="create_btn">
-          Continue
+        <button
+         type="submit"
+          className="create_btn"
+          disabled={isVerifying}
+          >
+          {isVerifying ? "Verifying..." : "Continue"}
         </button>
       </AuthCard>
     </div>

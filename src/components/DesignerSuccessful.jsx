@@ -27,7 +27,7 @@ const Desgn = ({ onNext, onPrev }) => {
 
         <ul className="benefits">You’re now a Verified Designer</ul>
 
-        <button className="submit-btn " 
+        <button className="successful-btn" 
         onClick= {() => {
           // onNext();
           navigate("/designer/dashboard");

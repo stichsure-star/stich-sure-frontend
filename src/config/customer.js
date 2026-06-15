@@ -5,4 +5,6 @@ export const authApi = {
     ApiClient.put(`/customer/update-profile/${id}`, data),
 
   updatepassword: (data) => ApiClient.put(`/customer/update-password/`, data),
+
+  
 };
