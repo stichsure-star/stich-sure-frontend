@@ -18,4 +18,6 @@ export const designerApi = {
   dashBoard: (data) => ApiClient.get(`/designerProfile/dashboard-stats`),
 
   designsCreate: (data) => ApiClient.post("/designs/create", data),
+  resetPassword: (data) => ApiClient.put(`/designer/update-password-setting`),
+  updateWallet: (data) => ApiClient.put(`/designerWallet/update`),
 };

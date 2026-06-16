@@ -1,5 +1,10 @@
 import React from "react";
-import { createBrowserRouter, Route, RouterProvider } from "react-router-dom"; // Updated imports
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom"; // Updated imports
 // Page & Component Imports
 import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
@@ -11,7 +16,7 @@ import WalletDesigner from "./pages/kyc/WalletDesigner";
 import ProfilePage from "./pages/kyc/ProfilePage";
 import Featurepage from "./pages/Featurepage ";
 import StartedPage from "./pages/StartedPage";
-// import OrderDetails from "./components/OrderDetails";
+ import OrderDetails from "./components/OrderDetails";
 import Tracker from "./components/Tracker";
 import DashboardLayout from "../src/Layout/DashboardLayout";
 import DashboardHome from "./pages/Designer/page/DashboardHome";
@@ -54,6 +59,12 @@ import ActiveOrder from "./pages/Designer/page/Active";
 import NotFound from "./components/NotFound";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
 import Login3 from "./pages/auth/customer/Login";
+import RatingAdebayor from "./components/RatingAdebayor";
+import DanDesignerProfile from "./components/DanDesignerProfile";
+import requiredetails from "../src/components/RequestDetails";
+import RequestDetails from "../src/components/RequestDetails";
+
+
 import WithdrawFunds from "../src/popups/WithdrawFunds";
 import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
 import Warning from "../src/popups/Warning";
@@ -89,6 +100,9 @@ const router = createBrowserRouter([
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
 
+      
+      { path: "profilepage", element: <ProfilePage /> },      
+      { path: "orderdetails", element: <OrderDetails /> },
       { path: "profilepage", element: <ProfilePage /> },
       // { path: "orderdetails", element: <OrderDetails /> },
 
@@ -103,6 +117,12 @@ const router = createBrowserRouter([
         path: "/designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
+
+      { path: "/checkout", element: <CheckoutPage /> },
+
+      { path: "/successfulpayment", element: <PaymentSuccessful /> },
+      { path: "/checkout", element: <CheckoutPage /> },
+      { path: "/checkoutpayment", element: <CheckoutPayment /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
     ],
   },
@@ -181,52 +201,19 @@ const router = createBrowserRouter([
     path: "/user",
     element: <ProtectedRoutes role="customer" />,
     children: [
-      {
-        element: <UserLayout />,
-        children: [
-          {
-            path: "dashboard",
-            element: <UserDashboard />,
-          },
-          {
-            path: "myorders",
-            element: <MyOrders />,
-          },
-          {
-            path: "browsedesigners",
-            element: <BrowseDesigners />,
-          },
-          {
-            path: "browsedesigns",
-            element: <BrowseDesign />,
-          },
-          {
-            path: "saveddesigners",
-            element: <SavedDesigners />,
-          },
-          {
-            path: "designerscatalog",
-            element: <DesignersCatalog />,
-          },
-          {
-            path: "des",
-            element: <RateDesigner />,
-          },
-          {
-            path: "setting",
-            element: <Settings />,
-          },
-
-          {
-            path: "customer-profile",
-            element: <CustomerProfile />,
-          },
-          {
-            path: "customer-security",
-            element: <CustomerSecurity />,
-          },
-        ],
-      },
+      { path: "dashboard", element: <UserDashboard /> },
+      { path: "myorders", element: <MyOrders /> },
+      { path: "browsedesigners", element: <BrowseDesigners /> },
+      { path: "browsedesigns", element: <BrowseDesign /> },
+      { path: "saveddesigners", element: <SavedDesigners /> },
+      { path: "designerscatalog", element: <DesignersCatalog /> },
+      { path: "des", element: <RateDesigner /> },
+      { path: "customer-profile", element: <CustomerProfile /> },
+      { path: "customer-security", element: <CustomerSecurity /> },
+      {path: "requiredetails", element:<RequestDetails />} ,
+      // { path: "rating-adebayor",   element: <RatingAdebayor /> },
+      { path: "designer-profile", element: <DanDesignerProfile /> },
+  
     ],
   },
 ]);

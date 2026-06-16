@@ -10,7 +10,7 @@ ApiClient.interceptors.request.use(
     const token = store.getState().auth.token;
 
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`; 
     }
 
     return config;
