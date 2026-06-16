@@ -42,7 +42,7 @@ import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
-// import DesignerDirectory from "./components/DesignerDirectory";
+import DesignerDirectory from "./components/DesignerDirectory";
 import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
 import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
 import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
@@ -147,7 +147,8 @@ const router = createBrowserRouter([
           { path: "upload", element: <Upload /> },
           { path: "earning", element: <Earning /> },
           { path: "collaboration", element: <CollaborationPage /> },
-          { path: "designer-page", element: <Designerspage /> },
+          { path: "profileonMount", element: <DesignerDirectory /> },
+          { path: "designerpage", element: <Designerspage /> },
           { path: "send-request", element: <CollaborationRequestPage /> },
 
           { path: "ratings", element: <Relaibiy /> },
@@ -220,7 +221,7 @@ const router = createBrowserRouter([
       { path: "customer-profile", element: <CustomerProfile /> },
       { path: "customer-security", element: <CustomerSecurity /> },
       {path: "requiredetails", element:<RequestDetails />} ,
-      // { path: "rating-adebayor",   element: <RatingAdebayor /> },
+      { path: "rating-adebayor",   element: <RatingAdebayor /> },
       { path: "designer-profile", element: <DanDesignerProfile /> },
   
     ],

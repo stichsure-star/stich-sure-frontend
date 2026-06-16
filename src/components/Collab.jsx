@@ -26,19 +26,19 @@ const Collab = () => {
       <section className="Stats_container">
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Designers</p>
+          <p>Active Collaborator</p>
         </div>
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Projects</p>
+          <p>Trusted Partners</p>
         </div>
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Completed</p>
+          <p>Task Completed</p>
         </div>
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Active</p>
+          <p>Success Rate</p>
         </div>
       </section>
 

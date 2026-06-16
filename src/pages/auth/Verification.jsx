@@ -228,7 +228,7 @@ setTimer(300);
              onClick={handleResend}
              >
               {isResending ? "Sending..." : "Resend Code"}
-              Resend code
+            
             </span>
           ) : (
             `Resend after ${formatTime(timer)}`
