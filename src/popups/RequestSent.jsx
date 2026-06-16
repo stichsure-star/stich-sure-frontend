@@ -44,10 +44,25 @@ const styles = {
     margin: 0,
   },
 
+   button: {
+    width: "100%",
+    height: "48px",
+    borderRadius: "8px",
+    border: "none",
+    background: "#8B0021",
+    color: "#FFFFFF",
+    fontSize: "25px",
+    fontWeight: 600,
+    cursor: "pointer",
+    marginTop: "auto",
+  },
+
 
 };
 
-const RequestSent = ({onClose}) => {
+const RequestSent = ({isOpen, onClose}) => {
+  if (!isOpen) return null
+
   return (
     <div  className='modal-overlay'>
       <div className="custom-modal" style={styles.modal}>
@@ -66,8 +81,9 @@ const RequestSent = ({onClose}) => {
        <button
           onClick={onClose}
           className="submit-btn"
+          style={styles.button}
         >
-          OK
+        Go to Dashboard
         </button>
  </div>
     </div>

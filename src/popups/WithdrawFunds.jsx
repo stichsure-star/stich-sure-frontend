@@ -122,7 +122,7 @@ const WithdrawFunds = ({onClose}) => {
 
     <div style={styles.balanceSection}>
       <span style={styles.balanceLabel}>Available Balance</span>
-      <span style={styles.balanceAmount}>₦0</span>
+      <span style={styles.balanceAmount}>₦320,000</span>
     </div>
 
     <div style={styles.formGroup}>
@@ -135,7 +135,7 @@ const WithdrawFunds = ({onClose}) => {
       />
 
       <span style={styles.feeText}>
-        Charge Fee: ₦100 • You'll receive: ₦49,900
+        •  Charge Fee: ₦100
       </span>
     </div>
 
