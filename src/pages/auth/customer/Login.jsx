@@ -9,10 +9,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaSpinner } from "react-icons/fa";
 
-import { setCredentials } from "../../../global/authSlice";
+import { setCredentials, updateUser } from "../../../global/authSlice";
 import { useDispatch } from "react-redux";
 
 import { authApi } from "../../../config/auth";
+import { designerApi } from "../../../config/designer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -76,16 +77,29 @@ const Login = () => {
       setLoading(true);
 
       const res = await authApi.login(role, formData);
-      console.log("res", res.data);
-      console.log("res", res.data.data);
 
-      dispatch(
-        setCredentials({
-          user: res.data.data,
+      const user = res.data.data;
+      const token = res.data.token;
 
-          token: res.data.token,
-        }),
-      );
+      const userRole = user.role; // ✅ define ONCE
+
+      // 1. save login user first
+      dispatch(setCredentials({ user, token }));
+
+      let fullUser = user;
+
+      // 2. ONLY fetch profile for designer
+      if (userRole === "designer") {
+        try {
+          const profile = await designerApi.getProfile(user.id);
+          fullUser = profile.data.data; // merge result
+        } catch (err) {
+          console.log("Profile fetch failed:", err);
+        }
+      }
+
+      // 3. update redux ONCE
+      dispatch(updateUser(fullUser));
 
       Swal.fire({
         icon: "success",
@@ -94,68 +108,15 @@ const Login = () => {
         showConfirmButton: false,
       });
 
-      const userRole = res.data.data.role;
-
+      // 4. navigation
       if (userRole === "designer") {
-        navigate("/designerverification");
+        navigate("/designer/dashboard");
       } else {
         navigate("/user/dashboard");
       }
     } catch (err) {
-      const message = err.response?.data?.message;
-      const data = err.response?.data;
-
-      console.error("The exact login error:", err);
-
-      // ================= EMAIL NOT VERIFIED FLOW =================
-      if (
-        message === "Please verify your email to continue" ||
-        data?.code === "EMAIL_NOT_VERIFIED"
-      ) {
-        const email = formData.email;
-        const userRole = role || data?.role || "customer";
-
-        Swal.fire({
-          icon: "warning",
-          title: "Email not verified",
-          text: "We are sending you a verification code...",
-        });
-
-        try {
-          // 🔥 resend OTP automatically
-          await authApi.resendOtp(userRole, {
-            email,
-          });
-
-          // 🔁 redirect to verification page
-          navigate("/verification", {
-            state: {
-              email,
-              role: userRole,
-              flow: "verify-email",
-            },
-          });
-
-          return;
-        } catch (otpError) {
-          Swal.fire({
-            icon: "error",
-            title: "OTP resend failed",
-            text: otpError.response?.data?.message || "Try again",
-          });
-
-          return;
-        }
-      }
-
-      // ================= NORMAL LOGIN ERROR =================
-      setServerError(message);
-
-      Swal.fire({
-        icon: "error",
-        title: "Login Failed",
-        text: message,
-      });
+      console.log(err);
+      setServerError(err.response?.data?.message);
     } finally {
       setLoading(false);
     }

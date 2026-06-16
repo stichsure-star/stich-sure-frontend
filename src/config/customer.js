@@ -6,5 +6,7 @@ export const authApi = {
 
   updatepassword: (data) => ApiClient.put(`/customer/update-password/`, data),
 
-  
+  design: (data) => ApiClient.get(`/designs/getAll`),
+  designCategory: (data) => ApiClient.post(`/designs/getAll/category`),
+  userDashboard: (data) => ApiClient.get(`/customer/dashboard-stats`),
 };

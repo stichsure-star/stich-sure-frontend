@@ -1,12 +1,12 @@
-import React from 'react'
-import DesignerIsVerified from '../../components/DesignerIsVerified'
+import React from "react";
+import DesignerIsVerified from "../../components/DesignerIsVerified";
 
-const DesignerIsVerifiedSuccessfullyPage = ({onNext ,onPrev}) => {
+const DesignerIsVerifiedSuccessfullyPage = ({ onNext, onPrev, saved }) => {
   return (
     <div>
-      <DesignerIsVerified onNext ={onNext}  onPrev={onPrev}/>
+      <DesignerIsVerified onNext={onNext} onPrev={onPrev} saved={saved} />
     </div>
-  )
-}
+  );
+};
 
-export default DesignerIsVerifiedSuccessfullyPage
+export default DesignerIsVerifiedSuccessfullyPage;

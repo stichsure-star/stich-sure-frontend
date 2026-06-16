@@ -1,12 +1,11 @@
-import React from 'react'
+import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
-import "../styles/DesignerIsVerified.css"
+import "../styles/DesignerIsVerified.css";
 
-const DesignerIsVerified = ({onNext,onPrev}) => {
+const DesignerIsVerified = ({ onNext, onPrev }) => {
   return (
     <div className="DesignerIsVerified-page">
-
       <div className="verification-card">
         <div className="icon-circle">
           <MdVerifiedUser className="shield-icon" />
@@ -15,8 +14,8 @@ const DesignerIsVerified = ({onNext,onPrev}) => {
         <h2>Verify Your Identity As A Designer</h2>
 
         <p className="description">
-          Verify your identity to build trust, receive
-          orders, and access designer features.
+          Verify your identity to build trust, receive orders, and access
+          designer features.
         </p>
 
         <ul className="benefits">
@@ -39,7 +38,7 @@ const DesignerIsVerified = ({onNext,onPrev}) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DesignerIsVerified
+export default DesignerIsVerified;

@@ -4,9 +4,12 @@ import "../pages/Designer/css/Collaborator.css";
 import FindCollaborators from "../pages/Designer/components/FindCollaborators";
 import IncomingCollab from "../pages/Designer/components/IncomingCollab";
 import MyCollab from "../pages/Designer/components/MyCollab";
+import { useSelector } from "react-redux";
 
 const Collab = () => {
   const [activeTab, setActiveTab] = useState("find");
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   return (
     <main className="Outsource_page">
@@ -22,19 +25,19 @@ const Collab = () => {
       {/* STATS */}
       <section className="Stats_container">
         <div className="Stat_card">
-          <h3>12</h3>
+          <h3>{user.profile.ratingCount}</h3>
           <p>Designers</p>
         </div>
         <div className="Stat_card">
-          <h3>8</h3>
+          <h3>{user.profile.ratingCount}</h3>
           <p>Projects</p>
         </div>
         <div className="Stat_card">
-          <h3>5</h3>
+          <h3>{user.profile.ratingCount}</h3>
           <p>Completed</p>
         </div>
         <div className="Stat_card">
-          <h3>3</h3>
+          <h3>{user.profile.ratingCount}</h3>
           <p>Active</p>
         </div>
       </section>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/Upload.css";
 import { MdLogout } from "react-icons/md";
 import { BsUpload } from "react-icons/bs";
+import { designerApi } from "../config/designer";
 import { useNavigate } from "react-router-dom";
 import DesignPublished from "../popups/DesignPublished";
 
@@ -141,18 +142,13 @@ const Upload = () => {
           </div>
         </div>
 
-        <button
-          onClick={() => setShowPublished(true)}
-          className="Publish"
-        >
+        <button onClick={() => setShowPublished(true)} className="Publish">
           Publish Design
         </button>
       </div>
 
       {showPublished && (
-        <DesignPublished
-          onClose={() => setShowPublished(false)}
-        />
+        <DesignPublished onClose={() => setShowPublished(false)} />
       )}
     </div>
   );

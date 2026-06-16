@@ -9,7 +9,7 @@ const DesignerPayment = () => {
         <form className="designer-payment-form">
           <div className="payment-current-account">
             <label className="payment-field">
-            <span>Current Bank Account</span>
+            <span>Account Name</span>
             <input type="text" placeholder="Bank Account"/>
             </label>
           </div>
