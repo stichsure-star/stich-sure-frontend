@@ -91,28 +91,26 @@ const Reliability = () => {
           <div className="Reliability_scors">
             <p className="Reliability_title">Reliability Score</p>
 
-            <h1 className="Reliability_score">
-              {user.profile.nextReliabilityTierProgress} <span>/100</span>
-            </h1>
+            <h1 className="Reliability_score">{user.data.reliabilityLabel}</h1>
 
             <p className="Reliability_level">Premium Level</p>
           </div>
           <div className="Reliability_badge">
             <article>
               <small>Total Orders</small>
-              <h2>{user.profile.ratingCount}</h2>
+              <h2>{user.data.totalOrders}</h2>
             </article>
             <article>
-              <small>Total Orders</small>
-              <h2>{user.profile.ratingCount}</h2>
+              <small> On-Time</small>
+              <h2>{user.data.onTimeRateLabel}</h2>
             </article>
           </div>
         </div>
 
         <div className="Reliability_circle">
           <div className="Reliability_circleInner">
-            <span>Excellent</span>
-            <small>{user.profile.ratingCount}%</small>
+            <span>{user.data.nextReliabilityTier}</span>
+            <small>{user.data.reliabilityScore}%</small>
           </div>
         </div>
       </div>
@@ -125,8 +123,8 @@ const Reliability = () => {
             <GrLineChart className="Reliability_iconed" />
           </div>
           <div>
-            <h3>{user.profile.ratingCount}%</h3>
-            <p>Rating</p>
+            <h3>{user.data.onTimeRate}%</h3>
+            <p>On-Time Rate</p>
           </div>
         </div>
 
@@ -135,8 +133,8 @@ const Reliability = () => {
             <SiActiveloop className="Reliability_iconed" />
           </div>
           <div>
-            <h3>{user.profile.ratingCount}</h3>
-            <p>Days Active</p>
+            <h3>{user.data.averageDeliveryTime}</h3>
+            <p>Avg Delivery Time</p>
           </div>
         </div>
 
@@ -146,8 +144,8 @@ const Reliability = () => {
           </div>
           <div>
             {" "}
-            <h3>{user.profile.ratingCount}/5</h3>
-            <p>Reviews</p>
+            <h3>{user.data.customerSatisfactionLabel}</h3>
+            <p>Customers Satisfaction</p>
           </div>
         </div>
 
@@ -156,8 +154,8 @@ const Reliability = () => {
             <MdOutlineTimer className="Reliability_iconed" />
           </div>
           <div>
-            <h3>{user.profile.ratingCount} hrs</h3>
-            <p>Response</p>
+            <h3>{user.data.responseTime} </h3>
+            <p>Response Time</p>
           </div>
         </div>
       </div>

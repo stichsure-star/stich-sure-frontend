@@ -4,6 +4,7 @@ import "../../../styles/customer-security.css";
 import { authApi } from "../../../config/customer";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../../global/authSlice";
+import Swal from "sweetalert2";
 
 const CustomerSecurity = () => {
   const [showCurrent, setShowCurrent] = useState(false);
@@ -62,10 +63,19 @@ const CustomerSecurity = () => {
           confirmPassword: form.confirmPassword,
         }),
       );
-      alert("Password updated successfully");
+      Swal.fire({
+        icon: "success",
+        title: "Password updated successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.log("API ERROR:", error.response?.data || error.message);
-      alert(error.response?.data?.message || error.message);
+
+      Swal.fire({
+        icon: "error",
+        title: "Password update failed",
+      });
     }
 
     //

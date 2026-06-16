@@ -4,16 +4,35 @@ import { LuDollarSign } from "react-icons/lu";
 import { FaRegStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { designerApi } from "../../../config/designer";
+import { useEffect } from "react";
+import { setCredentials, updateUser } from "../../../global/authSlice";
+import { useDispatch } from "react-redux";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
   console.log("user", user);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
+  const dashBoard = async (e) => {
+    try {
+      const res = await designerApi.dashBoard();
+
+      dispatch(updateUser(res.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    dashBoard();
+  }, []);
+
   return (
     <main className="dashboard">
-      <h2>Welcome Back,{user.lastName}</h2>
+      <h2>Welcome Back,{user?.lastName || ""}.</h2>
 
       <p>Here's what's happening with your business today</p>
 
@@ -28,7 +47,7 @@ const Dashboard = () => {
             <small>Active Orders</small>
           </div>
 
-          <b>{user.profile.completedOrders}</b>
+          <b>{user.data?.activeOrders} </b>
         </div>
 
         <div className="cardww">
@@ -39,7 +58,7 @@ const Dashboard = () => {
             <small>Total Earnings</small>
           </div>
 
-          <b>₦{user.profile.completedOrders}</b>
+          <b>₦{user.data?.totalEarnings}</b>
         </div>
 
         <div className="cardww">
@@ -50,7 +69,7 @@ const Dashboard = () => {
             <small>Avg. Rating</small>
           </div>
 
-          <b>{user.profile.completedOrders}</b>
+          <b>{user.profile?.completedOrders}</b>
         </div>
 
         <div className="cardww">
@@ -59,7 +78,7 @@ const Dashboard = () => {
             <small>Completed</small>
           </div>
 
-          <b>{user.profile.completedOrders}</b>
+          <b>{user.data?.completedOrders}</b>
         </div>
       </div>
 
