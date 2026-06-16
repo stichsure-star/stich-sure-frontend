@@ -126,7 +126,6 @@ const DesignersCatalog = () => {
 
   return (
     <div className="catalog-outer-container">
-      {/* Top Search Operations Header Bar Section */}
       <div className="catalog-search-header">
         <div className="search-bar-input-box">
           <FiSearch className="search-input-icon" />
@@ -137,7 +136,7 @@ const DesignersCatalog = () => {
         </button>
       </div>
 
-      <p className="items-counter-caption">Showing 9 designers</p>
+      <p className="items-counter-caption">Showing 6 designers</p>
       <div className="categories-pill-row">
         {filterCategories.map((cat) => (
           <button

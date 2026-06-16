@@ -15,4 +15,6 @@ export const designerApi = {
     }),
 
   getProfile: (id) => ApiClient.get(`/designer/one/${id}`),
+  resetPassword: (data) => ApiClient.put(`/designer/update-password-setting`),
+  updateWallet: (data) => ApiClient.put(`/designerWallet/update`),
 };
