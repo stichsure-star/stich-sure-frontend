@@ -113,7 +113,7 @@ const DesignersPage = () => {
             </button>
 
             <button
-            onClick={() => navigate ("/designer/designer-page")}
+            onClick={() => navigate ("/designer/profileonMount")}
              className="btn_outline"
              >
               View Profile

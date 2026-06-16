@@ -1,14 +1,21 @@
 import React, { useState, useRef } from "react";
-import { HiOutlineCalendar, HiOutlineCloudArrowUp, HiXMark } from "react-icons/hi2";
+import {
+  HiOutlineCalendar,
+  HiOutlineCloudArrowUp,
+  HiXMark,
+} from "react-icons/hi2";
 import "../styles/RequestDetails.css";
+import { useNavigate } from "react-router-dom";
+import RequestSent from "../popups/RequestSent";
+
 
 const RequestDetails = () => {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showSent, setShowSent] =useState(false);
   
-  // State to track which action button is clicked ('back' or 'next')
-  const [activeButton, setActiveButton] = useState(null);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -17,18 +24,10 @@ const RequestDetails = () => {
     description: "",
   });
 
-  // Handle the 'Back' button click logic
-  const handleBack = () => {
-    setActiveButton('back');
-    console.log("Back button clicked");
-    // Add any additional multi-step routing/view code here
-  };
-
-  // Handle the 'Next' button click logic
   const handleNext = () => {
-    setActiveButton('next');
     console.log("Next button clicked. Form Data:", formData);
     // Add your API logic or next-page progression here
+    setShowSent(true);
   };
 
   const handleChange = (e) => {
@@ -37,13 +36,12 @@ const RequestDetails = () => {
   };
 
   const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current?.click();
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
@@ -52,8 +50,10 @@ const RequestDetails = () => {
 
   const handleRemoveImage = (e) => {
     e.stopPropagation();
+
     setSelectedFile(null);
     setImagePreview(null);
+
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -65,7 +65,7 @@ const RequestDetails = () => {
         <h2 className="rd-title">Request Details</h2>
 
         <form onSubmit={(e) => e.preventDefault()} className="rd-form">
-          {/* Full Name Input */}
+          {/* Full Name */}
           <div className="rd-form-group">
             <label htmlFor="fullName">Full Name</label>
             <input
@@ -77,7 +77,7 @@ const RequestDetails = () => {
             />
           </div>
 
-          {/* Deadline Input */}
+          {/* Deadline */}
           <div className="rd-form-group rd-relative">
             <label htmlFor="deadline">Deadline</label>
             <div className="rd-input-icon-wrapper">
@@ -92,9 +92,11 @@ const RequestDetails = () => {
             </div>
           </div>
 
-          {/* Needed Measurements Static Textarea */}
+          {/* Measurements */}
           <div className="rd-form-group">
-            <label htmlFor="measurements">Input needed measurement from Designer</label>
+            <label htmlFor="measurements">
+              Input needed measurement from Designer
+            </label>
             <textarea
               id="measurements"
               name="measurements"
@@ -104,7 +106,7 @@ const RequestDetails = () => {
             />
           </div>
 
-          {/* Description Textarea */}
+          {/* Description */}
           <div className="rd-form-group">
             <label htmlFor="description">Description</label>
             <textarea
@@ -117,10 +119,10 @@ const RequestDetails = () => {
             />
           </div>
 
-          {/* Upload Inspiration Images File Input Wrapper */}
+          {/* Upload */}
           <div className="rd-form-group">
             <label>Upload Inspiration Images (Optional)</label>
-            
+
             <input
               type="file"
               id="inspiration-upload"
@@ -133,59 +135,65 @@ const RequestDetails = () => {
             <div className="rd-upload-zone" onClick={handleUploadClick}>
               {imagePreview ? (
                 <div className="rd-preview-wrapper">
-                  <img 
-                    src={imagePreview} 
-                    alt="Inspiration Preview" 
-                    className="rd-image-preview" 
-                    setImagePreview
+                  <img
+                    src={imagePreview}
+                    alt="Inspiration Preview"
+                    className="rd-image-preview"
                   />
-                  <button 
-                    type="button" 
-                    className="rd-remove-img-btn" 
+
+                  <button
+                    type="button"
+                    className="rd-remove-img-btn"
                     onClick={handleRemoveImage}
                   >
                     <HiXMark />
                   </button>
-                  <p className="rd-preview-filename">{selectedFile?.name}</p>
+
+                  <p className="rd-preview-filename">
+                    {selectedFile?.name}
+                  </p>
                 </div>
               ) : (
                 <div className="rd-upload-placeholder">
                   <HiOutlineCloudArrowUp className="rd-upload-icon" />
                   <p className="rd-upload-text">Click to upload</p>
-                  <p className="rd-upload-subtext">PNG, JPG up to 10MB</p>
+                  <p className="rd-upload-subtext">
+                    PNG, JPG up to 10MB
+                  </p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Navigation Action Footer */}
+          {/* Footer */}
           <div className="rd-action-footer">
-            <button 
-              type="button" 
-              className="rd-back-btn" 
-              onClick={handleBack}
-              style={{
-                backgroundColor: activeButton === 'back' ? '#6c0319' : '',
-                color: activeButton === 'back' ? '#ffffff' : ''
-              }}
+            <button
+              type="button"
+              className="rd-back-btn"
+              onClick={() => navigate("/user/designer-profile")}
             >
               Back
             </button>
 
-            <button 
-              type="button" 
-              className="rd-next-btn" 
+            <button
+              type="button"
+              className="rd-next-btn"
               onClick={handleNext}
-              style={{
-                backgroundColor: activeButton === 'next' ? '#6c0319' : '',
-                color: activeButton === 'next' ? '#ffffff' : ''
-              }}
             >
               Next
             </button>
           </div>
         </form>
       </div>
+          
+          <RequestSent
+            isOpen={handleNext}
+                onClose={() => {
+                 setShowSent(false);
+                navigate("/user/dashboard"); 
+
+               }}
+            />
     </div>
   );
 };
