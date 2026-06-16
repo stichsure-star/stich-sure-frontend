@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/RatingAdebayor.css";
 
 const RatingAdebayor = () => {
   const [activeTab, setActiveTab] = useState("completed");
+  const [rating, setRating] = useState(0);
   const navigate = useNavigate();
 
   const handleReorder = () => {
     alert("Reorder button clicked");
-    // navigate("/reorder");
   };
 
   const handleReview = () => {
-    alert("Review button clicked");
-    // navigate("/review");
+    alert(`Review submitted with a ${rating} star rating!`);
   };
 
   return (
@@ -25,18 +24,14 @@ const RatingAdebayor = () => {
       <div className="rate-content">
         <div className="order-tabs">
           <button
-            className={`tab-btn ${
-              activeTab === "active" ? "active-tab" : ""
-            }`}
+            className={`tab-btn ${activeTab === "active" ? "active-tab" : ""}`}
             onClick={() => setActiveTab("active")}
           >
             Active order
           </button>
 
           <button
-            className={`tab-btn completed-btn ${
-              activeTab === "completed" ? "active-completed" : ""
-            }`}
+            className={`tab-btn completed-btn ${activeTab === "completed" ? "active-completed" : ""}`}
             onClick={() => setActiveTab("completed")}
           >
             Completed Order
@@ -71,7 +66,6 @@ const RatingAdebayor = () => {
 
               <div className="date-row">
                 <span>Completed: April 15, 2026</span>
-                <span>Completed: April 15, 2026</span>
               </div>
 
               <h2 className="price">₦45,000</h2>
@@ -79,7 +73,15 @@ const RatingAdebayor = () => {
 
             <div className="order-actions">
               <div className="stars">
-                ☆ ☆ ☆ ☆ ☆
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    className={`star-item ${rating >= star ? "filled" : ""}`}
+                    onClick={() => setRating(star)}
+                  >
+                    ★
+                  </span>
+                ))}
               </div>
 
               <div className="buttons">

@@ -9,4 +9,5 @@ export const authApi = {
   design: (data) => ApiClient.get(`/designs/getAll`),
   designCategory: (data) => ApiClient.post(`/designs/getAll/category`),
   userDashboard: (data) => ApiClient.get(`/customer/dashboard-stats`),
-};
+  
+ };

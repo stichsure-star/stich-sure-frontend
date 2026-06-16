@@ -1,6 +1,6 @@
 import React from "react";
 import DesignersCatalog from "../../../components/DesignersCatalog";
-import DesignerProfile from "../../../components/DesignerProfile";
+import DesignerProfile from "../../../components/DanDesignerProfile";
 import DesignersGrid from "../../../components/DesignersGrid";
 
 const BrowseDesign = () => {

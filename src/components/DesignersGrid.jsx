@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiMapPin, HiStar, HiOutlineHeart, HiHeart } from "react-icons/hi2";
-import "../styles/DesignersGrid.css"
+import "../styles/DesignersGrid.css";
+import { NavLink } from "react-router-dom";
 
 import Containlace from "../assets/daniel/beauty.png";
 import mensenator from "../assets/daniel/Menwear.png";
@@ -8,10 +9,19 @@ import womendesign from "../assets/daniel/Newlady.png";
 import fibre from "../assets/daniel/Crosslane.png";
 import menstyle from "../assets/daniel/Mencross.png";
 import cleanwear from "../assets/daniel/Coollace.png";
-
+import { FiSearch, FiSliders } from "react-icons/fi";
 
 function DesignersGrid() {
   const [favorites, setFavorites] = useState({});
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filterCategories = [
+    "All",
+    "Traditional Wear",
+    "Bridal Fashion",
+    "Corporate Attire",
+    "Casual Wear",
+  ];
 
   const toggleFavorite = (id) => {
     setFavorites((prev) => ({
@@ -26,7 +36,8 @@ function DesignersGrid() {
       name: "Adebayo Styles",
       specialty: "Traditional Wear",
       rating: "4.9",
-      description: "Specialist in Yoruba traditional attire with 15+ years experience",
+      description:
+        "Specialist in Yoruba traditional attire with 15+ years experience",
       location: "Lagos",
       orders: "156 orders",
       image: Containlace,
@@ -36,7 +47,8 @@ function DesignersGrid() {
       name: "Chioma Couture",
       specialty: "Bridal Fashion",
       rating: "5",
-      description: "Award-winning bridal designer creating dream wedding outfits",
+      description:
+        "Award-winning bridal designer creating dream wedding outfits",
       location: "Abuja",
       orders: "211 orders",
       image: mensenator,
@@ -46,7 +58,8 @@ function DesignersGrid() {
       name: "Emeka Tailoring",
       specialty: "Corporate Attire",
       rating: "4.8",
-      description: "Premium corporate suits and professional menswear tailoring",
+      description:
+        "Premium corporate suits and professional menswear tailoring",
       location: "Port Harcourt",
       orders: "98 orders",
       image: womendesign,
@@ -66,7 +79,8 @@ function DesignersGrid() {
       name: "Kings Couture",
       specialty: "Traditional Wear",
       rating: "5",
-      description: "Master craftsman in all traditional Nigerian styles and fittings",
+      description:
+        "Master craftsman in all traditional Nigerian styles and fittings",
       location: "Lagos",
       orders: "178 orders",
       image: menstyle,
@@ -76,23 +90,62 @@ function DesignersGrid() {
       name: "Bella Bridal",
       specialty: "Bridal Fashion",
       rating: "4.7",
-      description: "Elegant and sophisticated bridal collections for custom orders",
+      description:
+        "Elegant and sophisticated bridal collections for custom orders",
       location: "Enugu",
       orders: "96 orders",
       image: cleanwear,
-    }
+    },
   ];
 
   return (
     <div className="dg-page-wrapper">
       <main className="dg-main-content">
+        {/* Search and Filter Section */}
+        <div className="top-search-filter-row">
+          <div className="search-bar-input-box">
+            <FiSearch className="search-input-icon" />
+            <input type="text" placeholder="Search designs by name..." />
+            <button className="catalog-filter-trigger-btn">
+            <FiSliders size={18} />
+            Filters
+          </button>
+          </div>
+        </div>
+
+        <p className="items-counter-caption">
+          Showing {designers.length} designers
+        </p>
+
+        <div className="categories-pill-row">
+          {filterCategories.map((cat) => (
+            <button
+              key={cat}
+              className={`category-pill-btn ${
+                activeFilter === cat ? "pill-active" : ""
+              }`}
+              onClick={() => setActiveFilter(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Designers Grid */}
         <div className="dg-cards-grid">
           {designers.map((designer) => (
             <div key={designer.id} className="dg-designer-card">
               <div className="dg-card-image-wrap">
-                <img src={designer.image} alt={designer.name} className="dg-card-img" />
-                <button 
-                  className={`dg-heart-btn ${favorites[designer.id] ? "is-active" : ""}`} 
+                <img
+                  src={designer.image}
+                  alt={designer.name}
+                  className="dg-card-img"
+                />
+
+                <button
+                  className={`dg-heart-btn ${
+                    favorites[designer.id] ? "is-active" : ""
+                  }`}
                   onClick={() => toggleFavorite(designer.id)}
                   aria-label="Favorite"
                 >
@@ -103,6 +156,7 @@ function DesignersGrid() {
               <div className="dg-card-info">
                 <div className="dg-name-rating-row">
                   <h3 className="dg-designer-name">{designer.name}</h3>
+
                   <div className="dg-rating-badge">
                     <HiStar className="dg-star-icon" />
                     <span>{designer.rating}</span>
@@ -110,17 +164,23 @@ function DesignersGrid() {
                 </div>
 
                 <p className="dg-designer-specialty">{designer.specialty}</p>
+
                 <p className="dg-designer-desc">{designer.description}</p>
 
                 <div className="dg-meta-row">
                   <span className="dg-meta-item">
-                    <HiMapPin className="dg-pin-icon" /> {designer.location}
+                    <HiMapPin className="dg-pin-icon" />
+                    {designer.location}
                   </span>
+
                   <span className="dg-meta-divider">•</span>
+
                   <span className="dg-meta-item">{designer.orders}</span>
                 </div>
 
-                <button className="dg-profile-btn">View Profile</button>
+                <NavLink to="/user/designer-profile">
+                  <button className="dg-profile-btn">View Profile</button>
+                </NavLink>
               </div>
             </div>
           ))}
