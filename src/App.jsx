@@ -63,7 +63,6 @@ import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
 import requiredetails from "../src/components/RequestDetails";
 import RequestDetails from "../src/components/RequestDetails";
-
 import WithdrawFunds from "../src/popups/WithdrawFunds";
 import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
 import Warning from "../src/popups/Warning";
@@ -214,6 +213,7 @@ const router = createBrowserRouter([
           { path: "requiredetails", element: <RequestDetails /> },
           // { path: "rating-adebayor",   element: <RatingAdebayor /> },
           { path: "designer-profile", element: <DanDesignerProfile /> },
+          { path: "setting", element: <Settings /> },
         ],
       },
     ],

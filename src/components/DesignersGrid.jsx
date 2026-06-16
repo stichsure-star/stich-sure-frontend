@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiMapPin, HiStar, HiOutlineHeart, HiHeart } from "react-icons/hi2";
 import "../styles/DesignersGrid.css";
-import { NavLink } from "react-router-dom";
+import { data, NavLink } from "react-router-dom";
 
 import Containlace from "../assets/daniel/beauty.png";
 import mensenator from "../assets/daniel/Menwear.png";
@@ -10,10 +10,12 @@ import fibre from "../assets/daniel/Crosslane.png";
 import menstyle from "../assets/daniel/Mencross.png";
 import cleanwear from "../assets/daniel/Coollace.png";
 import { FiSearch, FiSliders } from "react-icons/fi";
+import { authApi } from "../config/auth";
 
 function DesignersGrid() {
   const [favorites, setFavorites] = useState({});
   const [activeFilter, setActiveFilter] = useState("All");
+  const [designed, setDesigned] = useState([]);
 
   const filterCategories = [
     "All",
@@ -98,6 +100,23 @@ function DesignersGrid() {
     },
   ];
 
+  const handleSubmit = async () => {
+    try {
+      const response = await authApi.allDesigners(data);
+      console.log(response);
+      console.log(response.data);
+      console.log(response.data.data);
+      setDesigned(response.data.data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  console.log("designed", designed);
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
+
   return (
     <div className="dg-page-wrapper">
       <main className="dg-main-content">
@@ -107,9 +126,9 @@ function DesignersGrid() {
             <FiSearch className="search-input-icon" />
             <input type="text" placeholder="Search designs by name..." />
             <button className="catalog-filter-trigger-btn">
-            <FiSliders size={18} />
-            Filters
-          </button>
+              <FiSliders size={18} />
+              Filters
+            </button>
           </div>
         </div>
 
@@ -133,49 +152,55 @@ function DesignersGrid() {
 
         {/* Designers Grid */}
         <div className="dg-cards-grid">
-          {designers.map((designer) => (
-            <div key={designer.id} className="dg-designer-card">
+          {designed.map((designed) => (
+            <div key={designed.id} className="dg-designer-card">
               <div className="dg-card-image-wrap">
                 <img
-                  src={designer.image}
-                  alt={designer.name}
+                  src={designed.profile?.profilePhoto}
+                  alt={designed.name}
                   className="dg-card-img"
                 />
 
                 <button
                   className={`dg-heart-btn ${
-                    favorites[designer.id] ? "is-active" : ""
+                    favorites[designed.id] ? "is-active" : ""
                   }`}
-                  onClick={() => toggleFavorite(designer.id)}
+                  onClick={() => toggleFavorite(designeddesigned.id)}
                   aria-label="Favorite"
                 >
-                  {favorites[designer.id] ? <HiHeart /> : <HiOutlineHeart />}
+                  {favorites[designed.id] ? <HiHeart /> : <HiOutlineHeart />}
                 </button>
               </div>
 
               <div className="dg-card-info">
                 <div className="dg-name-rating-row">
-                  <h3 className="dg-designer-name">{designer.name}</h3>
+                  <h3 className="dg-designer-name">
+                    {designed.profile?.businessName}
+                  </h3>
 
                   <div className="dg-rating-badge">
                     <HiStar className="dg-star-icon" />
-                    <span>{designer.rating}</span>
+                    <span>{designed.profile?.ratingCount}</span>
                   </div>
                 </div>
 
-                <p className="dg-designer-specialty">{designer.specialty}</p>
+                <p className="dg-designer-specialty">
+                  {designed.profile?.specialization}
+                </p>
 
-                <p className="dg-designer-desc">{designer.description}</p>
+                <p className="dg-designer-desc">{designed.profile?.shortBio}</p>
 
                 <div className="dg-meta-row">
                   <span className="dg-meta-item">
                     <HiMapPin className="dg-pin-icon" />
-                    {designer.location}
+                    {designed?.profile?.currentHouseAddress}
                   </span>
 
                   <span className="dg-meta-divider">•</span>
 
-                  <span className="dg-meta-item">{designer.orders}</span>
+                  <span className="dg-meta-item">
+                    {designed.profile?.completedOrders}
+                  </span>
                 </div>
 
                 <NavLink to="/user/designer-profile">

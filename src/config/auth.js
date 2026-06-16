@@ -17,4 +17,6 @@ export const authApi = {
   logoutUser: () => ApiClient.post("/logout"),
 
   google: () => ApiClient.get("/auth/google"),
+
+  allDesigners: (data) => ApiClient.get("/designerProfile/getAll", data),
 };
