@@ -115,8 +115,61 @@ const Login = () => {
         navigate("/user/dashboard");
       }
     } catch (err) {
-      console.log(err);
-      setServerError(err.response?.data?.message);
+      const message = err.response?.data?.message;
+      const data = err.response?.data;
+
+      console.log("LOGIN ERROR:", data);
+
+      // ================= EMAIL NOT VERIFIED =================
+      if (
+        message === "Please verify your email to continue" ||
+        data?.code === "EMAIL_NOT_VERIFIED"
+      ) {
+        const email = formData.email;
+
+        Swal.fire({
+          icon: "warning",
+          title: "Email not verified",
+          text: "Verify your email to continue",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        try {
+          // resend otp
+          await authApi.resendOtp(role, {
+            email,
+          });
+
+          navigate("/verification", {
+            state: {
+              email,
+              role,
+              flow: "verify-email",
+            },
+          });
+
+          return;
+        } catch (otpError) {
+          Swal.fire({
+            icon: "error",
+            title: "OTP failed",
+            text:
+              otpError.response?.data?.message ||
+              "Could not send verification code",
+          });
+
+          return;
+        }
+      }
+
+      setServerError(message);
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: message,
+      });
     } finally {
       setLoading(false);
     }
