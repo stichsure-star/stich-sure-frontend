@@ -15,4 +15,7 @@ export const designerApi = {
     }),
 
   getProfile: (id) => ApiClient.get(`/designer/one/${id}`),
+  dashBoard: (data) => ApiClient.get(`/designerProfile/dashboard-stats`),
+
+  designsCreate: (data) => ApiClient.post("/designs/create", data),
 };

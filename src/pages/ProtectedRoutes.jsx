@@ -18,7 +18,7 @@ const ProtectedRoutes = ({ role }) => {
     return <Navigate to="/login" replace />;
   }
 
-  if (!user.profile) {
+  if (user.role === "designer" && !user.profile) {
     return <Navigate to="/designerverification" />;
   }
 
