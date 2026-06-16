@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import "../styles/Upload.css";
 import { MdLogout } from "react-icons/md";
 import { BsUpload } from "react-icons/bs";
+import { designerApi } from "../config/designer";
+import { useNavigate } from "react-router-dom";
+import DesignPublished from "../popups/DesignPublished";
 
 const Upload = () => {
+  // const navigate =useNavigate();
+
   const [image, setImage] = useState(null);
   const [fileName, setFileName] = useState(""); // Fixed: Declared the missing fileName state
+  const [showPublished, setShowPublished] = useState(false);
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -23,11 +29,13 @@ const Upload = () => {
         {/* IMAGE UPLOAD SECTION */}
         <div className="Image_upload">
           <h2>Add New Design</h2>
+
           <div className="Upload_box">
             {/* The label acts as our main interactive custom container */}
             <label className="Upload_Container_Label">
               {/* Hide the native input completely using an inline style */}
               <input
+                id="design-upload"
                 type="file"
                 onChange={handleImage}
                 className="input"
@@ -46,7 +54,9 @@ const Upload = () => {
                       <BsUpload className="upload-icon" />
                     </p>
                     <span
-                      className={`upload-text ${fileName ? "selected" : "placeholder"}`}
+                      className={`upload-text ${
+                        fileName ? "selected" : "placeholder"
+                      }`}
                     >
                       {fileName
                         ? fileName
@@ -56,6 +66,11 @@ const Upload = () => {
                   </div>
                 )}
               </div>
+            </label>
+
+            {/* Upload Button Added */}
+            <label htmlFor="design-upload" className="Upload_btn">
+              Upload
             </label>
           </div>
         </div>
@@ -127,8 +142,14 @@ const Upload = () => {
           </div>
         </div>
 
-        <button className="Publish">Publish Design</button>
+        <button onClick={() => setShowPublished(true)} className="Publish">
+          Publish Design
+        </button>
       </div>
+
+      {showPublished && (
+        <DesignPublished onClose={() => setShowPublished(false)} />
+      )}
     </div>
   );
 };

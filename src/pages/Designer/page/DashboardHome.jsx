@@ -2,11 +2,18 @@ import "../../Designer/css/DashboardHome.css";
 import { TbCubeSpark } from "react-icons/tb";
 import { LuDollarSign } from "react-icons/lu";
 import { FaRegStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+
+  const navigate = useNavigate();
+
   return (
     <main className="dashboard">
-      <h2>Welcome Back, Adebayo!</h2>
+      <h2>Welcome Back,{user.lastName}</h2>
 
       <p>Here's what's happening with your business today</p>
 
@@ -21,7 +28,7 @@ const Dashboard = () => {
             <small>Active Orders</small>
           </div>
 
-          <b>8</b>
+          <b>{user.profile.completedOrders}</b>
         </div>
 
         <div className="cardww">
@@ -32,7 +39,7 @@ const Dashboard = () => {
             <small>Total Earnings</small>
           </div>
 
-          <b>₦850K</b>
+          <b>₦{user.profile.completedOrders}</b>
         </div>
 
         <div className="cardww">
@@ -43,7 +50,7 @@ const Dashboard = () => {
             <small>Avg. Rating</small>
           </div>
 
-          <b>4.9</b>
+          <b>{user.profile.completedOrders}</b>
         </div>
 
         <div className="cardww">
@@ -52,7 +59,7 @@ const Dashboard = () => {
             <small>Completed</small>
           </div>
 
-          <b>45</b>
+          <b>{user.profile.completedOrders}</b>
         </div>
       </div>
 
@@ -63,7 +70,9 @@ const Dashboard = () => {
 
         <p>Upload new designs and respond to customer requests</p>
 
-        <button>↥ Upload Designs</button>
+        <button onClick={() => navigate("/designer/upload")}>
+          ↥ Upload Designs
+        </button>
       </section>
 
       {/* ACTIVE ORDERS */}

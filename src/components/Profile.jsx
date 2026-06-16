@@ -1,15 +1,22 @@
 import { useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import "../styles/Profile.css";
+import { useDispatch } from "react-redux";
+import { setCredentials, updateUser } from "../global/authSlice";
+import Swal from "sweetalert2";
+import { designerApi } from "../config/designer";
+import { Navigate } from "react-router-dom";
 
-const Profile = ({ onNext , onPrev }) => {
-  // Profile image state
+const Profile = ({ onNext, onPrev, designerInfo }) => {
+  const dispatch = useDispatch();
+
   const [profileImage, setProfileImage] = useState(null);
-
-  // Selected specializations
   const [selectedSpecs, setSelectedSpecs] = useState(["All"]);
+  const [experience, setExperience] = useState("");
+  const [bio, setBio] = useState("");
 
-  // Available specializations
+  const fileInputRef = useRef(null);
+
   const specializations = [
     "All",
     "Traditional",
@@ -19,37 +26,77 @@ const Profile = ({ onNext , onPrev }) => {
     "Accessories",
   ];
 
-  const fileInputRef = useRef(null);
-
-  // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
     if (file) {
-      setProfileImage(URL.createObjectURL(file));
+      setProfileImage(file); // store file for backend
     }
   };
 
-  // Handle specialization selection
   const handleSpecialization = (spec) => {
-    // If All is clicked
     if (spec === "All") {
       setSelectedSpecs(["All"]);
       return;
     }
 
-    // Remove All when another option is clicked
     let updated = selectedSpecs.filter((item) => item !== "All");
 
-    // Toggle selection
     if (updated.includes(spec)) {
       updated = updated.filter((item) => item !== spec);
     } else {
       updated.push(spec);
     }
 
-    // If none selected, return to All
     setSelectedSpecs(updated.length ? updated : ["All"]);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const payload = new FormData();
+
+      // previous wizard data
+      Object.entries(designerInfo).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          payload.append(key, value);
+        }
+      });
+
+      // experience
+      // FILE (must match backend name EXACTLY)
+      payload.append("profilePhoto", profileImage); // 👈 CHANGE THIS KEY if backend differs
+
+      // specialization (safe choice)
+      payload.append("specialization", selectedSpecs.join(", "));
+
+      // bio
+      if (bio.trim()) {
+        payload.append("shortBio", bio);
+      }
+
+      // experience
+      if (experience.trim()) {
+        payload.append("yearsOfExperience", Number(experience));
+      }
+
+      const res = await designerApi.setUpProfile(payload);
+      console.log("res", res.data);
+      console.log("wassup");
+      dispatch(updateUser(res.data.data));
+
+      // navigate("/designer/dashboard");
+
+      onNext();
+
+      Swal.fire({
+        icon: "success",
+        title: "Profile Completed",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.log(error?.response?.data || error);
+    }
   };
 
   return (
@@ -66,7 +113,7 @@ const Profile = ({ onNext , onPrev }) => {
         <div className="profile-photo-container">
           <div className="profile-photo">
             {profileImage && (
-              <img src={profileImage} alt="profile" />
+              <img src={URL.createObjectURL(profileImage)} alt="profile" />
             )}
           </div>
 
@@ -96,27 +143,31 @@ const Profile = ({ onNext , onPrev }) => {
                 key={spec}
                 type="button"
                 onClick={() => handleSpecialization(spec)}
-                className=
-                {
-                  selectedSpecs.includes(spec) ? "active" : ""
-                }
+                className={selectedSpecs.includes(spec) ? "active" : ""}
               >
                 {spec}
               </button>
             ))}
           </div>
 
+          {/* EXPERIENCE (NOW CONTROLLED) */}
           <p className="labed">Years Of Experience</p>
-          <input className="blok" type="text" />
+          <input
+            className="blok"
+            type="text"
+            value={experience}
+            onChange={(e) => setExperience(e.target.value)}
+          />
 
+          {/* BIO (NOW CONTROLLED) */}
           <p className="labed">Short Bio</p>
-          <textarea rows="5"></textarea>
+          <textarea
+            rows="5"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
 
-          <button
-            type="button"
-            className="continue-btn"
-            onClick={onNext}
-          >
+          <button type="button" className="continue-btn" onClick={handleSubmit}>
             Continue
           </button>
         </form>
