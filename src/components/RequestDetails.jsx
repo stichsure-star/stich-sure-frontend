@@ -26,7 +26,6 @@ const RequestDetails = () => {
 
   const handleNext = () => {
     console.log("Next button clicked. Form Data:", formData);
-    // Add your API logic or next-page progression here
     setShowSent(true);
   };
 
@@ -179,6 +178,17 @@ const RequestDetails = () => {
               type="button"
               className="rd-next-btn"
               onClick={handleNext}
+              // onClose={() => {
+              //    setShowSent(false);
+              //   // navigate("/user/dashboard"); 
+
+              // }}
+              
+
+              
+
+              
+
             >
               Next
             </button>
@@ -186,8 +196,8 @@ const RequestDetails = () => {
         </form>
       </div>
           
-          <RequestSent
-            isOpen={handleNext}
+          <RequestSent 
+            isOpen={showSent}
                 onClose={() => {
                  setShowSent(false);
                 navigate("/user/dashboard"); 

@@ -47,7 +47,7 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
           <label>Business Name</label>
           <input
             name="businessName"
-            value={designerInfo.businessName || ""}
+            value={designerInfo?.businessName || ""}
             onChange={handleChange}
           />
           {errors.businessName && (
@@ -57,7 +57,7 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
           <label>Current Business Address</label>
           <input
             name="currentHouseAddress"
-            value={designerInfo.currentHouseAddress || ""}
+            value={designerInfo?.currentHouseAddress || ""}
             onChange={handleChange}
           />
           {errors.currentHouseAddress && (
@@ -67,13 +67,37 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
           <label>Phone Number</label>
           <input
             name="phoneNumber"
-            value={designerInfo.phoneNumber || ""}
+            value={designerInfo?.phoneNumber || ""}
             onChange={handleChange}
           />
           {errors.phoneNumber && (
             <p className="error-text">{errors.phoneNumber}</p>
           )}
+        <div className="Addie">
+            <article>
+              <label>State</label>
+          <input
+            name="State"
+            value={designerInfo?.phoneNumber || ""}
+            onChange={handleChange}
+          />
+          {errors.phoneNumber && (
+            <p className="error-text">{errors.phoneNumber}</p>
+          )}
+            </article>
+        <article>
+            <label>Country</label>
+          <input
+            name="Country"
+            value={designerInfo?.phoneNumber || ""}
+            onChange={handleChange}
+          />
+          {errors.phoneNumber && (
+            <p className="error-text">{errors.phoneNumber}</p>
+          )}
+        </article>
 
+        </div>
           <button type="submit">Continue</button>
         </form>
       </div>

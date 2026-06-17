@@ -15,6 +15,8 @@ import ankara from "../assets/daniel/AnkaraGown.png";
 import { NavLink } from "react-router-dom";
 
 function DanDesignerProfile() {
+  const navigate =useNavigate();
+
   const portfolioItems = [
     { id: 1, image: text, title: "Royal Agbada", category: "Traditional" },
     { id: 2, image: yoruba, title: "Yoruba Bride", category: "Bridal" },
@@ -111,10 +113,12 @@ function DanDesignerProfile() {
           </div>
 
           <div className="dp-action-row">
-            <NavLink to="/user/requiredetails">
-              <button className="dp-hire-btn">Hire Designer</button>
-            </NavLink>
-          </div>
+              <button
+              onClick={() => navigate("/user/requiredetails")}
+               className="dp-hire-btn">
+                Hire Designer
+              </button>
+            </div>
 
           <div className="dp-reliability-section">
             <div className="dp-reliability-labels">
