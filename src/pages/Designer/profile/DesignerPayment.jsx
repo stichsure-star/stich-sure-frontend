@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-// import { designerApi } from "../config/designerApi"; 
 import "../../../styles/designer-payment.css";
+import { designerApi } from "../../../config/designer";
 
 const DesignerPayment = () => {
-  // Setup standard state mirroring the schema keys: bankName, accountNumber, accountName
   const [formData, setFormData] = useState({
     accountName: "",
     bankName: "",
     accountNumber: "",
   });
 
-  // Track field input state changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-   };
-  // Process data payload on form submission
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,7 +33,9 @@ const DesignerPayment = () => {
       }
     } catch (error) {
       console.error("Wallet update failed:", error);
-      alert(error.response?.data?.message || "Failed to update payment details.");
+      alert(
+        error.response?.data?.message || "Failed to update payment details."
+      );
     }
   };
 
@@ -44,22 +48,22 @@ const DesignerPayment = () => {
           <div className="payment-current-account">
             <label className="payment-field">
               <span>Account Name</span>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="accountName"
                 placeholder="Account Name"
                 value={formData.accountName}
                 onChange={handleChange}
-              /> 
+              />
             </label>
           </div>
 
           <label className="payment-field">
             <span>Bank Name</span>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="bankName"
-              placeholder="Gtb" 
+              placeholder="Gtb"
               value={formData.bankName}
               onChange={handleChange}
             />
@@ -67,11 +71,10 @@ const DesignerPayment = () => {
 
           <label className="payment-field">
             <span>Account Number</span>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="accountNumber"
-              placeholder="0123456789" 
-              inputMode="numeric" 
+              placeholder="0123456789"
               value={formData.accountNumber}
               onChange={handleChange}
             />

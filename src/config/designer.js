@@ -19,5 +19,5 @@ export const designerApi = {
 
   designsCreate: (data) => ApiClient.post("/designs/create", data),
   resetPassword: (data) => ApiClient.put(`/designer/update-password-setting`),
-  updateWallet: (data) => ApiClient.put(`/designerWallet/update`),
+  updateWallet: (data) => ApiClient.put(`/designerWallet/update`, data),
 };
