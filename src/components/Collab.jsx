@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import "../pages/Designer/css/Collaborator.css";
 import FindCollaborators from "../pages/Designer/components/FindCollaborators";
@@ -6,11 +6,29 @@ import IncomingCollab from "../pages/Designer/components/IncomingCollab";
 import MyCollab from "../pages/Designer/components/MyCollab";
 import { useSelector } from "react-redux";
 import { GoPeople } from "react-icons/go";
+import { designerApi } from "../config/designer";
 
 const Collab = () => {
   const [activeTab, setActiveTab] = useState("find");
   const user = useSelector((state) => state.auth.user);
   console.log("user", user);
+  const [collabpat, setCollabstats] = useState([]);
+
+  const collabStats = async () => {
+    try {
+      const response = await designerApi.collaborationstats();
+      console.log("response", response);
+      setCollabstats(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("collabStats", collabpat);
+
+  useEffect(() => {
+    collabStats();
+  }, []);
 
   return (
     <main className="Outsource_page">
@@ -28,21 +46,22 @@ const Collab = () => {
       </section>
 
       {/* STATS */}
+
       <section className="Stats_container">
         <div className="Stat_card">
-          <h3>{user.profile.ratingCount}</h3>
+          <h3>{collabpat?.activeCollaborations}</h3>
           <p>Active Collaborator</p>
         </div>
         <div className="Stat_card">
-          <h3>{user.profile.ratingCount}</h3>
+          <h3>{collabpat?.trustedPartners}</h3>
           <p>Trusted Partners</p>
         </div>
         <div className="Stat_card">
-          <h3>{user.profile.ratingCount}</h3>
+          <h3>{collabpat?.tasksCompleted}</h3>
           <p>Task Completed</p>
         </div>
         <div className="Stat_card">
-          <h3>{user.profile.ratingCount}</h3>
+          <h3>{collabpat?.successRate}</h3>
           <p>Success Rate</p>
         </div>
       </section>

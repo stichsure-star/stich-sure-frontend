@@ -2,7 +2,7 @@ import { ApiClient } from "../config/AxiosInstance";
 
 export const designerApi = {
   setUpProfile: (data) =>
-    ApiClient.post("/designerProfile/onboarding", data, {
+    ApiClient.patch("/designerProfile/onboarding", data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -20,4 +20,12 @@ export const designerApi = {
   designsCreate: (data) => ApiClient.post("/designs/create", data),
   resetPassword: (data) => ApiClient.put(`/designer/update-password-setting`),
   updateWallet: (data) => ApiClient.put(`/designerWallet/update`, data),
+
+  collaborationrequest: (data) => ApiClient.post("/collaboration/create", data),
+  acceptrecevied: (data) => ApiClient.get("/collaboration/received", data),
+  acceptcollab: (id) => ApiClient.put(`/collaboration/accept/${id}`),
+  rejectcollab: (id) => ApiClient.put(`/collaboration/reject/${id}`),
+  collaborationstats: (data) => ApiClient.get("/collaboration/stats", data),
+  mycollabs: (data) => ApiClient.get("/collaboration", data),
+  getOne: (id) => ApiClient.get(`/designer/one/${id}`),
 };
