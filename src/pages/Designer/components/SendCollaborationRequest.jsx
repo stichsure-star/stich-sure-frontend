@@ -1,80 +1,235 @@
-// import "./SendCollaborationRequest.css";
 import { useState } from "react";
 import "../css/SendCollaboration.css";
 import RequestSent from "../../../popups/RequestSent";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { designerApi } from "../../../config/designer";
+import Swal from "sweetalert2";
 
+const SendCollaborationRequest = ({ onClose }) => {
+  const location = useLocation();
 
-const  SendCollaborationRequest =({onClose}) => {
-    console.log("onClose prop =", onClose);
+  const designer = location.state;
 
+  console.log("selected designer:", designer);
 
+  const [form, setForm] = useState({
+    taskType: "Embroidery",
+    taskDetails: "",
+    currentAddress: "",
+    deadline: "",
+    offeredPayment: "",
+  });
 
-    const navigate =useNavigate();
-    const [showRequest, setShowRequest] = useState(false);
-    
+  const [errors, setErrors] = useState({});
+  const [showRequest, setShowRequest] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [e.target.name]: "",
+    }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!designer?.designerId) {
+      newErrors.designer = "Designer information missing";
+    }
+
+    if (!form.taskType.trim()) {
+      newErrors.taskType = "Task type is required";
+    }
+
+    if (!form.taskDetails.trim()) {
+      newErrors.taskDetails = "Task details are required";
+    }
+
+    if (!form.currentAddress.trim()) {
+      newErrors.currentAddress = "Address is required";
+    }
+
+    if (!form.deadline.trim()) {
+      newErrors.deadline = "Deadline is required";
+    }
+
+    if (!form.offeredPayment.trim()) {
+      newErrors.offeredPayment = "Payment is required";
+    } else if (isNaN(Number(form.offeredPayment))) {
+      newErrors.offeredPayment = "Payment must be a number";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const formatToISO = (dateStr) => {
+        const [day, month, year] = dateStr.split("/");
+        return new Date(`${year}-${month}-${day}`).toISOString();
+      };
+
+      const payload = {
+        receiverDesignerId: designer?.designerId,
+        taskType: form.taskType,
+        taskDetails: form.taskDetails,
+        currentAddress: form.currentAddress,
+        deadline: formatToISO(form.deadline),
+        offeredPayment: form.offeredPayment,
+      };
+
+      console.log("sending request:", {
+        receiverDesignerId: designer.designerId,
+        ...form,
+      });
+
+      const response = await designerApi.collaborationrequest(payload);
+
+      console.log("response:", response);
+      Swal.fire({
+        icon: "success",
+        title: "Request Sent",
+      });
+
+      setShowRequest(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="collab-request-card">
       <h2 className="collab-title">Send Collaboration Request</h2>
 
       <p className="collab-recipient">
-        to <span>Grace Fashion Studio</span>
+        to <span>{designer?.designerName || "Designer"}</span>
       </p>
 
-      <div className="form-group">
-        <label>Task Type</label>
-        <input type="text" placeholder="Beading" />
-      </div>
+      {errors.designer && <p className="error">{errors.designer}</p>}
 
-      <div className="form-group">
-        <label>Deadline</label>
-        <input type="text" placeholder="DD/MM/YY" />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Task Type</label>
 
-      <div className="form-group">
-        <label>Current Address</label>
-        <input type="text" />
-      </div>
+          <input
+            name="taskType"
+            value={form.taskType}
+            onChange={handleChange}
+            placeholder="Beading"
+          />
 
-      <div className="form-group">
-        <label>Offered Payment</label>
-        <input type="text" placeholder="₦10,000" />
-      </div>
+          {errors.taskType && <p className="error">{errors.taskType}</p>}
+        </div>
 
-      <div className="form-group">
-        <label>Task Details</label>
-        <textarea
-          rows={5}
-          placeholder="Describe what you need done..."
-        />
-      </div>
+        <div className="form-group">
+          <label>Deadline</label>
+          <input
+            name="deadline"
+            value={form.deadline}
+            onChange={(e) => {
+              let value = e.target.value.replace(/\D/g, "");
 
-     <div className="button-row">
- <button
-  type="button"
-  className="cancel-btn"
-  onClick={onClose}
->
-  Cancel
-</button>
+              if (value.length > 2) {
+                value = value.slice(0, 2) + "/" + value.slice(2);
+              }
 
-  <button
-    type="button"
-    className="submit-btn"
-    onClick={() => setShowRequest(true)}
-  >
-    <span className="send-icon">✈</span>
-    Send Request
-  </button>
-</div>
+              if (value.length > 5) {
+                value = value.slice(0, 5) + "/" + value.slice(5, 9);
+              }
 
-{showRequest && (
-  <RequestSent
-    onClose={() => setShowRequest(false)}
-  />
-)}
+              setForm((prev) => ({
+                ...prev,
+                deadline: value,
+              }));
+
+              setErrors((prev) => ({
+                ...prev,
+                deadline: "",
+              }));
+            }}
+            placeholder="DD/MM/YYYY"
+          />
+
+          {errors.deadline && <p className="error">{errors.deadline}</p>}
+        </div>
+
+        <div className="form-group">
+          <label>Current Address</label>
+
+          <input
+            name="currentAddress"
+            value={form.currentAddress}
+            onChange={handleChange}
+          />
+
+          {errors.currentAddress && (
+            <p className="error">{errors.currentAddress}</p>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label>Offered Payment</label>
+
+          <input
+            name="offeredPayment"
+            value={form.offeredPayment}
+            onChange={handleChange}
+            placeholder="10000"
+          />
+
+          {errors.offeredPayment && (
+            <p className="error">{errors.offeredPayment}</p>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label>Task Details</label>
+
+          <textarea
+            name="taskDetails"
+            value={form.taskDetails}
+            onChange={handleChange}
+            rows={5}
+            placeholder="Describe what you need done..."
+          />
+
+          {errors.taskDetails && <p className="error">{errors.taskDetails}</p>}
+        </div>
+
+        <div className="button-row">
+          <button type="button" className="cancel-btn" onClick={onClose}>
+            Cancel
+          </button>
+
+          <button type="submit" className="submit-btn" disabled={loading}>
+            <span className="send-icon">✈</span>
+
+            {loading ? "Sending..." : "Send Request"}
+          </button>
+        </div>
+      </form>
+
+      {showRequest && <RequestSent onClose={() => setShowRequest(false)} />}
     </div>
   );
-}
+};
 
-export default SendCollaborationRequest
+export default SendCollaborationRequest;

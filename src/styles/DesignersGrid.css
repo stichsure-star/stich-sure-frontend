@@ -148,6 +148,13 @@
   background: #470606;
 }
 
+.loading {
+  background-color: red;
+  width: 100%;
+  height: 100vh;
+  color: #f8f9fa;
+}
+
 /* Tablet */
 @media (max-width: 992px) {
   .dg-cards-grid {
@@ -173,6 +180,6 @@
     padding: 20px;
   }
 }
-.catalog-filter-trigger-btn{
+.catalog-filter-trigger-btn {
   /* gap: 20px; */
 }

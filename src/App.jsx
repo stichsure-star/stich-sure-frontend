@@ -63,7 +63,6 @@ import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
 import requiredetails from "../src/components/RequestDetails";
 import RequestDetails from "../src/components/RequestDetails";
-
 import WithdrawFunds from "../src/popups/WithdrawFunds";
 import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
 import Warning from "../src/popups/Warning";
@@ -85,9 +84,7 @@ import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequest
 import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
-// user stores tracker, 
-
-
+// user stores tracker,
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -154,7 +151,6 @@ const router = createBrowserRouter([
           { path: "setting", element: <Setting /> },
           { path: "active", element: <ActiveOrder /> },
           { path: "order-tracking", element: <Ordertrackerpage /> },
-
 
           { path: "profile", element: <DesignerProfile /> },
           { path: "payment", element: <DesignerPayment /> },
@@ -223,7 +219,8 @@ const router = createBrowserRouter([
           { path: "customer-security", element: <CustomerSecurity /> },
           { path: "requiredetails", element: <RequestDetails /> },
           // { path: "rating-adebayor",   element: <RatingAdebayor /> },
-          { path: "designer-profile", element: <DanDesignerProfile /> },
+          { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
+          { path: "setting", element: <Settings /> },
         ],
       },
     ],

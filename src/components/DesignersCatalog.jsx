@@ -8,7 +8,7 @@ import vid from "../assets/gbenga/Repeater-Animation.mp4";
 const DesignersCatalog = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [favorites, setFavorites] = useState({});
-  const [designers, setDesigners] = useState([]);
+  const [cartd, setcartd] = useState([]);
   const [category, setCategory] = useState(["All"]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -29,7 +29,7 @@ const DesignersCatalog = () => {
 
       console.log("designs:", designs);
 
-      setDesigners(designs);
+      setcartd(designs);
 
       // get unique categories from array
       const categories = [
@@ -43,6 +43,7 @@ const DesignersCatalog = () => {
     }
     setLoading(false);
   };
+  console.log("cartd", cartd);
 
   useEffect(() => {
     FetchData();
@@ -50,7 +51,7 @@ const DesignersCatalog = () => {
 
   // filter designs by category
   // filter by category + search
-  const filteredDesigns = designers.filter((item) => {
+  const filteredDesigns = cartd.filter((item) => {
     const matchesCategory =
       activeFilter === "All" || item.category === activeFilter;
 
@@ -113,36 +114,38 @@ const DesignersCatalog = () => {
       {/* PRODUCTS */}
 
       <div className="catalog-products-grid">
-        {filteredDesigns.map((item) => (
-          <div key={item.id} className="product-showcase-card">
+        {cartd.map((cartd) => (
+          <div key={cartd?.designer.id} className="product-showcase-card">
             <div className="card-media-wrapper">
               <img
-                src={item.designImage}
+                src={cartd.designImage}
                 alt="design"
                 className="product-thumbnail-img"
               />
 
-              <button
+              {/* <button
                 className={`floating-heart-favorite-icon ${
                   favorites[item.id] ? "is-active" : ""
                 }`}
-                onClick={() => toggleFavorite(item.id)}
+                onClick={() => toggleFavorite(c)}
               >
                 {favorites[item.id] ? (
                   <FaHeart size={15} />
                 ) : (
                   <FiHeart size={15} />
                 )}
-              </button>
+              </button> */}
             </div>
 
             <div className="card-textual-details">
               <div className="details-left-metadata">
-                <h3 className="apparel-display-heading">{item.designTitle}</h3>
+                <h3 className="apparel-display-heading">{cartd.designTitle}</h3>
 
-                <p className="designer-sub-title">by {item.designer}</p>
+                <p className="designer-sub-title">
+                  by {cartd.designer.profile?.businessName}
+                </p>
 
-                <span className="price-numeric-tag">₦{item.price}</span>
+                <span className="price-numeric-tag">₦{cartd.price}</span>
               </div>
 
               <button className="cart-action-square-btn">
