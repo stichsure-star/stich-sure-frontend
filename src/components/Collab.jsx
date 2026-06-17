@@ -5,6 +5,7 @@ import FindCollaborators from "../pages/Designer/components/FindCollaborators";
 import IncomingCollab from "../pages/Designer/components/IncomingCollab";
 import MyCollab from "../pages/Designer/components/MyCollab";
 import { useSelector } from "react-redux";
+import { GoPeople } from "react-icons/go";
 
 const Collab = () => {
   const [activeTab, setActiveTab] = useState("find");
@@ -15,7 +16,11 @@ const Collab = () => {
     <main className="Outsource_page">
       {/* HEADER */}
       <section className="Outsource_header">
-        <h2>Outsource & Collaborate</h2>
+        <h2>
+          {" "}
+          <GoPeople />
+          Outsource & Collaborate
+        </h2>
         <p>
           Discover skilled designers to complete your projects and grow your
           fashion business.
@@ -26,19 +31,19 @@ const Collab = () => {
       <section className="Stats_container">
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Designers</p>
+          <p>Active Collaborator</p>
         </div>
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Projects</p>
+          <p>Trusted Partners</p>
         </div>
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Completed</p>
+          <p>Task Completed</p>
         </div>
         <div className="Stat_card">
           <h3>{user.profile.ratingCount}</h3>
-          <p>Active</p>
+          <p>Success Rate</p>
         </div>
       </section>
 
