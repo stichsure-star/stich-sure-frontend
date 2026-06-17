@@ -206,6 +206,7 @@ const Upload = () => {
               <option value="Corporate">Corporate</option>
 
               <option value="Accessories">Accessories</option>
+              <option value="Casual">Casual</option>
             </select>
 
             {errors.category && (

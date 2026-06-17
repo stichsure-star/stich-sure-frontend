@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/DesignerProfile.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   HiMapPin,
   HiBriefcase,
@@ -13,6 +13,8 @@ import yoruba from "../assets/daniel/Yorubabride.png";
 import aso from "../assets/daniel/Aso-Oke.png";
 import ankara from "../assets/daniel/AnkaraGown.png";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { designerApi } from "../config/designer";
 
 function DanDesignerProfile() {
   const navigate =useNavigate();
@@ -45,6 +47,25 @@ function DanDesignerProfile() {
     },
   ];
 
+  const { id } = useParams();
+  console.log(id);
+  const [profile, setProf] = useState({});
+
+  const fetchData = async () => {
+    try {
+      const response = await designerApi.getOne(id);
+      console.log("response", response.data.data);
+      setProf(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log("profile", profile);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="dp-page-container">
       <main className="dp-main-content">
@@ -55,24 +76,30 @@ function DanDesignerProfile() {
 
           <div className="dp-card-body">
             <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+              src={profile?.profile?.profilePhoto}
               alt="Adebayo Styles"
               className="dp-avatar"
             />
 
             <div className="dp-info-section">
-              <h1 className="dp-designer-name">Adebayo Styles</h1>
-              <h2 className="dp-designer-type">Traditional Wear</h2>
+              <h1 className="dp-designer-name">
+                {profile?.profile?.businessName}
+              </h1>
+              <h2 className="dp-designer-type">
+                {profile?.profile?.specialization}
+              </h2>
 
               <div className="dp-meta-row">
                 <span className="dp-meta-item">
                   <HiMapPin className="dp-meta-icon" /> Lagos, Nigeria
                 </span>
                 <span className="dp-meta-item">
-                  <HiBriefcase className="dp-meta-icon" /> 15 years experience
+                  <HiBriefcase className="dp-meta-icon" />{" "}
+                  {profile.profile?.yearsOfExperience} years experience
                 </span>
                 <span className="dp-meta-item">
-                  <HiBriefcase className="dp-meta-icon" /> 156 completed orders
+                  <HiBriefcase className="dp-meta-icon" />
+                  {profile?.profile?.completedOrders} completed orders
                 </span>
               </div>
 
@@ -84,7 +111,9 @@ function DanDesignerProfile() {
                   <HiStar className="dp-star active" />
                   <HiStar className="dp-star active" />
                 </div>
-                <span className="dp-rating-score">4.9</span>
+                <span className="dp-rating-score">
+                  {profile?.profile?.ratingAverage}
+                </span>
                 <span className="dp-review-count">(3 reviews)</span>
                 <span className="dp-verified-tag">
                   <HiCheckBadge className="dp-verified-icon" /> Verified
@@ -102,11 +131,9 @@ function DanDesignerProfile() {
               <div className="dp-specializations">
                 <span className="dp-spec-label">Specializations:</span>
                 <div className="dp-spec-tags">
-                  <span className="dp-spec-tag">Traditional Wear</span>
-                  <span className="dp-spec-tag">Aso-Oke</span>
-                  <span className="dp-spec-tag">Agbada</span>
-                  <span className="dp-spec-tag">Ankara Styles</span>
-                  <span className="dp-spec-tag">Custom Embroidery</span>
+                  <span className="dp-spec-tag">
+                    {profile?.profile?.specialization}
+                  </span>
                 </div>
               </div>
             </div>
@@ -126,7 +153,7 @@ function DanDesignerProfile() {
               <span className="dp-reliability-value">86%</span>
             </div>
             <div className="dp-progress-track">
-              <div className="dp-progress-fill" style={{ width: "86%" }}></div>
+              <div className="dp-progress-fill" style={{ width: "56%" }}></div>
             </div>
           </div>
         </div>
