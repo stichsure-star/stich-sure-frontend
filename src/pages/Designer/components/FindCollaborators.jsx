@@ -1,55 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Findcollab.css";
 
 import { FaScissors } from "react-icons/fa6";
 import { IoCubeOutline, IoCalendarOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
+import { designerApi } from "../../../config/designer";
 
 const FindCollab = () => {
   const [findcollab_filter, setFindcollab_filter] = useState("All");
+  const [findcollab_data, setFindcollab_data] = useState([]);
 
-  const findcollab_data = [
-    {
-      id: 1,
-      name: "Adebayo Styles",
-      location: "Lagos State",
-      status: "Pending",
-      message:
-        "Hi! I'm currently overloaded with 12 active bridal orders and need a skilled hand...",
-      type: "Bridal Gown",
-      pieces: "6 Pieces",
-      date: "14 June, 2026",
-      action: "Accept / Decline",
-    },
-    {
-      id: 2,
-      name: "Merry Gold Stitches",
-      location: "Lagos State",
-      status: "In Review",
-      message:
-        "Hi! I'm currently overloaded with 12 active bridal orders and need a skilled hand...",
-      type: "Bridal Gown",
-      pieces: "6 Pieces",
-      date: "14 June, 2026",
-      action: "Proceed to payment",
-    },
-    {
-      id: 3,
-      name: "Elite Fashion Hub",
-      location: "Abuja",
-      status: "Active",
-      message: "Need urgent tailoring support for ongoing client orders...",
-      type: "Corporate Wear",
-      pieces: "4 Pieces",
-      date: "10 June, 2026",
-      action: "View Progress",
-    },
-  ];
+  const fetchData = async () => {
+    try {
+      const response = await designerApi.mycollabs();
+
+      setFindcollab_data(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("findcollab_data", findcollab_data);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const findcollab_filtered =
     findcollab_filter === "All"
       ? findcollab_data
       : findcollab_data.filter((item) => item.status === findcollab_filter);
+
+  const getStatusClass = (status) => {
+    if (!status) return "default";
+
+    if (status === "accepted") return "Active";
+    if (status === "rejected") return "Rejected";
+
+    return status.toLowerCase();
+  };
+
+  const formatDate = (isoDate) => {
+    if (!isoDate) return "";
+
+    const date = new Date(isoDate);
+
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
   return (
     <div className="findcollab_board">
@@ -72,7 +73,7 @@ const FindCollab = () => {
 
       {/* CARDS */}
       <div className="findcollab_card_list">
-        {findcollab_filtered.map((item) => (
+        {findcollab_data.map((item) => (
           <div className="findcollab_card" key={item.id}>
             {/* TOP */}
             <div className="findcollab_top">
@@ -85,7 +86,9 @@ const FindCollab = () => {
                 </div>
 
                 <div className="findcollab_info">
-                  <div className="findcollab_name">{item.name}</div>
+                  <div className="findcollab_name">
+                    {item.receiver.lastName} {item.receiver.firstName}
+                  </div>
 
                   <div className="findcollab_location">
                     <FaLocationDot />
@@ -95,23 +98,20 @@ const FindCollab = () => {
               </div>
 
               <div
-                className={`findcollab_status findcollab_${item.status.replace(
-                  " ",
-                  "",
-                )}`}
+                className={`findcollab_status findcollab_${getStatusClass(item.status)}`}
               >
                 {item.status}
               </div>
             </div>
 
             {/* MESSAGE */}
-            <div className="findcollab_message">{item.message}</div>
+            <div className="findcollab_message">{item.taskDetails}</div>
 
             {/* TAGS */}
             <div className="findcollab_tags">
               <div className="findcollab_tag">
                 <FaScissors />
-                {item.type}
+                {item.taskType}
               </div>
 
               <div className="findcollab_tag">
@@ -121,7 +121,7 @@ const FindCollab = () => {
 
               <div className="findcollab_tag">
                 <IoCalendarOutline />
-                {item.date}
+                {formatDate(item.deadline)}
               </div>
             </div>
 
@@ -134,7 +134,11 @@ const FindCollab = () => {
                     : "findcollab_primary"
                 }
               >
-                {item.action}
+                {item.status === "accepted"
+                  ? "Proceed to Payment"
+                  : "Review" || item.status === "rejected"
+                    ? "Rejected"
+                    : "Review"}
               </button>
             </div>
           </div>

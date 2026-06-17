@@ -42,7 +42,7 @@ import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
-// import DesignerDirectory from "./components/DesignerDirectory";
+import DesignerDirectory from "./components/DesignerDirectory";
 import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
 import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
 import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
@@ -81,6 +81,10 @@ import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
 import Settings from "./pages/User/page/Settings";
 import SendCollaborationRequest from "./pages/Designer/components/SendCollaborationRequest";
 import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequestPage";
+import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
+
+// active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
+// user stores tracker,
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -138,13 +142,16 @@ const router = createBrowserRouter([
           { path: "upload", element: <Upload /> },
           { path: "earning", element: <Earning /> },
           { path: "collaboration", element: <CollaborationPage /> },
-          { path: "designer-page", element: <Designerspage /> },
+          { path: "profileonMount", element: <DesignerDirectory /> },
+          { path: "designerpage", element: <Designerspage /> },
           { path: "send-request", element: <CollaborationRequestPage /> },
 
           { path: "ratings", element: <Relaibiy /> },
           { path: "templates", element: <Template /> },
           { path: "setting", element: <Setting /> },
           { path: "active", element: <ActiveOrder /> },
+          { path: "order-tracking", element: <Ordertrackerpage /> },
+
           { path: "profile", element: <DesignerProfile /> },
           { path: "payment", element: <DesignerPayment /> },
           { path: "security", element: <DesignerSecurity /> },
@@ -212,7 +219,7 @@ const router = createBrowserRouter([
           { path: "customer-security", element: <CustomerSecurity /> },
           { path: "requiredetails", element: <RequestDetails /> },
           // { path: "rating-adebayor",   element: <RatingAdebayor /> },
-          { path: "designer-profile", element: <DanDesignerProfile /> },
+          { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
           { path: "setting", element: <Settings /> },
         ],
       },

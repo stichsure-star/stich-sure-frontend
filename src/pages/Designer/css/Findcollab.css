@@ -133,6 +133,12 @@
   border: 1px solid #1976d2;
 }
 
+.findcollab_Rejected {
+  background: rgb(54, 53, 53);
+  color: red;
+  border: 1px solid #1976d2;
+}
+
 /* MESSAGE */
 .findcollab_message {
   font-size: 13px;
