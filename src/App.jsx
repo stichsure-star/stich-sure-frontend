@@ -1,11 +1,16 @@
 import React from "react";
-import { createBrowserRouter, Route, RouterProvider } from "react-router-dom"; // Updated imports
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom"; // Updated imports
 // Page & Component Imports
 import HomePage from "./pages/HomePage";
 import Designerspage from "./pages/Designerspage";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import DesignerVerification from "./components/DesignerVerification";
-// import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
+import IdentityDesignerPage from "../src/pages/kyc/IdentityDesignerPage";
 import InformationDesigner from "./pages/kyc/InformationDesigner";
 import WalletDesigner from "./pages/kyc/WalletDesigner";
 import ProfilePage from "./pages/kyc/ProfilePage";
@@ -37,7 +42,7 @@ import Signup2 from "./pages/auth/customer/Signup";
 import SetPassword from "./pages/auth/SetPassword";
 import Verification from "./pages/auth/Verification";
 import AuthLayout from "./components/AuthLayout";
-// import DesignerDirectory from "./components/DesignerDirectory";
+import DesignerDirectory from "./components/DesignerDirectory";
 import DesignerProfile from "./pages/Designer/profile/DesignerProfile";
 import DesignerSecurity from "./pages/Designer/profile/DesignerSecurity";
 import DesignerPayment from "./pages/Designer/profile/DesignerPayment";
@@ -54,6 +59,11 @@ import ActiveOrder from "./pages/Designer/page/Active";
 import NotFound from "./components/NotFound";
 import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
 import Login3 from "./pages/auth/customer/Login";
+import RatingAdebayor from "./components/RatingAdebayor";
+import DanDesignerProfile from "./components/DanDesignerProfile";
+import requiredetails from "../src/components/RequestDetails";
+import RequestDetails from "../src/components/RequestDetails";
+
 import WithdrawFunds from "../src/popups/WithdrawFunds";
 import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
 import Warning from "../src/popups/Warning";
@@ -70,6 +80,14 @@ import ProtectedRoutes from "./pages/ProtectedRoutes";
 import GoogleSuccess from "./pages/auth/GoogleSuccess";
 import CheckoutPayment from "./paymentInStich-sure/CheckoutPayment";
 import Settings from "./pages/User/page/Settings";
+import SendCollaborationRequest from "./pages/Designer/components/SendCollaborationRequest";
+import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequestPage";
+import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
+
+// active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
+// user stores tracker, 
+
+
 
 // 1. Define your router layout and configuration
 const router = createBrowserRouter([
@@ -87,22 +105,31 @@ const router = createBrowserRouter([
       { path: "features", element: <Featurepage /> },
       { path: "getstarted", element: <StartedPage /> },
 
-      // { path: "identitydesigner", element: <IdentityDesignerPage /> },
-      { path: "informationdesigner", element: <InformationDesigner /> },
-      { path: "walletdesigner", element: <WalletDesigner /> },
       { path: "profilepage", element: <ProfilePage /> },
       { path: "orderdetails", element: <OrderDetails /> },
+      { path: "profilepage", element: <ProfilePage /> },
+      // { path: "orderdetails", element: <OrderDetails /> },
+
+      { path: "/successfulpayment", element: <PaymentSuccessful /> },
+      { path: "/checkout", element: <CheckoutPage /> },
+      { path: "/checkoutpayment", element: <CheckoutPayment /> },
+      { path: "informationdesigner", element: <InformationDesigner /> },
+      { path: "designerverification", element: <DesignerVerification /> },
+      { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "successfull", element: <SuccessfulDesignerPage /> },
       {
         path: "/designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
+
+      { path: "/checkout", element: <CheckoutPage /> },
+
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
       { path: "/checkout", element: <CheckoutPage /> },
       { path: "/checkoutpayment", element: <CheckoutPayment /> },
+      { path: "walletdesigner", element: <WalletDesigner /> },
     ],
   },
-  { path: "designerverification", element: <DesignerVerification /> },
 
   {
     path: "/designer",
@@ -118,10 +145,17 @@ const router = createBrowserRouter([
           { path: "upload", element: <Upload /> },
           { path: "earning", element: <Earning /> },
           { path: "collaboration", element: <CollaborationPage /> },
+          { path: "profileonMount", element: <DesignerDirectory /> },
+          { path: "designerpage", element: <Designerspage /> },
+          { path: "send-request", element: <CollaborationRequestPage /> },
+
           { path: "ratings", element: <Relaibiy /> },
           { path: "templates", element: <Template /> },
           { path: "setting", element: <Setting /> },
           { path: "active", element: <ActiveOrder /> },
+          { path: "order-tracking", element: <Ordertrackerpage /> },
+
+
           { path: "profile", element: <DesignerProfile /> },
           { path: "payment", element: <DesignerPayment /> },
           { path: "security", element: <DesignerSecurity /> },
@@ -168,6 +202,7 @@ const router = createBrowserRouter([
     element: <AuthLayout imageClassName="forgot_image_section" />,
     children: [{ path: "/verification", element: <Verification /> }],
   },
+
   <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
 
   {
@@ -177,47 +212,18 @@ const router = createBrowserRouter([
       {
         element: <UserLayout />,
         children: [
-          {
-            path: "dashboard",
-            element: <UserDashboard />,
-          },
-          {
-            path: "myorders",
-            element: <MyOrders />,
-          },
-          {
-            path: "browsedesigners",
-            element: <BrowseDesigners />,
-          },
-          {
-            path: "browsedesigns",
-            element: <BrowseDesign />,
-          },
-          {
-            path: "saveddesigners",
-            element: <SavedDesigners />,
-          },
-          {
-            path: "designerscatalog",
-            element: <DesignersCatalog />,
-          },
-          {
-            path: "des",
-            element: <RateDesigner />,
-          },
-          {
-            path: "setting",
-            element: <Settings />,
-          },
-
-          {
-            path: "customer-profile",
-            element: <CustomerProfile />,
-          },
-          {
-            path: "customer-security",
-            element: <CustomerSecurity />,
-          },
+          { path: "dashboard", element: <UserDashboard /> },
+          { path: "myorders", element: <MyOrders /> },
+          { path: "browsedesigners", element: <BrowseDesigners /> },
+          { path: "browsedesigns", element: <BrowseDesign /> },
+          { path: "saveddesigners", element: <SavedDesigners /> },
+          { path: "designerscatalog", element: <DesignersCatalog /> },
+          { path: "des", element: <RateDesigner /> },
+          { path: "customer-profile", element: <CustomerProfile /> },
+          { path: "customer-security", element: <CustomerSecurity /> },
+          { path: "requiredetails", element: <RequestDetails /> },
+          // { path: "rating-adebayor",   element: <RatingAdebayor /> },
+          { path: "designer-profile", element: <DanDesignerProfile /> },
         ],
       },
     ],

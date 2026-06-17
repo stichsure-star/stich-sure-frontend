@@ -11,8 +11,12 @@ import { CiCalendar } from "react-icons/ci";
 import { GrLineChart } from "react-icons/gr";
 import { MdOutlineTimer } from "react-icons/md";
 import { SiActiveloop } from "react-icons/si";
+import { useSelector } from "react-redux";
 
 const Reliability = () => {
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+
   const Templates_benefits = [
     {
       id: 1,
@@ -87,28 +91,26 @@ const Reliability = () => {
           <div className="Reliability_scors">
             <p className="Reliability_title">Reliability Score</p>
 
-            <h1 className="Reliability_score">
-              94 <span>/100</span>
-            </h1>
+            <h1 className="Reliability_score">{user.data.reliabilityLabel}</h1>
 
             <p className="Reliability_level">Premium Level</p>
           </div>
           <div className="Reliability_badge">
             <article>
               <small>Total Orders</small>
-              <h2>156</h2>
+              <h2>{user.data.totalOrders}</h2>
             </article>
             <article>
-              <small>Total Orders</small>
-              <h2>156</h2>
+              <small> On-Time</small>
+              <h2>{user.data.onTimeRateLabel}</h2>
             </article>
           </div>
         </div>
 
         <div className="Reliability_circle">
           <div className="Reliability_circleInner">
-            <span>Excellent</span>
-            <small>94%</small>
+            <span>{user.data.nextReliabilityTier}</span>
+            <small>{user.data.reliabilityScore}%</small>
           </div>
         </div>
       </div>
@@ -121,8 +123,8 @@ const Reliability = () => {
             <GrLineChart className="Reliability_iconed" />
           </div>
           <div>
-            <h3>94%</h3>
-            <p>Rating</p>
+            <h3>{user.data.onTimeRate}%</h3>
+            <p>On-Time Rate</p>
           </div>
         </div>
 
@@ -131,8 +133,8 @@ const Reliability = () => {
             <SiActiveloop className="Reliability_iconed" />
           </div>
           <div>
-            <h3>12</h3>
-            <p>Days Active</p>
+            <h3>{user.data.averageDeliveryTime}</h3>
+            <p>Avg Delivery Time</p>
           </div>
         </div>
 
@@ -142,8 +144,8 @@ const Reliability = () => {
           </div>
           <div>
             {" "}
-            <h3>4.9/5</h3>
-            <p>Reviews</p>
+            <h3>{user.data.customerSatisfactionLabel}</h3>
+            <p>Customers Satisfaction</p>
           </div>
         </div>
 
@@ -152,8 +154,8 @@ const Reliability = () => {
             <MdOutlineTimer className="Reliability_iconed" />
           </div>
           <div>
-            <h3>2 hrs</h3>
-            <p>Response</p>
+            <h3>{user.data.responseTime} </h3>
+            <p>Response Time</p>
           </div>
         </div>
       </div>
@@ -203,6 +205,7 @@ const Reliability = () => {
         <h3>Want to increase your score?</h3>
 
         <button className="Reliability_button">Explore Guidelines</button>
+        {/* on click of this take me to find collaborators */}
       </div>
     </div>
   );

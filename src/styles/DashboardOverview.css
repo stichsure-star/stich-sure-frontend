@@ -2,10 +2,11 @@
 
 .dashboard-content-wrapper {
   width: 100%;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 24px;
   box-sizing: border-box;
+  background-color: #dddadaad;
 }
 
 .dashboard-title-area {
@@ -15,7 +16,7 @@
 
 .dashboard-title-area h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 32px;
+  font-size:50px;
   color: #111111;
   margin: 0 0 8px 0;
 }
@@ -37,7 +38,7 @@
 }
 
 .stat-card {
-  width: 297px;
+  width: 341px;
   height: 154px;
   background: #ffffff;
   border-radius: 14.92px;
@@ -75,7 +76,7 @@
 
 .stat-value {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
   color: #000000;
   margin: 0;
@@ -119,8 +120,8 @@
 }
 
 .promo-btn {
-  background-color: #5d091a;
-  color: #ffffff;
+  background-color: white;
+  color:black;
   border: none;
   padding: 12px 24px;
   border-radius: 6px;
@@ -147,15 +148,15 @@
 
 .card-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 25px;
   color: #111111;
   margin: 0;
 }
 
 .view-all-link {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px;
-  color: #5d091a;
+  font-size:20px;
+  color:black;
   text-decoration: none;
   font-weight: 600;
 }

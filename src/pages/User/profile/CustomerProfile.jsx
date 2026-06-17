@@ -96,7 +96,6 @@ const CustomerProfile = () => {
 
       console.log("SUCCESS:", res.data);
 
-      // );
       dispatch(
         updateUser({
           firstName: form.firstName,

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/ActiveOrder.css";
+import { useNavigate } from "react-router-dom";
 const orders = [
   {
     id: "QJ-245608",
@@ -39,6 +40,7 @@ const tabs = ["New", "Preparing", "Ready", "Completed"];
 
 export default function Orders() {
   const [active, setActive] = useState("New");
+  const navigate = useNavigate();
 
   const filtered = orders.filter((o) => o.status === active);
 
@@ -77,7 +79,11 @@ export default function Orders() {
       {/* TABLE BODY (LONG SCROLL AREA) */}
       <div className="collab_tableBody">
         {filtered.map((o) => (
-          <div className="collab_row" key={o.id}>
+          <div
+           className="collab_row" 
+           key={o.id}
+           onClick={() => navigate("/designer/order-tracking")}
+           >
             <div>{o.id}</div>
             <div>{o.time}</div>
             <div>{o.customer}</div>

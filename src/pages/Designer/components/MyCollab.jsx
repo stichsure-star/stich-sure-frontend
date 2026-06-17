@@ -2,8 +2,11 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import "../css/MyCollab.css";
+import { useNavigate } from "react-router-dom";
 
 const DesignersPage = () => {
+
+  const navigate =useNavigate();
   const designers = [
     {
       id: 1,
@@ -102,8 +105,19 @@ const DesignersPage = () => {
 
           {/* BUTTONS */}
           <div className="buttons">
-            <button className="btn_primary">Send Request</button>
-            <button className="btn_outline">View Profile</button>
+            <button 
+            onClick={() =>navigate ("/designer/send-request")}
+            className="btn_primary"
+            >
+              Send Request
+            </button>
+
+            <button
+            onClick={() => navigate ("/designer/profileonMount")}
+             className="btn_outline"
+             >
+              View Profile
+            </button>
           </div>
         </div>
       ))}

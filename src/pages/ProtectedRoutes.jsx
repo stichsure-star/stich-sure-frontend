@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoutes = ({ role }) => {
   const { token, user } = useSelector((state) => state.auth);
+  console.log("user", user);
 
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -15,6 +16,10 @@ const ProtectedRoutes = ({ role }) => {
 
   if (role && user.role !== role) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (user.role === "designer" && !user.profile) {
+    return <Navigate to="/designerverification" />;
   }
 
   return <Outlet />;

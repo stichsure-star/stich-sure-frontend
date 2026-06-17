@@ -11,6 +11,9 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
 }
+.order-tabs{
+  background-color: red;
+}
 
 .tracker-main-card {
   width: 100%;
@@ -225,7 +228,8 @@
   gap: 12px;
   margin-bottom: 40px;
   width: 100%;
-  padding-bottom:2px;
+  padding-bottom:30px;
+
 
 }
 
