@@ -36,6 +36,8 @@ const FindCollab = () => {
 
     if (status === "accepted") return "Active";
     if (status === "rejected") return "Rejected";
+    if (status === "pending") return "Active";
+    if (status === "in review") return "In Review";
 
     return status.toLowerCase();
   };
@@ -136,9 +138,13 @@ const FindCollab = () => {
               >
                 {item.status === "accepted"
                   ? "Proceed to Payment"
-                  : "Review" || item.status === "rejected"
-                    ? "Rejected"
-                    : "Review"}
+                  : "Review" || item.status === "pending"
+                    ? "Pending"
+                    : "Review" || item.status === "in review"
+                      ? "In Review"
+                      : "Review" || item.status === "rejected"
+                        ? "Rejected"
+                        : "Review"}
               </button>
             </div>
           </div>
