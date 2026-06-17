@@ -107,8 +107,8 @@ const Signup = () => {
       </div>
 
       <AuthCard
-        title="Create a customer"
-        subtitle="Create your customer account"
+        title="Create an account"
+        subtitle="Create your account to explore custom fashion, connect with talented designers, and bring your style ideas to life."
         onSubmit={handleSubmit}
       >
         <div className="name_row">

@@ -4,6 +4,7 @@ import { GrLocation } from "react-icons/gr";
 import darky from "../assets/gbenga/darky.png";
 import gold from "../assets/gbenga/Gold.png";
 import manip from "../assets/gbenga/manip.png";
+import { useNavigate } from "react-router-dom";
 
 const designers = [
   {
@@ -36,6 +37,7 @@ const designers = [
 ];
 
 function FeaturedDesigners() {
+  const navigate = useNavigate();
   return (
     <section className="featured-designers">
       <div className="headong">
@@ -82,7 +84,11 @@ function FeaturedDesigners() {
 
               <p className="delivery">On-Time Deliveries</p>
 
-              <button className="profile-btn">View Profile</button>
+              <button 
+              onClick={() => navigate("/getstarted")}
+              className="profile-btn">
+                View Profile
+              </button>
             </div>
           </div>
         ))}
