@@ -25,6 +25,12 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
     if (!designerInfo.phoneNumber?.trim())
       newErrors.phoneNumber = "Phone required";
 
+    if (!designerInfo.state?.trim())
+      newErrors.state = "State required";
+
+    if (!designerInfo.country?.trim())
+      newErrors.country = "Country required";
+
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -74,26 +80,27 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
             <p className="error-text">{errors.phoneNumber}</p>
           )}
         <div className="Addie">
-            <article>
-              <label>State</label>
+            <article >
+             <label>State</label>
           <input
-            name="State"
-            value={designerInfo?.phoneNumber || ""}
+            name="state"
+            value={designerInfo?.state || ""}
             onChange={handleChange}
           />
-          {errors.phoneNumber && (
-            <p className="error-text">{errors.phoneNumber}</p>
+          {errors.state && (
+            <p className="error-text">{errors.state}</p>
           )}
             </article>
         <article>
             <label>Country</label>
           <input
-            name="Country"
-            value={designerInfo?.phoneNumber || ""}
+            name="country"
+            value={designerInfo?.country || ""}
             onChange={handleChange}
           />
-          {errors.phoneNumber && (
-            <p className="error-text">{errors.phoneNumber}</p>
+         
+           {errors.country && (
+            <p className="error-text">{errors.country}</p>
           )}
         </article>
 
