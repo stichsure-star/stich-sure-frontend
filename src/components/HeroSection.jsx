@@ -2,8 +2,11 @@ import React from "react";
 import "../styles/HeroSection.css";
 import { BsSearch } from "react-icons/bs";
 import imged from "../assets/gbenga/StitchCam.png";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="Hero_con">
       <section className="Hero_content">
@@ -12,14 +15,24 @@ const HeroSection = () => {
             Connect With Trusted <br /> Fashion Designers
           </h1>
           <p>
-            Connecting customers with verified designers for on-time delivery,
-            quality craftsmanship, and seamless fashion experiences.
+            Say goodbye to late deliveries. Our platform
+            connect customers with verified designers and 
+            enables seamless collaboration for on-time fashion
+            production.
+            
           </p>
           <div className="Hero_btns">
-            <button className="Hero_btn_primary">
-              <BsSearch /> Find a Designer
+            <button 
+            onClick={() => navigate("/customersignup")}
+            className="Hero_btn_primary">
+              <BsSearch />
+               Find a Designer
             </button>
-            <button className="Hero_btn_secondary">Join as Designer</button>
+            <button 
+            onClick={() => navigate ("/signup")}
+            className="Hero_btn_secondary"
+            >Join as a Designer
+            </button>
           </div>
         </article>
         <article className="Hero_image_content">

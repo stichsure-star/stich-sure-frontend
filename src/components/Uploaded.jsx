@@ -248,27 +248,7 @@ const Upload = () => {
 
         {/* MEASUREMENTS */}
 
-        <div className="Measurement">
-          <h4>Input needed measurements from customer</h4>
-
-          {[
-            "Chest",
-            "Shoulder",
-            "Sleeve length",
-            "Top-length",
-            "Neck",
-            "Bust",
-            "Waist",
-            "Hips",
-            "Length",
-          ].map((item) => (
-            <div className="Measurement_box" key={item}>
-              <p>{item}:</p>
-
-              <input />
-            </div>
-          ))}
-        </div>
+        
 
         <button
           onClick={handlePublish}

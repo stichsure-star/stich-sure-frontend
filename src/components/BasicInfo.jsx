@@ -25,6 +25,12 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
     if (!designerInfo.phoneNumber?.trim())
       newErrors.phoneNumber = "Phone required";
 
+    if (!designerInfo.state?.trim())
+      newErrors.state = "State required";
+
+    if (!designerInfo.country?.trim())
+      newErrors.country = "Country required";
+
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -47,7 +53,7 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
           <label>Business Name</label>
           <input
             name="businessName"
-            value={designerInfo.businessName || ""}
+            value={designerInfo?.businessName || ""}
             onChange={handleChange}
           />
           {errors.businessName && (
@@ -57,7 +63,7 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
           <label>Current Business Address</label>
           <input
             name="currentHouseAddress"
-            value={designerInfo.currentHouseAddress || ""}
+            value={designerInfo?.currentHouseAddress || ""}
             onChange={handleChange}
           />
           {errors.currentHouseAddress && (
@@ -67,13 +73,38 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
           <label>Phone Number</label>
           <input
             name="phoneNumber"
-            value={designerInfo.phoneNumber || ""}
+            value={designerInfo?.phoneNumber || ""}
             onChange={handleChange}
           />
           {errors.phoneNumber && (
             <p className="error-text">{errors.phoneNumber}</p>
           )}
+        <div className="Addie">
+            <article >
+             <label>State</label>
+          <input
+            name="state"
+            value={designerInfo?.state || ""}
+            onChange={handleChange}
+          />
+          {errors.state && (
+            <p className="error-text">{errors.state}</p>
+          )}
+            </article>
+        <article>
+            <label>Country</label>
+          <input
+            name="country"
+            value={designerInfo?.country || ""}
+            onChange={handleChange}
+          />
+         
+           {errors.country && (
+            <p className="error-text">{errors.country}</p>
+          )}
+        </article>
 
+        </div>
           <button type="submit">Continue</button>
         </form>
       </div>
