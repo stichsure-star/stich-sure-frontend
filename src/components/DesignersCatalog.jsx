@@ -4,8 +4,11 @@ import { FiSearch, FiSliders, FiHeart, FiShoppingBag } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { authApi } from "../config/customer";
 import vid from "../assets/gbenga/Repeater-Animation.mp4";
+import { useNavigate } from "react-router-dom";
+
 
 const DesignersCatalog = () => {
+  const navigate =useNavigate ();
   const [activeFilter, setActiveFilter] = useState("All");
   const [favorites, setFavorites] = useState({});
   const [cartd, setcartd] = useState([]);
@@ -149,7 +152,10 @@ const DesignersCatalog = () => {
               </div>
 
               <button className="cart-action-square-btn">
-                <FiShoppingBag size={15} />
+                <FiShoppingBag size={15}
+                onClick={() => navigate ("/user/requiredetails")}
+                />
+                
               </button>
             </div>
           </div>

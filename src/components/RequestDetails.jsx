@@ -178,17 +178,6 @@ const RequestDetails = () => {
               type="button"
               className="rd-next-btn"
               onClick={handleNext}
-              // onClose={() => {
-              //    setShowSent(false);
-              //   // navigate("/user/dashboard"); 
-
-              // }}
-              
-
-              
-
-              
-
             >
               Next
             </button>

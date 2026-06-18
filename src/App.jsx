@@ -82,6 +82,7 @@ import Settings from "./pages/User/page/Settings";
 import SendCollaborationRequest from "./pages/Designer/components/SendCollaborationRequest";
 import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequestPage";
 import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
+import MvpPage from "./pages/Designer/page/MvpPage";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
 // user stores tracker,
@@ -218,6 +219,9 @@ const router = createBrowserRouter([
           { path: "customer-profile", element: <CustomerProfile /> },
           { path: "customer-security", element: <CustomerSecurity /> },
           { path: "requiredetails", element: <RequestDetails /> },
+          { path: "mvp", element: <MvpPage /> },
+
+
           // { path: "rating-adebayor",   element: <RatingAdebayor /> },
           { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
           { path: "setting", element: <Settings /> },
