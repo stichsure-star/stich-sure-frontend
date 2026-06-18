@@ -81,4 +81,58 @@
   .designer-payment-page {
     padding: 18px;
   }
+} 
+.payment-toast {
+  position: fixed;
+  top: 20%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 36px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+  z-index: 1000;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  animation: payment-toast-in 0.3s ease-out;
+  text-align: center;
+  min-width: 280px;
+  justify-content: center;
+}
+
+.payment-toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: 18px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.payment-toast-success {
+  background-color: #6c0319;
+}
+
+.payment-toast-error {
+  background-color: #8e0017;
+}
+
+@keyframes payment-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
