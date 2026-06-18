@@ -9,6 +9,15 @@ const DesignerPayment = () => {
     accountNumber: "",
   });
 
+  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
+
+  const showToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: "", type });
+    }, 3000);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,18 +38,28 @@ const DesignerPayment = () => {
     try {
       const response = await designerApi.updateWallet(payload);
       if (response.status === 200 || response.status === 201) {
-        alert("Payment information updated successfully!");
+        showToast("Payment information updated successfully!", "success");
       }
     } catch (error) {
       console.error("Wallet update failed:", error);
-      alert(
-        error.response?.data?.message || "Failed to update payment details."
+      showToast(
+        error.response?.data?.message || "Failed to update payment details.",
+        "error"
       );
     }
   };
 
   return (
     <main className="designer-payment-page">
+      {toast.show && (
+        <div className={`payment-toast payment-toast-${toast.type}`}>
+          <span className="payment-toast-icon">
+            {toast.type === "success" ? "✓" : "✕"}
+          </span>
+          {toast.message}
+        </div>
+      )}
+
       <section className="designer-payment-panel">
         <h1>Profile Settings</h1>
 

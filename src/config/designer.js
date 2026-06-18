@@ -21,6 +21,12 @@ export const designerApi = {
   resetPassword: (data) => ApiClient.put(`/designer/update-password-setting`),
   updateWallet: (data) => ApiClient.put(`/designerWallet/update`, data),
 
+  updateProfileSettings: (data) => ApiClient.patch("/designerProfile/updateDesignerProfileSettings", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+
   collaborationrequest: (data) => ApiClient.post("/collaboration/create", data),
   acceptrecevied: (data) => ApiClient.get("/collaboration/received", data),
   acceptcollab: (id) => ApiClient.put(`/collaboration/accept/${id}`),
