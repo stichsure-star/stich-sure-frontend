@@ -23,6 +23,21 @@
   opacity: 0.7;
 }
 
+@media (max-width: 600px) {
+  .signup_content {
+    gap: 18px;
+  }
+
+  .back_home {
+    position: static;
+    align-self: flex-start;
+    justify-content: flex-start;
+    width: fit-content;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+}
+
 .name_row {
   display: grid;
   grid-template-columns: 1fr 1fr;
