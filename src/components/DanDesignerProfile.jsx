@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { designerApi } from "../config/designer";
 
 function DanDesignerProfile() {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const portfolioItems = [
     { id: 1, image: text, title: "Royal Agbada", category: "Traditional" },
@@ -121,12 +121,7 @@ function DanDesignerProfile() {
                 </span>
               </div>
 
-              <p className="dp-bio">
-                Award-winning fashion designer specializing in traditional
-                Nigerian attire. With over 15 years of experience, I bring
-                cultural heritage and modern elegance together in every piece I
-                create.
-              </p>
+              <p className="dp-bio">{profile?.profile?.shortBio}</p>
 
               <div className="dp-specializations">
                 <span className="dp-spec-label">Specializations:</span>
@@ -140,41 +135,53 @@ function DanDesignerProfile() {
           </div>
 
           <div className="dp-action-row">
-              <button
+            <button
               onClick={() => navigate("/user/requiredetails")}
-               className="dp-hire-btn">
-                Hire Designer
-              </button>
-            </div>
+              className="dp-hire-btn"
+            >
+              Hire Designer
+            </button>
+          </div>
 
           <div className="dp-reliability-section">
             <div className="dp-reliability-labels">
               <span className="dp-reliability-title">Reliability Score</span>
-              <span className="dp-reliability-value">86%</span>
+              <span className="dp-reliability-value">
+                {profile?.profile?.reliabilityScore ?? 0}%
+              </span>
             </div>
             <div className="dp-progress-track">
-              <div className="dp-progress-fill" style={{ width: "56%" }}></div>
+              <div
+                className="dp-progress-fill"
+                style={{
+                  width: `${profile?.profile?.reliabilityScore ?? 0}%`,
+                }}
+              ></div>
             </div>
           </div>
         </div>
 
-        <div className="dp-portfolio-grid">
-          {portfolioItems.map((item) => (
-            <div key={item.id} className="dp-portfolio-card">
-              <div className="dp-image-container">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="dp-portfolio-img"
-                />
+        {profile?.designs?.length > 0 ? (
+          <div className="dp-portfolio-grid">
+            {profile.designs.map((item) => (
+              <div key={item.id} className="dp-portfolio-card">
+                <div className="dp-image-container">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="dp-portfolio-img"
+                  />
+                </div>
+                <div className="dp-portfolio-details">
+                  <h3 className="dp-item-title">{item.title}</h3>
+                  <p className="dp-item-category">{item.category}</p>
+                </div>
               </div>
-              <div className="dp-portfolio-details">
-                <h3 className="dp-item-title">{item.title}</h3>
-                <p className="dp-item-category">{item.category}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <h1 className="dp-empty-designs-title">Add your design</h1>
+        )}
       </main>
     </div>
   );

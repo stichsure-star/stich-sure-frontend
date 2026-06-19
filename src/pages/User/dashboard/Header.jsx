@@ -14,7 +14,7 @@ import { FaStar } from "react-icons/fa6";
 import { IoShirtOutline, IoSettings } from "react-icons/io5";
 import { HiCube } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
 const Header = () => {
@@ -49,14 +49,21 @@ const Header = () => {
       </header>
 
       <div className={`mobile-drawed ${open ? "active" : ""}`}>
-        <div className="drawer-ted" onClick={() => setOpen(false)}>
+        <div className="drawer-ted">
           <img src={Img} alt="Logo" className="bet" />
+          <button className="drawer-close" onClick={() => setOpen(false)}>
+            <FiX />
+          </button>
         </div>
 
         <ul>
           <li>
             {" "}
-            <NavLink to="/user/dashboard" className="link">
+            <NavLink
+              to="/user/dashboard"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
               <GoHome className="trd" />
               Dashboard
             </NavLink>
@@ -64,7 +71,11 @@ const Header = () => {
 
           <li>
             {" "}
-            <NavLink to="/user/browsedesigners" className="link">
+            <NavLink
+              to="/user/browsedesigners"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
               <RiImageAddFill className="trd" />
               Browse Designers
             </NavLink>
@@ -72,7 +83,11 @@ const Header = () => {
 
           <li>
             {" "}
-            <NavLink to="/user/browsedesigns" className="link">
+            <NavLink
+              to="/user/browsedesigns"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
               <HiCube className="trd" />
               Browse Designs
             </NavLink>
@@ -80,21 +95,33 @@ const Header = () => {
 
           <li>
             {" "}
-            <NavLink to="/user/myorders" className="link">
+            <NavLink
+              to="/user/myorders"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
               <IoIosCard className="trd" />
               My Orders
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/user/saveddesigners" className="link">
+            <NavLink
+              to="/user/saveddesigners"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
               <PiHandshakeFill className="trd" />
               Saved Designs
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/settings" className="link">
+            <NavLink
+              to="/settings"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
               <IoSettings className="trd" />
               Settings
             </NavLink>

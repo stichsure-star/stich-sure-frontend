@@ -24,31 +24,41 @@
 }
 
 .right {
-  width: 10%;
+  width: auto;
   height: 90%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+}
 
+.notif,
+.mobile-icon-menu-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(112, 0, 20, 0.08);
+  cursor: pointer;
 }
 
 .notif {
   position: relative;
   font-size: 20px;
-  cursor: pointer;
 }
 
 .Notify {
-  width: 30px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 }
 
 .badge {
   position: absolute;
-  top: 3px;
-  right: -3px;
-  background: red;
+  top: 4px;
+  right: 4px;
+  background: #d32f2f;
   color: white;
   font-size: 10px;
   width: 16px;
@@ -59,32 +69,15 @@
   align-items: center;
 }
 
-.avatared {
-  width: 100px;
-  height: 50px;
+.Picky {
   display: flex;
-  justify-content: space-between;
-}
-
-.avatar {
-  width: 70px;
-  height: 50px;
-
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  cursor: pointer;
-
-  img {
-    width: 50px;
-    height: 50px;
-    background-size: contain;
-  }
+  justify-content: center;
 }
 
 .Goldie {
-  width: 39px;
-  height: 39px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
 }
 
@@ -98,42 +91,50 @@
 
 .mobile-drawer {
   position: fixed;
-
   top: 0;
-  left: -280px;
-
+  right: -280px;
   width: 260px;
-
   height: 100vh;
   background: white;
-
   z-index: 20000;
-
   transition: 0.3s ease;
-
-  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.2);
+  box-shadow: -8px 0 25px rgba(0, 0, 0, 0.2);
 }
 
 .mobile-drawer.active {
-  left: 0;
+  right: 0;
 }
 
 .drawer-top {
   height: 55px;
-
   display: flex;
-
-  justify-content: flex-end;
-
+  justify-content: space-between;
   align-items: center;
-
-  padding-right: 20px;
-
+  padding: 0 16px;
   font-size: 22px;
-
-  cursor: pointer;
-
   border-bottom: 1px solid #ddd;
+}
+
+.drawer-top img {
+  width: 120px;
+  height: auto;
+}
+
+.drawer-close {
+  background: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.drawer-close:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .mobile-drawer ul {
@@ -177,5 +178,54 @@
   .mobile-drawer,
   .overlay {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+
+  .logo {
+    flex: 1;
+  }
+
+  .right {
+    gap: 12px;
+  }
+
+  .Picky {
+    display: none;
+  }
+
+  .mobile-icon-menu-btn {
+    display: flex;
+    width: 20px;
+  }
+
+  .notif {
+    display: flex;
+  }
+
+  .header {
+    justify-content: space-between;
+  }
+
+  .bet {
+    width: 120px;
+    height: auto;
+  }
+
+  .dashboard-layout .sidebar-wrapper,
+  .sidebar-wrapper {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
   }
 }

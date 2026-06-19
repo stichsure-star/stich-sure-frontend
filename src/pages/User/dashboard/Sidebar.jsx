@@ -15,7 +15,7 @@ import { logout } from "../../../global/authSlice";
 import { useDispatch } from "react-redux";
 import { authApi } from "../../../config/auth";
 
-const Sidebar = () => {
+const Sidebar = ({ onClose = () => {} }) => {
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -45,46 +45,66 @@ const Sidebar = () => {
         {/* SETTINGS MENU */}
         {isSettings ? (
           <>
-            <NavLink to="/user/customer-profile" className="link">
+            <NavLink
+              to="/user/customer-profile"
+              className="link"
+              onClick={onClose}
+            >
               Profile Settings
             </NavLink>
 
-            <NavLink to="/user/customer-security" className="link">
+            <NavLink
+              to="/user/customer-security"
+              className="link"
+              onClick={onClose}
+            >
               Security
             </NavLink>
 
-            <NavLink to="/user/dashboard" className="link">
+            <NavLink to="/user/dashboard" className="link" onClick={onClose}>
               Back to dashboard
             </NavLink>
           </>
         ) : (
           <>
-            <NavLink to="/user/dashboard" className="link">
+            <NavLink to="/user/dashboard" className="link" onClick={onClose}>
               <GoHome className="trd" />
               Dashboard
             </NavLink>
 
-            <NavLink to="/user/browsedesigners" className="link">
+            <NavLink
+              to="/user/browsedesigners"
+              className="link"
+              onClick={onClose}
+            >
               <RiImageAddLine className="trd" />
               Browse Designers
             </NavLink>
 
-            <NavLink to="/user/browsedesigns" className="link">
+            <NavLink
+              to="/user/browsedesigns"
+              className="link"
+              onClick={onClose}
+            >
               <IoIosNotificationsOutline className="trd" />
               Browse Designs
             </NavLink>
 
-            <NavLink to="/user/myorders" className="link">
+            <NavLink to="/user/myorders" className="link" onClick={onClose}>
               <GoCreditCard className="trd" />
               My Orders
             </NavLink>
 
-            <NavLink to="/user/saveddesigners" className="link">
+            <NavLink
+              to="/user/saveddesigners"
+              className="link"
+              onClick={onClose}
+            >
               <PiHandshakeLight className="trd" />
               Saved Designers
             </NavLink>
 
-            <NavLink to="/user/setting" className="link">
+            <NavLink to="/user/setting" className="link" onClick={onClose}>
               <IoSettingsOutline className="trd" />
               Settings
             </NavLink>
