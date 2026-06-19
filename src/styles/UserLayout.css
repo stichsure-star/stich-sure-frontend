@@ -22,7 +22,15 @@
 /* Tablet + Mobile */
 @media (max-width: 768px) {
   .sidebar-wrapper {
-    display: none;
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
   }
 
   .dashboard-body {
@@ -30,6 +38,9 @@
   }
 
   .dashboard-content {
-    width: 100%;
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
   }
+}
 }

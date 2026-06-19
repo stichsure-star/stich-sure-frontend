@@ -36,16 +36,28 @@ const DesignersGrid = () => {
       const allDesigners = res.data.data;
       console.log("allDesigners", allDesigners);
 
-      setDesigners(allDesigners);
+      const verifiedDesigners = allDesigners.filter((designer) => {
+        const profile = designer.profile || {};
+        return (
+          profile.isKycVerified === true ||
+          profile.IsProfileCompleted === true ||
+          profile.isProfileCompleted === true
+        );
+      });
 
-      console.log(allDesigners.length);
+      setDesigners(verifiedDesigners);
+
+      console.log(verifiedDesigners.length);
 
       const generatedCategories = [
         "All",
         ...new Set(
-          completedDesigners
-            .map((designer) => designer.profile?.specialization)
-            .filter(Boolean),
+          verifiedDesigners.flatMap((designer) =>
+            (designer.profile?.specialization || "")
+              .split(",")
+              .map((spec) => spec.trim())
+              .filter(Boolean),
+          ),
         ),
       ];
 

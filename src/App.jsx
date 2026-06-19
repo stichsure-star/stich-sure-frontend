@@ -109,7 +109,7 @@ const router = createBrowserRouter([
       // { path: "orderdetails", element: <OrderDetails /> },
 
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
-      { path: "/checkout", element: <CheckoutPage /> },
+
       { path: "/checkoutpayment", element: <CheckoutPayment /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
       { path: "designerverification", element: <DesignerVerification /> },
@@ -120,10 +120,8 @@ const router = createBrowserRouter([
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
 
-      { path: "/checkout", element: <CheckoutPage /> },
-
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
-      { path: "/checkout", element: <CheckoutPage /> },
+
       { path: "/checkoutpayment", element: <CheckoutPayment /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
     ],
@@ -165,6 +163,7 @@ const router = createBrowserRouter([
           { path: "production", element: <ProductionIsDone /> },
           { path: "published", element: <DesignPublished /> },
           { path: "ratings", element: <AddedRatings /> },
+          { path: "mvp", element: <MvpPage /> },
         ],
       },
     ],
@@ -218,13 +217,13 @@ const router = createBrowserRouter([
           { path: "des", element: <RateDesigner /> },
           { path: "customer-profile", element: <CustomerProfile /> },
           { path: "customer-security", element: <CustomerSecurity /> },
-          { path: "requiredetails", element: <RequestDetails /> },
-          { path: "mvp", element: <MvpPage /> },
-
+          { path: `requiredetails/:id`, element: <RequestDetails /> },
 
           // { path: "rating-adebayor",   element: <RatingAdebayor /> },
           { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
           { path: "setting", element: <Settings /> },
+          { path: "checkout", element: <CheckoutPage /> },
+          { path: "checkout/:id", element: <CheckoutPage /> },
         ],
       },
     ],

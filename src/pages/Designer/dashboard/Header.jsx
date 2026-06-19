@@ -5,16 +5,17 @@ import Gold from "../../../assets/gbenga/Gold.png";
 import empty from "../../../assets/gbenga/empty.jpg";
 
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 
 import Sidebar from "../dashboard/Sidebar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   console.log("user", user);
-
+  // const navigate = useNavigate();
   return (
     <>
       <header className="header">
@@ -44,12 +45,14 @@ const Header = () => {
 
       {/* MOBILE DRAWER */}
       <div className={`mobile-drawer ${open ? "active" : ""}`}>
-        <div className="drawer-top" onClick={() => setOpen(false)}>
+        <div className="drawer-top">
           <img src={Img} alt="Logo" className="bet" />
+          <button className="drawer-close" onClick={() => setOpen(false)}>
+            <FiX />
+          </button>
         </div>
 
-        {/* 🔥 IMPORTANT: reuse Sidebar (same logic as desktop) */}
-        <Sidebar />
+        <Sidebar onClose={() => setOpen(false)} />
       </div>
 
       {open && <div className="overlay" onClick={() => setOpen(false)} />}

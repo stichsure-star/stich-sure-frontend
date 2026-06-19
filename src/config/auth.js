@@ -1,5 +1,6 @@
 import { logout } from "../global/authSlice";
 import { ApiClient } from "./AxiosInstance";
+import { store } from "../global/store";
 
 export const authApi = {
   login: (role, data) => ApiClient.post(`/${role}/login`, data),
@@ -19,4 +20,15 @@ export const authApi = {
   google: () => ApiClient.get("/auth/google"),
 
   allDesigners: (data) => ApiClient.get("/designerProfile/getAll", data),
+
+  profileOrder: (data) => ApiClient.post("/orders/create", data),
+
+  finalPay: (data) => {
+    const token = store.getState().auth.token;
+    const config = token
+      ? { headers: { Authorization: `Bearer ${token}` } }
+      : undefined;
+
+    return ApiClient.post("/shipment/wallet/fund", data, config);
+  },
 };

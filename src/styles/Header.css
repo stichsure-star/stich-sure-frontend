@@ -108,14 +108,68 @@
 .Header_sidebar {
   position: fixed;
   top: 0;
-  left: -280px;
+  right: -280px;
   width: 260px;
   height: 100vh;
   background: white;
   z-index: 1000;
   padding: 20px;
   transition: all 0.35s ease;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: -8px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.Header_sidebar.show {
+  right: 0;
+}
+
+.mobile-drawed {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 260px;
+  height: 100vh;
+  background: white;
+  z-index: 1000;
+  padding: 0;
+  transition: all 0.35s ease;
+  box-shadow: -8px 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-drawed.active {
+  right: 0;
+}
+
+.drawer-ted {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.drawer-ted img {
+  width: 120px;
+  height: auto;
+}
+
+.drawer-close {
+  background: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.drawer-close:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .Header_sidebar.show {

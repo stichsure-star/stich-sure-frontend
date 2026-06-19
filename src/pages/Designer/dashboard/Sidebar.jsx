@@ -13,7 +13,7 @@ import { logout } from "../../../global/authSlice";
 import { useDispatch } from "react-redux";
 import { authApi } from "../../../config/auth";
 
-const Sidebar = () => {
+const Sidebar = ({ onClose = () => {} }) => {
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -43,59 +43,75 @@ const Sidebar = () => {
         {/* SETTINGS MENU */}
         {isSettings ? (
           <>
-            <NavLink to="/designer/setting" className="link">
+            <NavLink to="/designer/setting" className="link" onClick={onClose}>
               Profile Settings
             </NavLink>
 
-            <NavLink to="/designer/security" className="link">
+            <NavLink to="/designer/security" className="link" onClick={onClose}>
               Security
             </NavLink>
 
-            <NavLink to="/designer/payment" className="link">
+            <NavLink to="/designer/payment" className="link" onClick={onClose}>
               Billing
             </NavLink>
-            <NavLink to="/designer/dashboard" className="link">
+            <NavLink
+              to="/designer/dashboard"
+              className="link"
+              onClick={onClose}
+            >
               Back to dashboard
             </NavLink>
           </>
         ) : (
           <>
-            <NavLink to="/designer/dashboard" className="link">
+            <NavLink
+              to="/designer/dashboard"
+              className="link"
+              onClick={onClose}
+            >
               <GoHome className="trd" />
               Dashboard
             </NavLink>
 
-            <NavLink to="/designer/upload" className="link">
+            <NavLink to="/designer/upload" className="link" onClick={onClose}>
               <RiImageAddLine className="trd" />
               Upload Designs
             </NavLink>
 
-            <NavLink to="/designer/active" className="link">
+            <NavLink to="/designer/active" className="link" onClick={onClose}>
               <IoCubeOutline className="trd" />
               Active Orders
             </NavLink>
 
-            <NavLink to="/designer/earning" className="link">
+            <NavLink to="/designer/earning" className="link" onClick={onClose}>
               <GoCreditCard className="trd" />
               Earnings & Wallet
             </NavLink>
 
-            <NavLink to="/designer/collaboration" className="link">
+            <NavLink
+              to="/designer/collaboration"
+              className="link"
+              onClick={onClose}
+            >
               <PiHandshakeLight className="trd" />
               Collaboration
             </NavLink>
 
-            <NavLink to="/designer/ratings" className="link">
+            <NavLink to="/designer/ratings" className="link" onClick={onClose}>
               <IoStarOutline className="trd" />
               Ratings
             </NavLink>
 
-            <NavLink to="/designer/templates" className="link">
+            <NavLink
+              to="/designer/templates"
+              className="link"
+              onClick={onClose}
+            >
               <IoShirtOutline className="trd" />
               Templates
             </NavLink>
 
-            <NavLink to="/designer/setting" className="link">
+            <NavLink to="/designer/setting" className="link" onClick={onClose}>
               <IoSettingsOutline className="trd" />
               Settings
             </NavLink>

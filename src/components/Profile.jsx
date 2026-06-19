@@ -9,19 +9,25 @@ import { Navigate } from "react-router-dom";
 
 const Profile = ({ onNext, onPrev, designerInfo }) => {
   const dispatch = useDispatch();
-  const [loading ,setLoading ] = useState("")
+  const [loading, setLoading] = useState("");
 
   const [profileImage, setProfileImage] = useState(null);
   const [selectedSpecs, setSelectedSpecs] = useState(["All"]);
   const [experience, setExperience] = useState("");
   const [bio, setBio] = useState("");
-  
+
   // New state to manage field error feedback
   const [errors, setErrors] = useState({});
 
+  const specializationOptions = [
+    "Traditional",
+    "Bridal",
+    "Corporate",
+    "Casual",
+    "Accesories",
+  ];
+
   const fileInputRef = useRef(null);
-
-
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -32,7 +38,10 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
         setProfileImage(file);
         setErrors((prev) => ({ ...prev, profileImage: null }));
       } else {
-        setErrors((prev) => ({ ...prev, profileImage: "Please select a valid image file." }));
+        setErrors((prev) => ({
+          ...prev,
+          profileImage: "Please select a valid image file.",
+        }));
       }
     }
   };
@@ -52,7 +61,7 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
 
     const finalSpecs = updated.length ? updated : ["All"];
     setSelectedSpecs(finalSpecs);
-    
+
     // Clear error if specialization valid
     if (finalSpecs.length > 0) {
       setErrors((prev) => ({ ...prev, specialization: null }));
@@ -98,7 +107,7 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
       });
       return;
     }
-    setLoading(true)
+    setLoading(true);
 
     try {
       const payload = new FormData();
@@ -133,10 +142,12 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
       Swal.fire({
         icon: "error",
         title: "Submission Failed",
-        text: error?.response?.data?.message || "Something went wrong on the server.",
+        text:
+          error?.response?.data?.message ||
+          "Something went wrong on the server.",
       });
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   return (
@@ -151,7 +162,9 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
         <p className="photo-text">Add Profile Photo</p>
 
         <div className="profile-photo-container">
-          <div className={`profile-photo ${errors.profileImage ? "error-border" : ""}`}>
+          <div
+            className={`profile-photo ${errors.profileImage ? "error-border" : ""}`}
+          >
             {profileImage && (
               <img src={URL.createObjectURL(profileImage)} alt="profile" />
             )}
@@ -174,13 +187,15 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
           />
         </div>
         {/* Profile Image Error Message */}
-        {errors.profileImage && <p className="error-text text-center">{errors.profileImage}</p>}
+        {errors.profileImage && (
+          <p className="error-text text-center">{errors.profileImage}</p>
+        )}
 
         <form className="profile-form">
           <p className="labed">Select Specialization</p>
 
           <div className="specialization-tags">
-            {specializations.map((spec) => (
+            {specializationOptions.map((spec) => (
               <button
                 key={spec}
                 type="button"
@@ -191,7 +206,9 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
               </button>
             ))}
           </div>
-          {errors.specialization && <p className="error-text">{errors.specialization}</p>}
+          {errors.specialization && (
+            <p className="error-text">{errors.specialization}</p>
+          )}
 
           {/* EXPERIENCE */}
           <p className="labed">Years Of Experience</p>
@@ -201,10 +218,13 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
             value={experience}
             onChange={(e) => {
               setExperience(e.target.value);
-              if (e.target.value.trim()) setErrors(prev => ({ ...prev, experience: null }));
+              if (e.target.value.trim())
+                setErrors((prev) => ({ ...prev, experience: null }));
             }}
           />
-          {errors.experience && <p className="error-text">{errors.experience}</p>}
+          {errors.experience && (
+            <p className="error-text">{errors.experience}</p>
+          )}
 
           {/* BIO */}
           <p className="labed">Short Bio</p>
@@ -214,13 +234,14 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
             value={bio}
             onChange={(e) => {
               setBio(e.target.value);
-              if (e.target.value.trim()) setErrors(prev => ({ ...prev, bio: null }));
+              if (e.target.value.trim())
+                setErrors((prev) => ({ ...prev, bio: null }));
             }}
           />
           {errors.bio && <p className="error-text">{errors.bio}</p>}
 
           <button type="button" className="continue-btn" onClick={handleSubmit}>
-          {loading ? "Verifying...":"Complete Verification"}
+            {loading ? "Verifying..." : "Complete Verification"}
           </button>
         </form>
       </div>
