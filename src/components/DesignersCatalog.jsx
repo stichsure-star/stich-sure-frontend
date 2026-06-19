@@ -6,9 +6,8 @@ import { authApi } from "../config/customer";
 import vid from "../assets/gbenga/Repeater-Animation.mp4";
 import { useNavigate } from "react-router-dom";
 
-
 const DesignersCatalog = () => {
-  const navigate =useNavigate ();
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("All");
   const [favorites, setFavorites] = useState({});
   const [cartd, setcartd] = useState([]);
@@ -46,7 +45,6 @@ const DesignersCatalog = () => {
     }
     setLoading(false);
   };
-  console.log("cartd", cartd);
 
   useEffect(() => {
     FetchData();
@@ -64,6 +62,10 @@ const DesignersCatalog = () => {
 
     return matchesCategory && matchesSearch;
   });
+
+  console.log("cartd", cartd.id);
+
+  console.log("cartd", cartd);
 
   if (loading) {
     return (
@@ -125,19 +127,6 @@ const DesignersCatalog = () => {
                 alt="design"
                 className="product-thumbnail-img"
               />
-
-              {/* <button
-                className={`floating-heart-favorite-icon ${
-                  favorites[item.id] ? "is-active" : ""
-                }`}
-                onClick={() => toggleFavorite(c)}
-              >
-                {favorites[item.id] ? (
-                  <FaHeart size={15} />
-                ) : (
-                  <FiHeart size={15} />
-                )}
-              </button> */}
             </div>
 
             <div className="card-textual-details">
@@ -151,11 +140,22 @@ const DesignersCatalog = () => {
                 <span className="price-numeric-tag">₦{cartd.price}</span>
               </div>
 
-              <button className="cart-action-square-btn">
-                <FiShoppingBag size={15}
-                onClick={() => navigate ("/user/requiredetails")}
-                />
-                
+              <button
+                className="cart-action-square-btn"
+                onClick={() => {
+                  console.log("CLICK CARD:", cartd);
+
+                  navigate(`/user/requiredetails/${cartd.designerId}`, {
+                    state: {
+                      designId: cartd.id,
+                      designerId: cartd.designerId,
+                      itemName: cartd.designTitle,
+                      amount: cartd.price,
+                    },
+                  });
+                }}
+              >
+                <FiShoppingBag size={15} />
               </button>
             </div>
           </div>

@@ -3,7 +3,7 @@
   height: calc(100vh - 60px);
   background: #fff;
   border-right: 1px solid #eee;
-  position: fixed;
+  position: sticky;
   top: 60px;
   left: 0;
   overflow-y: auto;

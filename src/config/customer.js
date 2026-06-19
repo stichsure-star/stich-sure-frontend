@@ -13,5 +13,15 @@ export const authApi = {
   design: (data) => ApiClient.get(`/designs/getAll`),
   designCategory: (data) => ApiClient.post(`/designs/getAll/category`),
   userDashboard: (data) => ApiClient.get(`/customer/dashboard-stats`),
-  
- };
+  request: (designerId, data) => {
+    if (data instanceof FormData) {
+      return ApiClient.post(`/request/create/${designerId}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+
+    return ApiClient.post(`/request/create/${designerId}`, data);
+  },
+};
