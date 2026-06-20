@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../../../styles/customer-security.css";
-import { authApi } from "../../../config/customer";
+import { customerApi } from "../../../config/customer";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../../global/authSlice";
 import Swal from "sweetalert2";
@@ -49,7 +49,7 @@ const CustomerSecurity = () => {
     console.log("READY TO SEND:", form);
 
     try {
-      const res = await authApi.updatepassword({
+      const res = await customerApi.updatepassword({
         currentPassword: form.currentPassword,
         newPassword: form.newPassword,
         confirmPassword: form.confirmPassword,

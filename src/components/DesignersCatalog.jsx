@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/DesignersCatalog.css";
 import { FiSearch, FiSliders, FiHeart, FiShoppingBag } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
-import { authApi } from "../config/customer";
+import { customerApi } from "../config/customer";
 import vid from "../assets/gbenga/Repeater-Animation.mp4";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const DesignersCatalog = () => {
   const FetchData = async () => {
     setLoading(true);
     try {
-      const response = await authApi.design();
+      const response = await customerApi.design();
 
       const designs = response.data.data;
 
@@ -150,7 +150,7 @@ const DesignersCatalog = () => {
                       designId: cartd.id,
                       designerId: cartd.designerId,
                       itemName: cartd.designTitle,
-                      amount: cartd.price,
+                      amount: Number(cartd.price),
                     },
                   });
                 }}

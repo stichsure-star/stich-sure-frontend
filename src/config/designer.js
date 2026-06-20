@@ -21,7 +21,8 @@ export const designerApi = {
   resetPassword: (data) => ApiClient.put(`/designer/update-password-setting`),
   updateWallet: (data) => ApiClient.put(`/designerWallet/update`, data),
 
-  updateProfileSettings: (data) => ApiClient.patch("/designerProfile/updateDesignerProfileSettings", data, {
+  updateProfileSettings: (data) =>
+    ApiClient.patch("/designerProfile/updateDesignerProfileSettings", data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -34,4 +35,5 @@ export const designerApi = {
   collaborationstats: (data) => ApiClient.get("/collaboration/stats", data),
   mycollabs: (data) => ApiClient.get("/collaboration", data),
   getOne: (id) => ApiClient.get(`/designer/one/${id}`),
+  allOrder: (data) => ApiClient.get(`/orders`, data),
 };

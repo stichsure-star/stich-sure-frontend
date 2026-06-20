@@ -8,11 +8,13 @@
   align-items: center;
   padding: 40px 24px 0 24px;
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
     sans-serif;
-}
-.order-tabs{
-  background-color: red;
 }
 
 .tracker-main-card {
@@ -68,16 +70,16 @@
   margin-bottom: 8px;
 }
 
- .badge-pill-status {
+.badge-pill-status {
   background-color: rgb(170, 221, 170);
-  color:green;
+  color: green;
   padding: 6px 20px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 8px;
   text-align: center;
-} 
+}
 
 .calendar-due-date {
   font-size: 13px;
@@ -191,7 +193,7 @@
   text-decoration: none;
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .tracker-header-row {
     flex-direction: column;
     gap: 16px;
@@ -228,9 +230,7 @@
   gap: 12px;
   margin-bottom: 40px;
   width: 100%;
-  padding-bottom:30px;
-
-
+  padding-bottom: 30px;
 }
 
 .tab-btn {

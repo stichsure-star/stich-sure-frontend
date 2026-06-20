@@ -7,92 +7,48 @@ import {
 import "../styles/RequestDetails.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RequestSent from "../popups/RequestSent";
-import { authApi } from "../config/customer";
+import { customerApi } from "../config/customer";
 
 const RequestDetails = () => {
   const fileInputRef = useRef(null);
+  const dateInputRef = useRef(null);
 
   const navigate = useNavigate();
+
   const [called, setCalled] = useState("");
-
   const { id: designerId } = useParams();
-
-  console.log("designer id:", designerId);
 
   const location = useLocation();
   const holding = location.state;
 
-  console.log("holding", holding);
-
-  console.log("state coming:", location.state);
-
-  console.log("state coming:", location.state);
-
-  console.log("state coming:", location.state);
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  const [showSent, setShowSent] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     fullName: "",
     deadline: "",
-    measurements: "Chest\nShoulder\nSleeve Length\nTop Length\nNeck\nBust",
+    measurements:
+      "Chest:\nShoulder:\nSleeve Length:\nTop Length:\nNeck:\nBust:\nHip:",
     description: "",
   });
 
-  console.log("formData", formData);
-
-  // ✅ ISO CONVERTER (ADDED ONLY)
-  const convertToISO = (value) => {
-    if (!value) return null;
-
-    const numbers = value.replace(/\D/g, "");
-
-    // must be at least 8 digits (DDMMYYYY)
-    if (numbers.length < 8) return null;
-
-    const day = numbers.slice(0, 2);
-    const month = numbers.slice(2, 4);
-    const year = numbers.slice(4, 8);
-
-    const date = new Date(`${year}-${month}-${day}`);
-
-    if (isNaN(date.getTime())) return null;
-
-    return date.toISOString();
+  const getTomorrowDate = () => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    return d.toISOString().split("T")[0];
   };
-  const formatDeadline = (value) => {
-    const numbers = value.replace(/\D/g, "");
 
-    if (numbers.length <= 2) {
-      return numbers;
-    }
-
-    if (numbers.length <= 4) {
-      return `${numbers.slice(0, 2)}/${numbers.slice(2)}`;
-    }
-
-    return `${numbers.slice(0, 2)}/${numbers.slice(2, 4)}/${numbers.slice(4, 8)}`;
-  };
+  const minDate = getTomorrowDate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    let newValue = value;
-
-    if (name === "deadline") {
-      newValue = formatDeadline(value);
-    }
-
     setFormData((prev) => ({
       ...prev,
-      [name]: newValue,
+      [name]: value,
     }));
 
     setErrors((prev) => ({
@@ -131,77 +87,45 @@ const RequestDetails = () => {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = async () => {
-    if (!validateForm()) {
-      return;
+  const handleDateClick = () => {
+    if (!dateInputRef.current) return;
+
+    // best modern browsers
+    if (dateInputRef.current.showPicker) {
+      dateInputRef.current.showPicker();
+    } else {
+      // fallback
+      dateInputRef.current.focus();
+      dateInputRef.current.click();
     }
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) return;
 
     setLoading(true);
 
     try {
       const payload = {
         fullName: formData.fullName,
-
-        deadLine: convertToISO(formData.deadline),
-
+        deadLine: formData.deadline, // already YYYY-MM-DD
         measurement: formData.measurements,
-
         description: formData.description,
+        amount: holding?.amount ? parseInt(holding.amount, 10) : 0,
+        designId: holding?.designId,
       };
 
-      console.log("REQUEST PAYLOAD", payload);
-      let response;
+      console.log("PAYLOAD:", payload);
 
-      if (!designerId) {
-        throw new Error("Designer id missing");
-      }
-
-      if (selectedFile) {
-        const fd = new FormData();
-
-        Object.entries(payload).forEach(([key, value]) => {
-          if (value !== undefined && value !== null) fd.append(key, value);
-        });
-
-        fd.append("inspiration", selectedFile);
-
-        response = await authApi.request(designerId, fd);
-      } else {
-        response = await authApi.request(designerId, payload);
-      }
-
-      console.log("response full", response);
+      const response = await customerApi.request(designerId, payload);
 
       setCalled(response.data);
 
-      // robust extraction of id from possible response shapes
-      const requestId =
-        response?.data?.id ||
-        response?.data?.requestId ||
-        response?.data?.data?.id ||
-        response?.data?._id ||
-        response?.id ||
-        null;
-
-      // merge holding and response data into a single object for checkout
-      const mergedState = {
-        ...(holding || {}),
-        ...(response?.data || {}),
-        requestId,
-        responseData: response?.data ?? response,
-      };
-
-      // persist merged state temporarily so the checkout page can recover it
-      try {
-        sessionStorage.setItem("checkoutState", JSON.stringify(mergedState));
-      } catch (e) {
-        console.warn("Could not write checkoutState to sessionStorage", e);
-      }
-
-      console.log("navigating with mergedState", mergedState);
-
-      navigate(`/user/checkout/${requestId || ""}`, {
-        state: mergedState,
+      navigate(`/user/checkout/${response.data.id}`, {
+        state: {
+          ...holding,
+          requestId: response.data.id,
+        },
       });
     } catch (error) {
       console.log(error?.response?.data || error);
@@ -221,7 +145,6 @@ const RequestDetails = () => {
 
   const handleRemoveImage = (e) => {
     e.stopPropagation();
-
     setSelectedFile(null);
     setImagePreview(null);
 
@@ -229,9 +152,6 @@ const RequestDetails = () => {
       fileInputRef.current.value = "";
     }
   };
-
-  console.log("called", called);
-  // console.log("holder", holder);
 
   return (
     <div className="rd-container">
@@ -242,7 +162,6 @@ const RequestDetails = () => {
           {/* Full Name */}
           <div className="rd-form-group">
             <label htmlFor="fullName">Full Name</label>
-
             <input
               type="text"
               id="fullName"
@@ -250,7 +169,6 @@ const RequestDetails = () => {
               value={formData.fullName}
               onChange={handleChange}
             />
-
             {errors.fullName && <p className="error-text">{errors.fullName}</p>}
           </div>
 
@@ -259,14 +177,21 @@ const RequestDetails = () => {
             <label htmlFor="deadline">Deadline</label>
 
             <div className="rd-input-icon-wrapper">
-              <HiOutlineCalendar className="rd-calendar-icon" />
+              <HiOutlineCalendar
+                className="rd-calendar-icon"
+                onClick={handleDateClick}
+                style={{ cursor: "pointer" }}
+              />
 
               <input
-                type="text"
+                ref={dateInputRef}
+                type="date"
                 id="deadline"
                 name="deadline"
                 value={formData.deadline}
                 onChange={handleChange}
+                min={minDate}
+                className="Date-pick"
               />
             </div>
 
@@ -316,7 +241,6 @@ const RequestDetails = () => {
 
             <input
               type="file"
-              id="inspiration-upload"
               ref={fileInputRef}
               style={{ display: "none" }}
               accept="image/png,image/jpeg,image/jpg"
@@ -345,9 +269,7 @@ const RequestDetails = () => {
               ) : (
                 <div className="rd-upload-placeholder">
                   <HiOutlineCloudArrowUp className="rd-upload-icon" />
-
                   <p className="rd-upload-text">Click to upload</p>
-
                   <p className="rd-upload-subtext">PNG, JPG up to 10MB</p>
                 </div>
               )}
@@ -374,14 +296,6 @@ const RequestDetails = () => {
           </div>
         </form>
       </div>
-
-      {/* <RequestSent
-        isOpen={showSent}
-        onClose={() => {
-          setShowSent(false);
-          navigate("/user/dashboard");
-        }}
-      /> */}
     </div>
   );
 };

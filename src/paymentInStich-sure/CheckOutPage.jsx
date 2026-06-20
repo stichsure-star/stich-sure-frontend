@@ -77,9 +77,12 @@ const CheckOutPage = () => {
       deliveryAddress: fullAddress,
       email: formData.email,
     };
-    console.log(payload);
+    const blaga = payload;
+    console.log("blaga", blaga);
+    console.log("payload", payload);
     try {
       const response = await authApi.finalPay(payload);
+      console.log("responsed", response);
     } catch (error) {}
   };
 
