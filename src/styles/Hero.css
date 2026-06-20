@@ -44,10 +44,11 @@
     gap: 20px;
   }
   
-  .search-box input,
+  .search-box input
   .search-box select {
     flex: 1;
     height: 55px;
+    width: 80px;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 0 15px;
