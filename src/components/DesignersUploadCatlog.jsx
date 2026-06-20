@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/designers-upload-catlog.css";
 import { FiSearch, FiSliders } from "react-icons/fi";
 // import { FaHeart } from "react-icons/fa";
-import { authApi } from "../config/customer";
+// import { authApi } from "../config/customer";
 // import vid from "../assets/gbenga/Repeater-Animation.mp4";
 import { useSelector } from "react-redux";
 
