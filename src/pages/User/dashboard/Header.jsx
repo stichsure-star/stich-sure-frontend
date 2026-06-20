@@ -35,7 +35,7 @@ const Header = () => {
           {/* NOTIFICATION */}
           <div className="notif">
             <IoMdNotificationsOutline className="Notify" />
-            <span className="badge">5</span>
+            <span className="badge">0</span>
           </div>
           <div className="dammy">
             <div className="avatarde">

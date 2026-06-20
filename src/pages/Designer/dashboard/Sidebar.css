@@ -2,7 +2,7 @@
   width: 240px;
   height: calc(100vh - 60px);
   background: #fff;
-  border-right: 1px solid #eee;
+
   position: sticky;
   top: 60px;
   left: 0;
@@ -11,6 +11,41 @@
   flex-direction: column;
   padding: 20px 10px;
   scrollbar-width: none;
+  overflow-y: auto;
+}
+
+.Cliped {
+  width: 90%;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+
+  .imgt {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .put {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    flex-wrap: wrap;
+    padding-top: 10px;
+
+    p {
+      color: #5a5a5a;
+    }
+  }
 }
 
 .menu {

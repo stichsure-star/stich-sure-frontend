@@ -70,7 +70,7 @@
 }
 
 .dammy {
-  display: none;
+  display: flex;
 }
 
 .avatarde {
@@ -91,6 +91,14 @@
     object-fit: cover;
     border: 2px solid white;
   }
+}
+
+.logoutBtn {
+  margin-top: 40px;
+}
+
+.dropdowned {
+  display: none;
 }
 
 /* =====================

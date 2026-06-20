@@ -29,6 +29,6 @@ export const authApi = {
       ? { headers: { Authorization: `Bearer ${token}` } }
       : undefined;
 
-    return ApiClient.post("/shipment/wallet/fund", data, config);
+    return ApiClient.post("/shipment/payment/initialize", data, config);
   },
 };
