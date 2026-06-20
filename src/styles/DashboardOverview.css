@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 .dashboard-content-wrapper {
   width: 100%;
@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 24px;
   box-sizing: border-box;
-  background-color: #dddadaad;
+  background-color: #f7f5f5ad;
 }
 
 .dashboard-title-area {
@@ -15,14 +15,14 @@
 }
 
 .dashboard-title-area h1 {
-  font-family: 'Playfair Display', serif;
-  font-size:50px;
+  font-family: "Playfair Display", serif;
+  font-size: 50px;
   color: #111111;
   margin: 0 0 8px 0;
 }
 
 .dashboard-title-area p {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 15px;
   color: #666666;
   margin: 0;
@@ -59,24 +59,36 @@
 }
 
 .stat-icon {
-  width: 48px;
-  height: 48px;
+  width: 68px;
+  height: 68px;
   background-color: #d1ebd6;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: rgba(240, 210, 217, 0.8) 0px 0px 5px 5px;
+
+  animation: spin 3s linear;
 }
 
 .stat-icon img {
   width: 99px;
-  height: 49px;
-  
+  height: 69px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .stat-value {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 20px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 30px;
   font-weight: 700;
   color: #000000;
   margin: 0;
@@ -89,8 +101,8 @@
 }
 
 .stat-label {
-  font-family: 'Playfair Display', serif;
-  font-size: 13px;
+  font-family: "Playfair Display", serif;
+  font-size: 19px;
   font-weight: 500;
   color: #555555;
   margin: 0;
@@ -106,14 +118,14 @@
 }
 
 .promo-banner h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 24px;
   color: white;
   margin: 0 0 8px 0;
 }
 
 .promo-banner p {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 14px;
   color: white;
   margin: 0 0 20px 0;
@@ -121,11 +133,11 @@
 
 .promo-btn {
   background-color: white;
-  color:black;
+  color: black;
   border: none;
   padding: 12px 24px;
   border-radius: 6px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -147,16 +159,16 @@
 }
 
 .card-header h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 25px;
   color: #111111;
   margin: 0;
 }
 
 .view-all-link {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size:20px;
-  color:black;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 20px;
+  color: black;
   text-decoration: none;
   font-weight: 600;
 }
@@ -182,21 +194,21 @@
 }
 
 .order-title-row h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 16px;
   color: #111111;
   margin: 0 0 4px 0;
 }
 
 .designer-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 13px;
   color: #666666;
   margin: 0 0 2px 0;
 }
 
 .order-id {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 12px;
   color: #999999;
   margin: 0;
@@ -207,7 +219,7 @@
   color: #216935;
   padding: 6px 12px;
   border-radius: 20px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 12px;
   font-weight: 600;
 }
@@ -219,7 +231,7 @@
 .progress-text {
   display: flex;
   justify-content: space-between;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 12.5px;
   color: #444444;
   margin-bottom: 6px;
@@ -239,7 +251,7 @@
 }
 
 .due-date {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 12.5px;
   color: #666666;
   display: flex;
@@ -286,14 +298,14 @@
 }
 
 .designer-card-item h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 15px;
   color: #111111;
   margin: 0 0 4px 0;
 }
 
 .designer-specialty {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 13px;
   color: #666666;
   margin: 0 0 8px 0;
@@ -312,7 +324,7 @@
 }
 
 .rating-value {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: #111111;
@@ -322,10 +334,10 @@
   width: 100%;
   /* background-color: transparent; */
   border: 1px solid #6c0319;
-  color:white;
+  color: white;
   padding: 10px 0;
   border-radius: 6px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;

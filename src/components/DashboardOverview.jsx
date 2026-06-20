@@ -8,7 +8,7 @@ import Save from "../assets/daniel/Savecontainer.png";
 import Complete from "../assets/daniel/Container.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { authApi } from "../config/customer";
+import { customerApi } from "../config/customer";
 
 const stats = [
   { id: 1, label: "Active Orders", value: 2, icon: Vector },
@@ -64,7 +64,7 @@ export default function DashboardOverview() {
   const user = useSelector((state) => state.auth.user);
   const fetchData = async () => {
     try {
-      const response = await authApi.userDashboard();
+      const response = await customerApi.userDashboard();
       console.log("response", response.data);
       setProduct(response.data.data);
       console.log("product", product);
@@ -83,12 +83,6 @@ export default function DashboardOverview() {
 
   return (
     <div className="dashboard-content-wrapper">
-      <div className="dashboard-title-area">
-        <h1>Welcome {user.lastName}!</h1>
-        <p>Dashboard Overview</p>
-        <p>Track your order and discover new designers</p>
-      </div>
-
       <section className="stats-grid">
         {stats.map((stat) => (
           <div key={stat.id} className="stat-card">
