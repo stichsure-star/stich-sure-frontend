@@ -73,9 +73,9 @@ const Sidebar = ({ onClose = () => {} }) => {
               Dashboard
             </NavLink>
 
-            <NavLink to="/designer/upload" className="link" onClick={onClose}>
+            <NavLink to="/designer/uploadedcatlog" className="link" onClick={onClose}>
               <RiImageAddLine className="trd" />
-              Upload Designs
+              My Designs
             </NavLink>
 
             <NavLink to="/designer/active" className="link" onClick={onClose}>

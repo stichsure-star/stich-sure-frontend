@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { IoChevronBack } from "react-icons/io5";
 import "../styles/Profile.css";
 import { useDispatch } from "react-redux";
 import { setCredentials, updateUser } from "../global/authSlice";
@@ -153,6 +154,10 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
   return (
     <div className="complete-profile-page">
       <div className="profile-content">
+        <button type="button" className="wizard-back-icon" onClick={onPrev}>
+          <IoChevronBack />
+        </button>
+
         <h2>Complete Your Profile</h2>
 
         <p className="subtitle">
