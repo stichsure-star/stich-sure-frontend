@@ -83,6 +83,8 @@ import SendCollaborationRequest from "./pages/Designer/components/SendCollaborat
 import CollaborationRequestPage from "./pages/Designer/page/CollaborationRequestPage";
 import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
 import MvpPage from "./pages/Designer/page/MvpPage";
+import DesignersUploadCatlog from "./components/DesignersUploadCatlog";
+import DesignerUploadedDesigners from "./pages/Designer/page/DesignerUploadedDesigners";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
 // user stores tracker,
@@ -139,6 +141,9 @@ const router = createBrowserRouter([
           { path: "orders", element: <Orders /> },
           { path: "tracker", element: <Tracker /> },
           { path: "upload", element: <Upload /> },
+          { path: "uploadedcatlog", element: <DesignersUploadCatlog /> },
+
+          { path: "designersupload", element: <DesignerUploadedDesigners /> },
           { path: "earning", element: <Earning /> },
           { path: "collaboration", element: <CollaborationPage /> },
           { path: "profileonMount", element: <DesignerDirectory /> },

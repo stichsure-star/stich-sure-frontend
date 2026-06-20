@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { IoChevronBack } from "react-icons/io5";
 import "../styles/BasicInfo.css";
 
-const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
+const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -47,6 +48,10 @@ const BasicInfo = ({ onNext, setDesignerInfo, designerInfo }) => {
   return (
     <div className="BasicInfo-page">
       <div className="basic-info-card">
+        <button type="button" className="wizard-back-icon" onClick={onPrev}>
+          <IoChevronBack />
+        </button>
+
         <h4>Basic Information</h4>
 
         <form className="basic-info-form" onSubmit={handleSubmit}>
