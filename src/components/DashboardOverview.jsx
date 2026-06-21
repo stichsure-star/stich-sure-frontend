@@ -10,12 +10,6 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { customerApi } from "../config/customer";
 
-const stats = [
-  { id: 1, label: "Active Orders", value: 2, icon: Vector },
-  { id: 2, label: "Saved Designers", value: 8, icon: Save },
-  { id: 3, label: "Completed Order", value: 12, icon: Complete },
-];
-
 export default function DashboardOverview() {
   const activeOrders = [
     {
@@ -81,6 +75,17 @@ export default function DashboardOverview() {
     console.log("product updated:", product);
   }, [product]);
 
+  const stats = [
+    {
+      id: 1,
+      label: "Active Orders",
+      value: product?.activeOrders,
+      icon: Vector,
+    },
+    { id: 2, label: "Saved Designers", value: 8, icon: Save },
+    { id: 3, label: "Completed Order", value: 12, icon: Complete },
+  ];
+
   return (
     <div className="dashboard-content-wrapper">
       <section className="stats-grid">
@@ -90,7 +95,7 @@ export default function DashboardOverview() {
               <div className="stat-icon">
                 <img src={stat.icon} alt={stat.label} />
               </div>
-              <h3 className="stat-value">{product.activeOrders}</h3>
+              <h3 className="stat-value">{stat.value}</h3>
             </div>
             <div className="stat-info">
               <p className="stat-label">{stat.label}</p>
