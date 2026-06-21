@@ -82,8 +82,18 @@ export default function DashboardOverview() {
       value: product?.activeOrders,
       icon: Vector,
     },
-    { id: 2, label: "Saved Designers", value: 8, icon: Save },
-    { id: 3, label: "Completed Order", value: 12, icon: Complete },
+    {
+      id: 2,
+      label: "Saved Designers",
+      value: product?.savedDesigners,
+      icon: Save,
+    },
+    {
+      id: 3,
+      label: "Completed Order",
+      value: product?.completedOrders,
+      icon: Complete,
+    },
   ];
 
   return (

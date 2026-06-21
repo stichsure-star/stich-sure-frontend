@@ -57,7 +57,7 @@ import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
 import NotFound from "./components/NotFound";
-import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
+// import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
 import Login3 from "./pages/auth/customer/Login";
 import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
@@ -85,6 +85,8 @@ import Ordertrackerpage from "./pages/Designer/page/Ordertrackerpage";
 import MvpPage from "./pages/Designer/page/MvpPage";
 import DesignersUploadCatlog from "./components/DesignersUploadCatlog";
 import DesignerUploadedDesigners from "./pages/Designer/page/DesignerUploadedDesigners";
+import CheckOutPage from "./paymentInStich-sure/CheckOutPage";
+import CheckOut2 from "./paymentInStich-sure/CheckOut2";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
 // user stores tracker,
@@ -112,7 +114,7 @@ const router = createBrowserRouter([
 
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
 
-      { path: "/checkoutpayment", element: <CheckoutPayment /> },
+      // { path: "/checkoutpayment", element: <CheckoutPayment /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
       { path: "designerverification", element: <DesignerVerification /> },
       { path: "identitydesigner", element: <IdentityDesignerPage /> },
@@ -169,6 +171,8 @@ const router = createBrowserRouter([
           { path: "published", element: <DesignPublished /> },
           { path: "ratings", element: <AddedRatings /> },
           { path: "mvp", element: <MvpPage /> },
+          // { path: "checkout", element: <CheckoutPage /> },
+
         ],
       },
     ],
@@ -227,8 +231,13 @@ const router = createBrowserRouter([
           // { path: "rating-adebayor",   element: <RatingAdebayor /> },
           { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
           { path: "setting", element: <Settings /> },
-          { path: "checkout", element: <CheckoutPage /> },
-          { path: "checkout/:id", element: <CheckoutPage /> },
+          { path: "checkout", element: <CheckOutPage /> },
+          { path: "checkout/:id", element: <CheckOutPage /> },
+
+          // i just added this one please check throgh @gbenga 
+          { path: "checkout2", element: <CheckOut2 /> },
+
+
         ],
       },
     ],
@@ -241,3 +250,6 @@ const App = () => {
 };
 
 export default App;
+
+
+

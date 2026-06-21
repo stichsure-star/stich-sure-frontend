@@ -135,12 +135,12 @@ function DanDesignerProfile() {
           </div>
 
           <div className="dp-action-row">
-            <button
+            {/* <button
               onClick={() => navigate("/user/requiredetails")}
               className="dp-hire-btn"
             >
               Hire Designer
-            </button>
+            </button> */}
           </div>
 
           <div className="dp-reliability-section">

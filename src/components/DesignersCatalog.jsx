@@ -15,6 +15,19 @@ const DesignersCatalog = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
+  const goToRequestDetails = (item) => {
+  console.log("CLICK CARD:", item);
+
+  navigate(`/user/requiredetails/${item.designerId}`, {
+    state: {
+      designId: item.id,
+      designerId: item.designerId,
+      itemName: item.designTitle,
+      amount: Number(item.price),
+    },
+  });
+};
+
   const toggleFavorite = (id) => {
     setFavorites((prev) => ({
       ...prev,
@@ -126,7 +139,7 @@ const DesignersCatalog = () => {
                 src={cartd.designImage}
                 alt="design"
                 className="product-thumbnail-img"
-              />
+                onClick={() => goToRequestDetails(cartd)}/>
             </div>
 
             <div className="card-textual-details">
@@ -139,21 +152,11 @@ const DesignersCatalog = () => {
 
                 <span className="price-numeric-tag">₦{cartd.price}</span>
               </div>
+              
 
               <button
                 className="cart-action-square-btn"
-                onClick={() => {
-                  console.log("CLICK CARD:", cartd);
-
-                  navigate(`/user/requiredetails/${cartd.designerId}`, {
-                    state: {
-                      designId: cartd.id,
-                      designerId: cartd.designerId,
-                      itemName: cartd.designTitle,
-                      amount: Number(cartd.price),
-                    },
-                  });
-                }}
+                onClick={() => goToRequestDetails(cartd)}
               >
                 <FiShoppingBag size={15} />
               </button>
