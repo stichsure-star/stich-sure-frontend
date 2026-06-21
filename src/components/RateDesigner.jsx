@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/RateDesigner.css";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import AddedRatings from "../popups/AddedRatings ";
 
 const RateDesigner = () => {
   const [rating, setRating] = useState(0);
   const [activeTab, setActiveTab] = useState("completed");
+  const [isRatingAddedOpen, setIsRatingAddedOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="rate-page-container">
@@ -18,7 +22,7 @@ const RateDesigner = () => {
             className={`tab-btn ${
               activeTab === "active" ? "selected-tab" : ""
             }`}
-            onClick={() => setActiveTab("active")}
+            onClick={() => navigate("/user/myorders")}
           >
             Active order
           </button>
@@ -93,11 +97,17 @@ const RateDesigner = () => {
               </div>
 
               <div className="action-buttons-group">
-                <button className="reorder-action-btn">
+                <button
+                  className="reorder-action-btn"
+                  onClick={() => navigate("/user/browsedesigns")}
+                >
                   Reorder
                 </button>
 
-                <button className="review-action-btn">
+                <button
+                  className="review-action-btn"
+                  onClick={() => setIsRatingAddedOpen(true)}
+                >
                   Review
                 </button>
               </div>
@@ -108,6 +118,11 @@ const RateDesigner = () => {
         )}
 
       </div>
+
+      <AddedRatings
+        isOpen={isRatingAddedOpen}
+        onClose={() => setIsRatingAddedOpen(false)}
+      />
     </div>
   );
 };
