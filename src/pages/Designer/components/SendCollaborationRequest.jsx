@@ -227,7 +227,13 @@ const SendCollaborationRequest = ({ onClose }) => {
         </div>
       </form>
 
-      {showRequest && <RequestSent onClose={() => setShowRequest(false)} />}
+      {
+      showRequest && 
+      <RequestSent
+       onClose={() =>
+        setShowRequest(false)} 
+        />
+      }
     </div>
   );
 };

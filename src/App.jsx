@@ -86,6 +86,7 @@ import MvpPage from "./pages/Designer/page/MvpPage";
 import DesignersUploadCatlog from "./components/DesignersUploadCatlog";
 import DesignerUploadedDesigners from "./pages/Designer/page/DesignerUploadedDesigners";
 import CheckOutPage from "./paymentInStich-sure/CheckOutPage";
+import CheckOut2 from "./paymentInStich-sure/CheckOut2";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
 // user stores tracker,
@@ -233,6 +234,10 @@ const router = createBrowserRouter([
           { path: "checkout", element: <CheckOutPage /> },
           { path: "checkout/:id", element: <CheckOutPage /> },
 
+          // i just added this one please check throgh @gbenga 
+          { path: "checkout2", element: <CheckOut2 /> },
+
+
         ],
       },
     ],
@@ -245,3 +250,6 @@ const App = () => {
 };
 
 export default App;
+
+
+

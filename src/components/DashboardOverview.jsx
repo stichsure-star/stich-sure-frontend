@@ -6,9 +6,10 @@ import queen from "../assets/daniel/Queenlace.png";
 import Vector from "../assets/daniel/Vectorcontainer.png";
 import Save from "../assets/daniel/Savecontainer.png";
 import Complete from "../assets/daniel/Container.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { customerApi } from "../config/customer";
+
 
 const stats = [
   { id: 1, label: "Active Orders", value: 2, icon: Vector },
@@ -17,6 +18,7 @@ const stats = [
 ];
 
 export default function DashboardOverview() {
+  const navigate= useNavigate();
   const activeOrders = [
     {
       id: "ORD-001",
@@ -129,7 +131,7 @@ export default function DashboardOverview() {
               <div className="progress-container">
                 <div className="progress-text">
                   <span>Progress</span>
-                  <span>{order.progress}%z</span>
+                  <span>{order.progress}%</span>
                 </div>
                 <div className="progress-bar-bg">
                   <div
@@ -167,7 +169,12 @@ export default function DashboardOverview() {
                 <span className="star-icon">★</span>
                 <span className="rating-value">{designer.rating}</span>
               </div>
-              <button className="profile-btn">View Profile</button>
+             <button
+               onClick={() => navigate(`/user/designer-profile/${designer.id}`)}
+               className="profile-btn"
+               >
+               View Profile
+             </button>
             </div>
           ))}
         </div>
