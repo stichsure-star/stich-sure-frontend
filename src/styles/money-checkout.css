@@ -1,6 +1,6 @@
 .checkout-screen {
   min-height: 100vh;
-  background: #f41919;
+  background: hsl(0, 19%, 92%);
   color: #070707;
   /* font-family: Georgia, "Times New Roman", serif; */
 }
@@ -69,11 +69,30 @@
   gap: 26px;
 }
 
+.save-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
 
+.save-info input[type="checkbox"] {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.save-info label {
+  font-size: 8px;
+  color: #4a4a4a;
+  cursor: pointer;
+  line-height: 1.4;
+}
 
 .order-card {
   min-height: 363px;
-  background: #d19a64;
+  background: #b2b6c3;
   border-radius: 5px;
   padding: 18px 28px 47px 28px;
   display: flex;
@@ -141,6 +160,10 @@
   text-align: left;
   white-space: nowrap;
 }
+.summary-placeholder {
+  color: #8a8585;
+  font-style: italic;
+}
 
 .total-row {
   margin-bottom: 0;
@@ -183,6 +206,11 @@
 .order-card button:hover {
   background: #6f0014;
 }
+.order-card button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 /* =========================
    TABLET (768px and below)
@@ -241,7 +269,10 @@
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
+
+  .save-info label {
+  font-size: 10px;
+}
 
   .order-card {
     padding: 16px;

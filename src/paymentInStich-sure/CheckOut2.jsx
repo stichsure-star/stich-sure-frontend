@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import "../styles/Bili.css";
+import React, { useEffect, useState , } from "react";
+import { useLocation, useParams , useNavigate} from "react-router-dom";
+// import "../styles/Bili.css";
+// import "../styles/checkout.css"
+import "../styles/money-checkout.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 
-const CheckOutPage = () => {
+const CheckOut2 = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
   const [orderId, setOrder] = useState({});
+  const [shippingCalculated, setShippingCalculated] = useState(false);
+  const [saveInfo, setSaveInfo] = useState(false);
 
   let finalState = location.state;
   console.log("finalState", finalState);
+
+  
 
   const [formData, setFormData] = useState({
     address: "",
@@ -20,6 +27,41 @@ const CheckOutPage = () => {
     country: "",
     email: "",
   });
+
+  const handleCalculateDelivery = () => {
+  if (
+    !formData.address ||
+    !formData.city ||
+    !formData.state ||
+    !formData.country
+  ) {
+    alert("Please complete your address information");
+    return;
+  }
+
+  if (saveInfo) {
+    localStorage.setItem(
+      "checkoutInfo",
+      JSON.stringify(formData)
+    );
+  }
+
+  setShippingCalculated(true);
+};
+
+useEffect(() => {
+  const savedInfo = localStorage.getItem("checkoutInfo");
+
+  if (savedInfo) {
+    setFormData(JSON.parse(savedInfo));
+  }
+}, []);
+
+const isAddressComplete =
+  formData.address &&
+  formData.city &&
+  formData.state &&
+  formData.country;
 
   if (!finalState) {
     try {
@@ -31,7 +73,7 @@ const CheckOutPage = () => {
   }
 
   const subtotal = Number(finalState.amount) || 5000000;
-  const shipping = 10000;
+  const shipping = shippingCalculated ? 10000 : 0;
   const total = subtotal + shipping;
   const formatNaira = (value) =>
     `₦${new Intl.NumberFormat("en-NG", {
@@ -83,6 +125,7 @@ const CheckOutPage = () => {
     try {
       const response = await authApi.finalPay(payload);
       console.log("responsed", response);
+      navigate("/checkoutpayment");
     } catch (error) {
       console.log("Payment error:", error);
     }
@@ -144,6 +187,18 @@ const CheckOutPage = () => {
                   onChange={handleChange}
                 />
               </div>
+              <div className="save-info">
+               <input
+                type="checkbox"
+                id="saveInfo"
+                checked={saveInfo}
+                onChange={(e) => setSaveInfo(e.target.checked)}
+               />
+
+               <label htmlFor="saveInfo">
+                 Save this information for a faster checkout next time
+               </label>
+              </div>
             </div>
           </div>
 
@@ -160,21 +215,44 @@ const CheckOutPage = () => {
                 <span className="summary-value">{formatNaira(subtotal)}</span>
               </div>
 
-              <div className="summary-row">
-                <span className="summary-label">Shipping</span>
-                <span className="summary-value">{formatNaira(shipping)}</span>
-              </div>
+             <div className="summary-row">
+              <span className="summary-label">Shipping</span>
+
+              <span className="summary-value">
+                {shippingCalculated
+                 ? formatNaira(shipping)
+                 : "Calculate after address"}
+              </span>
+             </div>
 
               <div className="summary-row total-row">
                 <span className="summary-label">Total</span>
-                <span className="total-value">
-                  <small>NGN</small>
-                  {formatNaira(total)}
-                </span>
+
+
+                {shippingCalculated ? (
+                     <span className="total-value">
+                       <small>NGN</small>
+                        {formatNaira(total)}
+                     </span>
+                       ) : (
+                 <span className="total-value">—</span>
+                 )}
               </div>
             </div>
 
-            <button onClick={finalPayment}>Complete Order</button>
+           {shippingCalculated ? (
+            <button 
+            onClick={finalPayment}
+            >
+                Complete Order
+             </button>
+              ) : (
+                <button 
+                disabled={!isAddressComplete}
+                onClick={handleCalculateDelivery}>
+                   Calculate Delivery
+                 </button>
+            )}
           </div>
         </div>
       </main>
@@ -182,4 +260,4 @@ const CheckOutPage = () => {
   );
 };
 
-export default CheckOutPage;
+export default CheckOut2;
