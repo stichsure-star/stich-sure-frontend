@@ -1,18 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/SecondTracker.css";
-import {
-  FaInstagram,
-  FaTwitter,
-  FaFacebookF,
-  FaLinkedinIn,
-} from "react-icons/fa";
 
 const SecondTracker = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="tracker-page-wrapper">
       <div className="order-tabs">
       <button className="tab-btn active">Active Order</button>
-      <button className="tab-btn">Complete Order</button>
+      <button
+        className="tab-btn"
+        onClick={() => navigate("/user/designer-rating")}
+      >
+        Completed Order
+      </button>
       </div>
       <div className="tracker-main-card">
         <div className="tracker-header-row">

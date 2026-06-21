@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HiMapPin, HiStar } from "react-icons/hi2";
 import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin } from "react-icons/fa";
 import "../styles/SavedDesign.css";
+import { useNavigate } from "react-router-dom";
 
 import green from "../assets/daniel/lightgreen.png";
 import chioma from "../assets/daniel/chiomalace.png";
@@ -13,6 +14,7 @@ import { NavLink } from "react-router-dom";
 import { customerApi } from "../config/customer";
 
 function SavedDesign() {
+  const navigate = useNavigate();
   const [designers, setDesigners] = useState([]);
 
   const fetchData = async () => {
@@ -72,9 +74,16 @@ function SavedDesign() {
                   <span className="dg-meta-item">{designer.orders}</span>
                 </div>
 
-                <NavLink to="/user/designer-profile">
-                  <button className="dg-profile-btn">View Profile</button>
-                </NavLink>
+                  <button 
+                  onClick={() => {
+                    console.log("Designer:", designer)
+                    navigate(`/user/designer-profile/${designer.id}`);
+                  }}   
+                  className="dg-profile-btn"
+                  >
+                    View Profile
+                  </button>
+                
               </div>
             </div>
           ))}
