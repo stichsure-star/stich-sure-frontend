@@ -112,9 +112,9 @@ export default function DashboardOverview() {
       <section className="content-card">
         <div className="card-header">
           <h2>Active Orders</h2>
-          <a href="#view-all" className="view-all-link">
+          {/* <a href="#view-all" className="view-all-link">
             View All
-          </a>
+          </a> */}
         </div>
         <div className="orders-list">
           {activeOrders.map((order) => (
