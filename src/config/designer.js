@@ -36,4 +36,5 @@ export const designerApi = {
   mycollabs: (data) => ApiClient.get("/collaboration", data),
   getOne: (id) => ApiClient.get(`/designer/one/${id}`),
   allOrder: (data) => ApiClient.get(`/orders`, data),
+  orderId: (id) => ApiClient.get(`orders/${id}`),
 };

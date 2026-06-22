@@ -169,7 +169,7 @@ const router = createBrowserRouter([
           { path: "proposal", element: <ProposalSent /> },
           { path: "production", element: <ProductionIsDone /> },
           { path: "published", element: <DesignPublished /> },
-          { path: "ratings", element: <AddedRatings /> },
+          { path: "ratings-popup", element: <AddedRatings /> },
           { path: "mvp", element: <MvpPage /> },
           // { path: "checkout", element: <CheckoutPage /> },
 
@@ -223,7 +223,7 @@ const router = createBrowserRouter([
           { path: "browsedesigns", element: <BrowseDesign /> },
           { path: "saveddesigners", element: <SavedDesigners /> },
           { path: "designerscatalog", element: <DesignersCatalog /> },
-          { path: "des", element: <RateDesigner /> },
+          { path: "designer-rating", element: <RateDesigner /> },
           { path: "customer-profile", element: <CustomerProfile /> },
           { path: "customer-security", element: <CustomerSecurity /> },
           { path: `requiredetails/:id`, element: <RequestDetails /> },

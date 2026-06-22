@@ -6,6 +6,9 @@ import { FiSearch, FiSliders } from "react-icons/fi";
 // import { authApi } from "../config/customer";
 // import vid from "../assets/gbenga/Repeater-Animation.mp4";
 import { useSelector } from "react-redux";
+import { customerApi } from "../config/customer";
+import { useNavigate } from "react-router-dom";
+import { FiUpload } from "react-icons/fi";
 
 const DesignersUploadCatlog = () => {
   const user = useSelector((state) => state.auth.user);
@@ -15,45 +18,44 @@ const DesignersUploadCatlog = () => {
   const [category, setCategory] = useState(["All"]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   //   const toggleFavorite = (id) => {
-//     setFavorites((prev) => ({
-//       ...prev,
-//       [id]: !prev[id],
-//     }));
-//   };
+  //     setFavorites((prev) => ({
+  //       ...prev,
+  //       [id]: !prev[id],
+  //     }));
+  //   };
 
-  const FetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await authApi.design();
+  // const FetchData = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await customerApi.design(data);
 
-      const designs = response.data.data;
+  //     const designs = response.data.data;
 
-      console.log("designs:", designs);
+  //     console.log("designs:", designs);
 
-      const myDesigns = designs.filter((item) => item.designerId === user?.id);
+  //     const myDesigns = designs.filter((item) => item.designerId === user?.id);
 
-      setcartd(myDesigns);
+  //     setcartd(myDesigns);
 
-      // get unique categories from array
-      const categories = [
-        "All",
-        ...new Set(myDesigns.map((item) => item.category)),
-      ];
+  //     // get unique categories from array
+  //     const categories = [
+  //       "All",
+  //       ...new Set(myDesigns.map((item) => item.category)),
+  //     ];
 
-      setCategory(categories);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
+  //     setCategory(categories);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setLoading(false);
+  // };
 
-  useEffect(() => {
-    if (user?.id) {
-      FetchData();
-    }
-  }, [user?.id]);
+  // useEffect(() => {
+  //   FetchData();
+  // }, []);
 
   // filter designs by category
   // filter by category + search
@@ -73,14 +75,16 @@ const DesignersUploadCatlog = () => {
   //   console.log("cartd", cartd);
 
   //   if (loading) {
-//     return (
-//       <div className="loading">
-//         <video autoPlay loop muted className="loadined">
-//           <source src={vid} type="video/mp4" className="loadined" />
-//         </video>
-//       </div>
-//     );
-//   }
+  //     return (
+  //       <div className="loading">
+  //         <video autoPlay loop muted className="loadined">
+  //           <source src={vid} type="video/mp4" className="loadined" />
+  //         </video>
+  //       </div>
+  //     );
+  //   }
+
+  console.log("user", user);
 
   return (
     <div className="designer-upload-catalog catalog-outer-container">
@@ -95,9 +99,12 @@ const DesignersUploadCatlog = () => {
           />
         </div>
 
-        <button className="catalog-filter-trigger-btn">
-          <FiSliders size={14} />
-          Filters
+        <button
+          className="catalog-filter-trigger-btn"
+          onClick={() => navigate("/designer/upload")}
+        >
+          <FiUpload size={14} />
+          Add Design
         </button>
       </div>
 
@@ -124,7 +131,7 @@ const DesignersUploadCatlog = () => {
       {/* PRODUCTS */}
 
       <div className="catalog-products-grid">
-        {filteredDesigns.map((cartd) => (
+        {user.designs?.map((cartd) => (
           <div key={cartd.id} className="product-showcase-card">
             <div className="card-media-wrapper">
               <img
@@ -138,9 +145,7 @@ const DesignersUploadCatlog = () => {
               <div className="details-left-metadata">
                 <h3 className="apparel-display-heading">{cartd.designTitle}</h3>
 
-                <p className="designer-sub-title">
-                  by {cartd.designer.profile?.businessName}
-                </p>
+                <p className="designer-sub-title"> {cartd.description}</p>
 
                 <span className="price-numeric-tag">₦{cartd.price}</span>
               </div>
