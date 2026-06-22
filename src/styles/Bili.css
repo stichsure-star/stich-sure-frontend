@@ -1,19 +1,22 @@
 .Acheckout-screen {
   width: 100%;
-  height: 100%;
-  background: hsl(0, 19%, 92%);
-  color: #070707;
+  height: 100vh;   /* Add this */
+  background: var(--color-backgruond);
+  color: #231f20;
+  /* box-sizing: border-box; */
 }
 
 .A-main {
-  width: 90%;
-  /* height: 80%; */
-  margin: 0 auto;
-  padding: 12px 0 52px;
+  width: 100%;
+  height: 100%;    /* Add this */
+  padding: 24px;
+  /* box-sizing: border-box; */
 }
 
 .A-page {
   width: 100%;
+    min-height: 80vh;
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
   /* align-items: start; */
@@ -29,14 +32,17 @@
 
 .Ainfo-card {
   width: 100%;
-  border: 1px solid #cfc7c7;
+  border: 1px solid var(--color-border);
   border-radius: 11px;
-  padding: 14px 12px;
+  min-height: 260px;
+  padding: 24px;
+
+  /* padding: 14px 12px; */
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #ffffff;
-  box-sizing: border-box;
+  background: var(--color-white);
+  /* box-sizing: border-box; */
 }
 
 .Ainfo-card h4 {
@@ -48,17 +54,17 @@
 .Ainfo-card input {
   width: 100%;
   height: 24px;
-  border: 1px solid #231f20;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 0 12px;
   outline: none;
   font-size: 8px;
-  background: #fff9fb;
+  background: var(--color-white);
   box-sizing: border-box;
 }
 
 .Ainfo-card input::placeholder {
-  color: #8c8585;
+  color: #8a8585;
 }
 
 .Alocation-row {
@@ -92,7 +98,8 @@
 
 
 .Aorder-card {
-  background: #b2b6c3;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
   border-radius: 5px;
   padding: 18px 28px 47px 28px;
   display: flex;
@@ -196,7 +203,7 @@
   background: var(--color-wine);
   color: white;
   cursor: pointer;
-  font-family: inherit;
+  font-family: "El Messiri", sans-serif;
   font-size: 8px;
   font-weight: 600;
 }

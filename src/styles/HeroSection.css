@@ -1,6 +1,6 @@
 .Hero_con {
   width: 100%;
-  min-height: 90vh;
+  min-height: calc(100vh - 12vh);
   background-color: var(--color-backgruond);
   display: flex;
   justify-content: center;

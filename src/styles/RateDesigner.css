@@ -4,7 +4,7 @@
   background: #f9f9f9;
   padding: 40px 20px;
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "El Messiri", sans-serif;
 }
 
 .rate-page-title {
@@ -13,7 +13,7 @@
   font-weight: 600;
   color: #111;
   margin-bottom: 40px;
-  font-family: Georgia, serif;
+  font-family: "El Messiri", sans-serif;
 }
 
 .rate-card-box {
@@ -67,7 +67,7 @@
 
 .dress-name {
   font-size: 30px;
-  font-family: Georgia, serif;
+  font-family: "El Messiri", sans-serif;
   color: #111;
   margin: 0 0 8px;
 }

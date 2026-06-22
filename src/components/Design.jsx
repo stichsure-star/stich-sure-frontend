@@ -2,15 +2,15 @@ import React, { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../styles/Design.css";
 
-import img1 from "../assets/gbenga/Gown.png";
+import img1 from "../assets/gbenga/female1.png";
 import img2 from "../assets/gbenga/Gown.png";
-import img3 from "../assets/gbenga/Gown.png";
-import img4 from "../assets/gbenga/Gown.png";
-import img5 from "../assets/gbenga/Gown.png";
-import img6 from "../assets/gbenga/Gown.png";
-import img7 from "../assets/gbenga/Gown.png";
+import img3 from "../assets/gbenga/female2.png";
+import img4 from "../assets/gbenga/guy1.png";
+import img5 from "../assets/gbenga/guy2.png";
+import img6 from "../assets/gbenga/guy3.png";
+import img7 from "../assets/gbenga/female1.png";
 import img8 from "../assets/gbenga/Gown.png";
-import img9 from "../assets/gbenga/Gown.png";
+import img9 from "../assets/gbenga/female2.png";
 
 const slides = [
   [img1, img2, img3],
@@ -18,7 +18,7 @@ const slides = [
   [img7, img8, img9],
 ];
 
-const Design = () => {
+const   Design = () => {
   const sliderRef = useRef(null);
 
   const scrollLeft = () => {

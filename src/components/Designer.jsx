@@ -14,99 +14,111 @@ import main from "../assets/daniel/Main wear.png";
 import elli from "../assets/daniel/Ellipse 1.png";
 
 const designers = [
-  {
-    id: 1,
-    image: gown,
-    name: "Rita .O. Johnson",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "86%",
-    scoreNum: 86,
-  },
-  {
-    id: 2,
-    image: Fine,
-    name: "Juliet .C. Ogidi",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "90%",
-    scoreNum: 90,
-  },
-  {
-    id: 3,
-    image: Man,
-    name: "Steven Joseph",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "96%",
-    scoreNum: 96,
-  },
-  {
-    id: 4,
-    image: lady,
-    name: "Ekaette Okon",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "79%",
-    scoreNum: 79,
-  },
-  {
-    id: 5,
-    image: Hair,
-    name: "Bridget Achafu",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "88%",
-    scoreNum: 88,
-  },
-  {
-    id: 6,
-    image: senate,
-    name: "Ifeji A. Olawale",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "92%",
-    scoreNum: 92,
-  },
-  {
-    id: 7,
-    image: wear,
-    name: "Sonayon Blessing",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "83%",
-    scoreNum: 83,
-  },
-  {
-    id: 8,
-    image: main,
-    name: "Yemi Blessing",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "96%",
-    scoreNum: 96,
-  },
-  {
-    id: 9,
-    image: elli,
-    name: "Chidera.B.Patrick",
-    role: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0 (127 reviews)",
-    score: "70%",
-    scoreNum: 70,
-  },
+  // {
+  //   id: 1,
+  //   image: gown,
+  //   name: "Rita .O. Johnson",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "86%",
+  //   scoreNum: 86,
+  // },
+  // {
+  //   id: 2,
+  //   image: Fine,
+  //   name: "Juliet .C. Ogidi",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "90%",
+  //   scoreNum: 90,
+  // },
+  // {
+  //   id: 3,
+  //   image: Man,
+  //   name: "Steven Joseph",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "96%",
+  //   scoreNum: 96,
+  // },
+  // {
+  //   id: 4,
+  //   image: lady,
+  //   name: "Ekaette Okon",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "79%",
+  //   scoreNum: 79,
+  // },
+  // {
+  //   id: 5,
+  //   image: Hair,
+  //   name: "Bridget Achafu",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "88%",
+  //   scoreNum: 88,
+  // },
+  // {
+  //   id: 6,
+  //   image: senate,
+  //   name: "Ifeji A. Olawale",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "92%",
+  //   scoreNum: 92,
+  // },
+  // {
+  //   id: 7,
+  //   image: wear,
+  //   name: "Sonayon Blessing",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "83%",
+  //   scoreNum: 83,
+  // },
+  // {
+  //   id: 8,
+  //   image: main,
+  //   name: "Yemi Blessing",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "96%",
+  //   scoreNum: 96,
+  // },
+  // {
+  //   id: 9,
+  //   image: elli,
+  //   name: "Chidera.B.Patrick",
+  //   role: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0 (127 reviews)",
+  //   score: "70%",
+  //   scoreNum: 70,
+  // },
 ];
 
 const Designer = () => {
+
+  if (designers.length === 0)  {
+    return (
+      <section className="designers-empty-state">
+        <div className="designers-empty-content">
+          <GoCheckCircleFill className="designers-empty-icon" />
+          <h2>No verified designer yet</h2>
+          <p>Verified designers will appear here once they are available.</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <div className="designers-grid">
       {designers.map((designer) => (

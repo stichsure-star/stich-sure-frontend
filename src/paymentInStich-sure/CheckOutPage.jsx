@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams , useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Bili.css";
 // import "../styles/money-A.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 
 const CheckOutPage = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
-  const [orderId, setOrder] = useState({});
+  const [orderId, setOrder] = useState("");
   
 
   let finalState = location.state;
@@ -68,27 +67,34 @@ const CheckOutPage = () => {
       const response = await authApi.profileOrder(payload);
       console.log("Order response:", response);
       setAppy(response.data);
-      setOrder(response.data.data?.id || response.data.id);
+      const createdOrderId = response.data.data?.id || response.data.id;
+      setOrder(createdOrderId || "");
+      return createdOrderId;
     } catch (error) {
       console.log("Order error:", error);
+      return "";
     }
   };
   console.log("appy", Appy);
   console.log("orderId", Appy.data?.id);
 
   const finalPayment = async () => {
+    const currentOrderId = orderId || Appy.data?.id || Appy.id;
     const payload = {
-      orderId,
+      orderId: currentOrderId,
       deliveryAddress: getFullAddress(),
       email: formData.email,
     };
     console.log("payload", payload);
     try {
-      const response = await authApi.finalPay(payload);
-      console.log("responsed", response);
-      navigate("/checkoutpayment");
+      if (currentOrderId) {
+        const response = await authApi.finalPay(payload);
+        console.log("responsed", response);
+      }
     } catch (error) {
       console.log("Payment error:", error);
+    } finally {
+      navigate("/checkoutpayment");
     }
   };
 
