@@ -2,65 +2,45 @@ import { useEffect, useState } from "react";
 import "../css/ActiveOrder.css";
 import { useNavigate } from "react-router-dom";
 import { designerApi } from "../../../config/designer";
-const orders = [
-  {
-    id: "QJ-245608",
-    time: "14/10/2026",
-    customer: "Sarah",
-    item: "Bridal Gown",
-    value: "₦200,000",
-    status: "New",
-  },
-  {
-    id: "QJ-245609",
-    time: "14/10/2026",
-    customer: "John",
-    item: "Bridal Gown",
-    value: "₦180,000",
-    status: "Preparing",
-  },
-  {
-    id: "QJ-245610",
-    time: "14/10/2026",
-    customer: "Mary",
-    item: "Bridal Gown",
-    value: "₦220,000",
-    status: "Ready",
-  },
-  {
-    id: "QJ-245611",
-    time: "14/10/2026",
-    customer: "Paul",
-    item: "Bridal Gown",
-    value: "₦250,000",
-    status: "Completed",
-  },
-];
+import { useSelector } from "react-redux";
 
 const tabs = ["New", "Preparing", "Ready", "Completed"];
 
 export default function Orders() {
   const [active, setActive] = useState("New");
+  const [ordersData, setOrdersData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
 
-  const filtered = orders.filter((o) => o.status === active);
+  const userId = user?.id;
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (status) => {
     try {
-      const response = await designerApi.allOrder();
-      console.log("response", response.data);
+      if (!userId) return;
+
+      setLoading(true);
+
+      const response = await designerApi.allAders(userId, status);
+
+      console.log("orders response", response.data);
+
+      setOrdersData(response.data?.data || []);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    handleSubmit();
-  }, []);
+    handleSubmit(active);
+  }, [active, userId]);
 
   return (
     <div className="collab_container">
-      {/* TITLE follows active tab */}
+      {/* TITLE */}
       <div className="collab_header">Active Order — {active}</div>
 
       {/* SEARCH */}
@@ -90,21 +70,42 @@ export default function Orders() {
         <div>Order Value</div>
       </div>
 
-      {/* TABLE BODY (LONG SCROLL AREA) */}
+      {/* TABLE BODY */}
+      {/* TABLE BODY */}
       <div className="collab_tableBody">
-        {filtered.map((o) => (
-          <div
-            className="collab_row"
-            key={o.id}
-            onClick={() => navigate("/designer/mvp")}
-          >
-            <div>{o.id}</div>
-            <div>{o.time}</div>
-            <div>{o.customer}</div>
-            <div>{o.item}</div>
-            <div>{o.value}</div>
-          </div>
-        ))}
+        {loading ? (
+          <p style={{ padding: "20px" }}>Loading orders...</p>
+        ) : ordersData.length === 0 ? (
+          <p style={{ padding: "20px" }}>No orders found</p>
+        ) : (
+          ordersData.map((o) => (
+            <div
+              className="collab_row"
+              key={o.id}
+              onClick={() =>
+                navigate("/designer/mvp", {
+                  state: {
+                    orderId: o.id,
+                  },
+                })
+              }
+            >
+              <div>{o.orderNumber}</div>
+              <div>{o.placedAt}</div>
+
+              {/* FIX: Access the name properties on the customer object safely */}
+              <div>
+                {o.customer
+                  ? `${o.customer.firstName || ""} ${o.customer.lastName || ""}`.trim() ||
+                    o.customer.email
+                  : "Unknown"}
+              </div>
+
+              <div>{o.itemName}</div>
+              <div>{o.amount}</div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

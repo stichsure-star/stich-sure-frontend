@@ -1,152 +1,172 @@
-import React from "react";
-// import "../styles/DesignerProfile.css";
-import "../styles/DesignerDirectory.css"
-import { useNavigate } from "react-router-dom";
-import {
- HiMapPin,
-  HiBriefcase,
-  HiCheckBadge,
-  HiStar,
-//   HiOutlineHeart,
-} from "react-icons/hi2";
+import React, { useState } from "react";
+import "../styles/DesignerDirectory.css";
+import { useLocation } from "react-router-dom";
+import { HiMapPin, HiBriefcase, HiCheckBadge, HiStar } from "react-icons/hi2";
+
 import text from "../assets/daniel/Text.png";
 import yoruba from "../assets/daniel/Yorubabride.png";
 import aso from "../assets/daniel/Aso-Oke.png";
 import ankara from "../assets/daniel/AnkaraGown.png";
-import { NavLink } from "react-router-dom";
 
-const DesignerDirectory= () => {
-  const portfolioItems = [
+const DesignerDirectory = () => {
+  const location = useLocation();
+  const designer = location.state;
+
+  console.log("selected designer:", designer);
+  const [loading, setLoading] = useState(false);
+
+  const profile = designer?.designerId?.profile;
+
+  // fallback only for demo if no backend portfolio
+  const defaultPortfolio = [
     { id: 1, image: text, title: "Royal Agbada", category: "Traditional" },
     { id: 2, image: yoruba, title: "Yoruba Bride", category: "Bridal" },
     { id: 3, image: aso, title: "Aso-Oke Set", category: "Traditional" },
     { id: 4, image: ankara, title: "Ankara Gown", category: "Casual" },
-    {
-      id: 5,
-      image:
-        "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&auto=format&fit=crop&q=60",
-      title: "Senator Style",
-      category: "Corporate",
-    },
-    {
-      id: 6,
-      image:
-        "https://images.unsplash.com/photo-1611590027211-b954fd027b51?w=500&auto=format&fit=crop&q=60",
-      title: "Festival Outfit",
-      category: "Traditional",
-    },
-    {
-      id: 7,
-      image:
-        "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=60",
-      title: "Festival Outfit",
-      category: "Traditional",
-    },
   ];
+
+  const design = designer?.designerId?.designs;
+  console.log("design", design);
+
+  const portfolioItems = profile?.portfolio || [];
+
+  const specializations = Array.isArray(profile?.specialization)
+    ? profile.specialization
+    : profile?.specialization
+      ? profile.specialization.split(",")
+      : [];
+
+  const rating = Math.round(profile?.rating || 0);
 
   return (
     <div className="dd-page-container">
       <main className="dd-main-content">
         <div className="dd-profile-card">
-          {/* <button className="dd-favorite-btn" aria-label="Add to favorites">
-            <HiOutlineHeart />
-          </button> */}
-
           <div className="dd-card-body">
             <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-              alt="Adebayo Styles"
+              src={profile?.profilePhoto}
+              alt="designer"
               className="dd-avatar"
             />
 
             <div className="dd-info-section">
-              <h1 className="dd-designer-name">Adebayo Styles</h1>
-              <h2 className="dd-designer-type">Traditional Wear</h2>
+              <h1 className="dd-designer-name">{profile?.businessName}</h1>
+
+              <h2 className="dd-designer-type">
+                {profile?.specialization || "Fashion Designer"}
+              </h2>
 
               <div className="dd-meta-row">
                 <span className="dd-meta-item">
-                  <HiMapPin className="dd-meta-icon" /> Lagos, Nigeria
+                  <HiMapPin className="dd-meta-icon" />
+                  {profile?.state}, {profile?.country}
                 </span>
+
                 <span className="dd-meta-item">
-                  <HiBriefcase className="dd-meta-icon" /> 15 years experience
+                  <HiBriefcase className="dd-meta-icon" />
+                  {profile?.yearsOfExperience || 0} years experience
                 </span>
+
                 <span className="dd-meta-item">
-                  <HiBriefcase className="dd-meta-icon" /> 156 completed orders
+                  <HiBriefcase className="dd-meta-icon" />
+                  {profile?.completedOrders || 0} completed orders
                 </span>
               </div>
 
               <div className="dd-rating-row">
                 <div className="dd-stars">
-                  <HiStar className="dd-star active" />
-                  <HiStar className="dd-star active" />
-                  <HiStar className="dd-star active" />
-                  <HiStar className="dd-star active" />
-                  <HiStar className="dd-star active" />
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <HiStar
+                      key={star}
+                      className={star <= rating ? "dd-star active" : "dd-star"}
+                    />
+                  ))}
                 </div>
-                <span className="dd-rating-score">4.9</span>
-                <span className="dd-review-count">(3 reviews)</span>
+
+                <span className="dd-rating-score">{profile?.rating || 0}</span>
+
+                <span className="dd-review-count">
+                  ({profile?.ratingCount || 0} reviews)
+                </span>
+
                 <span className="dd-verified-tag">
-                  <HiCheckBadge className="dd-verified-icon" /> Verified
-                  Designer
+                  <HiCheckBadge className="dd-verified-icon" />
+                  Verified Designer
                 </span>
               </div>
 
               <p className="dd-bio">
-                Award-winning fashion designer specializing in traditional
-                Nigerian attire. With over 15 years of experience, I bring
-                cultural heritage and modern elegance together in every piece I
-                create.
+                {profile?.shortBio || "No bio added yet"}
               </p>
 
               <div className="dd-specializations">
                 <span className="dd-spec-label">Specializations:</span>
+
                 <div className="dd-spec-tags">
-                  <span className="dd-spec-tag">Traditional Wear</span>
-                  <span className="dd-spec-tag">Aso-Oke</span>
-                  <span className="dd-spec-tag">Agbada</span>
-                  <span className="dd-spec-tag">Ankara Styles</span>
-                  <span className="dd-spec-tag">Custom Embroidery</span>
+                  {specializations.length > 0 ? (
+                    specializations.map((item, index) => (
+                      <span key={index} className="dd-spec-tag">
+                        {item.trim()}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="dd-spec-tag">No specialization</span>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* <div className="dd-action-row">
-            <NavLink to="/user/requiredetails">
-              <button className="dd-hire-btn">Hire Designer</button>
-            </NavLink>
-          </div> */}
-
           <div className="dd-reliability-section">
             <div className="dd-reliability-labels">
               <span className="dd-reliability-title">Reliability Score</span>
-              <span className="dd-reliability-value">86%</span>
+
+              <span className="dd-reliability-value">
+                {profile?.reliabilityScore || 0}
+              </span>
             </div>
+
             <div className="dd-progress-track">
-              <div className="dd-progress-fill" style={{ width: "86%" }}></div>
+              <div
+                className="dd-progress-fill"
+                style={{
+                  width: `${profile?.reliabilityScore || 0}%`,
+                }}
+              />
             </div>
           </div>
         </div>
 
         <div className="dd-portfolio-grid">
-          {portfolioItems.map((item) => (
-            <div key={item.id} className="dd-portfolio-card">
-              <div className="dd-image-container">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="dd-portfolio-img"
-                />
+          {design?.length > 0 ? (
+            design.map((item) => (
+              <div key={item.id} className="dd-portfolio-card">
+                <div className="dd-image-container">
+                  <img
+                    src={item.designImage}
+                    alt={item.title}
+                    className="dd-portfolio-img"
+                  />
+                </div>
+
+                <div className="dd-portfolio-details">
+                  <h3 className="dd-item-title">{item.title}</h3>
+
+                  <p className="dd-item-category">{item.category}</p>
+                </div>
               </div>
-              <div className="dd-portfolio-details">
-                <h3 className="dd-item-title">{item.title}</h3>
-                <p className="dd-item-category">{item.category}</p>
-              </div>
+            ))
+          ) : (
+            <div className="dd-empty-state">
+              <h3>No Designs Yet</h3>
+
+              <p>This designer has not uploaded any designs.</p>
             </div>
-          ))}
+          )}
         </div>
       </main>
     </div>
   );
-}
+};
+
 export default DesignerDirectory;

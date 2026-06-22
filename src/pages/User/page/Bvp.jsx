@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FiImage, FiInfo } from "react-icons/fi";
 import { FaRulerCombined } from "react-icons/fa";
-import "../css/mvp.css";
+import "../css/Bvp.css";
 import designImage from "../../../assets/daniel/Colorful Ankara.png";
 import { designerApi } from "../../../config/designer";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
 import { useSelector } from "react-redux";
 
-const MvpPage = () => {
+const BvpPage = () => {
   // const order = {
   //   item: "Bridal Gown",
   //   customer: "Faith E.",
@@ -46,47 +46,47 @@ const MvpPage = () => {
   }, []);
 
   return (
-    <div className="bot_ordertracker-wrapper">
-      <div className="bot_ordertracker-page-shell">
-        <div className="bot_ordertracker-header">
+    <div className="Bba_ordertracker-wrapper">
+      <div className="Bba_ordertracker-page-shell">
+        <div className="Bba_ordertracker-header">
           <div>
-            <h2 className="bot_ordertracker-title">{order?.data.itemName}</h2>
-            <p className="bot_ordertracker-customer">
+            <h2 className="Bba_ordertracker-title">{order?.data.itemName}</h2>
+            <p className="Bba_ordertracker-customer">
               for:{order?.data.customer.firstName}{" "}
               {order?.data.customer.lastName}
             </p>
-            <p className="bot_ordertracker-id">
+            <p className="Bba_ordertracker-id">
               Order ID: {order?.data.orderNumber}
             </p>
           </div>
 
-          <div className="bot_ordertracker-header-right">
-            <h3 className="bot_ordertracker-price">{order?.amount}</h3>
-            <span className="bot_ordertracker-status-badge">
+          <div className="Bba_ordertracker-header-right">
+            <h3 className="Bba_ordertracker-price">{order?.amount}</h3>
+            <span className="Bba_ordertracker-status-badge">
               {order?.data.status}
             </span>
-            <p className="bot_ordertracker-due">Due: {order?.data.placedAt}</p>
+            <p className="Bba_ordertracker-due">Due: {order?.data.placedAt}</p>
           </div>
         </div>
 
-        <div className="bot_ordertracker-card">
-          <section className="bot_measurements-card">
-            <h3 className="bot_section-title">
+        <div className="Bba_ordertracker-card">
+          <section className="Bba_measurements-card">
+            <h3 className="Bba_section-title">
               <FaRulerCombined />
               Body Measurements
             </h3>
 
-            <div className="bot_measurement-note">
+            <div className="Bba_measurement-note">
               <FiInfo />
               All measurements are in inches unless otherwise stated.
             </div>
 
-            <div className="bot_measurement-design-grid">
-              <div className="bot_measurements-scroll">
+            <div className="Bba_measurement-design-grid">
+              <div className="Bba_measurements-scroll">
                 {/* Measurements Quick Empty State */}
                 {measurements && measurements.length > 0 ? (
                   measurements.map((item) => (
-                    <div key={item.label} className="bot_measurement-row">
+                    <div key={item.label} className="Bba_measurement-row">
                       <div>
                         <span>{item.label}</span>
                         <small>{item.note}</small>
@@ -108,15 +108,15 @@ const MvpPage = () => {
                 )}
               </div>
 
-              <div className="bot_your-design-panel">
-                <h3 className="bot_section-title">
+              <div className="Bba_your-design-panel">
+                <h3 className="Bba_section-title">
                   <FiImage />
                   Your Design
                 </h3>
                 {/* Your Design Image Quick Empty State */}
                 {order?.data?.designImage ||
                 order?.data?.design?.designImage ? (
-                  <button className="bot_design-preview-button" type="button">
+                  <button className="Bba_design-preview-button" type="button">
                     <img
                       src={
                         order?.data?.designImage ||
@@ -147,9 +147,9 @@ const MvpPage = () => {
               </div>
             </div>
           </section>
-
-          <section className="bot_description-section">
-            <h3 className="bot_section-title">
+          Creator
+          <section className="Bba_description-section">
+            <h3 className="Bba_section-title">
               <FiImage />
               Design Description
             </h3>
@@ -158,15 +158,14 @@ const MvpPage = () => {
               {order?.data.design.description || "No description provided."}
             </p>
           </section>
-
-          <section className="bot_images-section">
-            <h3 className="bot_section-title">
+          <section className="Bba_images-section">
+            <h3 className="Bba_section-title">
               <FiImage />
               Inspiration Images
             </h3>
 
-            <div className="bot_image-scroll">
-              <button className="bot_inspiration-image-button" type="button">
+            <div className="Bba_image-scroll">
+              <button className="Bba_inspiration-image-button" type="button">
                 <img
                   src={order?.data.status}
                   alt="Inspiration for bridal gown"
@@ -174,19 +173,15 @@ const MvpPage = () => {
               </button>
             </div>
 
-            <p className="bot_image-helper-text">
+            <p className="Bba_image-helper-text">
               Client has uploaded reference images to guide the design. Click
               each image to view full size.
             </p>
           </section>
         </div>
-
-        <button className="bot_ordertracker-done-btn" type="button">
-          Done
-        </button>
       </div>
     </div>
   );
 };
 
-export default MvpPage;
+export default BvpPage;

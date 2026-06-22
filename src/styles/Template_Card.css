@@ -18,8 +18,8 @@
 }
 
 .Templates_cardHeader {
-  background-color: #6c0319;
-  color: #fff;
+  background-color: #6c031938;
+  color: black;
   border-radius: 8px;
   padding: 10px;
   display: flex;
@@ -43,6 +43,7 @@
 
 .Templates_tagHigh {
   background-color: black;
+  color: #fff;
   padding: 4px 10px;
   border-radius: 18px;
   font-size: 12px;

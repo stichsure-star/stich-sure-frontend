@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "../css/SendCollaboration.css";
 import RequestSent from "../../../popups/RequestSent";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { designerApi } from "../../../config/designer";
 import Swal from "sweetalert2";
 
 const SendCollaborationRequest = ({ onClose }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const designer = location.state;
 
@@ -215,11 +216,21 @@ const SendCollaborationRequest = ({ onClose }) => {
         </div>
 
         <div className="button-row">
-          <button type="button" className="cancel-btn" onClick={onClose}>
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={() => navigate("/designer/collaboration")}
+            style={{ cursor: "pointer" }}
+          >
             Cancel
           </button>
 
-          <button type="submit" className="submit-btn" disabled={loading}>
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={loading}
+            style={{ cursor: "pointer" }}
+          >
             <span className="send-icon">✈</span>
 
             {loading ? "Sending..." : "Send Request"}

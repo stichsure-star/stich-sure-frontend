@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/Bili.css";
 import { authApi } from "../config/auth";
+import productImage from "../assets/gbenga/Gown.png";
+import { useSelector } from "react-redux";
 
 const CheckOutPage = () => {
   const { id } = useParams();
@@ -9,9 +11,12 @@ const CheckOutPage = () => {
   const [Appy, setAppy] = useState({});
   const [orderId, setOrder] = useState({});
 
-  // Get merged state (holding + response data) from navigation or sessionStorage
   let finalState = location.state;
   console.log("finalState", finalState);
+
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     address: "",
@@ -19,20 +24,27 @@ const CheckOutPage = () => {
     state: "",
     country: "",
     email: "",
+    phoneNumber: "", // Added phone number to form state
   });
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   if (!finalState) {
     try {
       const stored = sessionStorage.getItem("checkoutState");
-      if (stored) {
-        finalState = JSON.parse(stored);
-      } else {
-        finalState = {};
-      }
+      finalState = stored ? JSON.parse(stored) : {};
     } catch (e) {
       finalState = {};
     }
   }
+
+  const subtotal = Number(finalState.amount) || 5000000;
+  const shipping = 420;
+  const total = subtotal + shipping;
+  const formatNaira = (value) =>
+    `₦${new Intl.NumberFormat("en-NG", {
+      maximumFractionDigits: 0,
+    }).format(value)}`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,27 +52,32 @@ const CheckOutPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
-  const handleSubmit = async () => {
-    // Concatenate all address fields into one
-    const fullAddress = `${formData.address || "Not provided"}, ${formData.city || "Not provided"}, ${formData.state || "Not provided"}, ${formData.country || "Not provided"}`;
+  const getFullAddress = () =>
+    `${formData.address || "Not provided"}, ${formData.city || "Not provided"}, ${
+      formData.state || "Not provided"
+    }, ${formData.country || "Not provided"}`;
 
+  const handleSubmit = async () => {
     const payload = {
       amount: finalState.amount,
       designId: finalState.designId,
       designerId: finalState.designerId,
       itemName: finalState.itemName,
       requestId: finalState.requestId,
-      address: fullAddress,
+      address: getFullAddress(),
     };
     console.log("payloaded", payload);
     try {
       const response = await authApi.profileOrder(payload);
       console.log("Order response:", response);
-      const orderId = response.data.id;
       setAppy(response.data);
-      setOrder(response.data.data?.id);
+      setOrder(response.data.data?.id || response.data.id);
     } catch (error) {
       console.log("Order error:", error);
     }
@@ -68,112 +85,244 @@ const CheckOutPage = () => {
   console.log("appy", Appy);
   console.log("orderId", Appy.data?.id);
 
+  const validateForm = () => {
+    let tempErrors = {};
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      tempErrors.email = "Please enter a valid email address.";
+    }
+    if (!formData.phoneNumber.trim()) {
+      tempErrors.phoneNumber = "Phone number is required.";
+    }
+    if (!formData.address.trim())
+      tempErrors.address = "Delivery address is required.";
+    if (!formData.country.trim()) tempErrors.country = "Country is required.";
+    if (!formData.city.trim()) tempErrors.city = "City is required.";
+    if (!formData.state.trim()) tempErrors.state = "State is required.";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
   const finalPayment = async () => {
-    // Concatenate all address fields into one
-    const fullAddress = `${formData.address || "Not provided"}, ${formData.city || "Not provided"}, ${formData.state || "Not provided"}, ${formData.country || "Not provided"}`;
+    if (!validateForm()) return;
+
+    setLoading(true);
 
     const payload = {
       orderId,
-      deliveryAddress: fullAddress,
+      deliveryAddress: getFullAddress(),
       email: formData.email,
+      phoneNumber: formData.phoneNumber,
     };
-    const blaga = payload;
-    console.log("blaga", blaga);
+
     console.log("payload", payload);
+
     try {
       const response = await authApi.finalPay(payload);
-      console.log("responsed", response);
-    } catch (error) {}
+
+      console.log("payment response", response);
+
+      // get checkout url from backend
+      const checkoutUrl =
+        response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
+
+      if (checkoutUrl) {
+        // straight to payment page
+        window.location.href = checkoutUrl;
+      } else {
+        console.log("Checkout url missing");
+        navigate("/user/checkoutpayment");
+      }
+    } catch (error) {
+      console.log("Payment error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     handleSubmit();
     console.log("CheckOutPage mounted with finalState:", finalState);
   }, []);
-  // Log merged state to console only
+
   console.log("CheckOutPage - Merged State (holding + response):", finalState);
 
   return (
-    <div>
-      <div className="checkout-page">
-        <div className="checkout-left">
-          <div className="info-card">
-            <h4>Personal Information</h4>
+    <div className="Check_screen">
+      <main className="Check_main">
+        <div className="Check_page">
+          <div className="Check_left">
+            <div className="Check_info-card">
+              <h4>Personal Information</h4>
 
-            <input placeholder="Sonayan Blessing" />
-            <input
-              name="email"
-              placeholder="peculiar..."
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <input placeholder="070..." />
-          </div>
-
-          <div className="info-card">
-            <h4>Address Information</h4>
-
-            <input
-              name="address"
-              placeholder="60, Idowu Street"
-              value={formData.address}
-              onChange={handleChange}
-            />
-            <input
-              name="country"
-              placeholder="Nigeria"
-              value={formData.country}
-              onChange={handleChange}
-            />
-
-            <div className="location-row">
+              <input placeholder={user?.lastName} readOnly />
               <input
-                name="city"
-                placeholder="Lagos"
-                value={formData.city}
+                name="email"
+                placeholder="peculiarsewanu@gmail.com"
+                value={formData.email}
                 onChange={handleChange}
+                style={errors.email ? { borderColor: "#ff0000" } : {}}
               />
+              {errors.email && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.email}
+                </span>
+              )}
 
               <input
-                name="state"
-                placeholder="State"
-                value={formData.state}
+                name="phoneNumber"
+                placeholder="07056491653"
+                value={formData.phoneNumber}
                 onChange={handleChange}
+                style={errors.phoneNumber ? { borderColor: "#ff0000" } : {}}
               />
+              {errors.phoneNumber && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.phoneNumber}
+                </span>
+              )}
+            </div>
+
+            <div className="Check_info-card">
+              <h4>Address Information</h4>
+
+              <input
+                name="address"
+                placeholder="60, Idowu Street"
+                value={formData.address}
+                onChange={handleChange}
+                style={errors.address ? { borderColor: "#ff0000" } : {}}
+              />
+              {errors.address && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.address}
+                </span>
+              )}
+
+              <input
+                name="country"
+                placeholder="Nigeria"
+                value={formData.country}
+                onChange={handleChange}
+                style={errors.country ? { borderColor: "#ff0000" } : {}}
+              />
+              {errors.country && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.country}
+                </span>
+              )}
+
+              <div className="Check_location-row">
+                <div>
+                  <input
+                    name="city"
+                    placeholder="Lagos"
+                    value={formData.city}
+                    onChange={handleChange}
+                    style={errors.city ? { borderColor: "#ff0000" } : {}}
+                  />
+                  {errors.city && (
+                    <span
+                      style={{
+                        color: "#ff0000",
+                        fontSize: "10px",
+                        display: "block",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {errors.city}
+                    </span>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    name="state"
+                    placeholder="Lagos"
+                    value={formData.state}
+                    onChange={handleChange}
+                    style={errors.state ? { borderColor: "#ff0000" } : {}}
+                  />
+                  {errors.state && (
+                    <span
+                      style={{
+                        color: "#ff0000",
+                        fontSize: "10px",
+                        display: "block",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {errors.state}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="order-card">
-          <div className="product-row">
-            <img src="image.png" />
-
-            <div>
-              <h3>Corset Wedding Gown</h3>
-              <p className="price">₦5,000,000</p>
+          <div className="Check_order-card">
+            <div className="Check_product-row">
+              <img src={productImage} alt="Corset Wedding Gown" />
+              <h3>{finalState.itemName || "Corset Wedding Gown"}</h3>
+              <p className="Check_price">{formatNaira(subtotal)}</p>
             </div>
+
+            <div className="Check_summary">
+              <div className="Check_summary-row">
+                <span className="Check_summary-label">Subtotal</span>
+                <span className="Check_summary-value">
+                  {formatNaira(subtotal)}
+                </span>
+              </div>
+
+              <div className="Check_summary-row">
+                <span className="Check_summary-label">Shipping</span>
+                <span className="Check_summary-value">
+                  {formatNaira(shipping)}
+                </span>
+              </div>
+
+              <div className="Check_summary-row Check_total-row">
+                <span className="Check_summary-label">Total</span>
+                <span className="Check_total-value">
+                  <small>NGN</small>
+                  {formatNaira(total)}
+                </span>
+              </div>
+            </div>
+
+            <button onClick={finalPayment} disabled={loading}>
+              {loading ? "Completing Orders ..." : "Complete Order"}
+            </button>
           </div>
-
-          <div className="summary">
-            <p>
-              Subtotal
-              <span>₦5,000,000</span>
-            </p>
-
-            <p>
-              Shipping
-              <span>₦10,000</span>
-            </p>
-
-            <h2>
-              Total
-              <span>₦3,010,000</span>
-            </h2>
-          </div>
-
-          <button onClick={finalPayment}>Complete Order</button>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

@@ -10,12 +10,6 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { customerApi } from "../config/customer";
 
-const stats = [
-  { id: 1, label: "Active Orders", value: 2, icon: Vector },
-  { id: 2, label: "Saved Designers", value: 8, icon: Save },
-  { id: 3, label: "Completed Order", value: 12, icon: Complete },
-];
-
 export default function DashboardOverview() {
   const activeOrders = [
     {
@@ -62,6 +56,26 @@ export default function DashboardOverview() {
 
   const [product, setProduct] = useState([]);
   const user = useSelector((state) => state.auth.user);
+  const [dabby, setDab] = useState([]);
+
+  const userId = user?.id;
+  console.log("userId", userId);
+
+  // Date formatting helper function
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    } catch (error) {
+      return dateString;
+    }
+  };
+
   const fetchData = async () => {
     try {
       const response = await customerApi.userDashboard();
@@ -73,13 +87,61 @@ export default function DashboardOverview() {
     }
   };
 
+  const threeDes = async () => {
+    try {
+      const res = await customerApi.topThreee();
+      console.log("res", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSub = async (status) => {
+    try {
+      if (!userId) return;
+
+      const response = await customerApi.allAdlrs(userId, status);
+
+      console.log("orders response", response.data);
+      setDab(response?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+  console.log("dabby", dabby.data);
+  const Order = dabby.data;
+
   useEffect(() => {
     fetchData();
+    threeDes();
+    handleSub();
   }, []);
 
   useEffect(() => {
     console.log("product updated:", product);
   }, [product]);
+
+  const stats = [
+    {
+      id: 1,
+      label: "Active Orders",
+      value: product?.activeOrders,
+      icon: Vector,
+    },
+    {
+      id: 2,
+      label: "Saved Designers",
+      value: product?.savedDesigners,
+      icon: Save,
+    },
+    {
+      id: 3,
+      label: "Completed Order",
+      value: product?.completedOrders,
+      icon: Complete,
+    },
+  ];
 
   return (
     <div className="dashboard-content-wrapper">
@@ -90,7 +152,7 @@ export default function DashboardOverview() {
               <div className="stat-icon">
                 <img src={stat.icon} alt={stat.label} />
               </div>
-              <h3 className="stat-value">{product.activeOrders}</h3>
+              <h3 className="stat-value">{stat.value}</h3>
             </div>
             <div className="stat-info">
               <p className="stat-label">{stat.label}</p>
@@ -110,43 +172,61 @@ export default function DashboardOverview() {
       <section className="content-card">
         <div className="card-header">
           <h2>Active Orders</h2>
-          <a href="#view-all" className="view-all-link">
-            View All
-          </a>
         </div>
-        <div className="orders-list">
-          {activeOrders.map((order) => (
-            <div key={order.id} className="order-item">
-              <div className="order-title-row">
-                <div>
-                  <h3>{order.title}</h3>
-                  <p className="designer-name">by {order.designer}</p>
-                  <p className="order-id">Order ID: {order.id}</p>
-                </div>
-                <span className="status-badge">{order.status}</span>
-              </div>
 
-              <div className="progress-container">
-                <div className="progress-text">
-                  <span>Progress</span>
-                  <span>{order.progress}%z</span>
+        {/* Empty state & List Render Handling */}
+        {!Order || Order.length === 0 ? (
+          <div
+            className="empty-orders-state"
+            style={{ padding: "40px 20px", textAlign: "center" }}
+          >
+            <span style={{ fontSize: "40px" }}>🪡</span>
+            <h3 style={{ margin: "15px 0 5px 0", color: "#333" }}>
+              No active orders found
+            </h3>
+            <p style={{ color: "#666", fontSize: "14px" }}>
+              You don't have any custom clothing designs under production right
+              now.
+            </p>
+          </div>
+        ) : (
+          <div className="orders-list">
+            {Order?.map((order) => (
+              <div key={order.id} className="order-item">
+                <div className="order-title-row">
+                  <div>
+                    <h3>{order?.itemName}</h3>
+                    <p className="designer-name">
+                      by {order?.designer.firstName} {order?.designer.lastName}
+                    </p>
+                    <p className="order-id">Order ID: {order?.orderNumber}</p>
+                  </div>
+                  <span className="status-badge">{order?.status}</span>
                 </div>
-                <div className="progress-bar-bg">
-                  <div
-                    className="progress-bar-fill"
-                    style={{ width: `${order.progress}%` }}
-                  ></div>
-                </div>
-              </div>
 
-              <div className="due-date">
-                <span className="clock-icon">🕒</span> Due: {order.dueDate}
+                <div className="progress-container">
+                  <div className="progress-text">
+                    <span>Progress</span>
+                    <span>{order.progress || 0}%</span>
+                  </div>
+                  <div className="progress-bar-bg">
+                    <div
+                      className="progress-bar-fill"
+                      style={{ width: `${order.progress || 0}%` }}
+                    ></div>
+                  </div>
+                </div>
+
+                <div className="due-date">
+                  <span className="clock-icon">🕒</span> Due:{" "}
+                  {formatDate(order.placedAt)}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
-
+      {/* 
       <section className="content-cards">
         <div className="card-header">
           <h2>Recommended Designers</h2>
@@ -171,7 +251,7 @@ export default function DashboardOverview() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

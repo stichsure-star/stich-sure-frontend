@@ -1,10 +1,11 @@
 import React from "react";
 import SecondTracker from "../../../components/SecondTracker";
-
+import Try from "../page/Try";
 const MyOrders = () => {
   return (
     <div>
-      <SecondTracker />
+      {/* <SecondTracker /> */}
+      <Try />
     </div>
   );
 };

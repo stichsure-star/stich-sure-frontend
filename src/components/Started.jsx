@@ -14,6 +14,10 @@ const Started = () => {
 
   return (
     <div className="get_started_page">
+      {/* <button className="back_home_btn" onClick={() => navigate("/")}>
+        Back to Home
+      </button> */}
+
       <div className="get_started_page_container">
         <div className="designer_card">
           <div className="card_text">

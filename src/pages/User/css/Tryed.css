@@ -1,0 +1,74 @@
+.Act_container {
+  width: 100%;
+  padding: 20px;
+}
+
+.Act_orders_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.Act_order_card {
+  width: 100%;
+  min-height: 180px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 25px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: white;
+}
+
+.Act_order_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.Act_designer {
+  font-size: 20px;
+  margin: 5px 0;
+  color: #475569;
+}
+
+.Act_order_id {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.Act_status {
+  background: #eaf8ef;
+  color: #087443;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.Act_progress_row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.Act_progress_bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Act_progress_fill {
+  height: 100%;
+  background: #580619;
+}
+
+.Act_due {
+  margin-top: 18px;
+  color: #475569;
+}

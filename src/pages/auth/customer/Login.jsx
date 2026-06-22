@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 
 import { authApi } from "../../../config/auth";
 import { designerApi } from "../../../config/designer";
+import { customerApi } from "../../../config/customer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -107,6 +108,19 @@ const Login = () => {
         timer: 1500,
         showConfirmButton: false,
       });
+
+      let fullPer = user;
+
+      if (userRole === "customer") {
+        try {
+          const prof = await customerApi.getProfile(user.id);
+          fullPer = prof.data.data;
+        } catch (error) {
+          console.log("prof", error);
+        }
+      }
+
+      dispatch(updateUser(fullPer));
 
       // 4. navigation
       if (userRole === "designer") {

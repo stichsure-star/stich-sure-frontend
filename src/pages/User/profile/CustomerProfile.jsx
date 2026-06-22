@@ -4,8 +4,9 @@ import { LuSave } from "react-icons/lu";
 import { customerApi } from "../../../config/customer";
 import "../../../styles/customer-profile.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setCredentials, updateUser } from "../../../global/authSlice";
+import { updateUser } from "../../../global/authSlice";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CustomerProfile = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ const CustomerProfile = () => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // ================= PREFILL FORM =================
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -30,12 +30,11 @@ const CustomerProfile = () => {
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
-        profilePhoto: "",
+        profilePhoto: user.profilePhoto || "",
       });
     }
   }, [user]);
 
-  // ================= INPUT HANDLER =================
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -43,38 +42,47 @@ const CustomerProfile = () => {
     });
   };
 
-  // ================= IMAGE HANDLER =================
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) setImage(file);
   };
 
-  // ================= VALIDATION =================
   const validate = () => {
     if (!form.firstName.trim()) {
-      alert("First name is required");
+      Swal.fire({
+        icon: "error",
+        title: "First name is required",
+      });
       return false;
     }
 
     if (!form.lastName.trim()) {
-      alert("Last name is required");
+      Swal.fire({
+        icon: "error",
+        title: "Last name is required",
+      });
       return false;
     }
 
     if (!form.email.trim()) {
-      alert("Email is required");
+      Swal.fire({
+        icon: "error",
+        title: "Email is required",
+      });
       return false;
     }
 
     if (!form.email.includes("@")) {
-      alert("Enter a valid email");
+      Swal.fire({
+        icon: "error",
+        title: "Enter a valid email",
+      });
       return false;
     }
 
     return true;
   };
 
-  // ================= SUBMIT =================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -84,10 +92,10 @@ const CustomerProfile = () => {
       setLoading(true);
 
       const formData = new FormData();
+
       formData.append("firstName", form.firstName);
       formData.append("lastName", form.lastName);
       formData.append("email", form.email);
-      formData.append("profilePhoto", "");
 
       if (image) {
         formData.append("profilePhoto", image);
@@ -105,13 +113,22 @@ const CustomerProfile = () => {
           profilePhoto: image ? URL.createObjectURL(image) : user?.profilePhoto,
         }),
       );
-      console.log("updateUser", updateUser);
 
-      alert("Profile updated successfully");
+      Swal.fire({
+        icon: "success",
+        title: "Profile updated successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
       navigate("/user/dashboard");
     } catch (error) {
       console.log("API ERROR:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "Update failed");
+
+      Swal.fire({
+        icon: "error",
+        title: error.response?.data?.message || "Update failed",
+      });
     } finally {
       setLoading(false);
     }
@@ -120,7 +137,6 @@ const CustomerProfile = () => {
   return (
     <main className="customer-profile-page">
       <section className="customer-profile-card">
-        {/* IMAGE UPLOAD */}
         <div className="customer-photo-section">
           <h2>Add Profile Photo</h2>
 
@@ -143,12 +159,12 @@ const CustomerProfile = () => {
           </div>
         </div>
 
-        {/* FORM */}
         <form className="customer-profile-form" onSubmit={handleSubmit}>
           <h1>Profile Settings</h1>
 
           <label className="customer-profile-field">
             <span>First Name</span>
+
             <input
               name="firstName"
               type="text"
@@ -160,6 +176,7 @@ const CustomerProfile = () => {
 
           <label className="customer-profile-field">
             <span>Last Name</span>
+
             <input
               name="lastName"
               type="text"
@@ -171,6 +188,7 @@ const CustomerProfile = () => {
 
           <label className="customer-profile-field">
             <span>Email</span>
+
             <input
               name="email"
               type="email"
@@ -186,6 +204,7 @@ const CustomerProfile = () => {
             disabled={loading}
           >
             <LuSave />
+
             <span>{loading ? "Saving..." : "Save Changes"}</span>
           </button>
         </form>

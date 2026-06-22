@@ -72,15 +72,15 @@
 .designer-upload-catalog .catalog-filter-trigger-btn {
   height: 42px;
   padding: 0 16px;
-  background: transparent;
+  background: #7a0018;
   border: 1px solid #e2e2e2;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
-  color: #333333;
+  color: #fff;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   cursor: pointer;
   white-space: nowrap;
 }
