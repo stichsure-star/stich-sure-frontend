@@ -31,4 +31,5 @@ export const authApi = {
 
     return ApiClient.post("/shipment/payment/initialize", data, config);
   },
+  oneOrder: (id) => ApiClient.get(`/orders/${id}`),
 };

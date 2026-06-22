@@ -4,7 +4,7 @@ import OrderTracker from "../../../components/OrderTracker";
 const Ordertrackerpage = () => {
   return (
     <div>
-      <OrderTracker/>
+      <OrderTracker />
     </div>
   );
 };

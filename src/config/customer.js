@@ -28,4 +28,9 @@ export const customerApi = {
   getProfile: (id) => ApiClient.get(`/customer/${id}`),
   removeDesigner: (id) => ApiClient.delete(`/customer/saved-designers/${id}`),
   savedDesigner: (data) => ApiClient.get(`/customer/saved-designers`),
+  topThreee: (data) => ApiClient.get(`/designerProfile/featured`),
+  allAdlrs: (id, status) =>
+    ApiClient.get(`/orders/customer/list/${id}`, {
+      params: { status },
+    }),
 };

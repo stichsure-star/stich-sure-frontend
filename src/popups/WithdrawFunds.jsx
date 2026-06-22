@@ -1,13 +1,12 @@
-import React from 'react'
-import { useState } from 'react';
-import "./css/modal-responsive-screen.css"
-import WithdrawalSuccessful from './WithdrawalSuccessful';
-
+import React from "react";
+import { useState } from "react";
+import "./css/modal-responsive-screen.css";
+import WithdrawalSuccessful from "./WithdrawalSuccessful";
+import { useSelector } from "react-redux";
 
 const styles = {
   modal: {
     width: "448px",
-    // height: "520px",
     borderRadius: "16px",
     padding: "32px",
     background: "#FFFFFF",
@@ -112,74 +111,58 @@ const styles = {
   },
 };
 
-const WithdrawFunds = ({onClose}) => {
-  const [showSuccessful , setShowSuccessful] = useState(false);
-  
+const WithdrawFunds = ({ onClose }) => {
+  const [showSuccessful, setShowSuccessful] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+
+  const wallet = user?.wallet;
+
   return (
-    <div className='modal-overlay'>
-       <div className="custom-modal" style={styles.modal}>
-    <h2 style={styles.heading}>Withdraw Funds</h2>
+    <div className="modal-overlay">
+      <div className="custom-modal" style={styles.modal}>
+        <h2 style={styles.heading}>Withdraw Funds</h2>
 
-    <div style={styles.balanceSection}>
-      <span style={styles.balanceLabel}>Available Balance</span>
-      <span style={styles.balanceAmount}>₦320,000</span>
+        <div style={styles.balanceSection}>
+          <span style={styles.balanceLabel}>Available Balance</span>
+          <span style={styles.balanceAmount}>₦{wallet.availableBalance}</span>
+        </div>
+
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Withdrawal Amount</label>
+
+          <input type="text" placeholder="₦0-₦50,000" style={styles.input} />
+
+          <span style={styles.feeText}>• Charge Fee: ₦100</span>
+        </div>
+
+        <div style={styles.accountCard}>
+          <p style={styles.accountLabel}>Withdraw to</p>
+
+          <p style={styles.accountName}>
+            {wallet.bankName} • {wallet.accountNumber}{" "}
+          </p>
+        </div>
+
+        <div className="modal-footer" style={styles.footer}>
+          <button type="button" style={styles.cancelButton} onClick={onClose}>
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            style={styles.confirmButton}
+            onClick={() => setShowSuccessful(true)}
+          >
+            Confirm Withdrawal
+          </button>
+        </div>
+        {showSuccessful && (
+          <WithdrawalSuccessful onClose={() => setShowSuccessful(false)} />
+        )}
+      </div>
     </div>
+  );
+};
 
-    <div style={styles.formGroup}>
-      <label style={styles.label}>Withdrawal Amount</label>
-
-      <input
-        type="text"
-        placeholder="₦0-₦50,000"
-        style={styles.input}
-      />
-
-      <span style={styles.feeText}>
-        •  Charge Fee: ₦100
-      </span>
-    </div>
-
-    <div style={styles.accountCard}>
-      <p style={styles.accountLabel}>Withdraw to</p>
-
-      <p style={styles.accountName}>
-        GTBank • ****4532
-      </p>
-    </div>
-
-    <div className="modal-footer" style={styles.footer}>
-      <button
-        type="button"
-        style={styles.cancelButton}
-        onClick={onClose}
-      >
-        Cancel
-      </button>
-
-      <button
-        type="button"
-        style={styles.confirmButton}
-        onClick={() => setShowSuccessful(true)}
-      >
-        Confirm Withdrawal
-      </button>
-    </div>
-    { showSuccessful && (
-      <WithdrawalSuccessful
-      onClose ={() => setShowSuccessful(false)}
-      />
-    )}
-  </div>
-
-
-
-
-
-    </div>
-
- 
-);
-    
-}
-
-export default WithdrawFunds
+export default WithdrawFunds;

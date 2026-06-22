@@ -7,8 +7,19 @@ import AddedRatings from "../popups/AddedRatings ";
 const RateDesigner = () => {
   const [rating, setRating] = useState(0);
   const [activeTab, setActiveTab] = useState("completed");
+  const [activeAction, setActiveAction] = useState("reorder");
   const [isRatingAddedOpen, setIsRatingAddedOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleReorder = () => {
+    setActiveAction("reorder");
+    navigate("/user/browsedesigns");
+  };
+
+  const handleReview = () => {
+    setActiveAction("review");
+    setIsRatingAddedOpen(true);
+  };
 
   return (
     <div className="rate-page-container">
@@ -19,8 +30,8 @@ const RateDesigner = () => {
         {/* Tabs */}
         <div className="order-tabs-row">
           <button
-            className={`tab-btn ${
-              activeTab === "active" ? "selected-tab" : ""
+            className={`rate-tab-btn ${
+              activeTab === "active" ? "rate-tab-btn-active" : ""
             }`}
             onClick={() => navigate("/user/myorders")}
           >
@@ -28,8 +39,8 @@ const RateDesigner = () => {
           </button>
 
           <button
-            className={`tab-btn ${
-              activeTab === "completed" ? "selected-tab" : ""
+            className={`rate-tab-btn ${
+              activeTab === "completed" ? "rate-tab-btn-active" : ""
             }`}
             onClick={() => setActiveTab("completed")}
           >
@@ -54,7 +65,7 @@ const RateDesigner = () => {
             </div>
 
             <div className="item-details-right">
-              <button className="reorder-action-btn">
+              <button className="order-action-btn order-action-btn-active">
                 Track Order
               </button>
             </div>
@@ -98,15 +109,19 @@ const RateDesigner = () => {
 
               <div className="action-buttons-group">
                 <button
-                  className="reorder-action-btn"
-                  onClick={() => navigate("/user/browsedesigns")}
+                  className={`order-action-btn ${
+                    activeAction === "reorder" ? "order-action-btn-active" : ""
+                  }`}
+                  onClick={handleReorder}
                 >
                   Reorder
                 </button>
 
                 <button
-                  className="review-action-btn"
-                  onClick={() => setIsRatingAddedOpen(true)}
+                  className={`order-action-btn ${
+                    activeAction === "review" ? "order-action-btn-active" : ""
+                  }`}
+                  onClick={handleReview}
                 >
                   Review
                 </button>

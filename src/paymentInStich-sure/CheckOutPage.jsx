@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/Bili.css";
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
+import { useSelector } from "react-redux";
 
 const CheckOutPage = () => {
   const { id } = useParams();
@@ -13,13 +14,20 @@ const CheckOutPage = () => {
   let finalState = location.state;
   console.log("finalState", finalState);
 
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     address: "",
     city: "",
     state: "",
     country: "",
     email: "",
+    phoneNumber: "", // Added phone number to form state
   });
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   if (!finalState) {
     try {
@@ -31,7 +39,7 @@ const CheckOutPage = () => {
   }
 
   const subtotal = Number(finalState.amount) || 5000000;
-  const shipping = 10000;
+  const shipping = 420;
   const total = subtotal + shipping;
   const formatNaira = (value) =>
     `₦${new Intl.NumberFormat("en-NG", {
@@ -44,6 +52,10 @@ const CheckOutPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const getFullAddress = () =>
@@ -73,19 +85,45 @@ const CheckOutPage = () => {
   console.log("appy", Appy);
   console.log("orderId", Appy.data?.id);
 
+  const validateForm = () => {
+    let tempErrors = {};
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      tempErrors.email = "Please enter a valid email address.";
+    }
+    if (!formData.phoneNumber.trim()) {
+      tempErrors.phoneNumber = "Phone number is required.";
+    }
+    if (!formData.address.trim())
+      tempErrors.address = "Delivery address is required.";
+    if (!formData.country.trim()) tempErrors.country = "Country is required.";
+    if (!formData.city.trim()) tempErrors.city = "City is required.";
+    if (!formData.state.trim()) tempErrors.state = "State is required.";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
   const finalPayment = async () => {
+    if (!validateForm()) return;
+
+    setLoading(true);
     const payload = {
       orderId,
       deliveryAddress: getFullAddress(),
       email: formData.email,
+      phoneNumber: formData.phoneNumber, // Added phone number to payload
     };
     console.log("payload", payload);
     try {
       const response = await authApi.finalPay(payload);
+      navigate("/user/checkoutpayment");
       console.log("responsed", response);
     } catch (error) {
       console.log("Payment error:", error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -96,24 +134,54 @@ const CheckOutPage = () => {
   console.log("CheckOutPage - Merged State (holding + response):", finalState);
 
   return (
-    <div className="checkout-screen">
-      <main className="checkout-main">
-        <div className="checkout-page">
-          <div className="checkout-left">
-            <div className="info-card">
+    <div className="Check_screen">
+      <main className="Check_main">
+        <div className="Check_page">
+          <div className="Check_left">
+            <div className="Check_info-card">
               <h4>Personal Information</h4>
 
-              <input placeholder="Sonayon Blessing" />
+              <input placeholder={user?.lastName} readOnly />
               <input
                 name="email"
                 placeholder="peculiarsewanu@gmail.com"
                 value={formData.email}
                 onChange={handleChange}
+                style={errors.email ? { borderColor: "#ff0000" } : {}}
               />
-              <input placeholder="07056491653" />
+              {errors.email && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.email}
+                </span>
+              )}
+
+              <input
+                name="phoneNumber"
+                placeholder="07056491653"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                style={errors.phoneNumber ? { borderColor: "#ff0000" } : {}}
+              />
+              {errors.phoneNumber && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.phoneNumber}
+                </span>
+              )}
             </div>
 
-            <div className="info-card">
+            <div className="Check_info-card">
               <h4>Address Information</h4>
 
               <input
@@ -121,60 +189,121 @@ const CheckOutPage = () => {
                 placeholder="60, Idowu Street"
                 value={formData.address}
                 onChange={handleChange}
+                style={errors.address ? { borderColor: "#ff0000" } : {}}
               />
+              {errors.address && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.address}
+                </span>
+              )}
+
               <input
                 name="country"
                 placeholder="Nigeria"
                 value={formData.country}
                 onChange={handleChange}
+                style={errors.country ? { borderColor: "#ff0000" } : {}}
               />
+              {errors.country && (
+                <span
+                  style={{
+                    color: "#ff0000",
+                    fontSize: "10px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  {errors.country}
+                </span>
+              )}
 
-              <div className="location-row">
-                <input
-                  name="city"
-                  placeholder="Lagos"
-                  value={formData.city}
-                  onChange={handleChange}
-                />
+              <div className="Check_location-row">
+                <div>
+                  <input
+                    name="city"
+                    placeholder="Lagos"
+                    value={formData.city}
+                    onChange={handleChange}
+                    style={errors.city ? { borderColor: "#ff0000" } : {}}
+                  />
+                  {errors.city && (
+                    <span
+                      style={{
+                        color: "#ff0000",
+                        fontSize: "10px",
+                        display: "block",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {errors.city}
+                    </span>
+                  )}
+                </div>
 
-                <input
-                  name="state"
-                  placeholder="Lagos"
-                  value={formData.state}
-                  onChange={handleChange}
-                />
+                <div>
+                  <input
+                    name="state"
+                    placeholder="Lagos"
+                    value={formData.state}
+                    onChange={handleChange}
+                    style={errors.state ? { borderColor: "#ff0000" } : {}}
+                  />
+                  {errors.state && (
+                    <span
+                      style={{
+                        color: "#ff0000",
+                        fontSize: "10px",
+                        display: "block",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {errors.state}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="order-card">
-            <div className="product-row">
+          <div className="Check_order-card">
+            <div className="Check_product-row">
               <img src={productImage} alt="Corset Wedding Gown" />
               <h3>{finalState.itemName || "Corset Wedding Gown"}</h3>
-              <p className="price">{formatNaira(subtotal)}</p>
+              <p className="Check_price">{formatNaira(subtotal)}</p>
             </div>
 
-            <div className="summary">
-              <div className="summary-row">
-                <span className="summary-label">Subtotal</span>
-                <span className="summary-value">{formatNaira(subtotal)}</span>
+            <div className="Check_summary">
+              <div className="Check_summary-row">
+                <span className="Check_summary-label">Subtotal</span>
+                <span className="Check_summary-value">
+                  {formatNaira(subtotal)}
+                </span>
               </div>
 
-              <div className="summary-row">
-                <span className="summary-label">Shipping</span>
-                <span className="summary-value">{formatNaira(shipping)}</span>
+              <div className="Check_summary-row">
+                <span className="Check_summary-label">Shipping</span>
+                <span className="Check_summary-value">
+                  {formatNaira(shipping)}
+                </span>
               </div>
 
-              <div className="summary-row total-row">
-                <span className="summary-label">Total</span>
-                <span className="total-value">
+              <div className="Check_summary-row Check_total-row">
+                <span className="Check_summary-label">Total</span>
+                <span className="Check_total-value">
                   <small>NGN</small>
                   {formatNaira(total)}
                 </span>
               </div>
             </div>
 
-            <button onClick={finalPayment}>Complete Order</button>
+            <button onClick={finalPayment} disabled={loading}>
+              {loading ? "Completing Orders ..." : "Complete Order"}
+            </button>
           </div>
         </div>
       </main>

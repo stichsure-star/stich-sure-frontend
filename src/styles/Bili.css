@@ -1,37 +1,46 @@
-.checkout-screen {
+.Check_screen {
+  width: 100%;
   min-height: 100vh;
-  background: #f41919;
+  background: #cfc7c7;
   color: #070707;
-  /* font-family: Georgia, "Times New Roman", serif; */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
 
-.checkout-main {
- width: 100%;
-  max-width: 674px;
+.Check_main {
+  width: 100%;
+  max-width: 1200px; /* Increased to allow proper desktop spreading */
   margin: 0 auto;
-  padding: 8px 0 52px;
+  padding: 24px 16px 52px;
+  box-sizing: border-box;
 }
 
-.checkout-page {
+.Check_page {
   width: 100%;
   display: grid;
-  grid-template-columns: 334px 322px;
+  grid-template-columns: 1fr 1fr; /* Changes fixed pixels to flexible halves */
   align-items: start;
-  gap: 18px;
+  gap: 24px;
   background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-sizing: border-box;
 }
 
-.checkout-left {
+.Check_left {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  width: 100%;
 }
 
-.info-card {
+.Check_info-card {
   width: 100%;
   border: 1px solid #cfc7c7;
   border-radius: 11px;
-  padding: 14px 12px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -39,148 +48,143 @@
   box-sizing: border-box;
 }
 
-.info-card h4 {
+.Check_info-card h4 {
   margin: 0;
-  font-size: 8px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-.info-card input {
+.Check_info-card input {
   width: 100%;
-  height: 24px;
+  height: 36px;
   border: 1px solid #231f20;
   border-radius: 4px;
   padding: 0 12px;
   outline: none;
   font-family: inherit;
-  font-size: 8px;
+  font-size: 12px;
   background: #fff9fb;
   box-sizing: border-box;
 }
 
-.info-card input::placeholder {
+.Check_info-card input::placeholder {
   color: #8c8585;
 }
 
-.location-row {
+.Check_location-row {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 26px;
+  gap: 16px;
 }
 
-
-
-.order-card {
+.Check_order-card {
+  width: 100%;
   min-height: 363px;
-  background: #d19a64;
-  border-radius: 5px;
-  padding: 18px 28px 47px 28px;
+  background: #ccc9c9;
+  border-radius: 11px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
-.product-row {
+.Check_product-row {
   display: grid;
-  grid-template-columns: 40px 1fr auto;
-  gap: 6px;
-  align-items: start;
+  grid-template-columns: 50px 1fr auto;
+  gap: 12px;
+  align-items: center;
 }
 
-.product-row img {
-  width: 38px;
-  height: 37px;
+.Check_product-row img {
+  width: 48px;
+  height: 48px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-.product-row h3 {
+.Check_product-row h3 {
   margin: 0;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.2;
   font-weight: 600;
 }
 
-.price {
-  margin: 17px 29px 0 0;
+.Check_price {
+  margin: 0;
   color: #ff0000;
-  font-size: 8px;
+  font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.summary {
+.Check_summary {
   margin-top: 40px;
-  width: 170px;
-  margin-left: auto;
-  margin-right: auto;
-
+  width: 100%;
 }
 
-.summary-row {
+.Check_summary-row {
   display: flex;
   justify-content: space-between;
-  /* grid-template-columns: 1fr 102px; */
-  /* align-items: baseline; */
   align-items: center;
-  column-gap: 18px;
-  margin-bottom: 23px;
-
+  gap: 18px;
+  margin-bottom: 16px;
 }
 
-.summary-label {
-  font-size: 8px;
+.Check_summary-label {
+  font-size: 12px;
   font-weight: 600;
-
 }
 
-.summary-value {
-  font-size: 8px;
+.Check_summary-value {
+  font-size: 12px;
   font-weight: 700;
-  text-align: left;
   white-space: nowrap;
 }
 
-.total-row {
+.Check_total-row {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.1);
   margin-bottom: 0;
 }
 
-.total-row .summary-label {
-  font-size: 13px;
+.Check_total-row .Check_summary-label {
+  font-size: 16px;
   font-weight: 700;
 }
 
-.total-value {
+.Check_total-value {
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.total-value small {
+.Check_total-value small {
   color: #8a8585;
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 400;
 }
 
-.order-card button {
+.Check_order-card button {
   width: 100%;
-  height: 33px;
-  margin-top: auto;
+  height: 44px;
+  margin-top: 40px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   background: #850018;
   color: white;
   cursor: pointer;
   font-family: inherit;
-  font-size: 8px;
+  font-size: 13px;
   font-weight: 600;
+  transition: background 0.2s ease;
 }
 
-.order-card button:hover {
+.Check_order-card button:hover {
   background: #6f0014;
 }
 
@@ -188,101 +192,33 @@
    TABLET (768px and below)
    ========================= */
 @media (max-width: 768px) {
-  .checkout-main {
-    width: 100%;
-    max-width: 700px;
-    padding: 20px;
-    box-sizing: border-box;
+  .Check_main {
+    padding: 16px;
   }
 
-  .checkout-page {
+  .Check_page {
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-
-  .checkout-left {
-    width: 100%;
-  }
-
-  .order-card {
-    width: 100%;
-    min-height: auto;
-  }
-
-  .summary {
-    width: 200px;
+    padding: 16px;
   }
 }
-
 
 /* =========================
    MOBILE (480px and below)
    ========================= */
 @media (max-width: 480px) {
-  .checkout-main {
-    width: 100%;
-    padding: 12px;
-  }
-
-  .checkout-page {
-    gap: 16px;
-  }
-
-  .info-card {
-    padding: 12px;
-  }
-
-  .info-card input {
-    height: 38px;
-    font-size: 12px;
-  }
-
-  .location-row {
+  .Check_location-row {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
 
-  .order-card {
-    padding: 16px;
-  }
-
-  .product-row {
-    grid-template-columns: 40px 1fr;
+  .Check_product-row {
+    grid-template-columns: 48px 1fr;
     gap: 10px;
   }
 
-  .price {
+  .Check_price {
     grid-column: 2;
-    margin: 0;
     justify-self: start;
-  }
-
-  .product-row h3 {
-    font-size: 12px;
-  }
-
-  .summary {
-    width: 100%;
-    margin-top: 30px;
-  }
-
-  .summary-row {
-    width: 100%;
-  }
-
-  .summary-label,
-  .summary-value {
-    font-size: 10px;
-  }
-
-  .total-row .summary-label,
-  .total-value {
-    font-size: 14px;
-  }
-
-  .order-card button {
-    height: 42px;
-    font-size: 12px;
   }
 }
