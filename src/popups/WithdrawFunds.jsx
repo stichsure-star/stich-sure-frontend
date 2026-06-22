@@ -118,6 +118,10 @@ const WithdrawFunds = ({ onClose }) => {
 
   const wallet = user?.wallet;
 
+  // Track if the available balance is 0 or empty
+  const currentBalance = Number(wallet?.availableBalance) || 0;
+  const isWithdrawalDisabled = currentBalance === 0;
+
   return (
     <div className="modal-overlay">
       <div className="custom-modal" style={styles.modal}>
@@ -125,7 +129,9 @@ const WithdrawFunds = ({ onClose }) => {
 
         <div style={styles.balanceSection}>
           <span style={styles.balanceLabel}>Available Balance</span>
-          <span style={styles.balanceAmount}>₦{wallet.availableBalance}</span>
+          <span style={styles.balanceAmount}>
+            ₦{wallet?.availableBalance || 0}
+          </span>
         </div>
 
         <div style={styles.formGroup}>
@@ -140,7 +146,7 @@ const WithdrawFunds = ({ onClose }) => {
           <p style={styles.accountLabel}>Withdraw to</p>
 
           <p style={styles.accountName}>
-            {wallet.bankName} • {wallet.accountNumber}{" "}
+            {wallet?.bankName} • {wallet?.accountNumber}{" "}
           </p>
         </div>
 
@@ -151,8 +157,15 @@ const WithdrawFunds = ({ onClose }) => {
 
           <button
             type="button"
-            style={styles.confirmButton}
+            style={{
+              ...styles.confirmButton,
+              // Overwrite styling properties dynamically if balance is empty
+              background: isWithdrawalDisabled ? "#CCCCCC" : "#8B0021",
+              color: isWithdrawalDisabled ? "#666666" : "#FFFFFF",
+              cursor: isWithdrawalDisabled ? "not-allowed" : "pointer",
+            }}
             onClick={() => setShowSuccessful(true)}
+            disabled={isWithdrawalDisabled} // Blocks click executions when balance is 0
           >
             Confirm Withdrawal
           </button>
