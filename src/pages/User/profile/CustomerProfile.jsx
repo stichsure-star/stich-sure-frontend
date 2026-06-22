@@ -198,6 +198,30 @@ const CustomerProfile = () => {
             />
           </label>
 
+          <label className="customer-profile-field">
+            <span>Phone</span>
+
+            <input
+              name="Phone"
+              type="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Phone"
+            />
+          </label>
+
+<label className="customer-profile-field">
+            <span>Address</span>
+
+            <input
+              name="address"
+              type="address"
+              value={form.address}
+              onChange={handleChange}
+              placeholder="Address"
+            />
+          </label>
+
           <button
             type="submit"
             className="customer-save-button"
