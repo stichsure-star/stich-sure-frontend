@@ -9,7 +9,12 @@ const CheckOutPage = () => {
   const { id } = useParams();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
-  const [orderId, setOrder] = useState({});
+  // Before
+
+  // After
+  const [orderId, setOrder] = useState(null);
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   let finalState = location.state;
   console.log("finalState", finalState);
@@ -23,11 +28,9 @@ const CheckOutPage = () => {
     city: "",
     state: "",
     country: "",
-    email: "",
+    email: user?.email,
     phoneNumber: "", // Added phone number to form state
   });
-  const user = useSelector((state) => state.auth.user);
-  console.log("user", user);
 
   if (!finalState) {
     try {
@@ -77,6 +80,7 @@ const CheckOutPage = () => {
       const response = await authApi.profileOrder(payload);
       console.log("Order response:", response);
       setAppy(response.data);
+      console.log("Full response:", JSON.stringify(response.data));
       setOrder(response.data.data?.id || response.data.id);
     } catch (error) {
       console.log("Order error:", error);
@@ -87,52 +91,147 @@ const CheckOutPage = () => {
 
   const validateForm = () => {
     let tempErrors = {};
+
     if (!formData.email.trim()) {
       tempErrors.email = "Email address is required.";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       tempErrors.email = "Please enter a valid email address.";
     }
-    if (!formData.phoneNumber.trim()) {
+
+    const cleanPhone = formData.phoneNumber.replace(/\s/g, "");
+
+    if (!cleanPhone) {
       tempErrors.phoneNumber = "Phone number is required.";
+    } else if (!/^0\d{10}$/.test(cleanPhone)) {
+      tempErrors.phoneNumber = "Enter a valid Nigerian phone number.";
     }
-    if (!formData.address.trim())
+
+    if (!formData.address.trim()) {
       tempErrors.address = "Delivery address is required.";
-    if (!formData.country.trim()) tempErrors.country = "Country is required.";
-    if (!formData.city.trim()) tempErrors.city = "City is required.";
-    if (!formData.state.trim()) tempErrors.state = "State is required.";
+    }
+
+    if (!formData.country.trim()) {
+      tempErrors.country = "Country is required.";
+    }
+
+    if (!formData.city.trim()) {
+      tempErrors.city = "City is required.";
+    }
+
+    if (!formData.state.trim()) {
+      tempErrors.state = "State is required.";
+    }
 
     setErrors(tempErrors);
+
     return Object.keys(tempErrors).length === 0;
   };
 
+  const verifyAddress = async () => {
+    const fullAddress = getFullAddress();
+
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(
+          fullAddress,
+        )}`,
+        { headers: { "Accept-Language": "en" } },
+      );
+
+      const data = await response.json();
+      console.log("ADDRESS RESULTS:", data);
+
+      // Nominatim has poor Nigerian coverage — don't block if no results
+      if (!data.length) return true;
+
+      const result = data[0];
+      const addr = result.address || {};
+
+      const foundCity = (
+        addr.city ||
+        addr.town ||
+        addr.village ||
+        addr.suburb || // ← covers areas like Ajegunle
+        addr.neighbourhood || // ← another fallback
+        ""
+      ).toLowerCase();
+
+      const foundState = (addr.state || "").toLowerCase();
+      const foundCountry = (addr.country || "").toLowerCase();
+
+      const userCity = formData.city.toLowerCase();
+      const userState = formData.state.toLowerCase();
+      const userCountry = formData.country.toLowerCase();
+
+      // Fix: check if the FOUND value includes the USER's input (not reversed)
+      if (foundCountry && !foundCountry.includes(userCountry)) {
+        setErrors((prev) => ({
+          ...prev,
+          address: `Country mismatch. Found: "${addr.country}"`,
+        }));
+        return false;
+      }
+
+      if (foundState && !foundState.includes(userState)) {
+        setErrors((prev) => ({
+          ...prev,
+          address: `State mismatch. Found: "${addr.state}"`,
+        }));
+        return false;
+      }
+
+      // City check is optional — skip if Nominatim can't resolve it
+      if (
+        foundCity &&
+        userCity &&
+        !foundCity.includes(userCity) &&
+        !userCity.includes(foundCity)
+      ) {
+        console.warn(
+          `City soft mismatch: found "${foundCity}", user entered "${userCity}" — allowing`,
+        );
+        // Don't block — Nigerian city names often differ from Nominatim labels
+      }
+
+      return true;
+    } catch (error) {
+      console.log("Address verification error:", error);
+      return true; // Don't block payment if service fails
+    }
+  };
   const finalPayment = async () => {
     if (!validateForm()) return;
 
-    setLoading(true);
+    if (!orderId) {
+      alert("Order is still being prepared. Please wait a moment.");
+      return;
+    }
 
+    const addressValid = await verifyAddress();
+    if (!addressValid) return;
+
+    setLoading(true);
     const payload = {
-      orderId,
+      orderId: orderId,
       deliveryAddress: getFullAddress(),
-      email: formData.email,
-      phoneNumber: formData.phoneNumber,
+      email: user?.email,
+      phone: formData.phoneNumber.trim(), // ← was "phoneNumber", now "phone"
+      name: `${user?.firstName} ${user?.lastName}`.trim(), // ← was missing entirely
+      address: getFullAddress(), // ← backend also wants "address"
     };
 
-    console.log("payload", payload);
+    console.log("Final payload being sent:", payload);
 
     try {
       const response = await authApi.finalPay(payload);
+      console.log("Payment response:", response);
 
-      console.log("payment response", response);
-
-      // get checkout url from backend
       const checkoutUrl =
         response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
 
       if (checkoutUrl) {
-        // straight to payment page
         window.location.href = checkoutUrl;
       } else {
-        console.log("Checkout url missing");
         navigate("/user/checkoutpayment");
       }
     } catch (error) {
@@ -159,11 +258,9 @@ const CheckOutPage = () => {
 
               <input placeholder={user?.lastName} readOnly />
               <input
-                name="email"
-                placeholder="peculiarsewanu@gmail.com"
-                value={formData.email}
-                onChange={handleChange}
+                value={user?.email}
                 style={errors.email ? { borderColor: "#ff0000" } : {}}
+                readOnly
               />
               {errors.email && (
                 <span
@@ -181,7 +278,20 @@ const CheckOutPage = () => {
                 name="phoneNumber"
                 placeholder="07056491653"
                 value={formData.phoneNumber}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+
+                  setFormData((prev) => ({
+                    ...prev,
+                    phoneNumber: value,
+                  }));
+
+                  setErrors((prev) => ({
+                    ...prev,
+                    phoneNumber: "",
+                  }));
+                }}
+                maxLength={11}
                 style={errors.phoneNumber ? { borderColor: "#ff0000" } : {}}
               />
               {errors.phoneNumber && (
@@ -242,7 +352,7 @@ const CheckOutPage = () => {
                 <div>
                   <input
                     name="city"
-                    placeholder="Lagos"
+                    placeholder="Ajegunle"
                     value={formData.city}
                     onChange={handleChange}
                     style={errors.city ? { borderColor: "#ff0000" } : {}}
@@ -288,7 +398,7 @@ const CheckOutPage = () => {
 
           <div className="Check_order-card">
             <div className="Check_product-row">
-              <img src={productImage} alt="Corset Wedding Gown" />
+              <img src={finalState.design} alt="Corset Wedding Gown" />
               <h3>{finalState.itemName || "Corset Wedding Gown"}</h3>
               <p className="Check_price">{formatNaira(subtotal)}</p>
             </div>
