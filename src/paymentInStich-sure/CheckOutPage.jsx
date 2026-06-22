@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams , useNavigate } from "react-router-dom";
 import "../styles/Bili.css";
+// import "../styles/money-A.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 
 const CheckOutPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
   const [orderId, setOrder] = useState({});
+  
 
   let finalState = location.state;
   console.log("finalState", finalState);
@@ -83,6 +86,7 @@ const CheckOutPage = () => {
     try {
       const response = await authApi.finalPay(payload);
       console.log("responsed", response);
+      navigate("/checkoutpayment");
     } catch (error) {
       console.log("Payment error:", error);
     }
@@ -96,11 +100,11 @@ const CheckOutPage = () => {
   console.log("CheckOutPage - Merged State (holding + response):", finalState);
 
   return (
-    <div className="checkout-screen">
-      <main className="checkout-main">
-        <div className="checkout-page">
-          <div className="checkout-left">
-            <div className="info-card">
+    <div className="Acheckout-screen">
+      <main className="A-main">
+        <div className="A-page">
+          <div className="A-left">
+            <div className="Ainfo-card">
               <h4>Personal Information</h4>
 
               <input placeholder="Sonayon Blessing" />
@@ -113,7 +117,7 @@ const CheckOutPage = () => {
               <input placeholder="07056491653" />
             </div>
 
-            <div className="info-card">
+            <div className="Ainfo-card">
               <h4>Address Information</h4>
 
               <input
@@ -129,7 +133,7 @@ const CheckOutPage = () => {
                 onChange={handleChange}
               />
 
-              <div className="location-row">
+              <div className="Alocation-row">
                 <input
                   name="city"
                   placeholder="Lagos"
@@ -144,37 +148,52 @@ const CheckOutPage = () => {
                   onChange={handleChange}
                 />
               </div>
+              <div className="Asave-info">
+               <input
+                type="checkbox"
+                id="saveInfo"
+               />
+
+               <label htmlFor="saveInfo">
+                 Save this information for a faster A next time
+               </label>
+              </div>
             </div>
           </div>
 
-          <div className="order-card">
-            <div className="product-row">
+          <div className="Aorder-card">
+            <div className="Aproduct-row">
               <img src={productImage} alt="Corset Wedding Gown" />
               <h3>{finalState.itemName || "Corset Wedding Gown"}</h3>
               <p className="price">{formatNaira(subtotal)}</p>
             </div>
 
-            <div className="summary">
-              <div className="summary-row">
-                <span className="summary-label">Subtotal</span>
-                <span className="summary-value">{formatNaira(subtotal)}</span>
+            <div className="Asummary">
+              <div className="Asummary-row">
+                <span className="Asummary-label">Subtotal</span>
+                <span className="Asummary-value">{formatNaira(subtotal)}</span>
               </div>
 
-              <div className="summary-row">
-                <span className="summary-label">Shipping</span>
-                <span className="summary-value">{formatNaira(shipping)}</span>
+              <div className="Asummary-row">
+                <span className="Asummary-label">Shipping</span>
+                <span className="Asummary-value">{formatNaira(shipping)}</span>
               </div>
 
-              <div className="summary-row total-row">
-                <span className="summary-label">Total</span>
-                <span className="total-value">
+              <div className="Asummary-row total-row">
+                <span className="Asummary-label">Total</span>
+                <span className="Atotal-value">
                   <small>NGN</small>
                   {formatNaira(total)}
                 </span>
               </div>
             </div>
 
-            <button onClick={finalPayment}>Complete Order</button>
+            <button
+            className="complete-order"
+             onClick={finalPayment}
+             >
+              Complete Order
+            </button>
           </div>
         </div>
       </main>

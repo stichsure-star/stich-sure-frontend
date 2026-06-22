@@ -52,7 +52,7 @@
   border-radius: 4px;
   padding: 0 12px;
   outline: none;
-  font-family: inherit;
+  /* font-family: inherit; */
   font-size: 8px;
   background: #fff9fb;
   box-sizing: border-box;

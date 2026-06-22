@@ -57,7 +57,7 @@ import Setting from "./pages/Designer/page/Setting";
 import Try from "./pages/Designer/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
 import NotFound from "./components/NotFound";
-// import CheckoutPage from "./paymentInStich-sure/CheckOutPage";
+// import CheckoutPage from "./paymentInStich-sure/CheckOutPage";wrong
 import Login3 from "./pages/auth/customer/Login";
 import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
@@ -171,7 +171,7 @@ const router = createBrowserRouter([
           { path: "published", element: <DesignPublished /> },
           { path: "ratings-popup", element: <AddedRatings /> },
           { path: "mvp", element: <MvpPage /> },
-          // { path: "checkout", element: <CheckoutPage /> },
+          // { path: "checkout", element: <CheckoutPage /> },wrong
 
         ],
       },
