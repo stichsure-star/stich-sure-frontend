@@ -12,12 +12,15 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import { ApiClient } from "../../../config/AxiosInstance";
 import { logout } from "../../../global/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authApi } from "../../../config/auth";
+import darky from "../../../assets/gbenga/darky.png";
+import empty from "../../../assets/gbenga/empty.jpg";
 
 const Sidebar = ({ onClose = () => {} }) => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   const isSettings =
     location.pathname.startsWith("/user/customer-profile") ||
@@ -67,6 +70,21 @@ const Sidebar = ({ onClose = () => {} }) => {
           </>
         ) : (
           <>
+            <div className="Cliped">
+              <article className="imgt">
+                <img
+                  src={user?.profilePhoto || empty}
+                  alt="your pic"
+                  className="imgt"
+                />
+              </article>
+              <article className="put">
+                <p>Welcome Back</p>
+                <h2>
+                  {user?.firstName} {user?.lastName}
+                </h2>
+              </article>
+            </div>
             <NavLink to="/user/dashboard" className="link" onClick={onClose}>
               <GoHome className="trd" />
               Dashboard

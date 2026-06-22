@@ -12,23 +12,14 @@ const steps = [1, 2, 3, 4, 5];
 
 const DesignerVerification = () => {
   const [designerInfo, setDesignerInfo] = useState({});
-  console.log("setDesignerInfo", setDesignerInfo);
-  console.log("designerInfo", designerInfo);
-
   const [currentStep, setCurrentStep] = useState(1);
-  console.log("designerInfo", designerInfo);
-  console.log("setDesignerInfo", setDesignerInfo);
 
   const handleNext = () => {
-    if (currentStep < steps.length) {
-      setCurrentStep((prev) => prev + 1);
-    }
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length));
   };
 
   const handlePrev = () => {
-    if (currentStep > 1) {
-      setCurrentStep((prev) => prev - 1);
-    }
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
   const renderStepContent = () => {

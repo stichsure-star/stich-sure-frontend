@@ -82,12 +82,12 @@ const DesignPublished = ({onClose}) => {
     <button
      onClick= {() => {
       onClose
-      navigate("/designer/dashboard")
+      navigate("/designer/designersupload")
      }}
     
       style={styles.button}
       >
-      Go to Dashboard
+      View Published Designs
     </button>
   </div>
 

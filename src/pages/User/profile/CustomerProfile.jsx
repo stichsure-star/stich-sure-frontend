@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiCamera } from "react-icons/fi";
 import { LuSave } from "react-icons/lu";
-import { authApi } from "../../../config/customer";
+import { customerApi } from "../../../config/customer";
 import "../../../styles/customer-profile.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setCredentials, updateUser } from "../../../global/authSlice";
@@ -11,6 +11,7 @@ const CustomerProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
 
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -92,7 +93,7 @@ const CustomerProfile = () => {
         formData.append("profilePhoto", image);
       }
 
-      const res = await authApi.updateprofile(user?.id, formData);
+      const res = await customerApi.updateprofile(user?.id, formData);
 
       console.log("SUCCESS:", res.data);
 

@@ -1,6 +1,6 @@
 import { ApiClient } from "../config/AxiosInstance";
 
-export const authApi = {
+export const customerApi = {
   updateprofile: (id, data) =>
     ApiClient.put(`/customer/update-profile/${id}`, data, {
       headers: {
@@ -24,4 +24,7 @@ export const authApi = {
 
     return ApiClient.post(`/request/create/${designerId}`, data);
   },
+  saveDesigner: (id) => ApiClient.post(`/customer/saved-designers/${id}`),
+  removeDesigner: (id) => ApiClient.delete(`/customer/saved-designers/${id}`),
+  savedDesigner: (data) => ApiClient.get(`/customer/saved-designers`),
 };

@@ -1,5 +1,6 @@
 import "../styles/SetUpWallet.css";
 import { useState } from "react";
+import { IoChevronBack } from "react-icons/io5";
 
 const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
   const [errors, setErrors] = useState({});
@@ -54,6 +55,10 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
   return (
     <div className="SetUpWallet-page">
       <div className="set-up-card">
+        <button type="button" className="wizard-back-icon" onClick={onPrev}>
+          <IoChevronBack />
+        </button>
+
         <h4>Set Up Your Wallet</h4>
 
         <form className="set-up-form" onSubmit={handleSubmit}>
