@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../../../styles/customer-security.css";
 import { customerApi } from "../../../config/customer";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../../global/authSlice";
+import { setCredentials, updateUser } from "../../../global/authSlice";
 import Swal from "sweetalert2";
 
 const CustomerSecurity = () => {
@@ -57,7 +57,7 @@ const CustomerSecurity = () => {
 
       console.log("SUCCESS:", res.data);
       dispatch(
-        setCredentials({
+        updateUser({
           currentPassword: form.currentPassword,
           password: form.newPassword,
           confirmPassword: form.confirmPassword,

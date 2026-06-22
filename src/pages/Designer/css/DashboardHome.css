@@ -194,7 +194,7 @@
   gap: 18px;
 }
 
-.order-card {
+.order-carded {
   width: 100%;
 
   background: white;
@@ -204,19 +204,21 @@
   border-radius: 14px;
 
   padding: 20px;
+  display: flex;
 
   box-sizing: border-box;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 
   box-shadow: 0 5px 15px #0001;
 }
 
-.order-card h4 {
-  margin: 0 0 15px;
-
+.order-carded h4 {
   font-size: 20px;
 }
 
-.order-card p {
+.order-carded p {
   margin: 8px 0;
 
   font-size: 15px;
@@ -224,14 +226,14 @@
   color: #555;
 }
 
-.order-card b {
+.order-carded b {
   color: #111;
 }
 
 /* hide old table */
 
 .orders table {
-  display: none;
+  display: flex;
 }
 
 /* =====================

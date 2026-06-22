@@ -4,8 +4,7 @@ import SendCollaborationRequest from "../components/SendCollaborationRequest";
 const CollaborationRequestPage = () => {
   const [showCollabForm, setShowCollabForm] = useState(true);
 
-      console.log("showCollabForm =", showCollabForm);
-
+  console.log("showCollabForm =", showCollabForm);
 
   return (
     <>
@@ -18,13 +17,9 @@ const CollaborationRequestPage = () => {
         />
       )}
 
-      {!showCollabForm && (
-        <h2>Form Closed Successfully</h2>
-      )}
+      {!showCollabForm && <h2>Form Closed Successfully</h2>}
     </>
   );
-
 };
-
 
 export default CollaborationRequestPage;

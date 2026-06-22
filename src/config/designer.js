@@ -35,5 +35,10 @@ export const designerApi = {
   collaborationstats: (data) => ApiClient.get("/collaboration/stats", data),
   mycollabs: (data) => ApiClient.get("/collaboration", data),
   getOne: (id) => ApiClient.get(`/designer/one/${id}`),
-  allOrder: (data) => ApiClient.get(`/orders`, data),
+  // allOrder: (data) => ApiClient.get(`/orders`, data),
+  orderId: (id) => ApiClient.get(`/orders/${id}`),
+  allAders: (id, status) =>
+    ApiClient.get(`/orders/designer/list/${id}`, {
+      params: { status },
+    }),
 };

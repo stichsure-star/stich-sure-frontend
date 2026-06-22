@@ -11,6 +11,7 @@ import { Navigate } from "react-router-dom";
 const Profile = ({ onNext, onPrev, designerInfo }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState("");
+  const [wordCount, setWordCount] = useState(0);
 
   const [profileImage, setProfileImage] = useState(null);
   const [selectedSpecs, setSelectedSpecs] = useState(["All"]);
@@ -89,8 +90,10 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
 
     if (!bio.trim()) {
       newErrors.bio = "A short bio helps clients learn about you.";
-    } else if (bio.trim().length < 20) {
-      newErrors.bio = "Your bio should be at least 20 characters long.";
+    } else if (wordCount < 20) {
+      newErrors.bio = "Your bio should be at least 20 words long.";
+    } else if (wordCount > 50) {
+      newErrors.bio = "Your bio should not exceed 50 words.";
     }
 
     setErrors(newErrors);
@@ -238,11 +241,24 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
             rows="5"
             value={bio}
             onChange={(e) => {
-              setBio(e.target.value);
-              if (e.target.value.trim())
-                setErrors((prev) => ({ ...prev, bio: null }));
+              const text = e.target.value;
+
+              setBio(text);
+
+              const words = text.trim().split(/\s+/).filter(Boolean);
+
+              setWordCount(words.length);
+
+              if (text.trim()) {
+                setErrors((prev) => ({
+                  ...prev,
+                  bio: null,
+                }));
+              }
             }}
           />
+
+          <p className="word-count">{wordCount}/50 words</p>
           {errors.bio && <p className="error-text">{errors.bio}</p>}
 
           <button type="button" className="continue-btn" onClick={handleSubmit}>
