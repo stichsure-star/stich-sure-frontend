@@ -37,8 +37,14 @@ const RequestDetails = () => {
   const [formData, setFormData] = useState({
     fullName: user?.lastName,
     deadLine: "",
-    measurement:
-      "Chest:\nShoulder:\nSleeve Length:\nTop Length:\nNeck:\nBust:\nHip:",
+    measurement: `Chest:
+Shoulder:
+Sleeve Length:
+Top Length:
+Neck:
+Bust:
+Hip:
+`,
     description: "",
   });
 
@@ -71,10 +77,15 @@ const RequestDetails = () => {
       newErrors.deadLine = "Deadline is required";
     }
 
-    if (!formData.measurement.trim()) {
-      newErrors.measurement = "Measurement is required";
-    } else if (formData.measurement.length < 20) {
-      newErrors.measurement = "Please provide proper measurements";
+    const measurementText = formData.measurement
+      .replace(
+        /Chest:|Shoulder:|Sleeve Length:|Top Length:|Neck:|Bust:|Hip:/gi,
+        "",
+      )
+      .trim();
+
+    if (!measurementText) {
+      newErrors.measurement = "Please enter your measurements";
     }
 
     if (!formData.description.trim()) {
@@ -211,20 +222,12 @@ const RequestDetails = () => {
             <label htmlFor="measurements">
               Input needed measurement from Designer
             </label>
-
             <textarea
               id="measurement"
               name="measurement"
               rows="6"
-              value={
-                formData.measurement ||
-                "Chest:\nShoulder:\nSleeve Length:\nTop Length:\nNeck:\nBust:\nHip:"
-              }
-              onChange={(e) => {
-                if (e.target.value.length >= 20) {
-                  handleChange(e);
-                }
-              }}
+              value={formData.measurement}
+              onChange={handleChange}
             />
 
             {errors.measurement && (

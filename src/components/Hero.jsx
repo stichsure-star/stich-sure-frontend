@@ -23,10 +23,11 @@ const Hero = () => {
           />
 
           <select>
-            <option>Category</option>
-            <option>Fashion</option>
-            <option>Textile</option>
-            <option>Branding</option>
+            <option>Agbada</option>
+            <option>Bridal</option>
+            <option>Street Wear</option>
+            <option>Senator Wear</option>
+            <option>Female Wear</option>
           </select>
         </div>
       </div>
