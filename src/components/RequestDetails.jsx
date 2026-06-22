@@ -8,10 +8,16 @@ import "../styles/RequestDetails.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RequestSent from "../popups/RequestSent";
 import { customerApi } from "../config/customer";
+import { useSelector } from "react-redux";
 
 const RequestDetails = () => {
   const fileInputRef = useRef(null);
   const dateInputRef = useRef(null);
+  const user = useSelector((state) => state.auth.user);
+  console.log("user", user);
+  const derivedFullName = user
+    ? `${user.firstName} ${user.lastName}`.trim()
+    : "Guest User";
 
   const navigate = useNavigate();
 
@@ -20,6 +26,7 @@ const RequestDetails = () => {
 
   const location = useLocation();
   const holding = location.state;
+  console.log("holding", holding);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -28,9 +35,9 @@ const RequestDetails = () => {
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
-    fullName: "",
-    deadline: "",
-    measurements:
+    fullName: user?.lastName,
+    deadLine: "",
+    measurement:
       "Chest:\nShoulder:\nSleeve Length:\nTop Length:\nNeck:\nBust:\nHip:",
     description: "",
   });
@@ -60,16 +67,14 @@ const RequestDetails = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required";
+    if (!formData.deadLine) {
+      newErrors.deadLine = "Deadline is required";
     }
 
-    if (!formData.deadline) {
-      newErrors.deadline = "Deadline is required";
-    }
-
-    if (!formData.measurements.trim()) {
-      newErrors.measurements = "Measurement is required";
+    if (!formData.measurement.trim()) {
+      newErrors.measurement = "Measurement is required";
+    } else if (formData.measurement.length < 20) {
+      newErrors.measurement = "Please provide proper measurements";
     }
 
     if (!formData.description.trim()) {
@@ -108,11 +113,13 @@ const RequestDetails = () => {
     try {
       const payload = {
         fullName: formData.fullName,
-        deadLine: formData.deadline, // already YYYY-MM-DD
-        measurement: formData.measurements,
+        deadLine: formData.deadLine, // already YYYY-MM-DD
+        measurement: formData.measurement,
         description: formData.description,
         amount: holding?.amount ? parseInt(holding.amount, 10) : 0,
         designId: holding?.designId,
+        designImg: holding?.design,
+        itemName: holding?.itemName,
       };
 
       console.log("PAYLOAD:", payload);
@@ -127,6 +134,7 @@ const RequestDetails = () => {
           requestId: response.data.id,
         },
       });
+      console.log("object");
     } catch (error) {
       console.log(error?.response?.data || error);
     } finally {
@@ -166,7 +174,7 @@ const RequestDetails = () => {
               type="text"
               id="fullName"
               name="fullName"
-              value={formData.fullName}
+              value={derivedFullName}
               onChange={handleChange}
             />
             {errors.fullName && <p className="error-text">{errors.fullName}</p>}
@@ -174,7 +182,7 @@ const RequestDetails = () => {
 
           {/* Deadline */}
           <div className="rd-form-group rd-relative">
-            <label htmlFor="deadline">Deadline</label>
+            <label htmlFor="deadline">DeadLine</label>
 
             <div className="rd-input-icon-wrapper">
               <HiOutlineCalendar
@@ -186,16 +194,16 @@ const RequestDetails = () => {
               <input
                 ref={dateInputRef}
                 type="date"
-                id="deadline"
-                name="deadline"
-                value={formData.deadline}
+                id="deadLine"
+                name="deadLine"
+                value={formData.deadLine}
                 onChange={handleChange}
                 min={minDate}
                 className="Date-pick"
               />
             </div>
 
-            {errors.deadline && <p className="error-text">{errors.deadline}</p>}
+            {errors.deadLine && <p className="error-text">{errors.deadLine}</p>}
           </div>
 
           {/* Measurements */}
@@ -205,15 +213,22 @@ const RequestDetails = () => {
             </label>
 
             <textarea
-              id="measurements"
-              name="measurements"
+              id="measurement"
+              name="measurement"
               rows="6"
-              value={formData.measurements}
-              onChange={handleChange}
+              value={
+                formData.measurement ||
+                "Chest:\nShoulder:\nSleeve Length:\nTop Length:\nNeck:\nBust:\nHip:"
+              }
+              onChange={(e) => {
+                if (e.target.value.length >= 20) {
+                  handleChange(e);
+                }
+              }}
             />
 
-            {errors.measurements && (
-              <p className="error-text">{errors.measurements}</p>
+            {errors.measurement && (
+              <p className="error-text">{errors.measurement}</p>
             )}
           </div>
 
