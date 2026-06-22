@@ -5,6 +5,49 @@ import { IoChevronBack } from "react-icons/io5";
 const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
   const [errors, setErrors] = useState({});
 
+  const banks = [
+    "Access Bank",
+    "GTBank",
+    "First Bank",
+    "Zenith Bank",
+    "UBA",
+    "Kuda Bank",
+    "Opay",
+    "PalmPay",
+    "Moniepoint",
+    "Polaris Bank",
+    "Fidelity Bank",
+    "FCMB",
+    "Stanbic IBTC Bank",
+    "Sterling Bank",
+    "Wema Bank",
+    "Union Bank",
+    "Ecobank",
+    "Keystone Bank",
+    "Heritage Bank",
+    "Providus Bank",
+    "Titan Trust Bank",
+    "Globus Bank",
+    "Nova Bank",
+    "Parallex Bank",
+    "Premium Trust Bank",
+    "Signature Bank",
+    "Jaiz Bank",
+    "Lotus Bank",
+    "TAJ Bank",
+    "SunTrust Bank",
+    "Sparkle Bank",
+    "Rubies Bank",
+    "Mintyn Bank",
+    "Eyowo",
+    "Carbon",
+    "FairMoney",
+    "VFD Microfinance Bank",
+    "Branch",
+    "Renmoney",
+    "Quickteller Paypoint",
+  ];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -13,7 +56,6 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
       [name]: value,
     }));
 
-    // clear error as user types
     setErrors((prev) => ({
       ...prev,
       [name]: "",
@@ -35,8 +77,6 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
 
     if (!designerInfo.accountName?.trim()) {
       newErrors.accountName = "Account name is required";
-    } else if (designerInfo.accountName.length < 3) {
-      newErrors.accountName = "Enter a valid account name";
     }
 
     setErrors(newErrors);
@@ -63,32 +103,46 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
 
         <form className="set-up-form" onSubmit={handleSubmit}>
           <label>Bank Name</label>
-          <input
+
+          <select
             name="bankName"
             value={designerInfo.bankName || ""}
             onChange={handleChange}
-            placeholder="Enter bank name"
-          />
+            className="Selecy"
+          >
+            <option value="">Select bank</option>
+
+            {banks.map((bank) => (
+              <option key={bank} value={bank}>
+                {bank}
+              </option>
+            ))}
+          </select>
+
           {errors.bankName && <p className="error-text">{errors.bankName}</p>}
 
           <label>Account Number</label>
+
           <input
             name="accountNumber"
             value={designerInfo.accountNumber || ""}
             onChange={handleChange}
             placeholder="Enter account number"
           />
+
           {errors.accountNumber && (
             <p className="error-text">{errors.accountNumber}</p>
           )}
 
           <label>Account Name</label>
+
           <input
             name="accountName"
             value={designerInfo.accountName || ""}
             onChange={handleChange}
             placeholder="Enter account name"
           />
+
           {errors.accountName && (
             <p className="error-text">{errors.accountName}</p>
           )}

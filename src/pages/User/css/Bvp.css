@@ -1,4 +1,4 @@
-.bot_ordertracker-wrapper {
+.Bba_ordertracker-wrapper {
   width: 100%;
   min-height: 100vh;
   background: #fff;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.bot_ordertracker-page-shell {
+.Bba_ordertracker-page-shell {
   width: min(100%, 1000px);
   background: #fff;
   border: 1px solid #dddddd;
@@ -17,7 +17,7 @@
   box-sizing: border-box;
 }
 
-.bot_ordertracker-header {
+.Bba_ordertracker-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -30,33 +30,33 @@
   box-shadow: 0 5px 14px rgba(16, 24, 40, 0.08);
 }
 
-.bot_ordertracker-title {
+.Bba_ordertracker-title {
   margin: 0 0 8px;
   font-size: 14px;
   font-weight: 700;
   color: #161616;
 }
 
-.bot_ordertracker-customer,
-.bot_ordertracker-id {
+.Bba_ordertracker-customer,
+.Bba_ordertracker-id {
   margin: 2px 0;
   font-size: 10px;
   color: #4d4d4d;
 }
 
-.bot_ordertracker-header-right {
+.Bba_ordertracker-header-right {
   text-align: right;
   min-width: 120px;
 }
 
-.bot_ordertracker-price {
+.Bba_ordertracker-price {
   margin: 0 0 7px;
   font-size: 15px;
   font-weight: 800;
   color: #121212;
 }
 
-.bot_ordertracker-status-badge {
+.Bba_ordertracker-status-badge {
   display: inline-flex;
   align-items: center;
   min-height: 20px;
@@ -68,13 +68,13 @@
   font-weight: 700;
 }
 
-.bot_ordertracker-due {
+.Bba_ordertracker-due {
   margin: 7px 0 0;
   font-size: 10px;
   color: #5c5c5c;
 }
 
-.bot_ordertracker-card {
+.Bba_ordertracker-card {
   background: #fff;
   border: 1px solid #cfcfcf;
   border-radius: 12px;
@@ -82,7 +82,7 @@
   box-shadow: 0 5px 12px rgba(16, 24, 40, 0.14);
 }
 
-.bot_section-title {
+.Bba_section-title {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -92,16 +92,16 @@
   color: #2a1420;
 }
 
-.bot_section-title svg {
+.Bba_section-title svg {
   color: #8a0020;
   flex: 0 0 auto;
 }
 
-.bot_measurements-card {
+.Bba_measurements-card {
   margin-bottom: 18px;
 }
 
-.bot_measurement-note {
+.Bba_measurement-note {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -115,18 +115,18 @@
   line-height: 1.2;
 }
 
-.bot_measurement-note svg {
+.Bba_measurement-note svg {
   flex: 0 0 auto;
 }
 
-.bot_measurement-design-grid {
+.Bba_measurement-design-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 240px;
   gap: 24px;
   align-items: start;
 }
 
-.bot_measurements-scroll {
+.Bba_measurements-scroll {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px 28px;
@@ -135,21 +135,21 @@
   padding-right: 8px;
 }
 
-.bot_measurements-scroll::-webkit-scrollbar {
+.Bba_measurements-scroll::-webkit-scrollbar {
   width: 6px;
 }
 
-.bot_measurements-scroll::-webkit-scrollbar-track {
+.Bba_measurements-scroll::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 999px;
 }
 
-.bot_measurements-scroll::-webkit-scrollbar-thumb {
+.Bba_measurements-scroll::-webkit-scrollbar-thumb {
   background: #c9c9c9;
   border-radius: 999px;
 }
 
-.bot_measurement-row {
+.Bba_measurement-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -157,7 +157,7 @@
   min-width: 0;
 }
 
-.bot_measurement-row span {
+.Bba_measurement-row span {
   display: block;
   margin-bottom: 4px;
   font-size: 11px;
@@ -165,13 +165,13 @@
   color: #222;
 }
 
-.bot_measurement-row small {
+.Bba_measurement-row small {
   display: block;
   font-size: 8px;
   color: #747474;
 }
 
-.bot_measurement-row strong {
+.Bba_measurement-row strong {
   min-width: 36px;
   padding: 4px 7px;
   border-radius: 4px;
@@ -182,12 +182,12 @@
   text-align: center;
 }
 
-.bot_your-design-panel {
+.Bba_your-design-panel {
   min-width: 0;
 }
 
-.bot_design-preview-button,
-.bot_inspiration-image-button {
+.Bba_design-preview-button,
+.Bba_inspiration-image-button {
   border: 1px solid #cfcfcf;
   background: #f7f5f5;
   border-radius: 8px;
@@ -196,24 +196,24 @@
   padding: 0;
 }
 
-.bot_design-preview-button {
+.Bba_design-preview-button {
   width: 100%;
   height: 126px;
 }
 
-.bot_design-preview-button img,
-.bot_inspiration-image-button img {
+.Bba_design-preview-button img,
+.Bba_inspiration-image-button img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
 
-.bot_description-section {
+.Bba_description-section {
   margin-bottom: 18px;
 }
 
-.bot_description-section p {
+.Bba_description-section p {
   margin: 0;
   min-height: 92px;
   padding: 18px;
@@ -225,7 +225,7 @@
   line-height: 1.65;
 }
 
-.bot_image-scroll {
+.Bba_image-scroll {
   height: 126px;
   border: 1px solid #cfcfcf;
   border-radius: 8px;
@@ -237,21 +237,21 @@
   overflow-y: hidden;
 }
 
-.bot_image-scroll::-webkit-scrollbar {
+.Bba_image-scroll::-webkit-scrollbar {
   height: 6px;
 }
 
-.bot_image-scroll::-webkit-scrollbar-track {
+.Bba_image-scroll::-webkit-scrollbar-track {
   background: #eeeeee;
   border-radius: 999px;
 }
 
-.bot_image-scroll::-webkit-scrollbar-thumb {
+.Bba_image-scroll::-webkit-scrollbar-thumb {
   background: #c9c9c9;
   border-radius: 999px;
 }
 
-.bot_inspiration-image-button {
+.Bba_inspiration-image-button {
   width: 82px;
   height: 100%;
   flex: 0 0 auto;
@@ -260,13 +260,13 @@
   border-radius: 0;
 }
 
-.bot_image-helper-text {
+.Bba_image-helper-text {
   margin: 12px 0 0;
   font-size: 9px;
   color: #8a8a8a;
 }
 
-.bot_ordertracker-done-btn {
+.Bba_ordertracker-done-btn {
   width: 100%;
   height: 42px;
   margin-top: 56px;
@@ -279,56 +279,56 @@
   cursor: pointer;
 }
 
-.bot_ordertracker-done-btn:hover {
+.Bba_ordertracker-done-btn:hover {
   background: #6f001a;
 }
 
 @media screen and (max-width: 768px) {
-  .bot_ordertracker-wrapper {
+  .Bba_ordertracker-wrapper {
     padding: 14px 8px;
   }
 
-  .bot_ordertracker-page-shell {
+  .Bba_ordertracker-page-shell {
     padding: 14px;
   }
 
-  .bot_ordertracker-header {
+  .Bba_ordertracker-header {
     margin-bottom: 32px;
     padding: 20px;
   }
 
-  .bot_measurement-design-grid {
+  .Bba_measurement-design-grid {
     grid-template-columns: 1fr;
   }
 
-  .bot_measurements-scroll {
+  .Bba_measurements-scroll {
     max-height: 170px;
   }
 
-  .bot_your-design-panel {
+  .Bba_your-design-panel {
     max-width: 260px;
   }
 
-  .bot_ordertracker-done-btn {
+  .Bba_ordertracker-done-btn {
     margin-top: 34px;
   }
 }
 
 @media screen and (max-width: 520px) {
-  .bot_ordertracker-header {
+  .Bba_ordertracker-header {
     flex-direction: column;
     gap: 16px;
   }
 
-  .bot_ordertracker-header-right {
+  .Bba_ordertracker-header-right {
     text-align: left;
   }
 
-  .bot_measurements-scroll {
+  .Bba_measurements-scroll {
     grid-template-columns: 1fr;
   }
 
-  .bot_description-section p {
+  .Bba_description-section p {
     padding: 14px;
   }
 }

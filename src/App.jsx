@@ -54,7 +54,7 @@ import CustomerSecurity from "./pages/User/profile/CustomerSecurity";
 import DesignerIsVerifiedSuccessfullyPage from "./pages/kyc/DesignerIsVerifiedSuccessfullyPage";
 import Template from "./pages/Designer/page/Template";
 import Setting from "./pages/Designer/page/Setting";
-import Try from "./pages/Designer/page/Try";
+import Try from "./pages/User/page/Try";
 import ActiveOrder from "./pages/Designer/page/Active";
 import NotFound from "./components/NotFound";
 // import CheckoutPage from "./paymentInStich-sure/CheckOutPage";wrong
@@ -87,6 +87,7 @@ import DesignersUploadCatlog from "./components/DesignersUploadCatlog";
 import DesignerUploadedDesigners from "./pages/Designer/page/DesignerUploadedDesigners";
 import CheckOutPage from "./paymentInStich-sure/CheckOutPage";
 import CheckOut2 from "./paymentInStich-sure/CheckOut2";
+import SecondTracker from "./components/SecondTracker";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
 // user stores tracker,
@@ -126,7 +127,6 @@ const router = createBrowserRouter([
 
       { path: "/successfulpayment", element: <PaymentSuccessful /> },
 
-      { path: "/checkoutpayment", element: <CheckoutPayment /> },
       { path: "walletdesigner", element: <WalletDesigner /> },
     ],
   },
@@ -155,7 +155,7 @@ const router = createBrowserRouter([
           { path: "ratings", element: <Relaibiy /> },
           { path: "templates", element: <Template /> },
           { path: "setting", element: <Setting /> },
-          { path: "active", element: <ActiveOrder /> },
+          { path: "actived", element: <ActiveOrder /> },
           { path: "order-tracking", element: <Ordertrackerpage /> },
 
           { path: "profile", element: <DesignerProfile /> },
@@ -171,8 +171,12 @@ const router = createBrowserRouter([
           { path: "published", element: <DesignPublished /> },
           { path: "ratings-popup", element: <AddedRatings /> },
           { path: "mvp", element: <MvpPage /> },
+<<<<<<< HEAD
           // { path: "checkout", element: <CheckoutPage /> },wrong
 
+=======
+          // { path: "checkout", element: <CheckoutPage /> },
+>>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
         ],
       },
     ],
@@ -234,10 +238,11 @@ const router = createBrowserRouter([
           { path: "checkout", element: <CheckOutPage /> },
           { path: "checkout/:id", element: <CheckOutPage /> },
 
-          // i just added this one please check throgh @gbenga 
+          // i just added this one please check throgh @gbenga
           { path: "checkout2", element: <CheckOut2 /> },
 
-
+          { path: "secondtracker", element: <SecondTracker /> },
+          { path: "checkoutpayment", element: <CheckoutPayment /> },
         ],
       },
     ],
@@ -250,6 +255,3 @@ const App = () => {
 };
 
 export default App;
-
-
-

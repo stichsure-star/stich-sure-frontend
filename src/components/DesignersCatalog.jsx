@@ -16,17 +16,18 @@ const DesignersCatalog = () => {
   const [search, setSearch] = useState("");
 
   const goToRequestDetails = (item) => {
-  console.log("CLICK CARD:", item);
+    console.log("CLICK CARD:", item);
 
-  navigate(`/user/requiredetails/${item.designerId}`, {
-    state: {
-      designId: item.id,
-      designerId: item.designerId,
-      itemName: item.designTitle,
-      amount: Number(item.price),
-    },
-  });
-};
+    navigate(`/user/requiredetails/${item.designerId}`, {
+      state: {
+        designId: item.id,
+        designerId: item.designerId,
+        itemName: item.designTitle,
+        amount: Number(item.price),
+        design: item.designImage,
+      },
+    });
+  };
 
   const toggleFavorite = (id) => {
     setFavorites((prev) => ({
@@ -66,6 +67,8 @@ const DesignersCatalog = () => {
   // filter designs by category
   // filter by category + search
   const filteredDesigns = cartd.filter((item) => {
+    console.log("CHECK:", item.category, activeFilter);
+
     const matchesCategory =
       activeFilter === "All" || item.category === activeFilter;
 
@@ -75,7 +78,9 @@ const DesignersCatalog = () => {
 
     return matchesCategory && matchesSearch;
   });
-
+  console.log("ACTIVE FILTER:", activeFilter);
+  console.log("CATEGORIES:", category);
+  console.log("SAMPLE ITEM:", cartd[0]);
   console.log("cartd", cartd.id);
 
   console.log("cartd", cartd);
@@ -131,32 +136,39 @@ const DesignersCatalog = () => {
 
       {/* PRODUCTS */}
 
+      {/* PRODUCTS */}
       <div className="catalog-products-grid">
-        {cartd.map((cartd) => (
-          <div key={cartd?.designer.id} className="product-showcase-card">
+        {filteredDesigns.map((design) => (
+          <div
+            key={`${design.id}-${design.designerId}`}
+            className="product-showcase-card"
+          >
             <div className="card-media-wrapper">
               <img
-                src={cartd.designImage}
-                alt="design"
+                src={design.designImage}
+                alt={design.designTitle || "design"}
                 className="product-thumbnail-img"
-                onClick={() => goToRequestDetails(cartd)}/>
+                onClick={() => goToRequestDetails(design)}
+              />
             </div>
 
             <div className="card-textual-details">
               <div className="details-left-metadata">
-                <h3 className="apparel-display-heading">{cartd.designTitle}</h3>
+                <h3 className="apparel-display-heading">
+                  {design.designTitle}
+                </h3>
 
                 <p className="designer-sub-title">
-                  by {cartd.designer.profile?.businessName}
+                  by{" "}
+                  {design.designer?.profile?.businessName || "Unknown Designer"}
                 </p>
 
-                <span className="price-numeric-tag">₦{cartd.price}</span>
+                <span className="price-numeric-tag">₦{design.price}</span>
               </div>
-              
 
               <button
                 className="cart-action-square-btn"
-                onClick={() => goToRequestDetails(cartd)}
+                onClick={() => goToRequestDetails(design)}
               >
                 <FiShoppingBag size={15} />
               </button>

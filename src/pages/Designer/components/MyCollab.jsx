@@ -57,7 +57,9 @@ const DesignersPage = () => {
 
           <div className="location">
             <FaLocationDot />
-            <span>{item.profile?.currentHouseAddress}</span>
+            <span>
+              {item.profile?.state},{item.profile?.country}
+            </span>
           </div>
 
           <div className="rating">
@@ -105,7 +107,14 @@ const DesignersPage = () => {
             </button>
 
             <button
-              onClick={() => navigate("/designer/profileonMount")}
+              onClick={() => {
+                console.log("sending profile:", item);
+                navigate("/designer/profileonMount", {
+                  state: {
+                    designerId: item,
+                  },
+                });
+              }}
               className="btn_outline"
             >
               View Profile

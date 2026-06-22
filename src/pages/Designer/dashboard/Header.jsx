@@ -26,7 +26,7 @@ const Header = () => {
         <div className="right">
           <div className="mobile-icon notif">
             <IoMdNotificationsOutline className="Notify" />
-            <span className="badge">5</span>
+            <span className="badge">0</span>
           </div>
 
           <div className="mobile-icon-menu-btn" onClick={() => setOpen(true)}>

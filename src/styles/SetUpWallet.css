@@ -61,6 +61,14 @@
   outline: none;
 }
 
+.Selecy {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  outline: none;
+}
+
 .set-up-form button {
   margin-top: 20px;
   width: 100%;
@@ -114,5 +122,4 @@
   .set-up-form button {
     padding: 12px;
   }
-
 }
