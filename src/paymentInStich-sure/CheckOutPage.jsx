@@ -109,21 +109,37 @@ const CheckOutPage = () => {
     if (!validateForm()) return;
 
     setLoading(true);
+
     const payload = {
       orderId,
       deliveryAddress: getFullAddress(),
       email: formData.email,
-      phoneNumber: formData.phoneNumber, // Added phone number to payload
+      phoneNumber: formData.phoneNumber,
     };
+
     console.log("payload", payload);
+
     try {
       const response = await authApi.finalPay(payload);
-      navigate("/user/checkoutpayment");
-      console.log("responsed", response);
+
+      console.log("payment response", response);
+
+      // get checkout url from backend
+      const checkoutUrl =
+        response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
+
+      if (checkoutUrl) {
+        // straight to payment page
+        window.location.href = checkoutUrl;
+      } else {
+        console.log("Checkout url missing");
+        navigate("/user/checkoutpayment");
+      }
     } catch (error) {
       console.log("Payment error:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
