@@ -10,9 +10,22 @@ import { authApi } from "../config/auth";
 import { customerApi } from "../config/customer";
 import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
 
+const DEFAULT_CATEGORIES = [
+  "All",
+  "Traditional",
+  "Bridal",
+  "Corporate",
+  "Casual",
+  "Accessories",
+];
+
+const DEFAULT_CATEGORY_NAMES = new Set(
+  DEFAULT_CATEGORIES.map((category) => category.toLowerCase()),
+);
+
 const DesignersGrid = () => {
   const [designers, setDesigners] = useState([]);
-  const [categories, setCategories] = useState(["All"]);
+  const [categories, setCategories] = useState(DEFAULT_CATEGORIES);
   const [activeFilter, setActiveFilter] = useState("All");
   const [search, setSearch] = useState("");
 
@@ -23,6 +36,57 @@ const DesignersGrid = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const normalizeCategory = (text) => {
+    if (!text) return "";
+
+    return String(text)
+      .replace(/["'[\]]/g, "")
+      .trim()
+      .toLowerCase();
+  };
+
+  const fixCategoryTypo = (text) => {
+    const map = {
+      accesories: "accessories",
+      accesory: "accessories",
+      corporatc: "corporate",
+    };
+
+    return map[text] || text;
+  };
+
+  const formatCategory = (text) =>
+    text
+      .split(" ")
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+  const getDesignerCategories = (designer) => {
+    const raw = designer.profile?.specialization;
+
+    if (!raw) return [];
+
+    let values = raw;
+
+    if (!Array.isArray(values)) {
+      const rawText = String(raw).trim();
+
+      try {
+        const parsed = JSON.parse(rawText);
+        values = Array.isArray(parsed) ? parsed : rawText.split(",");
+      } catch {
+        values = rawText.split(",");
+      }
+    }
+
+    return values
+      .map(normalizeCategory)
+      .filter(Boolean)
+      .map(fixCategoryTypo)
+      .map(formatCategory);
+  };
 
   // ======================
   // SAVE / UNSAVE
@@ -124,53 +188,26 @@ const DesignersGrid = () => {
 
       setDesigners(verifiedDesigners);
 
-      const normalize = (text) => {
-        if (!text) return "";
-
-        return text
-          .replace(/["']/g, "") // remove quotes
-          .trim()
-          .toLowerCase();
-      };
-
-      // 🧠 basic typo fixer (you can extend this later)
-      const fixTypo = (text) => {
-        const map = {
-          accesories: "Accessories",
-          accesory: "Accessories",
-          corporatc: "Corporate",
-        };
-
-        return map[text] || text;
-      };
-
-      const format = (text) =>
-        text
-          .split(" ")
-          .filter(Boolean)
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(" ");
-
       const generatedCategories = [
-        "All",
         ...Array.from(
           new Set(
-            verifiedDesigners.flatMap((designer) => {
-              const raw = designer.profile?.specialization;
-
-              if (!raw) return [];
-
-              return raw
-                .split(",")
-                .map(normalize)
-                .filter(Boolean)
-                .map(fixTypo)
-                .map(format);
-            }),
+            verifiedDesigners.flatMap((designer) =>
+              getDesignerCategories(designer),
+            ),
           ),
         ).sort((a, b) => a.localeCompare(b)),
       ];
-      setCategories(generatedCategories);
+
+      const orderedCategories = [
+        ...DEFAULT_CATEGORIES,
+        ...generatedCategories.filter(
+          (category) => !DEFAULT_CATEGORY_NAMES.has(category.toLowerCase()),
+        ),
+      ];
+
+      if (generatedCategories.length > 1) {
+        setCategories(orderedCategories);
+      }
     } catch (error) {
       console.error("Fetch Designers Error:", error.response?.data || error);
     } finally {
@@ -208,8 +245,9 @@ const DesignersGrid = () => {
   // ======================
   const filteredDesigners = designers.filter((designer) => {
     const name = designer.profile?.businessName?.toLowerCase() || "";
-    const specialization =
-      designer.profile?.specialization?.toLowerCase() || "";
+    const specialization = getDesignerCategories(designer)
+      .join(" ")
+      .toLowerCase();
 
     const searchMatch =
       name.includes(search.toLowerCase()) ||
@@ -232,7 +270,7 @@ const DesignersGrid = () => {
 
             <input
               type="text"
-              placeholder="Search designers by name..."
+              placeholder="Search designers by name or specialty..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -311,7 +349,7 @@ const DesignersGrid = () => {
                     </div>
 
                     <p className="dg-designer-specialty">
-                      {designer.profile?.specialization}
+                      {getDesignerCategories(designer).join(", ")}
                     </p>
 
                     <p className="dg-designer-desc">

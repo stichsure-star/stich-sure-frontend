@@ -6,6 +6,11 @@
   align-items: center;
   background: var(--color-backgruond);
   font-family: "El Messiri", sans-serif;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .Header_sec {

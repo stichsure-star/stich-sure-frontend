@@ -1,0 +1,8 @@
+.HomeLayout {
+  min-height: 100vh;
+  background-color: var(--color-backgruond);
+}
+
+.HomeLayout_main {
+  padding-top: 12vh;
+}

@@ -2,12 +2,15 @@ import React from "react";
 import Header from "../components/reuasbleComponents/Header";
 import Footer from "../components/reuasbleComponents/Footer";
 import { Outlet } from "react-router-dom";
+import "../styles/HomeLayout.css";
 
 const HomeLayout = () => {
   return (
-    <div>
+    <div className="HomeLayout">
       <Header />
-      <Outlet />
+      <main className="HomeLayout_main">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
