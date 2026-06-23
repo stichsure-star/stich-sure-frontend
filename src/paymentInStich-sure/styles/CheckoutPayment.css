@@ -1,22 +1,21 @@
  
  
  
- .checkoutPayment-page{
+.checkoutPayment-page {
+  width: 100%;
   min-height: 100vh;
-  padding: 120px ;
-  /* margin-top: 140px; */
-  background: #faf7f7;
-  background-image: url();
+  padding: 120px 20px;
+  background: var(--color-backgruond);
   display: flex;
   flex-direction: column;
   align-items: center;
-
- }
+  box-sizing: border-box;
+}
  
 
 .verification-card {
   width: 100%;
-  max-width:400px;
+  max-width: 400px;
   text-align: center;
 }
 
@@ -40,12 +39,12 @@
   margin-top: 30px;
   font-size: 28px;
   font-weight: 400;
-  color: #111;
+  color: #231f20;
 }
 
 .description {
   margin-top: 12px;
-  color: #666;
+  color: #666666;
 }
 
 /* .benefits {
@@ -69,14 +68,12 @@
 } */
 
 .payment-btn {
-  /* margin-top: 35px; */
   width: 100%;
-  /* width: 300px; */
   height: 48px;
   border: none;
   border-radius: 8px;
-  background: #7c0f2b;
-  color: white;
+  background: var(--color-wine);
+  color: var(--color-white);
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;

@@ -181,7 +181,7 @@ import { FiTrendingUp } from "react-icons/fi";
 import { IoStatsChartOutline } from "react-icons/io5";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
-import WithdrawFunds from "../popups/WithdrawFunds";
+import WithdrawFunds from "../paymentInStich-sure/popups/WithdrawFunds";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 

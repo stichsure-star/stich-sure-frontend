@@ -7,37 +7,41 @@ import manip from "../assets/gbenga/manip.png";
 import { useNavigate } from "react-router-dom";
 
 const designers = [
-  {
-    id: 1,
-    name: "Glory Okafor",
-    image: gold,
-    specialty: "Bridal & Evening Wear",
-    location: "Lagos, Nigeria",
-    reviews: "5.0(127 reviews)",
-    reliability: "86%",
-  },
-  {
-    id: 2,
-    name: "Daniel Mensah",
-    image: darky,
-    specialty: "Luxury Fashion",
-    location: "Abuja, Nigeria",
-    reviews: "5.0(127 reviews)",
-    reliability: "91%",
-  },
-  {
-    id: 3,
-    name: "Amaka Johnson",
-    image: manip,
-    specialty: "Traditional Wear",
-    location: "Port Harcourt",
-    reviews: "5.0(127 reviews)",
-    reliability: "88%",
-  },
+  // {
+  //   id: 1,
+  //   name: "Glory Okafor",
+  //   image: gold,
+  //   specialty: "Bridal & Evening Wear",
+  //   location: "Lagos, Nigeria",
+  //   reviews: "5.0(127 reviews)",
+  //   reliability: "86%",
+  // },
+  // {
+  //   id: 2,
+  //   name: "Daniel Mensah",
+  //   image: darky,
+  //   specialty: "Luxury Fashion",
+  //   location: "Abuja, Nigeria",
+  //   reviews: "5.0(127 reviews)",
+  //   reliability: "91%",
+  // },
+  // {
+  //   id: 3,
+  //   name: "Amaka Johnson",
+  //   image: manip,
+  //   specialty: "Traditional Wear",
+  //   location: "Port Harcourt",
+  //   reviews: "5.0(127 reviews)",
+  //   reliability: "88%",
+  // },
 ];
 
 function FeaturedDesigners() {
   const navigate = useNavigate();
+
+  if (designers.length === 0)  {
+    return null;
+  }
   return (
     <section className="featured-designers">
       <div className="headong">

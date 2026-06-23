@@ -102,21 +102,21 @@ const Sidebar = ({ onClose = () => {} }) => {
             </NavLink>
 
             <NavLink
-              to="/user/browsedesigners"
-              className="link"
-              onClick={onClose}
-            >
-              <RiImageAddLine className="trd" />
-              Browse Designers
-            </NavLink>
-
-            <NavLink
               to="/user/browsedesigns"
               className="link"
               onClick={onClose}
             >
               <IoIosNotificationsOutline className="trd" />
               Browse Designs
+            </NavLink>
+
+            <NavLink
+              to="/user/browsedesigners"
+              className="link"
+              onClick={onClose}
+            >
+              <RiImageAddLine className="trd" />
+              Browse Designers
             </NavLink>
 
             <NavLink to="/user/myorders" className="link" onClick={onClose}>

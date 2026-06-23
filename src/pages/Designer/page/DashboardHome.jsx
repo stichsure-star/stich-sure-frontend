@@ -2,6 +2,7 @@ import "../../Designer/css/DashboardHome.css";
 import { TbCubeSpark } from "react-icons/tb";
 import { LuDollarSign } from "react-icons/lu";
 import { FaRegStar } from "react-icons/fa";
+import { FaScissors } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { designerApi } from "../../../config/designer";
@@ -132,13 +133,20 @@ const Dashboard = () => {
 
         <div className="order-list">
           {ordersLoading ? (
-            <p style={{ padding: "10px 0", fontSize: "13px", color: "#666" }}>
+            <p className="dashboard-orders-loading">
               Loading data...
             </p>
           ) : activeOrders.length === 0 ? (
-            <p style={{ padding: "10px 0", fontSize: "13px", color: "#666" }}>
-              No active orders found today.
-            </p>
+            <div className="designer-empty-orders-state">
+              <div className="designer-empty-orders-icon">
+                <FaScissors />
+              </div>
+              <h4>No active orders found</h4>
+              <p>
+                New customer orders will appear here once they are assigned to
+                your studio.
+              </p>
+            </div>
           ) : (
             activeOrders.map((order) => (
               <div

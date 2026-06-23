@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: hsl(0, 19%, 92%);
   color: #070707;
-  /* font-family: Georgia, "Times New Roman", serif; */
+  /* font-family: "El Messiri", sans-serif; */
 }
 
 .checkout-main {
@@ -52,7 +52,7 @@
   border-radius: 4px;
   padding: 0 12px;
   outline: none;
-  font-family: inherit;
+  /* font-family: "El Messiri", sans-serif; */
   font-size: 8px;
   background: #fff9fb;
   box-sizing: border-box;
@@ -198,7 +198,7 @@
   background: #850018;
   color: white;
   cursor: pointer;
-  font-family: inherit;
+  font-family: "El Messiri", sans-serif;
   font-size: 8px;
   font-weight: 600;
 }

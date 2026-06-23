@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/RateDesigner.css";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import AddedRatings from "../popups/AddedRatings ";
+import AddedRatings from "../paymentInStich-sure/popups/AddedRatings ";
 
 const RateDesigner = () => {
   const [rating, setRating] = useState(0);

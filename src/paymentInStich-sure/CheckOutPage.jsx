@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/Bili.css";
+// import "../styles/money-A.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 import { useSelector } from "react-redux";
 
 const CheckOutPage = () => {
-  const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
   // Before
@@ -21,7 +22,6 @@ const CheckOutPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     address: "",
@@ -84,6 +84,7 @@ const CheckOutPage = () => {
       setOrder(response.data.data?.id || response.data.id);
     } catch (error) {
       console.log("Order error:", error);
+      return "";
     }
   };
   console.log("appy", Appy);
@@ -392,6 +393,16 @@ const CheckOutPage = () => {
                     </span>
                   )}
                 </div>
+              </div>
+              <div className="Asave-info">
+               <input
+                type="checkbox"
+                id="saveInfo"
+               />
+
+               <label htmlFor="saveInfo">
+                 Save this information for a faster A next time
+               </label>
               </div>
             </div>
           </div>

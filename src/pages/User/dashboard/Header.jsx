@@ -76,18 +76,7 @@ const Header = () => {
             </NavLink>
           </li>
 
-          <li>
-            {" "}
-            <NavLink
-              to="/user/browsedesigners"
-              className="link"
-              onClick={() => setOpen(false)}
-            >
-              <RiImageAddFill className="trd" />
-              Browse Designers
-            </NavLink>
-          </li>
-
+         
           <li>
             {" "}
             <NavLink
@@ -99,6 +88,19 @@ const Header = () => {
               Browse Designs
             </NavLink>
           </li>
+
+           <li>
+            {" "}
+            <NavLink
+              to="/user/browsedesigners"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
+              <RiImageAddFill className="trd" />
+              Browse Designers
+            </NavLink>
+          </li>
+
 
           <li>
             {" "}
