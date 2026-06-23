@@ -113,7 +113,7 @@ const router = createBrowserRouter([
       { path: "profilepage", element: <ProfilePage /> },
       // { path: "orderdetails", element: <OrderDetails /> },
 
-      { path: "/successfulpayment", element: <PaymentSuccessful /> },
+      { path: "successfulpayment", element: <PaymentSuccessful /> },
 
       // { path: "/checkoutpayment", element: <CheckoutPayment /> },
       { path: "informationdesigner", element: <InformationDesigner /> },
@@ -121,11 +121,11 @@ const router = createBrowserRouter([
       { path: "identitydesigner", element: <IdentityDesignerPage /> },
       { path: "successfull", element: <SuccessfulDesignerPage /> },
       {
-        path: "/designerVerified",
+        path: "designerVerified",
         element: <DesignerIsVerifiedSuccessfullyPage />,
       },
 
-      { path: "/successfulpayment", element: <PaymentSuccessful /> },
+      { path: "successfulpayment", element: <PaymentSuccessful /> },
 
       { path: "walletdesigner", element: <WalletDesigner /> },
     ],

@@ -8,6 +8,21 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+    // 1. Phone number rule: Block letters immediately during typing (allows only numbers and formatting characters like +)
+    if (name === "phoneNumber") {
+      const cleanValue = value.replace(/[^0-9+\s-]/g, "");
+      setDesignerInfo((prev) => ({ ...prev, [name]: cleanValue }));
+      return;
+    }
+
+    // 2. State and Country rule: Block numbers immediately during typing
+    if (name === "state" || name === "country") {
+      const cleanValue = value.replace(/[0-9]/g, "");
+      setDesignerInfo((prev) => ({ ...prev, [name]: cleanValue }));
+      return;
+    }
+
+    // Default handler for other fields
     setDesignerInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -23,14 +38,26 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
     if (!designerInfo.currentHouseAddress?.trim())
       newErrors.currentHouseAddress = "Address required";
 
-    if (!designerInfo.phoneNumber?.trim())
+    // 3. Strict verification: Ensure phone number does not contain alphabets
+    if (!designerInfo.phoneNumber?.trim()) {
       newErrors.phoneNumber = "Phone required";
+    } else if (/[a-zA-Z]/.test(designerInfo.phoneNumber)) {
+      newErrors.phoneNumber = "Phone number must not contain letters";
+    }
 
-    if (!designerInfo.state?.trim())
+    // 4. Strict verification: Ensure state does not contain numbers
+    if (!designerInfo.state?.trim()) {
       newErrors.state = "State required";
+    } else if (/[0-9]/.test(designerInfo.state)) {
+      newErrors.state = "State must not contain numbers";
+    }
 
-    if (!designerInfo.country?.trim())
+    // 5. Strict verification: Ensure country does not contain numbers
+    if (!designerInfo.country?.trim()) {
       newErrors.country = "Country required";
+    } else if (/[0-9]/.test(designerInfo.country)) {
+      newErrors.country = "Country must not contain numbers";
+    }
 
     setErrors(newErrors);
 
@@ -78,38 +105,34 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
           <label>Phone Number</label>
           <input
             name="phoneNumber"
+            type="tel"
             value={designerInfo?.phoneNumber || ""}
             onChange={handleChange}
           />
           {errors.phoneNumber && (
             <p className="error-text">{errors.phoneNumber}</p>
           )}
-        <div className="Addie">
-            <article >
-             <label>State</label>
-          <input
-            name="state"
-            value={designerInfo?.state || ""}
-            onChange={handleChange}
-          />
-          {errors.state && (
-            <p className="error-text">{errors.state}</p>
-          )}
+          <div className="Addie">
+            <article>
+              <label>State</label>
+              <input
+                name="state"
+                value={designerInfo?.state || ""}
+                onChange={handleChange}
+              />
+              {errors.state && <p className="error-text">{errors.state}</p>}
             </article>
-        <article>
-            <label>Country</label>
-          <input
-            name="country"
-            value={designerInfo?.country || ""}
-            onChange={handleChange}
-          />
-         
-           {errors.country && (
-            <p className="error-text">{errors.country}</p>
-          )}
-        </article>
+            <article>
+              <label>Country</label>
+              <input
+                name="country"
+                value={designerInfo?.country || ""}
+                onChange={handleChange}
+              />
 
-        </div>
+              {errors.country && <p className="error-text">{errors.country}</p>}
+            </article>
+          </div>
           <button type="submit">Continue</button>
         </form>
       </div>
