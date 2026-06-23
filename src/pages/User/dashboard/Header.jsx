@@ -17,6 +17,7 @@ import { MdLogout } from "react-icons/md";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
+
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -37,10 +38,16 @@ const Header = () => {
             <IoMdNotificationsOutline className="Notify" />
             <span className="badge">0</span>
           </div>
-          <div className="dammy">
-            <div className="avatarde">
-              <img src={user?.profilePhoto || empty} alt="" />
-            </div>
+
+          <div className="Picky" onClick={() => setOpen(true)}>
+            {user?.profilePhoto ? (
+              <img src={user.profilePhoto} alt="Profile" className="Goldie" />
+            ) : (
+              <div className="Goldie-initials">
+                 {user?.firstName?.charAt(0).toUpperCase()}
+                {user?.lastName?.charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
           <div className="dropdowned">
             <FiMenu onClick={() => setOpen(true)} />
@@ -69,18 +76,7 @@ const Header = () => {
             </NavLink>
           </li>
 
-          <li>
-            {" "}
-            <NavLink
-              to="/user/browsedesigners"
-              className="link"
-              onClick={() => setOpen(false)}
-            >
-              <RiImageAddFill className="trd" />
-              Browse Designers
-            </NavLink>
-          </li>
-
+         
           <li>
             {" "}
             <NavLink
@@ -92,6 +88,19 @@ const Header = () => {
               Browse Designs
             </NavLink>
           </li>
+
+           <li>
+            {" "}
+            <NavLink
+              to="/user/browsedesigners"
+              className="link"
+              onClick={() => setOpen(false)}
+            >
+              <RiImageAddFill className="trd" />
+              Browse Designers
+            </NavLink>
+          </li>
+
 
           <li>
             {" "}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/Bili.css";
+// import "../styles/money-A.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ import { SkeletonCheckout } from "../components/reuasbleComponents/Skeleton";
 import { setPaymentData } from "../global/authSlice";
 
 const CheckOutPage = () => {
-  const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
   const [demmy, Reppy] = useState(null);
@@ -26,7 +27,6 @@ const CheckOutPage = () => {
   const [loading, setLoading] = useState(false);
   const [orderPreparing, setOrderPreparing] = useState(true);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     address: "",
@@ -412,6 +412,13 @@ const CheckOutPage = () => {
                     </span>
                   )}
                 </div>
+              </div>
+              <div className="Asave-info">
+                <input type="checkbox" id="saveInfo" />
+
+                <label htmlFor="saveInfo">
+                  Save this information for a faster A next time
+                </label>
               </div>
             </div>
           </div>
