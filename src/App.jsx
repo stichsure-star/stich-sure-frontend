@@ -128,6 +128,8 @@ const router = createBrowserRouter([
       { path: "successfulpayment", element: <PaymentSuccessful /> },
 
       { path: "walletdesigner", element: <WalletDesigner /> },
+
+      { path: "checkoutpayment", element: <CheckoutPayment /> },
     ],
   },
 
@@ -237,7 +239,7 @@ const router = createBrowserRouter([
           { path: "checkout2", element: <CheckOut2 /> },
 
           { path: "secondtracker", element: <SecondTracker /> },
-          { path: "checkoutpayment", element: <CheckoutPayment /> },
+          ,
         ],
       },
     ],
