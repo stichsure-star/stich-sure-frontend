@@ -70,14 +70,24 @@ const Sidebar = ({ onClose = () => {} }) => {
           </>
         ) : (
           <>
-            <div className="Cliped">
-              <article className="imgt">
+            {/* <article className="imgt">
                 <img
                   src={user?.profilePhoto || empty}
                   alt="your pic"
                   className="imgt"
                 />
-              </article>
+              </article> */}
+
+            <div className="Cliped">
+              {user?.profilePhoto ? (
+                <img src={user.profilePhoto} alt="Profile" className="imgt" />
+              ) : (
+                <div className="Goldied">
+                  {user?.firstName?.charAt(0).toUpperCase()}
+                  {user?.lastName?.charAt(0).toUpperCase()}
+                </div>
+              )}
+
               <article className="put">
                 <p>Welcome Back</p>
                 <h2>
@@ -85,6 +95,7 @@ const Sidebar = ({ onClose = () => {} }) => {
                 </h2>
               </article>
             </div>
+
             <NavLink to="/user/dashboard" className="link" onClick={onClose}>
               <GoHome className="trd" />
               Dashboard
