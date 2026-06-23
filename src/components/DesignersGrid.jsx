@@ -8,7 +8,6 @@ import "../styles/DesignersGrid.css";
 
 import { authApi } from "../config/auth";
 import { customerApi } from "../config/customer";
-import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
 
 const DEFAULT_CATEGORIES = [
   "All",
@@ -274,11 +273,6 @@ const DesignersGrid = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-
-            <button className="catalog-filter-trigger-btn">
-              <FiSliders size={18} />
-              Filters
-            </button>
           </div>
         </div>
 
@@ -303,7 +297,7 @@ const DesignersGrid = () => {
 
         {/* CARDS */}
         {loading ? (
-          <SkeletonCardGrid count={6} />
+          <h4>Loading....</h4>
         ) : (
           <div className="dg-cards-grid">
             {filteredDesigners.map((designer) => {

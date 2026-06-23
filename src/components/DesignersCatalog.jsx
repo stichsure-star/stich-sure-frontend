@@ -106,10 +106,10 @@ const DesignersCatalog = () => {
           />
         </div>
 
-        <button className="catalog-filter-trigger-btn">
+        {/* <button className="catalog-filter-trigger-btn">
           <FiSliders size={14} />
           Filters
-        </button>
+        </button> */}
       </div>
 
       <p className="items-counter-caption">

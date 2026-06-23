@@ -4,14 +4,16 @@ import "../styles/Bili.css";
 // import "../styles/money-A.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SkeletonCheckout } from "../components/reuasbleComponents/Skeleton";
+import { setPaymentData } from "../global/authSlice";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
   const [demmy, Reppy] = useState(null);
+  const dispatch = useDispatch();
   // Before
 
   // After
@@ -32,7 +34,7 @@ const CheckOutPage = () => {
     state: "",
     country: "",
     email: user?.email,
-    phoneNumber: user?.phone || "", // Added phone number to form state
+    phone: user?.phone || "", // Added phone number to form state
   });
 
   if (!finalState) {
@@ -104,12 +106,12 @@ const CheckOutPage = () => {
       tempErrors.email = "Please enter a valid email address.";
     }
 
-    const cleanPhone = formData.phoneNumber.replace(/\s/g, "");
+    const cleanPhone = formData.phone.replace(/\s/g, "");
 
     if (!cleanPhone) {
-      tempErrors.phoneNumber = "Phone number is required.";
+      tempErrors.phone = "Phone number is required.";
     } else if (!/^0\d{10}$/.test(cleanPhone)) {
-      tempErrors.phoneNumber = "Enter a valid Nigerian phone number.";
+      tempErrors.phone = "Enter a valid Nigerian phone number.";
     }
 
     if (!formData.address.trim()) {
@@ -214,36 +216,54 @@ const CheckOutPage = () => {
     }
 
     const addressValid = await verifyAddress();
+
     if (!addressValid) return;
 
     setLoading(true);
+
     const payload = {
-      orderId: orderId,
+      orderId,
       deliveryAddress: getFullAddress(),
       email: user?.email,
-      phone: formData.phoneNumber.trim(), // ← was "phoneNumber", now "phone"
-      name: `${user?.firstName} ${user?.lastName}`.trim(), // ← was missing entirely
-      address: getFullAddress(), // ← backend also wants "address"
+      phoneNumber: formData.phone.trim(), // FIXED: Changed key from 'phone' to 'phoneNumber'
+      name: `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
+      address: getFullAddress(),
     };
 
-    console.log("Final payload being sent:", payload);
+    console.log("Final payload:", payload);
 
     try {
       const response = await authApi.finalPay(payload);
-      console.log("Payment response:", response);
 
-      Reppy(response);
+      console.log("FULL PAYMENT RESPONSE:", response);
+      console.log("FULL PAYMENT DATA:", response.data);
 
+      // Save payment response in redux
+      const dispatch = dispatch(setPaymentData(response.data));
+      console.log("dispatch", dispatch);
+
+      // Handle different response shapes
       const checkoutUrl =
-        response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
+        response?.data?.checkoutUrl ||
+        response?.data?.data?.checkoutUrl ||
+        response?.data?.payment?.checkoutUrl;
+
+      console.log("CHECKOUT URL:", checkoutUrl);
 
       if (checkoutUrl) {
-        window.location.href = checkoutUrl;
-      } else {
-        navigate("/user/checkoutpayment");
+        // redirect to Korapay
+        window.location.assign(checkoutUrl);
+        return;
       }
+
+      console.error("checkoutUrl not found in response");
+
+      alert("Unable to start payment. Checkout URL missing.");
     } catch (error) {
       console.log("Payment error:", error);
+      console.log("Payment error response:", error?.response?.data);
+
+      alert(error?.response?.data?.message || "Failed to initialize payment");
     } finally {
       setLoading(false);
     }
@@ -293,26 +313,26 @@ const CheckOutPage = () => {
               )}
 
               <input
-                name="phoneNumber"
+                name="phone"
                 placeholder="07056491653"
-                value={formData.phoneNumber}
+                value={formData.phone}
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
 
                   setFormData((prev) => ({
                     ...prev,
-                    phoneNumber: value,
+                    phone: value,
                   }));
 
                   setErrors((prev) => ({
                     ...prev,
-                    phoneNumber: "",
+                    phone: "",
                   }));
                 }}
                 maxLength={11}
-                style={errors.phoneNumber ? { borderColor: "#ff0000" } : {}}
+                style={errors.phone ? { borderColor: "#ff0000" } : {}}
               />
-              {errors.phoneNumber && (
+              {errors.phone && (
                 <span
                   style={{
                     color: "#ff0000",
@@ -320,7 +340,7 @@ const CheckOutPage = () => {
                     marginTop: "-10px",
                   }}
                 >
-                  {errors.phoneNumber}
+                  {errors.phone}
                 </span>
               )}
             </div>

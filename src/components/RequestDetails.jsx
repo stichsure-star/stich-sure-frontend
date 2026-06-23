@@ -35,33 +35,33 @@ const RequestDetails = () => {
   const [errors, setErrors] = useState({});
 
   const measurementFields = [
-  "Chest",
-  "Shoulder",
-  "Sleeve Length",
-  "Top Length",
-  "Neck",
-  "Bust",
-  "Hip",
-];
+    "Chest",
+    "Shoulder",
+    "Sleeve Length",
+    "Top Length",
+    "Neck",
+    "Bust",
+    "Hip",
+  ];
 
   const [formData, setFormData] = useState({
     fullName: user?.lastName,
     deadLine: "",
     description: "",
+    measurement: "",
   });
 
-
   const handleMeasurementChange = (e) => {
-  const { name, value } = e.target;
+    const { name, value } = e.target;
 
-  setFormData((prev) => ({
-    ...prev,
-    measurement: {
-      ...prev.measurement,
-      [name]: value,
-    },
-  }));
-};
+    setFormData((prev) => ({
+      ...prev,
+      measurement: {
+        ...prev.measurement,
+        [name]: value,
+      },
+    }));
+  };
 
   const getTomorrowDate = () => {
     const d = new Date();
@@ -92,13 +92,14 @@ const RequestDetails = () => {
       newErrors.deadLine = "Deadline is required";
     }
 
-   const hasEmptyField = Object.values(
-  formData.measurement
-).some((value) => value.trim() === "");
+    const hasEmptyField = Object.values(formData.measurement).some(
+      (value) => value.trim() === "",
+    );
 
-if (hasEmptyField) {
-  newErrors.measurement = "All measurements are required";
-}
+    if (hasEmptyField) {
+      newErrors.measurement = "All measurements are required";
+    }
+    // console.log("Form Data: ", formData.measurement);
 
     if (!formData.description.trim()) {
       newErrors.description = "Description is required";
@@ -148,6 +149,8 @@ if (hasEmptyField) {
       console.log("PAYLOAD:", payload);
 
       const response = await customerApi.request(designerId, payload);
+      console.log("res", response);
+      console.log("Id", response.data.id);
 
       setCalled(response.data);
 
@@ -158,6 +161,7 @@ if (hasEmptyField) {
         },
       });
       console.log("object");
+      console.log("requestId", requestId);
     } catch (error) {
       console.log(error?.response?.data || error);
     } finally {
@@ -230,27 +234,30 @@ if (hasEmptyField) {
           </div>
 
           {/* Measurements */}
-         <div className="rd-form-group">
-  <label>Input needed measurement from Designer</label>
+          <div className="rd-form-group">
+            <label>Input needed measurement from Designer</label>
 
-  {measurementFields.map((field) => (
-    <div key={field} className="measurement-row">
-      <label>{field}</label>
+            {measurementFields.map((field) => (
+              <div key={field} className="measurement-row">
+                <div className="Blopp">
+                  <label className="Blop">{field}</label>
 
-      <input
-        type="number"
-        name={field}
-        value={formData.measurement[field]}
-        onChange={handleMeasurementChange}
-        placeholder={`Enter ${field}`}
-      />
-    </div>
-  ))}
+                  <input
+                    type="number"
+                    name={field}
+                    value={formData.measurement[field]}
+                    onChange={handleMeasurementChange}
+                    placeholder={`Enter ${field}`}
+                    className="beep"
+                  />
+                </div>
+              </div>
+            ))}
 
-  {errors.measurement && (
-    <p className="error-text">{errors.measurement}</p>
-  )}
-</div>
+            {errors.measurement && (
+              <p className="error-text">{errors.measurement}</p>
+            )}
+          </div>
 
           {/* Description */}
           <div className="rd-form-group">
