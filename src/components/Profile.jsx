@@ -93,7 +93,7 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
     } else if (wordCount < 20) {
       newErrors.bio = "Your bio should be at least 20 words long.";
     } else if (wordCount > 50) {
-      newErrors.bio = "Your bio should not exceed 50 words.";
+      newErrors.bio = "Your bio should not exceed 20 words.";
     }
 
     setErrors(newErrors);
@@ -258,7 +258,7 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
             }}
           />
 
-          <p className="word-count">{wordCount}/50 words</p>
+          <p className="word-count">{wordCount}/20 words</p>
           {errors.bio && <p className="error-text">{errors.bio}</p>}
 
           <button type="button" className="continue-btn" onClick={handleSubmit}>

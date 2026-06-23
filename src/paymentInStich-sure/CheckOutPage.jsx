@@ -11,6 +11,7 @@ const CheckOutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
+  const [demmy, Reppy] = useState(null);
   // Before
 
   // After
@@ -92,6 +93,7 @@ const CheckOutPage = () => {
   };
   console.log("appy", Appy);
   console.log("orderId", Appy.data?.id);
+  console.log("demmy", demmy);
 
   const validateForm = () => {
     let tempErrors = {};
@@ -230,16 +232,16 @@ const CheckOutPage = () => {
       const response = await authApi.finalPay(payload);
       console.log("Payment response:", response);
 
+      Reppy(response);
+
       const checkoutUrl =
         response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
 
-      // if (checkoutUrl) {
-      //   window.location.href = checkoutUrl;
-      // } else {
-
-      // }
-
-      navigate("/user/checkoutpayment");
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      } else {
+        navigate("/user/checkoutpayment");
+      }
     } catch (error) {
       console.log("Payment error:", error);
     } finally {
