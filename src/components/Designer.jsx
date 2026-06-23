@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/Designer.css";
 import { IoLocationSharp } from "react-icons/io5";
 import { GoCheckCircleFill } from "react-icons/go";
+import { FaScissors } from "react-icons/fa6";
 
 import gown from "../assets/daniel/Lace Dressed.png";
 import Fine from "../assets/daniel/Fine lace.png";
@@ -112,9 +113,15 @@ const Designer = () => {
     return (
       <section className="designers-empty-state">
         <div className="designers-empty-content">
-          <GoCheckCircleFill className="designers-empty-icon" />
-          <h2>No verified designer yet</h2>
-          <p>Verified designers will appear here once they are available.</p>
+          <div className="designers-empty-icon">
+            <FaScissors />
+          </div>
+          <span className="designers-empty-label">Designer directory</span>
+          <h2>No verified designers yet</h2>
+          <p>
+            Verified designers will appear here as soon as their profiles are
+            approved.
+          </p>
         </div>
       </section>
     );

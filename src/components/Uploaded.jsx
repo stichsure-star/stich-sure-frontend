@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, {  useState } from "react";
 import "../styles/Upload.css";
 import { BsUpload } from "react-icons/bs";
 import { designerApi } from "../config/designer";
@@ -23,8 +23,29 @@ const Upload = () => {
     category: "",
     price: "",
     description: "",
-    id: "",
+    measurementFields:[],
+
+    // is this id important now for what we want to achive here ??
+    // id: "",
   });
+
+  const handleMeasurementToggle = (field) => {
+  setForm((prev) => {
+    const updatedMeasurements =
+      prev.measurementFields.includes(field)
+        ? prev.measurementFields.filter(
+            (item) => item !== field
+          )
+        : [...prev.measurementFields, field];
+
+    console.log("Selected Measurements:", updatedMeasurements);
+
+    return {
+      ...prev,
+      measurementFields: updatedMeasurements,
+    };
+  });
+};
 
   const [errors, setErrors] = useState({});
 
@@ -83,12 +104,17 @@ const Upload = () => {
       newErrors.description = "Description is required";
     }
 
-    setErrors(newErrors);
+    if (form.measurementFields.length === 0) {
+       newErrors.measurementFields =
+       "Select at least one required measurement";
+      }
 
+    setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handlePublish = async () => {
+    console.log("FORM", form);
     if (!validate()) return;
     setLoading(true);
 
@@ -105,10 +131,28 @@ const Upload = () => {
 
       formData.append("description", form.description);
 
+      // just added this 
+      formData.append(
+         "measurementFields",
+         JSON.stringify(form.measurementFields)
+       );
+
+       for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
       formData.append("designImage", imageFile);
       formData.append("designerId", designerId);
 
+      // added the form data append here because it is clearly evident that we are going to be using measurements fields 
+      // coming from request details .
+
+     
       const res = await designerApi.uploadDesign(formData);
+      console.log(
+       "Measurement Fields:",
+       form.measurementFields
+     );
 
       dispatch(
         updateUser({
@@ -127,6 +171,24 @@ const Upload = () => {
     }
     setLoading(false);
   };
+
+// added the measurement options 
+  const measurementOptions = [
+  "Chest",
+  "Shoulder",
+  "Sleeve Length",
+  "Top Length",
+  "Neck",
+  "Bust",
+  "Waist",
+  "Hip",
+  "Thigh",
+  "Knee",
+  "Length",
+  "Wrist",
+];
+
+
 
   return (
     <div className="Design_page">
@@ -246,11 +308,34 @@ const Upload = () => {
           </div>
         </div>
 
+
         {/* MEASUREMENTS */}
 
-        
+<div className="Input_box">
+  <label>Required Measurements</label>
 
-        <button
+  <div className="measurement-grid">
+    {measurementOptions.map((field) => (
+      <label key={field} className="measurement-option">
+        <input
+          type="checkbox"
+          checked={form.measurementFields.includes(field)}
+          onChange={() => handleMeasurementToggle(field)}
+        />
+
+        {field}
+      </label>
+    ))}
+  </div>
+
+  
+  {errors.measurementFields && (
+    <small className="error-text">
+      {errors.measurementFields}
+    </small>
+  )}
+</div>
+      <button
           onClick={handlePublish}
           className="Publish"
           style={{ cursor: "pointer" }}

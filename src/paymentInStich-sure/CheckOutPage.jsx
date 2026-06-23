@@ -10,17 +10,12 @@ const CheckOutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
-<<<<<<< HEAD
-  const [orderId, setOrder] = useState("");
-  
-=======
   // Before
 
   // After
   const [orderId, setOrder] = useState(null);
   const user = useSelector((state) => state.auth.user);
   console.log("user", user);
->>>>>>> 38a003bbb2767b4988de17aa0229e4d043ad554d
 
   let finalState = location.state;
   console.log("finalState", finalState);
@@ -85,14 +80,8 @@ const CheckOutPage = () => {
       const response = await authApi.profileOrder(payload);
       console.log("Order response:", response);
       setAppy(response.data);
-<<<<<<< HEAD
-      const createdOrderId = response.data.data?.id || response.data.id;
-      setOrder(createdOrderId || "");
-      return createdOrderId;
-=======
       console.log("Full response:", JSON.stringify(response.data));
       setOrder(response.data.data?.id || response.data.id);
->>>>>>> 38a003bbb2767b4988de17aa0229e4d043ad554d
     } catch (error) {
       console.log("Order error:", error);
       return "";
@@ -224,11 +213,7 @@ const CheckOutPage = () => {
 
     setLoading(true);
     const payload = {
-<<<<<<< HEAD
-      orderId: currentOrderId,
-=======
       orderId: orderId,
->>>>>>> 38a003bbb2767b4988de17aa0229e4d043ad554d
       deliveryAddress: getFullAddress(),
       email: user?.email,
       phone: formData.phoneNumber.trim(), // ← was "phoneNumber", now "phone"

@@ -133,6 +133,29 @@
   resize: vertical;
 }
 
+
+.measurement-grid {
+  max-height: 180px;
+  overflow-y: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+
+
+.measurement-option input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+
 .Publish {
   width: 100%;
   min-height: 48px;

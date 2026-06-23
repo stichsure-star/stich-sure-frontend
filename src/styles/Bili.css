@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-.Acheckout-screen {
-=======
 .Check_screen {
   width: 100%;
   min-height: 100vh;
@@ -21,7 +18,6 @@
 }
 
 .Check_page {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   width: 100%;
   height: 100vh;   /* Add this */
   background: var(--color-backgruond);
@@ -41,15 +37,6 @@
     min-height: 80vh;
 
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-  /* align-items: start; */
-  gap: 18px;
-  /* background: #ffffff; */
-}
-
-.A-left {
-=======
   grid-template-columns: 1fr 1fr; /* Changes fixed pixels to flexible halves */
   align-items: start;
   gap: 24px;
@@ -60,29 +47,17 @@
 }
 
 .Check_left {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   display: flex;
   flex-direction: column;
   gap: 14px;
   width: 100%;
 }
 
-<<<<<<< HEAD
-.Ainfo-card {
-=======
 .Check_info-card {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   width: 100%;
   border: 1px solid var(--color-border);
   border-radius: 11px;
-<<<<<<< HEAD
-  min-height: 260px;
-  padding: 24px;
-
-  /* padding: 14px 12px; */
-=======
   padding: 16px;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -90,35 +65,12 @@
   /* box-sizing: border-box; */
 }
 
-<<<<<<< HEAD
-.Ainfo-card h4 {
-=======
 .Check_info-card h4 {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   margin: 0;
   font-size: 12px;
   font-weight: 600;
 }
 
-<<<<<<< HEAD
-.Ainfo-card input {
-  width: 100%;
-  height: 24px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 0 12px;
-  outline: none;
-  font-size: 8px;
-  background: var(--color-white);
-  box-sizing: border-box;
-}
-
-.Ainfo-card input::placeholder {
-  color: #8a8585;
-}
-
-.Alocation-row {
-=======
 .Check_info-card input {
   width: 100%;
   height: 36px;
@@ -137,7 +89,6 @@
 }
 
 .Check_location-row {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -164,21 +115,6 @@
   line-height: 1.4;
 }
 
-<<<<<<< HEAD
-
-
-
-.Aorder-card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: 5px;
-  padding: 18px 28px 47px 28px;
-  display: flex;
-  flex-direction: column;
-}
-
-.Aproduct-row {
-=======
 .Check_order-card {
   width: 100%;
   min-height: 363px;
@@ -191,66 +127,40 @@
 }
 
 .Check_product-row {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   display: grid;
   grid-template-columns: 50px 1fr auto;
   gap: 12px;
   align-items: center;
 }
 
-<<<<<<< HEAD
-.Aproduct-row img {
-  width: 38px;
-  height: 37px;
-=======
 .Check_product-row img {
   width: 48px;
   height: 48px;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   object-fit: cover;
   border-radius: 6px;
 }
 
-<<<<<<< HEAD
-.Aproduct-row h3 {
-=======
 .Check_product-row h3 {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   margin: 0;
   font-size: 14px;
   line-height: 1.2;
   font-weight: 600;
 }
 
-<<<<<<< HEAD
-.price {
-  margin: 17px 29px 0 0;
-  color: var(--color-wine);
-  font-size: 8px;
-=======
 .Check_price {
   margin: 0;
   color: #ff0000;
   font-size: 13px;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   font-weight: 700;
   white-space: nowrap;
 }
 
-<<<<<<< HEAD
-.Asummary {
-=======
 .Check_summary {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   margin-top: 40px;
   width: 100%;
 }
 
-<<<<<<< HEAD
-.Asummary-row {
-=======
 .Check_summary-row {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -258,44 +168,17 @@
   margin-bottom: 16px;
 }
 
-<<<<<<< HEAD
-.Asummary-label {
-  font-size: 8px;
-=======
 .Check_summary-label {
   font-size: 12px;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   font-weight: 600;
 }
 
-<<<<<<< HEAD
-.Asummary-value {
-  font-size: 8px;
-=======
 .Check_summary-value {
   font-size: 12px;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   font-weight: 700;
   white-space: nowrap;
 }
 
-<<<<<<< HEAD
-.Asummary-placeholder {
-  color: #8a8585;
-  font-style: italic;
-}
-
-.Atotal-row {
-  margin-bottom: 0;
-}
-
-.Atotal-row .summary-label {
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.Atotal-value {
-=======
 .Check_total-row {
   margin-top: 8px;
   padding-top: 16px;
@@ -309,7 +192,6 @@
 }
 
 .Check_total-value {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
@@ -318,102 +200,32 @@
   white-space: nowrap;
 }
 
-<<<<<<< HEAD
-.Atotal-value small {
-=======
 .Check_total-value small {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   color: #8a8585;
   font-size: 10px;
   font-weight: 400;
 }
 
-<<<<<<< HEAD
-.complete-order {
-=======
 .Check_order-card button {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   width: 100%;
   height: 44px;
   margin-top: 40px;
   border: none;
-<<<<<<< HEAD
-  border-radius: 5px;
-  background: var(--color-wine);
-  color: white;
-  cursor: pointer;
-  font-family: "El Messiri", sans-serif;
-  font-size: 8px;
-=======
   border-radius: 6px;
   background: #850018;
   color: white;
   cursor: pointer;
   font-family: inherit;
   font-size: 13px;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
   font-weight: 600;
   transition: background 0.2s ease;
 }
 
-<<<<<<< HEAD
-.complete-order:hover {
-  background: #550214;
-=======
 .Check_order-card button:hover {
   background: #6f0014;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
 }
 
 @media (max-width: 768px) {
-<<<<<<< HEAD
-  .A-main {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .A-page {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .A-left {
-    width: 100%;
-  }
-
-  .Ainfo-card {
-    width: 100%;
-    min-height: auto;
-  }
-
-  .Asummary {
-    width: 200px;
-  }
-}
-
-
-@media (max-width: 480px) {
-  .A-main {
-    width: 100%;
-    padding: 12px;
-  }
-
-  .A-page {
-    gap: 16px;
-  }
-
-  .Ainfo-card {
-    padding: 12px;
-  }
-
-  .Ainfo-card input {
-    height: 38px;
-    font-size: 12px;
-  }
-
-  .Alocation-row {
-=======
   .Check_main {
     padding: 16px;
   }
@@ -430,22 +242,12 @@
    ========================= */
 @media (max-width: 480px) {
   .Check_location-row {
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
-<<<<<<< HEAD
-  .Ainfo-card {
-    padding: 16px;
-  }
-
-  .Atotal-row {
-    grid-template-columns: 40px 1fr;
-=======
   .Check_product-row {
     grid-template-columns: 48px 1fr;
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
     gap: 10px;
   }
 
@@ -453,35 +255,4 @@
     grid-column: 2;
     justify-self: start;
   }
-<<<<<<< HEAD
-
-  .Atotal-row h3 {
-    font-size: 12px;
-  }
-
-  .Asummary {
-    width: 100%;
-    margin-top: 30px;
-  }
-
-  .Asummary-row {
-    width: 100%;
-  }
-
-  .Asummary-label,
-  .Asummary-value {
-    font-size: 10px;
-  }
-
-  .Atotal-row .summary-label,
-  .Atotal-value {
-    font-size: 14px;
-  }
-
-  .Ainfo-card button {
-    height: 42px;
-    font-size: 12px;
-  }
-=======
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
 }
