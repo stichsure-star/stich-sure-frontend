@@ -134,13 +134,7 @@ const Dashboard = () => {
 
         <div className="order-list">
           {ordersLoading ? (
-<<<<<<< HEAD
             <SkeletonOrderList count={3} />
-=======
-            <p className="dashboard-orders-loading">
-              Loading data...
-            </p>
->>>>>>> 187e70300ecb254cd4c91d60560dcd7c39bebe87
           ) : activeOrders.length === 0 ? (
             <div className="designer-empty-orders-state">
               <div className="designer-empty-orders-icon">
