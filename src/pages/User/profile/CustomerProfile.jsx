@@ -89,8 +89,8 @@ const CustomerProfile = () => {
 
     if (!cleanPhone) {
       temp.phone = "Phone number is required";
-    } else if (!/^0\d{10}$/.test(cleanPhone)) {
-      temp.phone = "Enter valid Nigerian phone number";
+    } else if (!/^(\+234|234|0)\d{10}$/.test(cleanPhone)) {
+      temp.phone = "Enter a valid Nigerian phone number";
     }
 
     if (!form.address.trim()) {
@@ -249,10 +249,16 @@ const CustomerProfile = () => {
             <input
               name="phone"
               type="text"
-              maxLength={11}
               value={form.phone}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, "");
+                let value = e.target.value;
+
+                // Allow only digits and a single leading +
+                value = value.replace(/[^\d+]/g, "");
+
+                if (value.includes("+")) {
+                  value = "+" + value.replace(/\+/g, "").replace(/^\+/, "");
+                }
 
                 setForm((prev) => ({
                   ...prev,
@@ -264,7 +270,7 @@ const CustomerProfile = () => {
                   phone: "",
                 }));
               }}
-              placeholder="08012345678"
+              placeholder="+2348080000000"
             />
 
             {errors.phone && <p className="error">{errors.phone}</p>}

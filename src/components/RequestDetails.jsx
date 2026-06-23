@@ -35,7 +35,6 @@ const RequestDetails = () => {
   const [errors, setErrors] = useState({});
 
   const measurementFields = [
-<<<<<<< HEAD
     "Chest",
     "Shoulder",
     "Sleeve Length",
@@ -44,24 +43,14 @@ const RequestDetails = () => {
     "Bust",
     "Hip",
   ];
-=======
-  "Chest",
-  "Shoulder",
-  "Sleeve Length",
-  "Top Length",
-  "Neck",
-  "Bust",
-  "Hip",
-];
->>>>>>> a2495b82c7a55b2c5281fb859a6a166522809757
 
   const [formData, setFormData] = useState({
     fullName: user?.lastName,
     deadLine: "",
     description: "",
+    measurement: "",
   });
 
-<<<<<<< HEAD
   const handleMeasurementChange = (e) => {
     const { name, value } = e.target;
 
@@ -73,20 +62,6 @@ const RequestDetails = () => {
       },
     }));
   };
-=======
-
-  const handleMeasurementChange = (e) => {
-  const { name, value } = e.target;
-
-  setFormData((prev) => ({
-    ...prev,
-    measurement: {
-      ...prev.measurement,
-      [name]: value,
-    },
-  }));
-};
->>>>>>> a2495b82c7a55b2c5281fb859a6a166522809757
 
   const getTomorrowDate = () => {
     const d = new Date();
@@ -117,7 +92,6 @@ const RequestDetails = () => {
       newErrors.deadLine = "Deadline is required";
     }
 
-<<<<<<< HEAD
     const hasEmptyField = Object.values(formData.measurement).some(
       (value) => value.trim() === "",
     );
@@ -125,15 +99,7 @@ const RequestDetails = () => {
     if (hasEmptyField) {
       newErrors.measurement = "All measurements are required";
     }
-=======
-   const hasEmptyField = Object.values(
-  formData.measurement
-).some((value) => value.trim() === "");
-
-if (hasEmptyField) {
-  newErrors.measurement = "All measurements are required";
-}
->>>>>>> a2495b82c7a55b2c5281fb859a6a166522809757
+    // console.log("Form Data: ", formData.measurement);
 
     if (!formData.description.trim()) {
       newErrors.description = "Description is required";
@@ -183,6 +149,8 @@ if (hasEmptyField) {
       console.log("PAYLOAD:", payload);
 
       const response = await customerApi.request(designerId, payload);
+      console.log("res", response);
+      console.log("Id", response.data.id);
 
       setCalled(response.data);
 
@@ -193,6 +161,7 @@ if (hasEmptyField) {
         },
       });
       console.log("object");
+      console.log("requestId", requestId);
     } catch (error) {
       console.log(error?.response?.data || error);
     } finally {
@@ -265,46 +234,30 @@ if (hasEmptyField) {
           </div>
 
           {/* Measurements */}
-<<<<<<< HEAD
           <div className="rd-form-group">
             <label>Input needed measurement from Designer</label>
 
             {measurementFields.map((field) => (
               <div key={field} className="measurement-row">
-                <label>{field}</label>
+                <div className="Blopp">
+                  <label className="Blop">{field}</label>
 
-                <input
-                  type="number"
-                  name={field}
-                  value={formData.measurement[field]}
-                  onChange={handleMeasurementChange}
-                  placeholder={`Enter ${field}`}
-                />
+                  <input
+                    type="number"
+                    name={field}
+                    value={formData.measurement[field]}
+                    onChange={handleMeasurementChange}
+                    placeholder={`Enter ${field}`}
+                    className="beep"
+                  />
+                </div>
               </div>
             ))}
-=======
-         <div className="rd-form-group">
-  <label>Input needed measurement from Designer</label>
->>>>>>> a2495b82c7a55b2c5281fb859a6a166522809757
 
-  {measurementFields.map((field) => (
-    <div key={field} className="measurement-row">
-      <label>{field}</label>
-
-      <input
-        type="number"
-        name={field}
-        value={formData.measurement[field]}
-        onChange={handleMeasurementChange}
-        placeholder={`Enter ${field}`}
-      />
-    </div>
-  ))}
-
-  {errors.measurement && (
-    <p className="error-text">{errors.measurement}</p>
-  )}
-</div>
+            {errors.measurement && (
+              <p className="error-text">{errors.measurement}</p>
+            )}
+          </div>
 
           {/* Description */}
           <div className="rd-form-group">

@@ -22,19 +22,6 @@ const DEFAULT_CATEGORY_NAMES = new Set(
   DEFAULT_CATEGORIES.map((category) => category.toLowerCase()),
 );
 
-const DEFAULT_CATEGORIES = [
-  "All",
-  "Traditional",
-  "Bridal",
-  "Corporate",
-  "Casual",
-  "Accessories",
-];
-
-const DEFAULT_CATEGORY_NAMES = new Set(
-  DEFAULT_CATEGORIES.map((category) => category.toLowerCase()),
-);
-
 const DesignersGrid = () => {
   const [designers, setDesigners] = useState([]);
   const [categories, setCategories] = useState(DEFAULT_CATEGORIES);

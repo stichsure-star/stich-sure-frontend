@@ -50,6 +50,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
 }
 
+.Blopp {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.Blop {
+  width: 20%;
+}
+
+.beep {
+  height: 90%;
+  background-color: white;
+  padding-left: 10px;
+  border: 1px solid #9e9e9e;
+}
+
 .rd-form-group label {
   font-size: 13px;
   font-weight: 600;
