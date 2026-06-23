@@ -171,12 +171,9 @@ const router = createBrowserRouter([
           { path: "published", element: <DesignPublished /> },
           { path: "ratings-popup", element: <AddedRatings /> },
           { path: "mvp", element: <MvpPage /> },
-<<<<<<< HEAD
           // { path: "checkout", element: <CheckoutPage /> },wrong
 
-=======
           // { path: "checkout", element: <CheckoutPage /> },
->>>>>>> 4ab529db544035235d8a706bab83a25dac2098ea
         ],
       },
     ],
