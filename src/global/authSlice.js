@@ -26,6 +26,9 @@ const authSlice = createSlice({
         ...action.payload,
       };
     },
+    setPaymentData: (state, action) => {
+      state.paymentData = action.payload;
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -35,6 +38,6 @@ const authSlice = createSlice({
 });
 
 // 2. Fixed spelling here too
-export const { setCredentials, setRole, updateUser, logout } =
+export const { setCredentials, setRole, updateUser, logout, setPaymentData } =
   authSlice.actions;
 export default authSlice.reducer;

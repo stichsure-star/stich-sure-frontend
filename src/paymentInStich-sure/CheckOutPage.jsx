@@ -3,14 +3,16 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/Bili.css";
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SkeletonCheckout } from "../components/reuasbleComponents/Skeleton";
+import { setPaymentData } from "../global/authSlice";
 
 const CheckOutPage = () => {
   const { id } = useParams();
   const location = useLocation();
   const [Appy, setAppy] = useState({});
   const [demmy, Reppy] = useState(null);
+  const dispatch = useDispatch();
   // Before
 
   // After
@@ -221,7 +223,7 @@ const CheckOutPage = () => {
       orderId: orderId,
       deliveryAddress: getFullAddress(),
       email: user?.email,
-      phone: formData.phoneNumber.trim(), // ← was "phoneNumber", now "phone"
+      phone: formData.phoneNumber.trim(),
       name: `${user?.firstName} ${user?.lastName}`.trim(), // ← was missing entirely
       address: getFullAddress(), // ← backend also wants "address"
     };
@@ -232,7 +234,7 @@ const CheckOutPage = () => {
       const response = await authApi.finalPay(payload);
       console.log("Payment response:", response);
 
-      Reppy(response);
+      dispatch(setPaymentData(res.data));
 
       const checkoutUrl =
         response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
@@ -240,7 +242,7 @@ const CheckOutPage = () => {
       if (checkoutUrl) {
         window.location.href = checkoutUrl;
       } else {
-        navigate("/user/checkoutpayment");
+        navigate("checkoutpayment");
       }
     } catch (error) {
       console.log("Payment error:", error);

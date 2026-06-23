@@ -6,7 +6,7 @@ import {
 } from "react-icons/hi2";
 import "../styles/RequestDetails.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import RequestSent from "../popups/RequestSent";
+import RequestSent from "../paymentInStich-sure/popups/RequestSent";
 import { customerApi } from "../config/customer";
 import { useSelector } from "react-redux";
 
@@ -34,19 +34,33 @@ const RequestDetails = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const measurementFields = [
+    "Chest",
+    "Shoulder",
+    "Sleeve Length",
+    "Top Length",
+    "Neck",
+    "Bust",
+    "Hip",
+  ];
+
   const [formData, setFormData] = useState({
     fullName: user?.lastName,
     deadLine: "",
-    measurement: `Chest:
-Shoulder:
-Sleeve Length:
-Top Length:
-Neck:
-Bust:
-Hip:
-`,
     description: "",
   });
+
+  const handleMeasurementChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      measurement: {
+        ...prev.measurement,
+        [name]: value,
+      },
+    }));
+  };
 
   const getTomorrowDate = () => {
     const d = new Date();
@@ -77,15 +91,12 @@ Hip:
       newErrors.deadLine = "Deadline is required";
     }
 
-    const measurementText = formData.measurement
-      .replace(
-        /Chest:|Shoulder:|Sleeve Length:|Top Length:|Neck:|Bust:|Hip:/gi,
-        "",
-      )
-      .trim();
+    const hasEmptyField = Object.values(formData.measurement).some(
+      (value) => value.trim() === "",
+    );
 
-    if (!measurementText) {
-      newErrors.measurement = "Please enter your measurements";
+    if (hasEmptyField) {
+      newErrors.measurement = "All measurements are required";
     }
 
     if (!formData.description.trim()) {
@@ -219,16 +230,21 @@ Hip:
 
           {/* Measurements */}
           <div className="rd-form-group">
-            <label htmlFor="measurements">
-              Input needed measurement from Designer
-            </label>
-            <textarea
-              id="measurement"
-              name="measurement"
-              rows="6"
-              value={formData.measurement}
-              onChange={handleChange}
-            />
+            <label>Input needed measurement from Designer</label>
+
+            {measurementFields.map((field) => (
+              <div key={field} className="measurement-row">
+                <label>{field}</label>
+
+                <input
+                  type="number"
+                  name={field}
+                  value={formData.measurement[field]}
+                  onChange={handleMeasurementChange}
+                  placeholder={`Enter ${field}`}
+                />
+              </div>
+            ))}
 
             {errors.measurement && (
               <p className="error-text">{errors.measurement}</p>

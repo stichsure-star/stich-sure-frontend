@@ -180,8 +180,8 @@ export default function DashboardOverview() {
       <section className="promo-banner">
         <h2>Ready for your next outfit?</h2>
         <p>Browse verified designers or create a custom request.</p>
-        <NavLink to="/user/browsedesigners">
-          <button className="promo-btn">Browse Designers</button>
+        <NavLink to="/user/browsedesigns">
+          <button className="promo-btn">Browse Designs</button>
         </NavLink>
       </section>
 
