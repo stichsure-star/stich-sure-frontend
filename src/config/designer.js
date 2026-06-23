@@ -41,4 +41,6 @@ export const designerApi = {
     ApiClient.get(`/orders/designer/list/${id}`, {
       params: { status },
     }),
+  shipPy: (data) => ApiClient.post("/shipment/validate-address", data),
+  Valid: (data) => ApiClient.post("/shipment/shipment", data),
 };

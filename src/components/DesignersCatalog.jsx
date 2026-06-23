@@ -3,7 +3,7 @@ import "../styles/DesignersCatalog.css";
 import { FiSearch, FiSliders, FiHeart, FiShoppingBag } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { customerApi } from "../config/customer";
-import vid from "../assets/gbenga/Repeater-Animation.mp4";
+import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
 import { useNavigate } from "react-router-dom";
 
 const DesignersCatalog = () => {
@@ -87,10 +87,8 @@ const DesignersCatalog = () => {
 
   if (loading) {
     return (
-      <div className="loading">
-        <video autoPlay loop muted className="loadined">
-          <source src={vid} type="video/mp4" className="loadined" />
-        </video>
+      <div className="catalog-outer-container">
+        <SkeletonCardGrid count={8} />
       </div>
     );
   }

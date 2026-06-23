@@ -9,6 +9,7 @@ import Complete from "../assets/daniel/Container.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { customerApi } from "../config/customer";
+import { SkeletonDashboard } from "./reuasbleComponents/Skeleton";
 
 export default function DashboardOverview() {
   const activeOrders = [
@@ -57,6 +58,7 @@ export default function DashboardOverview() {
   const [product, setProduct] = useState([]);
   const user = useSelector((state) => state.auth.user);
   const [dabby, setDab] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const userId = user?.id;
   console.log("userId", userId);
@@ -106,16 +108,22 @@ export default function DashboardOverview() {
       setDab(response?.data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const loadDashboard = async () => {
+    setLoading(true);
+    try {
+      await Promise.all([fetchData(), threeDes(), handleSub()]);
     } finally {
+      setLoading(false);
     }
   };
   console.log("dabby", dabby.data);
   const Order = dabby.data;
 
   useEffect(() => {
-    fetchData();
-    threeDes();
-    handleSub();
+    loadDashboard();
   }, []);
 
   useEffect(() => {
@@ -142,6 +150,14 @@ export default function DashboardOverview() {
       icon: Complete,
     },
   ];
+
+  if (loading) {
+    return (
+      <div className="dashboard-content-wrapper">
+        <SkeletonDashboard />
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-content-wrapper">

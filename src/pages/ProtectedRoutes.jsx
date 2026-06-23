@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
+import { SkeletonPage } from "../components/reuasbleComponents/Skeleton";
 
 const ProtectedRoutes = ({ role }) => {
   const { token, user } = useSelector((state) => state.auth);
@@ -11,7 +12,7 @@ const ProtectedRoutes = ({ role }) => {
   }
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <SkeletonPage />;
   }
 
   if (role && user.role !== role) {

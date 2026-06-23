@@ -9,6 +9,7 @@ import { designerApi } from "../../../config/designer";
 import { useEffect, useState } from "react";
 import { setCredentials, updateUser } from "../../../global/authSlice";
 import { useDispatch } from "react-redux";
+import { SkeletonOrderList } from "../../../components/reuasbleComponents/Skeleton";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
@@ -133,9 +134,7 @@ const Dashboard = () => {
 
         <div className="order-list">
           {ordersLoading ? (
-            <p className="dashboard-orders-loading">
-              Loading data...
-            </p>
+            <SkeletonOrderList count={3} />
           ) : activeOrders.length === 0 ? (
             <div className="designer-empty-orders-state">
               <div className="designer-empty-orders-icon">

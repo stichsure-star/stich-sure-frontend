@@ -3,6 +3,7 @@ import "../css/ActiveOrder.css";
 import { useNavigate } from "react-router-dom";
 import { designerApi } from "../../../config/designer";
 import { useSelector } from "react-redux";
+import { SkeletonTableRows } from "../../../components/reuasbleComponents/Skeleton";
 
 const tabs = ["New", "Preparing", "Ready", "Completed"];
 
@@ -33,6 +34,8 @@ export default function Orders() {
       setLoading(false);
     }
   };
+
+  console.log("ordersData", ordersData);
 
   useEffect(() => {
     handleSubmit(active);
@@ -74,7 +77,7 @@ export default function Orders() {
       {/* TABLE BODY */}
       <div className="collab_tableBody">
         {loading ? (
-          <p style={{ padding: "20px" }}>Loading orders...</p>
+          <SkeletonTableRows rows={5} cols={5} />
         ) : ordersData.length === 0 ? (
           <p style={{ padding: "20px" }}>No orders found</p>
         ) : (

@@ -4,19 +4,24 @@ import { FaScissors } from "react-icons/fa6";
 import { IoCubeOutline, IoCalendarOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { designerApi } from "../../../config/designer";
+import { SkeletonOrderList } from "../../../components/reuasbleComponents/Skeleton";
 
 const CollabCard = () => {
   const [collaby, setCollaby] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // FETCH COLLABS
   const fetchCollabs = async () => {
     try {
+      setLoading(true);
       const response = await designerApi.acceptrecevied();
       console.log("fetch response:", response.data);
 
       setCollaby(response.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,7 +74,10 @@ const CollabCard = () => {
 
   return (
     <div className="collab_wrapper">
-      {collaby.map((item) => (
+      {loading ? (
+        <SkeletonOrderList count={3} />
+      ) : (
+        collaby.map((item) => (
         <div className="collab_card" key={item.id}>
           {/* TOP */}
           <div className="collab_top">
@@ -134,7 +142,8 @@ const CollabCard = () => {
             </button>
           </div>
         </div>
-      ))}
+      ))
+      )}
     </div>
   );
 };

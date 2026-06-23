@@ -7,6 +7,7 @@ import { designerApi } from "../../../config/designer";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
 import { useSelector } from "react-redux";
+import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 
 const BvpPage = () => {
   // const order = {
@@ -26,14 +27,18 @@ const BvpPage = () => {
   console.log("orderId");
 
   const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchDara = async () => {
     try {
+      setLoading(true);
       const response = await authApi.oneOrder(orderId);
       console.log("response", response.data.data);
       setOrder(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   console.log("order", order);
@@ -45,6 +50,16 @@ const BvpPage = () => {
     fetchDara();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="Bba_ordertracker-wrapper">
+        <div className="Bba_ordertracker-page-shell">
+          <SkeletonOrderTracker />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="Bba_ordertracker-wrapper">
       <div className="Bba_ordertracker-page-shell">
@@ -52,11 +67,11 @@ const BvpPage = () => {
           <div>
             <h2 className="Bba_ordertracker-title">{order?.data.itemName}</h2>
             <p className="Bba_ordertracker-customer">
-              for:{order?.data.customer.firstName}{" "}
-              {order?.data.customer.lastName}
+              for:{order?.data?.customer?.firstName}{" "}
+              {order?.data?.customer?.lastName}
             </p>
             <p className="Bba_ordertracker-id">
-              Order ID: {order?.data.orderNumber}
+              Order ID: {order?.data?.orderNumber}
             </p>
           </div>
 

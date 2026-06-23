@@ -7,17 +7,9 @@ import { designerApi } from "../../../config/designer";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
 import { useSelector } from "react-redux";
+import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 
 const MvpPage = () => {
-  // const order = {
-  //   item: "Bridal Gown",
-  //   customer: "Faith E.",
-  //   orderId: "ORD-101",
-  //   amount: "₦200,000",
-  //   dueDate: "June 10, 2026",
-  //   status: "15 days left",
-  // };
-
   const location = useLocation();
 
   const orderId = location.state?.orderId;
@@ -26,14 +18,18 @@ const MvpPage = () => {
   console.log("orderId");
 
   const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchDara = async () => {
     try {
+      setLoading(true);
       const response = await authApi.oneOrder(orderId);
       console.log("response", response.data.data);
       setOrder(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   console.log("order", order);
@@ -41,9 +37,83 @@ const MvpPage = () => {
   // Safely grab measurements from the API payload
   const measurements = order?.data?.design?.measurements;
 
+  const fetcUser = async () => {
+    const payload = {
+      name: `${order?.data?.customer?.firstName || ""} ${
+        order?.data?.customer?.lastName || ""
+      }`,
+      email: order?.data?.customer?.email || "",
+      address: order?.data?.customer?.address || "",
+      phone: order?.data?.customer?.phone || "",
+    };
+
+    try {
+      const res = await designerApi.shipPy(payload);
+
+      console.log("customer shipping", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetcDes = async () => {
+    const payloaded = {
+      name: `${order?.data?.designer?.firstName || ""} ${
+        order?.data?.designer?.lastName || ""
+      }`,
+
+      email: order?.data?.designer?.email || "",
+
+      address: order?.data?.designer?.address || "",
+
+      phone: order?.data?.designer?.phone || "",
+    };
+
+    try {
+      const res = await designerApi.shipPy(payloaded);
+
+      console.log("designer shipping", res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const shipPing = async () => {
+    const payloa = {
+      request_token:
+        "5dda272e28c9f93a577d035db04229252bedacc49a129c4a7c85d9084a631697",
+      courier_id: "test_1_courier",
+      service_code: "test_1_courier",
+      is_cod_label: false,
+    };
+    try {
+      const res = await designerApi.Valid(payloa);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchDara();
+    shipPing();
   }, []);
+
+  useEffect(() => {
+    if (order?.data) {
+      fetcUser();
+      fetcDes();
+    }
+  }, [order]);
+
+  if (loading) {
+    return (
+      <div className="bot_ordertracker-wrapper">
+        <div className="bot_ordertracker-page-shell">
+          <SkeletonOrderTracker />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bot_ordertracker-wrapper">
@@ -52,11 +122,11 @@ const MvpPage = () => {
           <div>
             <h2 className="bot_ordertracker-title">{order?.data.itemName}</h2>
             <p className="bot_ordertracker-customer">
-              for:{order?.data.customer.firstName}{" "}
-              {order?.data.customer.lastName}
+              for:{order?.data?.customer?.firstName}{" "}
+              {order?.data?.customer?.lastName}
             </p>
             <p className="bot_ordertracker-id">
-              Order ID: {order?.data.orderNumber}
+              Order ID: {order?.data?.orderNumber}
             </p>
           </div>
 
@@ -181,7 +251,11 @@ const MvpPage = () => {
           </section>
         </div>
 
-        <button className="bot_ordertracker-done-btn" type="button">
+        <button
+          className="bot_ordertracker-done-btn"
+          type="button"
+          onClick={shipPing}
+        >
           Done
         </button>
       </div>

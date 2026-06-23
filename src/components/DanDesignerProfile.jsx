@@ -15,6 +15,7 @@ import ankara from "../assets/daniel/AnkaraGown.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { designerApi } from "../config/designer";
+import { SkeletonProfile } from "../components/reuasbleComponents/Skeleton";
 
 function DanDesignerProfile() {
   const navigate = useNavigate();
@@ -50,14 +51,18 @@ function DanDesignerProfile() {
   const { id } = useParams();
   console.log(id);
   const [profile, setProf] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await designerApi.getOne(id);
       console.log("response", response.data.data);
       setProf(response.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   console.log("profile", profile);
@@ -65,6 +70,16 @@ function DanDesignerProfile() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="dp-page-container">
+        <main className="dp-main-content">
+          <SkeletonProfile />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="dp-page-container">
