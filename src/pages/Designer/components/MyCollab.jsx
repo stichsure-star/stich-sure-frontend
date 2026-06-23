@@ -4,14 +4,17 @@ import { FaLocationDot } from "react-icons/fa6";
 import "../css/MyCollab.css";
 import { useNavigate } from "react-router-dom";
 import { authApi } from "../../../config/auth";
+import { SkeletonCardGrid } from "../../../components/reuasbleComponents/Skeleton";
 
 const DesignersPage = () => {
   const navigate = useNavigate();
 
   const [collab, setCollab] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await authApi.allDesigners();
 
       console.log("all designers:", response.data.data);
@@ -23,6 +26,8 @@ const DesignersPage = () => {
       setCollab(verifiedOnly);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   console.log("collab", collab);
@@ -33,7 +38,10 @@ const DesignersPage = () => {
 
   return (
     <div className="list_container">
-      {collab.map((item) => (
+      {loading ? (
+        <SkeletonCardGrid count={4} />
+      ) : (
+        collab.map((item) => (
         <div className="card" key={item.id}>
           {/* TOP */}
           <div className="card_top">
@@ -121,7 +129,8 @@ const DesignersPage = () => {
             </button>
           </div>
         </div>
-      ))}
+      ))
+      )}
     </div>
   );
 };

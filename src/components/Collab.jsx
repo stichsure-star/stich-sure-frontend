@@ -7,20 +7,25 @@ import MyCollab from "../pages/Designer/components/MyCollab";
 import { useSelector } from "react-redux";
 import { GoPeople } from "react-icons/go";
 import { designerApi } from "../config/designer";
+import { Skeleton } from "./reuasbleComponents/Skeleton";
 
 const Collab = () => {
   const [activeTab, setActiveTab] = useState("find");
   const user = useSelector((state) => state.auth.user);
   console.log("user", user);
   const [collabpat, setCollabstats] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const collabStats = async () => {
     try {
+      setLoading(true);
       const response = await designerApi.collaborationstats();
       console.log("response", response);
       setCollabstats(response.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,22 +53,35 @@ const Collab = () => {
       {/* STATS */}
 
       <section className="Stats_container">
-        <div className="Stat_card">
-          <h3>{collabpat?.activeCollaborations}</h3>
-          <p>Active Collaborator</p>
-        </div>
-        <div className="Stat_card">
-          <h3>{collabpat?.trustedPartners}</h3>
-          <p>Trusted Partners</p>
-        </div>
-        <div className="Stat_card">
-          <h3>{collabpat?.tasksCompleted}</h3>
-          <p>Task Completed</p>
-        </div>
-        <div className="Stat_card">
-          <h3>{collabpat?.successRate}</h3>
-          <p>Success Rate</p>
-        </div>
+        {loading ? (
+          <>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="Stat_card">
+                <Skeleton height={28} style={{ width: 40, margin: "0 auto" }} />
+                <Skeleton height={12} style={{ width: "70%", margin: "8px auto 0" }} />
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            <div className="Stat_card">
+              <h3>{collabpat?.activeCollaborations}</h3>
+              <p>Active Collaborator</p>
+            </div>
+            <div className="Stat_card">
+              <h3>{collabpat?.trustedPartners}</h3>
+              <p>Trusted Partners</p>
+            </div>
+            <div className="Stat_card">
+              <h3>{collabpat?.tasksCompleted}</h3>
+              <p>Task Completed</p>
+            </div>
+            <div className="Stat_card">
+              <h3>{collabpat?.successRate}</h3>
+              <p>Success Rate</p>
+            </div>
+          </>
+        )}
       </section>
 
       {/* FILTER + SEARCH (FIXED LAYOUT) */}

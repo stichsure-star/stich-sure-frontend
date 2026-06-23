@@ -5,18 +5,23 @@ import { FaScissors } from "react-icons/fa6";
 import { IoCubeOutline, IoCalendarOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { designerApi } from "../../../config/designer";
+import { SkeletonOrderList } from "../../../components/reuasbleComponents/Skeleton";
 
 const FindCollab = () => {
   const [findcollab_filter, setFindcollab_filter] = useState("All");
   const [findcollab_data, setFindcollab_data] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await designerApi.mycollabs();
 
       setFindcollab_data(response.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,7 +80,10 @@ const FindCollab = () => {
 
       {/* CARDS */}
       <div className="findcollab_card_list">
-        {findcollab_data.map((item) => (
+        {loading ? (
+          <SkeletonOrderList count={4} />
+        ) : (
+          findcollab_filtered.map((item) => (
           <div className="findcollab_card" key={item.id}>
             {/* TOP */}
             <div className="findcollab_top">
@@ -148,7 +156,8 @@ const FindCollab = () => {
               </button>
             </div>
           </div>
-        ))}
+        ))
+        )}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import "../styles/Bili.css";
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 import { useSelector } from "react-redux";
+import { SkeletonCheckout } from "../components/reuasbleComponents/Skeleton";
 
 const CheckOutPage = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ const CheckOutPage = () => {
   console.log("finalState", finalState);
 
   const [loading, setLoading] = useState(false);
+  const [orderPreparing, setOrderPreparing] = useState(true);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const CheckOutPage = () => {
     state: "",
     country: "",
     email: user?.email,
-    phoneNumber: "", // Added phone number to form state
+    phoneNumber: user?.phone || "", // Added phone number to form state
   });
 
   if (!finalState) {
@@ -84,6 +86,8 @@ const CheckOutPage = () => {
       setOrder(response.data.data?.id || response.data.id);
     } catch (error) {
       console.log("Order error:", error);
+    } finally {
+      setOrderPreparing(false);
     }
   };
   console.log("appy", Appy);
@@ -229,11 +233,13 @@ const CheckOutPage = () => {
       const checkoutUrl =
         response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
 
-      if (checkoutUrl) {
-        window.location.href = checkoutUrl;
-      } else {
-        navigate("/user/checkoutpayment");
-      }
+      // if (checkoutUrl) {
+      //   window.location.href = checkoutUrl;
+      // } else {
+
+      // }
+
+      navigate("/user/checkoutpayment");
     } catch (error) {
       console.log("Payment error:", error);
     } finally {
@@ -247,6 +253,16 @@ const CheckOutPage = () => {
   }, []);
 
   console.log("CheckOutPage - Merged State (holding + response):", finalState);
+
+  if (orderPreparing) {
+    return (
+      <div className="Check_screen">
+        <main className="Check_main">
+          <SkeletonCheckout />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="Check_screen">

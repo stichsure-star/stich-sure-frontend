@@ -8,6 +8,7 @@ import "../styles/DesignersGrid.css";
 
 import { authApi } from "../config/auth";
 import { customerApi } from "../config/customer";
+import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
 
 const DesignersGrid = () => {
   const [designers, setDesigners] = useState([]);
@@ -264,7 +265,7 @@ const DesignersGrid = () => {
 
         {/* CARDS */}
         {loading ? (
-          <h4>Loading....</h4>
+          <SkeletonCardGrid count={6} />
         ) : (
           <div className="dg-cards-grid">
             {filteredDesigners.map((designer) => {

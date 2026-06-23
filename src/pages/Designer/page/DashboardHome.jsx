@@ -8,6 +8,7 @@ import { designerApi } from "../../../config/designer";
 import { useEffect, useState } from "react";
 import { setCredentials, updateUser } from "../../../global/authSlice";
 import { useDispatch } from "react-redux";
+import { SkeletonOrderList } from "../../../components/reuasbleComponents/Skeleton";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
@@ -132,9 +133,7 @@ const Dashboard = () => {
 
         <div className="order-list">
           {ordersLoading ? (
-            <p style={{ padding: "10px 0", fontSize: "13px", color: "#666" }}>
-              Loading data...
-            </p>
+            <SkeletonOrderList count={3} />
           ) : activeOrders.length === 0 ? (
             <p style={{ padding: "10px 0", fontSize: "13px", color: "#666" }}>
               No active orders found today.

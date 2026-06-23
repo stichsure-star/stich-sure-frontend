@@ -12,18 +12,23 @@ import mengreen from "../assets/daniel/Anothergreen.png";
 import cleanwear from "../assets/daniel/Containlace.png";
 import { NavLink } from "react-router-dom";
 import { customerApi } from "../config/customer";
+import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
 
 function SavedDesign() {
   const navigate = useNavigate();
   const [designers, setDesigners] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await customerApi.savedDesigner();
       console.log("response", response);
       setDesigners(response.data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   console.log("designers", designers);
@@ -35,6 +40,9 @@ function SavedDesign() {
   return (
     <div className="dg-page-wrapper">
       <main className="dg-main-content">
+        {loading ? (
+          <SkeletonCardGrid count={6} />
+        ) : (
         <div className="dg-cards-grid">
           {designers?.map((designer) => (
             <div key={designer.id} className="dg-designer-card">
@@ -88,6 +96,7 @@ function SavedDesign() {
             </div>
           ))}
         </div>
+        )}
       </main>
     </div>
   );
