@@ -63,15 +63,15 @@ import RatingAdebayor from "./components/RatingAdebayor";
 import DanDesignerProfile from "./components/DanDesignerProfile";
 import requiredetails from "../src/components/RequestDetails";
 import RequestDetails from "../src/components/RequestDetails";
-import WithdrawFunds from "../src/popups/WithdrawFunds";
-import WithdrawalSuccessful from "../src/popups/WithdrawalSuccessful";
-import Warning from "../src/popups/Warning";
-import SavedChanges from "../src/popups/SavedChanges";
-import RequestSent from "../src/popups/RequestSent";
-import ProposalSent from "../src/popups/ProposalSent";
-import ProductionIsDone from "../src/popups/ProductionIsDone";
-import DesignPublished from "../src/popups/DesignPublished";
-import AddedRatings from "../src/popups/AddedRatings ";
+import WithdrawFunds from "./paymentInStich-sure/popups/WithdrawFunds";
+import WithdrawalSuccessful from "./paymentInStich-sure/popups/WithdrawalSuccessful";
+import Warning from "./paymentInStich-sure/popups/Warning";
+import SavedChanges from "./paymentInStich-sure/popups/SavedChanges";
+import RequestSent from "./paymentInStich-sure/popups/RequestSent";
+import ProposalSent from "./paymentInStich-sure/popups/ProposalSent";
+import ProductionIsDone from "./paymentInStich-sure/popups/ProductionIsDone";
+import DesignPublished from "./paymentInStich-sure/popups/DesignPublished";
+import AddedRatings from "./paymentInStich-sure/popups/AddedRatings ";
 import PaymentSuccessful from "../src/pages/kyc/PaymentSuccessful";
 import Signup from "./pages/auth/customer/Signup";
 import CustomerSignup from "./pages/auth/customer/CustomerSignup";
@@ -88,6 +88,7 @@ import DesignerUploadedDesigners from "./pages/Designer/page/DesignerUploadedDes
 import CheckOutPage from "./paymentInStich-sure/CheckOutPage";
 import CheckOut2 from "./paymentInStich-sure/CheckOut2";
 import SecondTracker from "./components/SecondTracker";
+import Logout from "./paymentInStich-sure/popups/Logout";
 
 // active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
 // user stores tracker,
@@ -170,6 +171,8 @@ const router = createBrowserRouter([
           { path: "production", element: <ProductionIsDone /> },
           { path: "published", element: <DesignPublished /> },
           { path: "ratings-popup", element: <AddedRatings /> },
+          { path: "logout", element: <Logout /> },
+
           { path: "mvp", element: <MvpPage /> },
           // { path: "checkout", element: <CheckoutPage /> },wrong
 

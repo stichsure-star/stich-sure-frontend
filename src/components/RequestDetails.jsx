@@ -6,7 +6,7 @@ import {
 } from "react-icons/hi2";
 import "../styles/RequestDetails.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import RequestSent from "../popups/RequestSent";
+import RequestSent from "../paymentInStich-sure/popups/RequestSent";
 import { customerApi } from "../config/customer";
 import { useSelector } from "react-redux";
 

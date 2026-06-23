@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../css/SendCollaboration.css";
-import RequestSent from "../../../popups/RequestSent";
+import RequestSent from "../../../paymentInStich-sure/popups/RequestSent";
 import { useLocation, useNavigate } from "react-router-dom";
 import { designerApi } from "../../../config/designer";
 import Swal from "sweetalert2";

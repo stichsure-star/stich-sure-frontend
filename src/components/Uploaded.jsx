@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import "../styles/Upload.css";
 import { BsUpload } from "react-icons/bs";
 import { designerApi } from "../config/designer";
-import DesignPublished from "../popups/DesignPublished";
+import DesignPublished from "../paymentInStich-sure/popups/DesignPublished";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../global/authSlice";
