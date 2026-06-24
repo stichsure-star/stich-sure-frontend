@@ -17,6 +17,9 @@ const MvpPage = () => {
   console.log("orderId", orderId);
   console.log("orderId");
 
+  const paymentData = useSelector((state) => user.auth.paymentData);
+  console.log("paymentData", user);
+
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -80,11 +83,10 @@ const MvpPage = () => {
 
   const shipPing = async () => {
     const payloa = {
-      request_token:
-        "5dda272e28c9f93a577d035db04229252bedacc49a129c4a7c85d9084a631697",
-      courier_id: "test_1_courier",
-      service_code: "test_1_courier",
-      is_cod_label: false,
+      request_token: "",
+      courier_id: "",
+      service_code: "",
+      is_cod_label: "",
     };
     try {
       const res = await designerApi.Valid(payloa);

@@ -15,9 +15,7 @@ const CheckOutPage = () => {
   const [Appy, setAppy] = useState({});
   const [demmy, Reppy] = useState(null);
   const dispatch = useDispatch();
-  // Before
 
-  // After
   const [orderId, setOrder] = useState(null);
   const user = useSelector((state) => state.auth.user);
   console.log("user", user);
