@@ -12,12 +12,11 @@ const CheckoutPayment = () => {
   const paymentData = useSelector((state) => state.auth.paymentData);
 
   console.log("paymentData", paymentData);
-  console.log("user", user);
 
   const handleSubmit = async () => {
     const payload = {
-      transactionId: "",
-      reference: "",
+      transactionId: paymentData?.payment.id,
+      reference: paymentData?.payment.reference,
     };
     try {
       const res = await authApi.webHoo(payload);
@@ -44,7 +43,9 @@ const CheckoutPayment = () => {
         </p>
 
         <button
-          onClick={() => navigate("/user/dashboard")}
+          onClick={() => {
+            handleSubmit(navigate("/user/dashboard"));
+          }}
           className="payment-btn "
         >
           Go Back
