@@ -1,21 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LuSave } from "react-icons/lu";
 import { FiCamera } from "react-icons/fi";
 import { designerApi } from "../../../config/designer";
 import "../../../styles/designer-profile.css";
+import { updateUser } from "../../../global/authSlice";
+import { useDispatch, useSelector } from "react-redux"; // Added useSelector
 
 const DesignerProfile = () => {
+  const dispatch = useDispatch();
+
+  // 1. Get the current designer user from your global state
+  const user = useSelector((state) => state.auth.user);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     location: "",
     bio: "",
+    profilePhoto: "",
   });
 
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
+  const [loading, setLoading] = useState(false); // Double-click prevention
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
+  // 2. Pre-fill the form fields as soon as the user navigates here
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        location: user.location || "",
+        bio: user.bio || "",
+        profilePhoto: user.profilePhoto || "",
+      });
+      if (user.profilePhoto) {
+        setPreviewUrl(user.profilePhoto);
+      }
+    }
+  }, [user]);
 
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
@@ -42,6 +72,7 @@ const DesignerProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
 
     const payload = new FormData();
     payload.append("firstName", formData.firstName);
@@ -54,16 +85,38 @@ const DesignerProfile = () => {
     }
 
     try {
+      setLoading(true);
       const response = await designerApi.updateProfileSettings(payload);
+
       if (response.status === 200 || response.status === 201) {
         showToast("Profile updated successfully!", "success");
+
+        // 3. Safely extract updated profile fields from API response
+        const apiUserData =
+          response.data?.data || response.data?.user || response.data || {};
+
+        // 4. Update Redux immediately so the UI changes across the app
+        dispatch(
+          updateUser({
+            ...user,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            bio: formData.bio,
+            location: formData.location,
+            profilePhoto:
+              apiUserData.profilePhoto || previewUrl || user?.profilePhoto,
+          }),
+        );
       }
     } catch (error) {
       console.error("Profile update failed:", error);
       showToast(
         error.response?.data?.message || "Failed to update profile.",
-        "error"
+        "error",
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,7 +139,11 @@ const DesignerProfile = () => {
               className="designer-photo-bg"
               style={
                 previewUrl
-                  ? { backgroundImage: `url(${previewUrl})`, backgroundSize: "cover", backgroundPosition: "center" }
+                  ? {
+                      backgroundImage: `url(${previewUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }
                   : {}
               }
             ></div>
@@ -152,16 +209,16 @@ const DesignerProfile = () => {
 
           <label className="profile-field">
             <span>Bio</span>
-            <textarea
-              name="bio"
-              value={formData.bio}
-              onChange={handleChange}
-            />
+            <textarea name="bio" value={formData.bio} onChange={handleChange} />
           </label>
 
-          <button type="submit" className="save-profile-button">
+          <button
+            type="submit"
+            className="save-profile-button"
+            disabled={loading}
+          >
             <LuSave />
-            <span>Save Changes</span>
+            <span>{loading ? "Saving..." : "Save Changes"}</span>
           </button>
         </form>
       </section>

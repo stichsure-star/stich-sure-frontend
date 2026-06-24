@@ -6,7 +6,8 @@ import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 import { useDispatch, useSelector } from "react-redux";
 import { SkeletonCheckout } from "../components/reuasbleComponents/Skeleton";
-import { setPaymentData } from "../global/authSlice";
+import { setPaymentData, updateUser } from "../global/authSlice";
+import { customerApi } from "../config/customer";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
@@ -33,9 +34,19 @@ const CheckOutPage = () => {
     city: "",
     state: "",
     country: "",
-    email: user?.email,
-    phone: user?.phone || "", // Added phone number to form state
+    email: user?.email || "",
+    phone: user?.phone || "",
   });
+
+  useEffect(() => {
+    if (!user) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      email: prev.email || user.email || "",
+      phone: prev.phone || user.phone || "",
+    }));
+  }, [user]);
 
   if (!finalState) {
     try {
@@ -71,28 +82,70 @@ const CheckOutPage = () => {
       formData.state || "Not provided"
     }, ${formData.country || "Not provided"}`;
 
-  const handleSubmit = async () => {
+  const getDeliveryAddress = () => getFullAddress().slice(0, 255);
+
+  const createOrder = async () => {
     const payload = {
       amount: finalState.amount,
       designId: finalState.designId,
       designerId: finalState.designerId,
       itemName: finalState.itemName,
       requestId: finalState.requestId,
-      address: getFullAddress(),
     };
-    console.log("payloaded", payload);
-    try {
-      const response = await authApi.profileOrder(payload);
-      console.log("Order response:", response);
-      setAppy(response.data);
-      console.log("Full response:", JSON.stringify(response.data));
-      setOrder(response.data.data?.id || response.data.id);
-    } catch (error) {
-      console.log("Order error:", error);
-    } finally {
-      setOrderPreparing(false);
-    }
+
+    const response = await authApi.profileOrder(payload);
+    setAppy(response.data);
+    const id = response.data.data?.id || response.data.id;
+    setOrder(id);
+    return id;
   };
+
+  // Payment reads phone/address from the Customer record in the DB, not the request body.
+  const syncCustomerProfile = async (phone) => {
+    const deliveryAddress = getDeliveryAddress();
+
+    const profileData = new FormData();
+    profileData.append("firstName", user?.firstName || "");
+    profileData.append("lastName", user?.lastName || "");
+    profileData.append("email", user?.email || formData.email || "");
+    profileData.append("phone", phone);
+    profileData.append("address", deliveryAddress);
+
+    await customerApi.updateprofile(user?.id, profileData);
+
+    const profileRes = await customerApi.getProfile(user?.id);
+    const profile = profileRes?.data?.data || {};
+    const savedPhone = profile.phone?.trim();
+    const savedAddress = profile.address?.trim();
+
+    if (!savedPhone) {
+      throw new Error(
+        "Your phone could not be saved to your profile. Please update your profile and try again.",
+      );
+    }
+
+    if (!savedAddress) {
+      throw new Error(
+        "Your address could not be saved to your profile. Please update your profile and try again.",
+      );
+    }
+
+    dispatch(
+      updateUser({
+        ...profile,
+        phone: savedPhone,
+        address: savedAddress,
+      }),
+    );
+
+    return { phone: savedPhone, address: savedAddress };
+  };
+
+  const buildPaymentPayload = (currentOrderId, email, deliveryAddress) => ({
+    orderId: currentOrderId,
+    email,
+    deliveryAddress,
+  });
   console.log("appy", Appy);
   console.log("orderId", Appy.data?.id);
   console.log("demmy", demmy);
@@ -100,13 +153,15 @@ const CheckOutPage = () => {
   const validateForm = () => {
     let tempErrors = {};
 
-    if (!formData.email.trim()) {
+    const email = (formData.email || user?.email || "").trim();
+
+    if (!email) {
       tempErrors.email = "Email address is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
       tempErrors.email = "Please enter a valid email address.";
     }
 
-    const cleanPhone = formData.phone.replace(/\s/g, "");
+    const cleanPhone = (formData.phone || "").replace(/\s/g, "");
 
     if (!cleanPhone) {
       tempErrors.phone = "Phone number is required.";
@@ -134,6 +189,16 @@ const CheckOutPage = () => {
 
     return Object.keys(tempErrors).length === 0;
   };
+
+  // const popy = async ()=>{
+  //   try {
+
+  //   const response = await customerApi.()
+
+  //   } catch (error) {
+
+  //   }
+  // }
 
   const verifyAddress = async () => {
     const fullAddress = getFullAddress();
@@ -210,69 +275,69 @@ const CheckOutPage = () => {
   const finalPayment = async () => {
     if (!validateForm()) return;
 
-    if (!orderId) {
-      alert("Order is still being prepared. Please wait a moment.");
-      return;
-    }
-
     const addressValid = await verifyAddress();
-
     if (!addressValid) return;
 
     setLoading(true);
 
-    const payload = {
-      orderId,
-      deliveryAddress: getFullAddress(),
-      email: user?.email,
-      phoneNumber: formData.phone.trim(), // FIXED: Changed key from 'phone' to 'phoneNumber'
-      name: `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
-      address: getFullAddress(),
-    };
-
-    console.log("Final payload:", payload);
+    const phone = (formData.phone || "").trim();
+    const email = (formData.email || user?.email || "").trim();
+    const deliveryAddress = getDeliveryAddress();
 
     try {
+      await syncCustomerProfile(phone);
+      const currentOrderId = await createOrder();
+      const payload = buildPaymentPayload(
+        currentOrderId,
+        email,
+        deliveryAddress,
+      );
+
+      console.log("Payment initialize payload:", payload);
+
       const response = await authApi.finalPay(payload);
-
       console.log("FULL PAYMENT RESPONSE:", response);
-      console.log("FULL PAYMENT DATA:", response.data);
 
-      // Save payment response in redux
-      const dispatch = dispatch(setPaymentData(response.data));
-      console.log("dispatch", dispatch);
+      dispatch(setPaymentData(response.data));
 
-      // Handle different response shapes
-      const checkoutUrl =
-        response?.data?.checkoutUrl ||
-        response?.data?.data?.checkoutUrl ||
-        response?.data?.payment?.checkoutUrl;
+      // const checkoutUrl =
+      //   response?.data?.checkoutUrl ||
+      //   response?.data?.data?.checkoutUrl ||
+      //   response?.data?.payment?.checkoutUrl;
 
-      console.log("CHECKOUT URL:", checkoutUrl);
+      // if (checkoutUrl) {
+      //   window.location.assign(checkoutUrl);
+      //   return;
+      // }
 
-      if (checkoutUrl) {
-        // redirect to Korapay
-        window.location.assign(checkoutUrl);
-        return;
-      }
-
-      console.error("checkoutUrl not found in response");
+      navigate("/checkoutpayment");
 
       alert("Unable to start payment. Checkout URL missing.");
     } catch (error) {
-      console.log("Payment error:", error);
-      console.log("Payment error response:", error?.response?.data);
+      console.log(
+        "Payment error response:",
+        error?.response?.data || error.message,
+      );
+      const apiError = error?.response?.data;
 
-      alert(error?.response?.data?.message || "Failed to initialize payment");
+      alert(
+        apiError?.action ||
+          apiError?.message ||
+          error.message ||
+          "Failed to initialize payment.",
+      );
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    handleSubmit();
-    console.log("CheckOutPage mounted with finalState:", finalState);
-  }, []);
+    if (location.state) {
+      sessionStorage.setItem("checkoutState", JSON.stringify(location.state));
+    }
+
+    setOrderPreparing(false);
+  }, [location.state]);
 
   console.log("CheckOutPage - Merged State (holding + response):", finalState);
 
@@ -472,8 +537,15 @@ const CheckOutPage = () => {
               </div>
             </div>
 
-            <button onClick={finalPayment} disabled={loading}>
-              {loading ? "Completing Orders ..." : "Complete Order"}
+            <button
+              onClick={finalPayment}
+              disabled={loading || orderPreparing}
+              style={{
+                cursor: loading || orderPreparing ? "not-allowed" : "pointer",
+                opacity: loading || orderPreparing ? 0.6 : 1,
+              }}
+            >
+              {loading ? "Completing Order..." : "Complete Order"}
             </button>
           </div>
         </div>

@@ -8,21 +8,19 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // 1. Phone number rule: Block letters immediately during typing (allows only numbers and formatting characters like +)
+    // FIX: Removed the trailing space from "phoneNumber"
     if (name === "phoneNumber") {
       const cleanValue = value.replace(/[^0-9+\s-]/g, "");
       setDesignerInfo((prev) => ({ ...prev, [name]: cleanValue }));
       return;
     }
 
-    // 2. State and Country rule: Block numbers immediately during typing
     if (name === "state" || name === "country") {
       const cleanValue = value.replace(/[0-9]/g, "");
       setDesignerInfo((prev) => ({ ...prev, [name]: cleanValue }));
       return;
     }
 
-    // Default handler for other fields
     setDesignerInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -38,11 +36,11 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
     if (!designerInfo.currentHouseAddress?.trim())
       newErrors.currentHouseAddress = "Address required";
 
-    // 3. Strict verification: Ensure phone number does not contain alphabets
+    // 3. Strict verification: Ensure phoneNumber  number does not contain alphabets
     if (!designerInfo.phoneNumber?.trim()) {
-      newErrors.phoneNumber = "Phone required";
+      newErrors.phoneNumber = "phoneNumber  required";
     } else if (/[a-zA-Z]/.test(designerInfo.phoneNumber)) {
-      newErrors.phoneNumber = "Phone number must not contain letters";
+      newErrors.phoneNumber = "phoneNumber  number must not contain letters";
     }
 
     // 4. Strict verification: Ensure state does not contain numbers
@@ -102,13 +100,14 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
             <p className="error-text">{errors.currentHouseAddress}</p>
           )}
 
-          <label>Phone Number</label>
+          <label>phoneNumber Number</label>
           <input
-            name="phoneNumber"
+            name="phoneNumber" // FIX: Changed from "phoneNumber " to "phoneNumber"
             type="tel"
             value={designerInfo?.phoneNumber || ""}
             onChange={handleChange}
           />
+
           {errors.phoneNumber && (
             <p className="error-text">{errors.phoneNumber}</p>
           )}

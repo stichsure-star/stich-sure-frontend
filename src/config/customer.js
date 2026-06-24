@@ -33,4 +33,5 @@ export const customerApi = {
     ApiClient.get(`/orders/customer/list/${id}`, {
       params: { status },
     }),
+  pUdate: (data) => ApiClient.put("/designer/update", data),
 };

@@ -78,28 +78,37 @@ const Login = () => {
       setLoading(true);
 
       const res = await authApi.login(role, formData);
-
       const user = res.data.data;
       const token = res.data.token;
+      const userRole = user.role;
 
-      const userRole = user.role; // ✅ define ONCE
-
-      // 1. save login user first
+      // 1. Save base authentication credentials first
       dispatch(setCredentials({ user, token }));
 
-      let fullUser = user;
+      let fullUser = { ...user };
 
-      // 2. ONLY fetch profile for designer
+      // 2. Fetch the correct deep profile depending on who is logging in
+      // Keep this exact segment in your Login's handleSubmit code:
       if (userRole === "designer") {
         try {
           const profile = await designerApi.getProfile(user.id);
-          fullUser = profile.data.data; // merge result
+          // Extracted target data cleanly
+          const profileData = profile.data?.data || profile.data || {};
+          fullUser = { ...fullUser, ...profileData };
         } catch (err) {
-          console.log("Profile fetch failed:", err);
+          console.log("Designer Profile fetch failed:", err);
+        }
+      } else if (userRole === "customer") {
+        try {
+          const prof = await customerApi.getProfile(user.id);
+          // Merge deep profile data safely
+          fullUser = { ...fullUser, ...prof.data.data };
+        } catch (error) {
+          console.log("Customer Profile fetch failed:", error);
         }
       }
 
-      // 3. update redux ONCE
+      // 3. Dispatch to update Redux EXACTLY ONCE with complete info
       dispatch(updateUser(fullUser));
 
       Swal.fire({
@@ -109,20 +118,7 @@ const Login = () => {
         showConfirmButton: false,
       });
 
-      let fullPer = user;
-
-      if (userRole === "customer") {
-        try {
-          const prof = await customerApi.getProfile(user.id);
-          fullPer = prof.data.data;
-        } catch (error) {
-          console.log("prof", error);
-        }
-      }
-
-      dispatch(updateUser(fullPer));
-
-      // 4. navigation
+      // 4. Clean and predictable navigation routes
       if (userRole === "designer") {
         navigate("/designer/dashboard");
       } else {
@@ -150,10 +146,7 @@ const Login = () => {
         });
 
         try {
-          // resend otp
-          await authApi.resendOtp(role, {
-            email,
-          });
+          await authApi.resendOtp(role, { email });
 
           navigate("/verification", {
             state: {
@@ -162,7 +155,6 @@ const Login = () => {
               flow: "verify-email",
             },
           });
-
           return;
         } catch (otpError) {
           Swal.fire({
@@ -172,13 +164,11 @@ const Login = () => {
               otpError.response?.data?.message ||
               "Could not send verification code",
           });
-
           return;
         }
       }
 
       setServerError(message);
-
       Swal.fire({
         icon: "error",
         title: "Login Failed",
