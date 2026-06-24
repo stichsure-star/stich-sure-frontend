@@ -379,7 +379,6 @@ const CheckOutPage = () => {
                 name="phone"
                 placeholder="07056491653"
                 value={user?.phoneNumber}
-                readOnly
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
 
@@ -436,7 +435,6 @@ const CheckOutPage = () => {
                 placeholder="Nigeria"
                 value={formData.country}
                 onChange={handleChange}
-                readOnly
                 style={errors.country ? { borderColor: "#ff0000" } : {}}
               />
               {errors.country && (
@@ -458,7 +456,6 @@ const CheckOutPage = () => {
                     placeholder="Ajegunle"
                     value={formData.city}
                     onChange={handleChange}
-                    readOnly
                     style={errors.city ? { borderColor: "#ff0000" } : {}}
                   />
                   {errors.city && (
@@ -481,7 +478,6 @@ const CheckOutPage = () => {
                     placeholder="Lagos"
                     value={formData.state}
                     onChange={handleChange}
-                    readOnly
                     style={errors.state ? { borderColor: "#ff0000" } : {}}
                   />
                   {errors.state && (
