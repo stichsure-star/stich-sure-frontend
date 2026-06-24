@@ -180,6 +180,12 @@
   .overlay {
     display: none;
   }
+
+  .Notify {
+    width: 24px;
+    height: 24px;
+    display: flex;
+  }
 }
 
 @media (max-width: 768px) {
