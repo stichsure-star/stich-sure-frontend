@@ -300,17 +300,15 @@ const CheckOutPage = () => {
 
       dispatch(setPaymentData(response.data));
 
-      // const checkoutUrl =
-      //   response?.data?.checkoutUrl ||
-      //   response?.data?.data?.checkoutUrl ||
-      //   response?.data?.payment?.checkoutUrl;
+      const checkoutUrl =
+        response?.data?.checkoutUrl ||
+        response?.data?.data?.checkoutUrl ||
+        response?.data?.payment?.checkoutUrl;
 
-      // if (checkoutUrl) {
-      //   window.location.assign(checkoutUrl);
-      //   return;
-      // }
-
-      navigate("/checkoutpayment");
+      if (checkoutUrl) {
+        window.location.assign(checkoutUrl);
+        return;
+      }
 
       alert("Unable to start payment. Checkout URL missing.");
     } catch (error) {
@@ -380,7 +378,8 @@ const CheckOutPage = () => {
               <input
                 name="phone"
                 placeholder="07056491653"
-                value={formData.phone}
+                value={user?.phoneNumber}
+                readOnly
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
 
@@ -437,6 +436,7 @@ const CheckOutPage = () => {
                 placeholder="Nigeria"
                 value={formData.country}
                 onChange={handleChange}
+                readOnly
                 style={errors.country ? { borderColor: "#ff0000" } : {}}
               />
               {errors.country && (
@@ -458,6 +458,7 @@ const CheckOutPage = () => {
                     placeholder="Ajegunle"
                     value={formData.city}
                     onChange={handleChange}
+                    readOnly
                     style={errors.city ? { borderColor: "#ff0000" } : {}}
                   />
                   {errors.city && (
@@ -480,6 +481,7 @@ const CheckOutPage = () => {
                     placeholder="Lagos"
                     value={formData.state}
                     onChange={handleChange}
+                    readOnly
                     style={errors.state ? { borderColor: "#ff0000" } : {}}
                   />
                   {errors.state && (
