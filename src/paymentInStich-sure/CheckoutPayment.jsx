@@ -15,11 +15,10 @@ const CheckoutPayment = () => {
 
   const handleSubmit = async () => {
     const payload = {
-      transactionId: paymentData?.payment.id,
       reference: paymentData?.payment.reference,
     };
     try {
-      const res = await authApi.webHoo(payload);
+      const res = await authApi.webHooked(payload);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +43,7 @@ const CheckoutPayment = () => {
 
         <button
           onClick={() => {
-            handleSubmit(navigate("/user/dashboard"));
+            handleSubmit(navigate("/user/myorders"));
           }}
           className="payment-btn "
         >

@@ -37,7 +37,7 @@ const Dashboard = () => {
     try {
       if (!userId) return;
       setOrdersLoading(true);
-      const response = await designerApi.allAders(userId, "New");
+      const response = await designerApi.allAders(userId);
 
       // Grab only the top 3 records from the array
       const fullList = response.data?.data || [];
@@ -182,7 +182,7 @@ const Dashboard = () => {
                 </p>
 
                 <p>
-                  <b>Time placed:</b> {formatDashboardDate(order?.placedAt)}
+                  <b>Time placed:</b> {formatDashboardDate(order?.pickupDate)}
                 </p>
               </div>
             ))

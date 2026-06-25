@@ -5,46 +5,49 @@ import { designerApi } from "../../../config/designer";
 import { useSelector } from "react-redux";
 import { SkeletonTableRows } from "../../../components/reuasbleComponents/Skeleton";
 
-const tabs = ["New", "Preparing", "Ready", "Completed"];
+// Kept lowercase to match your API requirements perfectly
+const tabs = ["new", "preparing", "ready", "completed"];
 
 export default function Orders() {
-  const [active, setActive] = useState("New");
+  // FIX: Default state changed to lowercase "new" to match tabs array
+  const [active, setActive] = useState("new");
   const [ordersData, setOrdersData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const designerId = user?.id;
 
-  const userId = user?.id;
-
-  const handleSubmit = async (status) => {
+  const handleSubmit = async () => {
     try {
-      if (!userId) return;
+      if (!designerId) return;
 
       setLoading(true);
+      const response = await designerApi.allAders(designerId);
 
-      const response = await designerApi.allAders(userId, status);
+      console.log("Full Axios Response Structure:", response.data);
 
-      console.log("orders response", response.data);
-
-      setOrdersData(response.data?.data || []);
+      // FIX: Cleaned up the duplicate setOrdersData overrides
+      const fetchedData = response.data?.data || [];
+      setOrdersData(fetchedData);
     } catch (error) {
-      console.log(error);
+      console.error("API Fetch Error:", error);
+      setOrdersData([]); // Fail-safe fallback
     } finally {
       setLoading(false);
     }
   };
 
-  console.log("ordersData", ordersData);
-
   useEffect(() => {
     handleSubmit(active);
-  }, [active, userId]);
+  }, [active, designerId]);
 
   return (
     <div className="collab_container">
       {/* TITLE */}
-      <div className="collab_header">Active Order — {active}</div>
+      <div className="collab_header" style={{ textTransform: "capitalize" }}>
+        Active Order — {active}
+      </div>
 
       {/* SEARCH */}
       <div className="collab_search">
@@ -58,6 +61,7 @@ export default function Orders() {
             key={t}
             onClick={() => setActive(t)}
             className={`collab_tab ${active === t ? "active" : ""}`}
+            style={{ textTransform: "capitalize" }} // Keeps display beautiful while value stays lowercase
           >
             {t}
           </button>
@@ -74,12 +78,13 @@ export default function Orders() {
       </div>
 
       {/* TABLE BODY */}
-      {/* TABLE BODY */}
       <div className="collab_tableBody">
         {loading ? (
           <SkeletonTableRows rows={5} cols={5} />
         ) : ordersData.length === 0 ? (
-          <p style={{ padding: "20px" }}>No orders found</p>
+          <p style={{ padding: "20px", textAlign: "center" }}>
+            No orders found
+          </p>
         ) : (
           ordersData.map((o) => (
             <div
@@ -93,10 +98,17 @@ export default function Orders() {
                 })
               }
             >
-              <div>{o.orderNumber}</div>
-              <div>{o.placedAt}</div>
+              <div>{o.orderNumber || "—"}</div>
+              <div>
+                {o.placedAt
+                  ? new Date(o.placedAt).toLocaleDateString("en-NG", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : "—"}
+              </div>
 
-              {/* FIX: Access the name properties on the customer object safely */}
+              {/* Customer Safe Drill */}
               <div>
                 {o.customer
                   ? `${o.customer.firstName || ""} ${o.customer.lastName || ""}`.trim() ||
@@ -104,8 +116,8 @@ export default function Orders() {
                   : "Unknown"}
               </div>
 
-              <div>{o.itemName}</div>
-              <div>{o.amount}</div>
+              <div>{o.itemName || "Custom Item"}</div>
+              <div>₦{Number(o.amount).toLocaleString()}</div>
             </div>
           ))
         )}

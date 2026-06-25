@@ -17,8 +17,8 @@ const MvpPage = () => {
   console.log("orderId", orderId);
   console.log("orderId");
 
-  const paymentData = useSelector((state) => user.auth.paymentData);
-  console.log("paymentData", user);
+  // const user = useSelector((state) => user.auth.setPaymentData);
+  // console.log("paymentData", user);
 
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -95,6 +95,20 @@ const MvpPage = () => {
     }
   };
 
+  const formatDashboardDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    } catch (error) {
+      return dateString;
+    }
+  };
+
   useEffect(() => {
     fetchDara();
     shipPing();
@@ -137,7 +151,9 @@ const MvpPage = () => {
             <span className="bot_ordertracker-status-badge">
               {order?.data.status}
             </span>
-            <p className="bot_ordertracker-due">Due: {order?.data.placedAt}</p>
+            <p className="bot_ordertracker-due">
+              Due: {formatDashboardDate(order?.data.pickupDate)}
+            </p>
           </div>
         </div>
 
