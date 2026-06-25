@@ -13,11 +13,11 @@ const Try = () => {
 
   const navigate = useNavigate(); // Kept name consistent with your working Dashboard state pattern
 
-  const handleSub = async (status) => {
+  const handleSub = async () => {
     try {
       if (!userId) return;
 
-      const response = await customerApi.allAdlrs(userId, status);
+      const response = await customerApi.allAdlrs(userId);
       console.log("orders response", response.data);
       setDab(response?.data);
     } catch (error) {

@@ -14,11 +14,12 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
   const [wordCount, setWordCount] = useState(0);
 
   const [profileImage, setProfileImage] = useState(null);
-  const [selectedSpecs, setSelectedSpecs] = useState(["All"]);
+
+  // FIX 1: Initialized as empty array instead of ["All"] so it starts unselected
+  const [selectedSpecs, setSelectedSpecs] = useState([]);
   const [experience, setExperience] = useState("");
   const [bio, setBio] = useState("");
 
-  // New state to manage field error feedback
   const [errors, setErrors] = useState({});
 
   const specializationOptions = [
@@ -35,7 +36,6 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
     const file = e.target.files[0];
 
     if (file) {
-      // Clear image error if a valid file is selected
       if (file.type.startsWith("image/")) {
         setProfileImage(file);
         setErrors((prev) => ({ ...prev, profileImage: null }));
@@ -48,24 +48,22 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
     }
   };
 
+  // FIX 2: Simplified tag selection logic. Removes "All" condition completely.
   const handleSpecialization = (spec) => {
     let updated;
-    if (spec === "All") {
-      updated = ["All"];
+
+    if (selectedSpecs.includes(spec)) {
+      // Unselect if already clicked
+      updated = selectedSpecs.filter((item) => item !== spec);
     } else {
-      updated = selectedSpecs.filter((item) => item !== "All");
-      if (updated.includes(spec)) {
-        updated = updated.filter((item) => item !== spec);
-      } else {
-        updated.push(spec);
-      }
+      // Add specialization to array
+      updated = [...selectedSpecs, spec];
     }
 
-    const finalSpecs = updated.length ? updated : ["All"];
-    setSelectedSpecs(finalSpecs);
+    setSelectedSpecs(updated);
 
-    // Clear error if specialization valid
-    if (finalSpecs.length > 0) {
+    // Clear error dynamically if they select at least one item
+    if (updated.length > 0) {
       setErrors((prev) => ({ ...prev, specialization: null }));
     }
   };
@@ -78,6 +76,7 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
       newErrors.profileImage = "A profile photo is required.";
     }
 
+    // FIX 3: Enforces that at least 1 item is chosen from the array
     if (selectedSpecs.length === 0) {
       newErrors.specialization = "Please select at least one specialization.";
     }
@@ -93,16 +92,14 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
     } else if (wordCount < 20) {
       newErrors.bio = "Your bio should be at least 20 words long.";
     } else if (wordCount > 50) {
-      newErrors.bio = "Your bio should not exceed 20 words.";
+      newErrors.bio = "Your bio should not exceed 50 words."; // Fixed string error message here too (was 20)
     }
 
     setErrors(newErrors);
-    // If newErrors object has keys, validation failed
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async () => {
-    // Run validation checks before sending anything to the backend
     if (!validateForm()) {
       Swal.fire({
         icon: "error",
@@ -116,7 +113,6 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
     try {
       const payload = new FormData();
 
-      // previous wizard data
       Object.entries(designerInfo).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
           payload.append(key, value);
@@ -129,8 +125,6 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
       payload.append("yearsOfExperience", Number(experience));
 
       const res = await designerApi.setUpProfile(payload);
-      console.log("res", res.data);
-      console.log("wassup");
       dispatch(updateUser(res.data.data));
 
       onNext();
@@ -194,7 +188,6 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
             hidden
           />
         </div>
-        {/* Profile Image Error Message */}
         {errors.profileImage && (
           <p className="error-text text-center">{errors.profileImage}</p>
         )}
@@ -242,11 +235,8 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
             value={bio}
             onChange={(e) => {
               const text = e.target.value;
-
               setBio(text);
-
               const words = text.trim().split(/\s+/).filter(Boolean);
-
               setWordCount(words.length);
 
               if (text.trim()) {

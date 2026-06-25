@@ -10,15 +10,6 @@ import { useSelector } from "react-redux";
 import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 
 const BvpPage = () => {
-  // const order = {
-  //   item: "Bridal Gown",
-  //   customer: "Faith E.",
-  //   orderId: "ORD-101",
-  //   amount: "₦200,000",
-  //   dueDate: "June 10, 2026",
-  //   status: "15 days left",
-  // };
-
   const location = useLocation();
 
   const orderId = location.state?.orderId;
@@ -43,7 +34,6 @@ const BvpPage = () => {
   };
   console.log("order", order);
 
-  // Safely grab measurements from the API payload
   const measurements = order?.data?.design?.measurements;
 
   useEffect(() => {

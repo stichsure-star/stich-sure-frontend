@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Bili.css";
 import { authApi } from "../config/auth";
-import productImage from "../assets/gbenga/Gown.png";
 import { useDispatch, useSelector } from "react-redux";
 import { SkeletonCheckout } from "../components/reuasbleComponents/Skeleton";
 import { setPaymentData, updateUser } from "../global/authSlice";
@@ -26,31 +25,11 @@ const CheckOutPage = () => {
   const [orderPreparing, setOrderPreparing] = useState(true);
   const [errors, setErrors] = useState({});
 
-  // States for checkbox and save indication text
-  const [saveInfo, setSaveInfo] = useState(false);
-  const [saveStatus, setSaveStatus] = useState("");
-
-  // Streamlined to a single address string
   const [formData, setFormData] = useState({
     address: "",
     email: user?.email || "",
-    phone: user?.phone || "",
+    phone: user?.phone || user?.phoneNumber || "",
   });
-
-  // Load saved address on mount
-  useEffect(() => {
-    try {
-      const savedAddressInfo = JSON.parse(
-        localStorage.getItem("saved_checkout_address") || "null",
-      );
-      if (savedAddressInfo?.address) {
-        setFormData((prev) => ({ ...prev, address: savedAddressInfo.address }));
-        setSaveInfo(true);
-      }
-    } catch (e) {
-      console.error("Error reading from localStorage", e);
-    }
-  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -58,7 +37,7 @@ const CheckOutPage = () => {
     setFormData((prev) => ({
       ...prev,
       email: prev.email || user.email || "",
-      phone: prev.phone || user.phone || "",
+      phone: prev.phone || user.phone || user.phoneNumber || "",
     }));
   }, [user]);
 
@@ -74,6 +53,7 @@ const CheckOutPage = () => {
   const subtotal = Number(finalState.amount) || 5000000;
   const shipping = 840;
   const total = subtotal + shipping;
+
   const formatNaira = (value) =>
     `₦${new Intl.NumberFormat("en-NG", {
       maximumFractionDigits: 0,
@@ -89,32 +69,6 @@ const CheckOutPage = () => {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
-  };
-
-  // Handles the dynamic feedback indication when checking/unchecking
-  const handleSaveCheckboxChange = (e) => {
-    const isChecked = e.target.checked;
-    setSaveInfo(isChecked);
-
-    if (isChecked) {
-      if (formData.address.trim()) {
-        localStorage.setItem(
-          "saved_checkout_address",
-          JSON.stringify({ address: formData.address }),
-        );
-        setSaveStatus("✓ Saved to device");
-      } else {
-        setSaveStatus("Address is empty");
-      }
-    } else {
-      localStorage.removeItem("saved_checkout_address");
-      setSaveStatus("Cleared");
-    }
-
-    // Hide the indication tag after 2.5 seconds
-    setTimeout(() => {
-      setSaveStatus("");
-    }, 2500);
   };
 
   const getDeliveryAddress = () =>
@@ -139,9 +93,15 @@ const CheckOutPage = () => {
   const syncCustomerProfile = async (phone) => {
     const deliveryAddress = getDeliveryAddress();
 
+    // SANITIZATION FIX: Strips out numbers/special symbols and guarantees non-empty fallbacks
+    const cleanFirstName =
+      (user?.firstName || "John").replace(/[^a-zA-Z\s]/g, "").trim() || "John";
+    const cleanLastName =
+      (user?.lastName || "Doe").replace(/[^a-zA-Z\s]/g, "").trim() || "Doe";
+
     const profileData = new FormData();
-    profileData.append("firstName", user?.firstName || "");
-    profileData.append("lastName", user?.lastName || "");
+    profileData.append("firstName", cleanFirstName);
+    profileData.append("lastName", cleanLastName);
     profileData.append("email", user?.email || formData.email || "");
     profileData.append("phone", phone);
     profileData.append("address", deliveryAddress);
@@ -165,13 +125,21 @@ const CheckOutPage = () => {
       );
     }
 
-    dispatch(
-      updateUser({
-        ...profile,
-        phone: savedPhone,
-        address: savedAddress,
-      }),
-    );
+    const updatedUserData = {
+      ...profile,
+      phone: savedPhone,
+      address: savedAddress,
+    };
+
+    // 1. SAVE TO REDUX
+    dispatch(updateUser(updatedUserData));
+
+    // 2. SAVE TO LOCAL STORAGE (Double Backup)
+    try {
+      localStorage.setItem("user", JSON.stringify(updatedUserData));
+    } catch (e) {
+      console.error("Local storage backup failed:", e);
+    }
 
     return { phone: savedPhone, address: savedAddress };
   };
@@ -211,23 +179,7 @@ const CheckOutPage = () => {
   };
 
   const verifyAddress = async () => {
-    const fullAddress = formData.address;
-
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(
-          fullAddress,
-        )}`,
-        { headers: { "Accept-Language": "en" } },
-      );
-
-      const data = await response.json();
-      console.log("ADDRESS RESULTS:", data);
-      return true;
-    } catch (error) {
-      console.log("Address verification error:", error);
-      return true;
-    }
+    return true;
   };
 
   const finalPayment = async () => {
@@ -243,14 +195,6 @@ const CheckOutPage = () => {
     const deliveryAddress = getDeliveryAddress();
 
     try {
-      // Secondary fallback persistence catch during checkout submission
-      if (saveInfo && formData.address.trim()) {
-        localStorage.setItem(
-          "saved_checkout_address",
-          JSON.stringify({ address: formData.address }),
-        );
-      }
-
       await syncCustomerProfile(phone);
       const currentOrderId = await createOrder();
       const payload = buildPaymentPayload(
@@ -264,7 +208,17 @@ const CheckOutPage = () => {
       const response = await authApi.finalPay(payload);
       console.log("FULL PAYMENT RESPONSE:", response);
 
+      // 1. SAVE TO REDUX
       dispatch(setPaymentData(response.data));
+
+      // 2. SAVE TO LOCAL STORAGE (Double Backup)
+      try {
+        if (response?.data) {
+          localStorage.setItem("paymentData", JSON.stringify(response.data));
+        }
+      } catch (e) {
+        console.error("Local storage payment backup failed:", e);
+      }
 
       const checkoutUrl =
         response?.data?.checkoutUrl ||
@@ -312,9 +266,6 @@ const CheckOutPage = () => {
       </div>
     );
   }
-  const derivedFullName = user
-    ? `${user.firstName} ${user.lastName}`.trim()
-    : "Guest User";
 
   return (
     <div className="Check_screen">
@@ -324,9 +275,15 @@ const CheckOutPage = () => {
             <div className="Check_info-card">
               <h4>Personal Information</h4>
 
-              <input placeholder={derivedFullName} readOnly />
               <input
-                value={user?.email}
+                value={
+                  `${user?.firstName || ""} ${user?.lastName || ""}`.trim() ||
+                  "Customer Name"
+                }
+                readOnly
+              />
+              <input
+                value={user?.email || formData.email}
                 style={errors.email ? { borderColor: "#ff0000" } : {}}
                 readOnly
               />
@@ -342,10 +299,11 @@ const CheckOutPage = () => {
                 </span>
               )}
 
+              {/* FIXED VALUE BINDING: Changed from user?.phoneNumber to formData.phone */}
               <input
                 name="phone"
                 placeholder="07056491653"
-                value={user?.phoneNumber}
+                value={formData.phone}
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
 
@@ -398,34 +356,11 @@ const CheckOutPage = () => {
                 </span>
               )}
 
-              <div
-                className="Asave-info"
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <input
-                  type="checkbox"
-                  id="saveInfo"
-                  checked={saveInfo}
-                  onChange={handleSaveCheckboxChange}
-                />
-                <label htmlFor="saveInfo" style={{ cursor: "pointer" }}>
+              <div className="Asave-info">
+                <input type="checkbox" id="saveInfo" />
+                <label htmlFor="saveInfo">
                   Save this information for a faster next time
                 </label>
-                {saveStatus && (
-                  <span
-                    style={{
-                      color: saveStatus.includes("Saved")
-                        ? "#2e7d32"
-                        : "#757575",
-                      fontSize: "11px",
-                      fontWeight: "500",
-                      marginLeft: "8px",
-                      animation: "fadeIn 0.3s ease",
-                    }}
-                  >
-                    {saveStatus}
-                  </span>
-                )}
               </div>
             </div>
           </div>
