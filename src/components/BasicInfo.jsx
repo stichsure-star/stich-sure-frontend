@@ -8,16 +8,14 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // FIX: Removed the trailing space from "phoneNumber"
     if (name === "phoneNumber") {
-      const cleanValue = value.replace(/[^0-9+\s-]/g, "");
-      setDesignerInfo((prev) => ({ ...prev, [name]: cleanValue }));
-      return;
-    }
+      // 1. Strip out everything except pure numbers (0-9)
+      const pureDigits = value.replace(/[^0-9]/g, "");
 
-    if (name === "state" || name === "country") {
-      const cleanValue = value.replace(/[0-9]/g, "");
-      setDesignerInfo((prev) => ({ ...prev, [name]: cleanValue }));
+      // 2. Hard stop: do not allow typing past 11 digits
+      if (pureDigits.length > 11) return;
+
+      setDesignerInfo((prev) => ({ ...prev, [name]: pureDigits }));
       return;
     }
 
@@ -30,35 +28,22 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!designerInfo.businessName?.trim())
+    if (!designerInfo.businessName?.trim()) {
       newErrors.businessName = "Business name required";
+    }
 
-    if (!designerInfo.currentHouseAddress?.trim())
-      newErrors.currentHouseAddress = "Address required";
+    if (!designerInfo.address?.trim()) {
+      newErrors.address = "Full business address is required";
+    }
 
-    // 3. Strict verification: Ensure phoneNumber  number does not contain alphabets
+    // 3. Strict length check for exactly 11 digits
     if (!designerInfo.phoneNumber?.trim()) {
-      newErrors.phoneNumber = "phoneNumber  required";
-    } else if (/[a-zA-Z]/.test(designerInfo.phoneNumber)) {
-      newErrors.phoneNumber = "phoneNumber  number must not contain letters";
-    }
-
-    // 4. Strict verification: Ensure state does not contain numbers
-    if (!designerInfo.state?.trim()) {
-      newErrors.state = "State required";
-    } else if (/[0-9]/.test(designerInfo.state)) {
-      newErrors.state = "State must not contain numbers";
-    }
-
-    // 5. Strict verification: Ensure country does not contain numbers
-    if (!designerInfo.country?.trim()) {
-      newErrors.country = "Country required";
-    } else if (/[0-9]/.test(designerInfo.country)) {
-      newErrors.country = "Country must not contain numbers";
+      newErrors.phoneNumber = "Phone number required";
+    } else if (designerInfo.phoneNumber.length !== 11) {
+      newErrors.phoneNumber = "Phone number must be exactly 11 digits";
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
@@ -85,53 +70,33 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
             name="businessName"
             value={designerInfo?.businessName || ""}
             onChange={handleChange}
+            placeholder="e.g. Adebayo Styles"
           />
           {errors.businessName && (
             <p className="error-text">{errors.businessName}</p>
           )}
 
-          <label>Current Business Address</label>
+          <label>Business Address</label>
           <input
-            name="currentHouseAddress"
-            value={designerInfo?.currentHouseAddress || ""}
+            name="address"
+            value={designerInfo?.address || ""}
             onChange={handleChange}
+            placeholder="e.g. 71 ojora street, Ajegunle Apapa, Lagos, Nigeria"
           />
-          {errors.currentHouseAddress && (
-            <p className="error-text">{errors.currentHouseAddress}</p>
-          )}
+          {errors.address && <p className="error-text">{errors.address}</p>}
 
-          <label>phoneNumber Number</label>
+          <label>Phone Number</label>
           <input
-            name="phoneNumber" // FIX: Changed from "phoneNumber " to "phoneNumber"
+            name="phoneNumber"
             type="tel"
             value={designerInfo?.phoneNumber || ""}
             onChange={handleChange}
+            placeholder="e.g. 07056491653"
           />
-
           {errors.phoneNumber && (
             <p className="error-text">{errors.phoneNumber}</p>
           )}
-          <div className="Addie">
-            <article>
-              <label>State</label>
-              <input
-                name="state"
-                value={designerInfo?.state || ""}
-                onChange={handleChange}
-              />
-              {errors.state && <p className="error-text">{errors.state}</p>}
-            </article>
-            <article>
-              <label>Country</label>
-              <input
-                name="country"
-                value={designerInfo?.country || ""}
-                onChange={handleChange}
-              />
 
-              {errors.country && <p className="error-text">{errors.country}</p>}
-            </article>
-          </div>
           <button type="submit">Continue</button>
         </form>
       </div>
