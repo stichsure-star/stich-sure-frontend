@@ -15,7 +15,6 @@ const CheckoutPayment = () => {
 
   const handleSubmit = async () => {
     const payload = {
-      transactionId: paymentData?.payment.id,
       reference: paymentData?.payment.reference,
     };
     try {
@@ -44,7 +43,7 @@ const CheckoutPayment = () => {
 
         <button
           onClick={() => {
-            handleSubmit(navigate("/user/dashboard"));
+            handleSubmit(navigate("/user/myorders"));
           }}
           className="payment-btn "
         >
