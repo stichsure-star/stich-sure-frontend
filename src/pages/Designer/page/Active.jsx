@@ -5,8 +5,8 @@ import { designerApi } from "../../../config/designer";
 import { useSelector } from "react-redux";
 import { SkeletonTableRows } from "../../../components/reuasbleComponents/Skeleton";
 
-// Kept lowercase to match your API requirements perfectly
-const tabs = ["new", "preparing", "ready", "completed"];
+// // Kept lowercase to match your API requirements perfectly
+// const tabs = ["new", "preparing", "ready", "completed"];
 
 export default function Orders() {
   // FIX: Default state changed to lowercase "new" to match tabs array
@@ -18,14 +18,14 @@ export default function Orders() {
   const user = useSelector((state) => state.auth.user);
   const designerId = user?.id;
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (status) => {
     try {
       if (!designerId) return;
 
       setLoading(true);
-      const response = await designerApi.allAders(designerId);
+      const response = await designerApi.allAders(designerId, status);
 
-      console.log("Full Axios Response Structure:", response.data);
+      console.log("Full Axios Response Structure:", response);
 
       // FIX: Cleaned up the duplicate setOrdersData overrides
       const fetchedData = response.data?.data || [];
@@ -55,7 +55,7 @@ export default function Orders() {
       </div>
 
       {/* TABS */}
-      <div className="collab_tabs">
+      {/* <div className="collab_tabs">
         {tabs.map((t) => (
           <button
             key={t}
@@ -66,7 +66,7 @@ export default function Orders() {
             {t}
           </button>
         ))}
-      </div>
+      </div> */}
 
       {/* TABLE HEADER */}
       <div className="collab_tableHeader">
