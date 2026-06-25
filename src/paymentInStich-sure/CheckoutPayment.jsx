@@ -18,7 +18,7 @@ const CheckoutPayment = () => {
       reference: paymentData?.payment.reference,
     };
     try {
-      const res = await authApi.webHoo(payload);
+      const res = await authApi.webHooked(payload);
     } catch (error) {
       console.log(error);
     }

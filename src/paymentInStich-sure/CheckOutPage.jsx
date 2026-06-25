@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/Bili.css";
-// import "../styles/money-A.css"
 import { authApi } from "../config/auth";
 import productImage from "../assets/gbenga/Gown.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,14 +26,31 @@ const CheckOutPage = () => {
   const [orderPreparing, setOrderPreparing] = useState(true);
   const [errors, setErrors] = useState({});
 
+  // States for checkbox and save indication text
+  const [saveInfo, setSaveInfo] = useState(false);
+  const [saveStatus, setSaveStatus] = useState("");
+
+  // Streamlined to a single address string
   const [formData, setFormData] = useState({
     address: "",
-    city: "",
-    state: "",
-    country: "",
     email: user?.email || "",
     phone: user?.phone || "",
   });
+
+  // Load saved address on mount
+  useEffect(() => {
+    try {
+      const savedAddressInfo = JSON.parse(
+        localStorage.getItem("saved_checkout_address") || "null",
+      );
+      if (savedAddressInfo?.address) {
+        setFormData((prev) => ({ ...prev, address: savedAddressInfo.address }));
+        setSaveInfo(true);
+      }
+    } catch (e) {
+      console.error("Error reading from localStorage", e);
+    }
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -56,7 +72,7 @@ const CheckOutPage = () => {
   }
 
   const subtotal = Number(finalState.amount) || 5000000;
-  const shipping = 420;
+  const shipping = 840;
   const total = subtotal + shipping;
   const formatNaira = (value) =>
     `₦${new Intl.NumberFormat("en-NG", {
@@ -75,12 +91,34 @@ const CheckOutPage = () => {
     }
   };
 
-  const getFullAddress = () =>
-    `${formData.address || "Not provided"}, ${formData.city || "Not provided"}, ${
-      formData.state || "Not provided"
-    }, ${formData.country || "Not provided"}`;
+  // Handles the dynamic feedback indication when checking/unchecking
+  const handleSaveCheckboxChange = (e) => {
+    const isChecked = e.target.checked;
+    setSaveInfo(isChecked);
 
-  const getDeliveryAddress = () => getFullAddress().slice(0, 255);
+    if (isChecked) {
+      if (formData.address.trim()) {
+        localStorage.setItem(
+          "saved_checkout_address",
+          JSON.stringify({ address: formData.address }),
+        );
+        setSaveStatus("✓ Saved to device");
+      } else {
+        setSaveStatus("Address is empty");
+      }
+    } else {
+      localStorage.removeItem("saved_checkout_address");
+      setSaveStatus("Cleared");
+    }
+
+    // Hide the indication tag after 2.5 seconds
+    setTimeout(() => {
+      setSaveStatus("");
+    }, 2500);
+  };
+
+  const getDeliveryAddress = () =>
+    (formData.address || "Not provided").slice(0, 255);
 
   const createOrder = async () => {
     const payload = {
@@ -98,7 +136,6 @@ const CheckOutPage = () => {
     return id;
   };
 
-  // Payment reads phone/address from the Customer record in the DB, not the request body.
   const syncCustomerProfile = async (phone) => {
     const deliveryAddress = getDeliveryAddress();
 
@@ -144,15 +181,11 @@ const CheckOutPage = () => {
     email,
     deliveryAddress,
   });
-  console.log("appy", Appy);
-  console.log("orderId", Appy.data?.id);
-  console.log("demmy", demmy);
 
   const validateForm = () => {
     let tempErrors = {};
 
     const email = (formData.email || user?.email || "").trim();
-
     if (!email) {
       tempErrors.email = "Email address is required.";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -160,7 +193,6 @@ const CheckOutPage = () => {
     }
 
     const cleanPhone = (formData.phone || "").replace(/\s/g, "");
-
     if (!cleanPhone) {
       tempErrors.phone = "Phone number is required.";
     } else if (!/^0\d{10}$/.test(cleanPhone)) {
@@ -168,38 +200,18 @@ const CheckOutPage = () => {
     }
 
     if (!formData.address.trim()) {
-      tempErrors.address = "Delivery address is required.";
-    }
-
-    if (!formData.country.trim()) {
-      tempErrors.country = "Country is required.";
-    }
-
-    if (!formData.city.trim()) {
-      tempErrors.city = "City is required.";
-    }
-
-    if (!formData.state.trim()) {
-      tempErrors.state = "State is required.";
+      tempErrors.address = "Full delivery address is required.";
+    } else if (formData.address.trim().length < 10) {
+      tempErrors.address =
+        "Please enter a complete address layout (Street, City, State).";
     }
 
     setErrors(tempErrors);
-
     return Object.keys(tempErrors).length === 0;
   };
 
-  // const popy = async ()=>{
-  //   try {
-
-  //   const response = await customerApi.()
-
-  //   } catch (error) {
-
-  //   }
-  // }
-
   const verifyAddress = async () => {
-    const fullAddress = getFullAddress();
+    const fullAddress = formData.address;
 
     try {
       const response = await fetch(
@@ -211,65 +223,13 @@ const CheckOutPage = () => {
 
       const data = await response.json();
       console.log("ADDRESS RESULTS:", data);
-
-      // Nominatim has poor Nigerian coverage — don't block if no results
-      if (!data.length) return true;
-
-      const result = data[0];
-      const addr = result.address || {};
-
-      const foundCity = (
-        addr.city ||
-        addr.town ||
-        addr.village ||
-        addr.suburb || // ← covers areas like Ajegunle
-        addr.neighbourhood || // ← another fallback
-        ""
-      ).toLowerCase();
-
-      const foundState = (addr.state || "").toLowerCase();
-      const foundCountry = (addr.country || "").toLowerCase();
-
-      const userCity = formData.city.toLowerCase();
-      const userState = formData.state.toLowerCase();
-      const userCountry = formData.country.toLowerCase();
-
-      // Fix: check if the FOUND value includes the USER's input (not reversed)
-      if (foundCountry && !foundCountry.includes(userCountry)) {
-        setErrors((prev) => ({
-          ...prev,
-          address: `Country mismatch. Found: "${addr.country}"`,
-        }));
-        return false;
-      }
-
-      if (foundState && !foundState.includes(userState)) {
-        setErrors((prev) => ({
-          ...prev,
-          address: `State mismatch. Found: "${addr.state}"`,
-        }));
-        return false;
-      }
-
-      // City check is optional — skip if Nominatim can't resolve it
-      if (
-        foundCity &&
-        userCity &&
-        !foundCity.includes(userCity) &&
-        !userCity.includes(foundCity)
-      ) {
-        console.warn(
-          `City soft mismatch: found "${foundCity}", user entered "${userCity}" — allowing`,
-        );
-        // Don't block — Nigerian city names often differ from Nominatim labels
-      }
-
       return true;
     } catch (error) {
       console.log("Address verification error:", error);
-      return true; // Don't block payment if service fails
+      return true;
     }
   };
+
   const finalPayment = async () => {
     if (!validateForm()) return;
 
@@ -283,6 +243,14 @@ const CheckOutPage = () => {
     const deliveryAddress = getDeliveryAddress();
 
     try {
+      // Secondary fallback persistence catch during checkout submission
+      if (saveInfo && formData.address.trim()) {
+        localStorage.setItem(
+          "saved_checkout_address",
+          JSON.stringify({ address: formData.address }),
+        );
+      }
+
       await syncCustomerProfile(phone);
       const currentOrderId = await createOrder();
       const payload = buildPaymentPayload(
@@ -335,8 +303,6 @@ const CheckOutPage = () => {
     setOrderPreparing(false);
   }, [location.state]);
 
-  console.log("CheckOutPage - Merged State (holding + response):", finalState);
-
   if (orderPreparing) {
     return (
       <div className="Check_screen">
@@ -346,6 +312,9 @@ const CheckOutPage = () => {
       </div>
     );
   }
+  const derivedFullName = user
+    ? `${user.firstName} ${user.lastName}`.trim()
+    : "Guest User";
 
   return (
     <div className="Check_screen">
@@ -355,7 +324,7 @@ const CheckOutPage = () => {
             <div className="Check_info-card">
               <h4>Personal Information</h4>
 
-              <input placeholder={user?.lastName} readOnly />
+              <input placeholder={derivedFullName} readOnly />
               <input
                 value={user?.email}
                 style={errors.email ? { borderColor: "#ff0000" } : {}}
@@ -411,7 +380,7 @@ const CheckOutPage = () => {
 
               <input
                 name="address"
-                placeholder="60, Idowu Street"
+                placeholder="60, Idowu Street, Ajegunle, Lagos, Nigeria"
                 value={formData.address}
                 onChange={handleChange}
                 style={errors.address ? { borderColor: "#ff0000" } : {}}
@@ -422,82 +391,41 @@ const CheckOutPage = () => {
                     color: "#ff0000",
                     fontSize: "10px",
                     marginTop: "-10px",
+                    display: "block",
                   }}
                 >
                   {errors.address}
                 </span>
               )}
 
-              <input
-                name="country"
-                placeholder="Nigeria"
-                value={formData.country}
-                onChange={handleChange}
-                style={errors.country ? { borderColor: "#ff0000" } : {}}
-              />
-              {errors.country && (
-                <span
-                  style={{
-                    color: "#ff0000",
-                    fontSize: "10px",
-                    marginTop: "-10px",
-                  }}
-                >
-                  {errors.country}
-                </span>
-              )}
-
-              <div className="Check_location-row">
-                <div>
-                  <input
-                    name="city"
-                    placeholder="Ajegunle"
-                    value={formData.city}
-                    onChange={handleChange}
-                    style={errors.city ? { borderColor: "#ff0000" } : {}}
-                  />
-                  {errors.city && (
-                    <span
-                      style={{
-                        color: "#ff0000",
-                        fontSize: "10px",
-                        display: "block",
-                        marginTop: "4px",
-                      }}
-                    >
-                      {errors.city}
-                    </span>
-                  )}
-                </div>
-
-                <div>
-                  <input
-                    name="state"
-                    placeholder="Lagos"
-                    value={formData.state}
-                    onChange={handleChange}
-                    style={errors.state ? { borderColor: "#ff0000" } : {}}
-                  />
-                  {errors.state && (
-                    <span
-                      style={{
-                        color: "#ff0000",
-                        fontSize: "10px",
-                        display: "block",
-                        marginTop: "4px",
-                      }}
-                    >
-                      {errors.state}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="Asave-info">
-                <input type="checkbox" id="saveInfo" />
-
-                <label htmlFor="saveInfo">
-                  Save this information for a faster A next time
+              <div
+                className="Asave-info"
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                <input
+                  type="checkbox"
+                  id="saveInfo"
+                  checked={saveInfo}
+                  onChange={handleSaveCheckboxChange}
+                />
+                <label htmlFor="saveInfo" style={{ cursor: "pointer" }}>
+                  Save this information for a faster next time
                 </label>
+                {saveStatus && (
+                  <span
+                    style={{
+                      color: saveStatus.includes("Saved")
+                        ? "#2e7d32"
+                        : "#757575",
+                      fontSize: "11px",
+                      fontWeight: "500",
+                      marginLeft: "8px",
+                      animation: "fadeIn 0.3s ease",
+                    }}
+                  >
+                    {saveStatus}
+                  </span>
+                )}
               </div>
             </div>
           </div>

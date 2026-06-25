@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createBrowserRouter,
+  Outlet,
   Route,
   RouterProvider,
   Routes,
+  useLocation,
 } from "react-router-dom"; // Updated imports
 // Page & Component Imports
 import HomePage from "./pages/HomePage";
@@ -89,162 +91,180 @@ import CheckOutPage from "./paymentInStich-sure/CheckOutPage";
 import CheckOut2 from "./paymentInStich-sure/CheckOut2";
 import SecondTracker from "./components/SecondTracker";
 import Logout from "./paymentInStich-sure/popups/Logout";
+import ScrollToTop from "./components/ScrollText";
 
-// active order renders ordertrackerpage => which shows ordertracker component for designer/dashboard
-// user stores tracker,
+const RootLayout = () => {
+  const { pathname } = useLocation();
 
-// 1. Define your router layout and configuration
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return <Outlet />; // This renders the matched child routes
+};
 const router = createBrowserRouter([
   {
-    path: "*",
-    element: <NotFound />,
-  },
-
-  {
     path: "/",
-    element: <HomeLayout />,
+    element: <RootLayout />, // Injects scroll checking layout around all routes smoothly
     children: [
-      { index: true, element: <HomePage /> }, // Replaced 'index' prop with 'index: true'
-      { path: "designers", element: <Designerspage /> },
-      { path: "features", element: <Featurepage /> },
-      { path: "getstarted", element: <StartedPage /> },
-
-      { path: "profilepage", element: <ProfilePage /> },
-      { path: "orderdetails", element: <OrderDetails /> },
-      { path: "profilepage", element: <ProfilePage /> },
-      // { path: "orderdetails", element: <OrderDetails /> },
-
-      { path: "successfulpayment", element: <PaymentSuccessful /> },
-
-      // { path: "/checkoutpayment", element: <CheckoutPayment /> },
-      { path: "informationdesigner", element: <InformationDesigner /> },
-      { path: "designerverification", element: <DesignerVerification /> },
-      { path: "identitydesigner", element: <IdentityDesignerPage /> },
-      { path: "successfull", element: <SuccessfulDesignerPage /> },
       {
-        path: "designerVerified",
-        element: <DesignerIsVerifiedSuccessfullyPage />,
+        path: "*",
+        element: <NotFound />,
       },
 
-      { path: "successfulpayment", element: <PaymentSuccessful /> },
-
-      { path: "walletdesigner", element: <WalletDesigner /> },
-
-      ,
-    ],
-  },
-
-  {
-    path: "/designer",
-    element: <ProtectedRoutes role="designer" />,
-    children: [
       {
-        element: <DashboardLayout />,
+        path: "/",
+        element: <HomeLayout />,
         children: [
-          { path: "dashboard", element: <DashboardHome /> },
-          { path: "products", element: <Products /> },
-          { path: "orders", element: <Orders /> },
-          { path: "tracker", element: <Tracker /> },
-          { path: "upload", element: <Upload /> },
-          { path: "uploadedcatlog", element: <DesignersUploadCatlog /> },
+          { index: true, element: <HomePage /> }, // Replaced 'index' prop with 'index: true'
+          { path: "designers", element: <Designerspage /> },
+          { path: "features", element: <Featurepage /> },
+          { path: "getstarted", element: <StartedPage /> },
 
-          { path: "designersupload", element: <DesignerUploadedDesigners /> },
-          { path: "earning", element: <Earning /> },
-          { path: "collaboration", element: <CollaborationPage /> },
-          { path: "profileonMount", element: <DesignerDirectory /> },
-          { path: "designerpage", element: <Designerspage /> },
-          { path: "send-request", element: <CollaborationRequestPage /> },
+          { path: "profilepage", element: <ProfilePage /> },
+          { path: "orderdetails", element: <OrderDetails /> },
+          { path: "profilepage", element: <ProfilePage /> },
+          // { path: "orderdetails", element: <OrderDetails /> },
 
-          { path: "ratings", element: <Relaibiy /> },
-          { path: "templates", element: <Template /> },
-          { path: "setting", element: <Setting /> },
-          { path: "actived", element: <ActiveOrder /> },
-          { path: "order-tracking", element: <Ordertrackerpage /> },
+          { path: "successfulpayment", element: <PaymentSuccessful /> },
 
-          { path: "profile", element: <DesignerProfile /> },
-          { path: "payment", element: <DesignerPayment /> },
-          { path: "security", element: <DesignerSecurity /> },
-          { path: "withdraw", element: <WithdrawFunds /> },
-          { path: "withdraw-successful", element: <WithdrawalSuccessful /> },
-          { path: "warning", element: <Warning /> },
-          { path: "saved-changes", element: <SavedChanges /> },
-          { path: "request-sent", element: <RequestSent /> },
-          { path: "proposal", element: <ProposalSent /> },
-          { path: "production", element: <ProductionIsDone /> },
-          { path: "published", element: <DesignPublished /> },
-          { path: "ratings-popup", element: <AddedRatings /> },
-          { path: "logout", element: <Logout /> },
+          // { path: "/checkoutpayment", element: <CheckoutPayment /> },
+          { path: "informationdesigner", element: <InformationDesigner /> },
+          { path: "designerverification", element: <DesignerVerification /> },
+          { path: "identitydesigner", element: <IdentityDesignerPage /> },
+          { path: "successfull", element: <SuccessfulDesignerPage /> },
+          {
+            path: "designerVerified",
+            element: <DesignerIsVerifiedSuccessfullyPage />,
+          },
 
-          { path: "mvp", element: <MvpPage /> },
-          // { path: "checkout", element: <CheckoutPage /> },wrong
+          { path: "successfulpayment", element: <PaymentSuccessful /> },
 
-          // { path: "checkout", element: <CheckoutPage /> },
+          { path: "walletdesigner", element: <WalletDesigner /> },
+
+          ,
         ],
       },
-    ],
-  },
 
-  /* ==========================================================================
+      {
+        path: "/designer",
+        element: <ProtectedRoutes role="designer" />,
+        children: [
+          {
+            element: <DashboardLayout />,
+            children: [
+              { path: "dashboard", element: <DashboardHome /> },
+              { path: "products", element: <Products /> },
+              { path: "orders", element: <Orders /> },
+              { path: "tracker", element: <Tracker /> },
+              { path: "upload", element: <Upload /> },
+              { path: "uploadedcatlog", element: <DesignersUploadCatlog /> },
+
+              {
+                path: "designersupload",
+                element: <DesignerUploadedDesigners />,
+              },
+              { path: "earning", element: <Earning /> },
+              { path: "collaboration", element: <CollaborationPage /> },
+              { path: "profileonMount", element: <DesignerDirectory /> },
+              { path: "designerpage", element: <Designerspage /> },
+              { path: "send-request", element: <CollaborationRequestPage /> },
+
+              { path: "ratings", element: <Relaibiy /> },
+              { path: "templates", element: <Template /> },
+              { path: "setting", element: <Setting /> },
+              { path: "actived", element: <ActiveOrder /> },
+              { path: "order-tracking", element: <Ordertrackerpage /> },
+
+              { path: "profile", element: <DesignerProfile /> },
+              { path: "payment", element: <DesignerPayment /> },
+              { path: "security", element: <DesignerSecurity /> },
+              { path: "withdraw", element: <WithdrawFunds /> },
+              {
+                path: "withdraw-successful",
+                element: <WithdrawalSuccessful />,
+              },
+              { path: "warning", element: <Warning /> },
+              { path: "saved-changes", element: <SavedChanges /> },
+              { path: "request-sent", element: <RequestSent /> },
+              { path: "proposal", element: <ProposalSent /> },
+              { path: "production", element: <ProductionIsDone /> },
+              { path: "published", element: <DesignPublished /> },
+              { path: "ratings-popup", element: <AddedRatings /> },
+              { path: "logout", element: <Logout /> },
+
+              { path: "mvp", element: <MvpPage /> },
+              // { path: "checkout", element: <CheckoutPage /> },wrong
+
+              // { path: "checkout", element: <CheckoutPage /> },
+            ],
+          },
+        ],
+      },
+
+      /* ==========================================================================
      2. AUTH ROUTES (Separated to pass specific layout image classes)
      ========================================================================== */
-  {
-    element: <AuthLayout imageClassName="login_image_section" />,
-    children: [{ path: "/login", element: <Login /> }],
-  },
-  {
-    element: <AuthLayout imageClassName="signup_image_section" />,
-    children: [{ path: "/signup", element: <Signup /> }],
-  },
-  // Customer
-  {
-    element: <AuthLayout imageClassName="signup_image_section" />,
-    children: [{ path: "/customersignup", element: <CustomerSignup /> }],
-  },
-
-  {
-    element: <AuthLayout imageClassName="forgot_image_section" />,
-    children: [{ path: "/forgetpassword", element: <ForgetPassword /> }],
-  },
-  {
-    element: <AuthLayout imageClassName="setpassword_image_section" />,
-    children: [{ path: "/setpassword", element: <SetPassword /> }],
-  },
-  {
-    element: <AuthLayout imageClassName="forgot_image_section" />,
-    children: [{ path: "/verification", element: <Verification /> }],
-  },
-
-  <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
-
-  {
-    path: "/user",
-    element: <ProtectedRoutes role="customer" />,
-    children: [
       {
-        element: <UserLayout />,
+        element: <AuthLayout imageClassName="login_image_section" />,
+        children: [{ path: "/login", element: <Login /> }],
+      },
+      {
+        element: <AuthLayout imageClassName="signup_image_section" />,
+        children: [{ path: "/signup", element: <Signup /> }],
+      },
+      // Customer
+      {
+        element: <AuthLayout imageClassName="signup_image_section" />,
+        children: [{ path: "/customersignup", element: <CustomerSignup /> }],
+      },
+
+      {
+        element: <AuthLayout imageClassName="forgot_image_section" />,
+        children: [{ path: "/forgetpassword", element: <ForgetPassword /> }],
+      },
+      {
+        element: <AuthLayout imageClassName="setpassword_image_section" />,
+        children: [{ path: "/setpassword", element: <SetPassword /> }],
+      },
+      {
+        element: <AuthLayout imageClassName="forgot_image_section" />,
+        children: [{ path: "/verification", element: <Verification /> }],
+      },
+
+      <Route path="/auth/google/callback" element={<GoogleSuccess />} />,
+
+      {
+        path: "/user",
+        element: <ProtectedRoutes role="customer" />,
         children: [
-          { path: "dashboard", element: <UserDashboard /> },
-          { path: "myorders", element: <MyOrders /> },
-          { path: "browsedesigners", element: <BrowseDesigners /> },
-          { path: "browsedesigns", element: <BrowseDesign /> },
-          { path: "saveddesigners", element: <SavedDesigners /> },
-          { path: "designerscatalog", element: <DesignersCatalog /> },
-          { path: "designer-rating", element: <RateDesigner /> },
-          { path: "customer-profile", element: <CustomerProfile /> },
-          { path: "customer-security", element: <CustomerSecurity /> },
-          { path: `requiredetails/:id`, element: <RequestDetails /> },
+          {
+            element: <UserLayout />,
+            children: [
+              { path: "dashboard", element: <UserDashboard /> },
+              { path: "myorders", element: <MyOrders /> },
+              { path: "browsedesigners", element: <BrowseDesigners /> },
+              { path: "browsedesigns", element: <BrowseDesign /> },
+              { path: "saveddesigners", element: <SavedDesigners /> },
+              { path: "designerscatalog", element: <DesignersCatalog /> },
+              { path: "designer-rating", element: <RateDesigner /> },
+              { path: "customer-profile", element: <CustomerProfile /> },
+              { path: "customer-security", element: <CustomerSecurity /> },
+              { path: `requiredetails/:id`, element: <RequestDetails /> },
 
-          // { path: "rating-adebayor",   element: <RatingAdebayor /> },
-          { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
-          { path: "setting", element: <Settings /> },
-          { path: "checkout", element: <CheckOutPage /> },
-          { path: "checkout/:id", element: <CheckOutPage /> },
+              // { path: "rating-adebayor",   element: <RatingAdebayor /> },
+              { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
+              { path: "setting", element: <Settings /> },
+              { path: "checkout", element: <CheckOutPage /> },
+              { path: "checkout/:id", element: <CheckOutPage /> },
 
-          // i just added this one please check throgh @gbenga
-          { path: "checkout2", element: <CheckOut2 /> },
+              // i just added this one please check throgh @gbenga
+              { path: "checkout2", element: <CheckOut2 /> },
 
-          { path: "secondtracker", element: <SecondTracker /> },
-          { path: "checkoutpayment", element: <CheckoutPayment /> },
+              { path: "secondtracker", element: <SecondTracker /> },
+              { path: "checkoutpayment", element: <CheckoutPayment /> },
+            ],
+          },
         ],
       },
     ],

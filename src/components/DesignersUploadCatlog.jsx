@@ -4,6 +4,9 @@ import { FiSearch } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { designerApi } from "../config/designer";
+import Swal from "sweetalert2"; // IMPORT SWEETALERT
 
 const DesignersUploadCatlog = () => {
   const user = useSelector((state) => state.auth.user);
@@ -26,6 +29,14 @@ const DesignersUploadCatlog = () => {
     }
   }, [user]);
 
+  // const allDes = async ()=>{
+  //   try {
+  //     const respone
+  //   } catch (error) {
+
+  //   }
+  // }
+
   const filteredDesigns = cartd.filter((item) => {
     const matchesCategory =
       activeFilter === "All" ||
@@ -37,6 +48,50 @@ const DesignersUploadCatlog = () => {
 
     return matchesCategory && matchesSearch;
   });
+
+  // UPDATED: SweertAlert2 Implementation
+  const handleDelete = async (id, e) => {
+    e.stopPropagation(); // Prevents click bubbling to card wrappers
+
+    // SweetAlert Confirmation Modal
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this design deletion!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#7a0018", // Matching your catalog action color
+      cancelButtonColor: "#555555",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    // If user clicks "Yes, delete it!"
+    if (result.isConfirmed) {
+      try {
+        await designerApi.delTe(id);
+
+        // Instantly update UI state
+        setcartd((prevDesigns) => prevDesigns.filter((item) => item.id !== id));
+
+        // SweetAlert Success Modal
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your design has been removed from your catalog.",
+          icon: "success",
+          confirmButtonColor: "#7a0018",
+        });
+      } catch (error) {
+        console.error("Failed to delete design:", error);
+
+        // SweetAlert Error Modal
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong while trying to delete this design.",
+          icon: "error",
+          confirmButtonColor: "#7a0018",
+        });
+      }
+    }
+  };
 
   return (
     <div className="designer-upload-catalog catalog-outer-container">
@@ -70,7 +125,6 @@ const DesignersUploadCatlog = () => {
           <button
             key={cat}
             className={`category-pill-btn ${
-              // FIX: Ensure active button styling works regardless of string casing variations
               activeFilter.toLowerCase() === cat.toLowerCase()
                 ? "pill-active"
                 : ""
@@ -87,13 +141,20 @@ const DesignersUploadCatlog = () => {
         {filteredDesigns.map((designItem) => (
           <div key={designItem.id} className="product-showcase-card">
             <div className="card-media-wrapper">
+              {/* DELETE BUTTON FIXED TOP LEFT */}
+              <button
+                className="catalog-trash-action-btn"
+                onClick={(e) => handleDelete(designItem.id, e)}
+                title="Delete Design"
+              >
+                <FaRegTrashAlt size={16} />
+              </button>
               <img
                 src={designItem.designImage}
                 alt="design"
                 className="product-thumbnail-img"
               />
             </div>
-
             <div className="card-textual-details">
               <div className="details-left-metadata">
                 <h3 className="apparel-display-heading">

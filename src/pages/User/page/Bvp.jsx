@@ -59,6 +59,19 @@ const BvpPage = () => {
       </div>
     );
   }
+  const formatDashboardDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    } catch (error) {
+      return dateString;
+    }
+  };
 
   return (
     <div className="Bba_ordertracker-wrapper">
@@ -80,7 +93,9 @@ const BvpPage = () => {
             <span className="Bba_ordertracker-status-badge">
               {order?.data.status}
             </span>
-            <p className="Bba_ordertracker-due">Due: {order?.data.placedAt}</p>
+            <p className="Bba_ordertracker-due">
+              Due: {formatDashboardDate(order?.data.placedAt)}
+            </p>
           </div>
         </div>
 

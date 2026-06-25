@@ -32,8 +32,22 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
       newErrors.businessName = "Business name required";
     }
 
-    if (!designerInfo.address?.trim()) {
+    // ADDRESS SPECIFIC STRUCTURAL VALIDATION
+    const fullAddress = designerInfo.address?.trim() || "";
+    if (!fullAddress) {
       newErrors.address = "Full business address is required";
+    } else {
+      // Split by commas and filter out empty strings caused by extra commas
+      const addressParts = fullAddress
+        .split(",")
+        .map((part) => part.trim())
+        .filter(Boolean);
+
+      // Ensure there are at least 3 parts (Street, City/Area, State/Country) to maintain compatibility with logistics matching
+      if (addressParts.length < 3) {
+        newErrors.address =
+          "Please format as: Street, City/Area, State, Country";
+      }
     }
 
     // 3. Strict length check for exactly 11 digits
@@ -83,6 +97,10 @@ const BasicInfo = ({ onNext, onPrev, setDesignerInfo, designerInfo }) => {
             onChange={handleChange}
             placeholder="e.g. 71 ojora street, Ajegunle Apapa, Lagos, Nigeria"
           />
+          {/* Subtext instruction to visually reinforce formatting style */}
+          <small className="input-hint-text">
+            Format: Street Address, City/LGA, State, Country
+          </small>
           {errors.address && <p className="error-text">{errors.address}</p>}
 
           <label>Phone Number</label>

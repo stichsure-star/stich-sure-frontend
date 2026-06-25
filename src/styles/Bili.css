@@ -1,162 +1,165 @@
 .Check_screen {
   width: 100%;
   min-height: 100vh;
-  background: #cfc7c7;
+  background: #f4f4f6; /* Clean background slate instead of mud-gray */
   color: #070707;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   box-sizing: border-box;
 }
 
 .Check_main {
   width: 100%;
-  max-width: 1200px; /* Increased to allow proper desktop spreading */
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 16px 52px;
+  padding: 40px 24px 60px;
   box-sizing: border-box;
 }
 
 .Check_page {
   width: 100%;
-  height: 100vh;   /* Add this */
-  background: var(--color-backgruond);
-  color: #231f20;
-  /* box-sizing: border-box; */
-}
-
-.A-main {
-  width: 100%;
-  height: 100%;    /* Add this */
-  padding: 24px;
-  /* box-sizing: border-box; */
-}
-
-.A-page {
-  width: 100%;
-    min-height: 80vh;
-
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Changes fixed pixels to flexible halves */
+  grid-template-columns: 1.2fr 0.8fr; /* Balanced 2-column desk grid splitter */
+  gap: 32px;
   align-items: start;
-  gap: 24px;
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 12px;
-  box-sizing: border-box;
 }
 
 .Check_left {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
   width: 100%;
 }
 
 .Check_info-card {
   width: 100%;
-  border: 1px solid var(--color-border);
-  border-radius: 11px;
-  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  background: var(--color-white);
-  /* box-sizing: border-box; */
+  gap: 16px;
+  background: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .Check_info-card h4 {
-  margin: 0;
-  font-size: 12px;
+  margin: 0 0 4px 0;
+  font-size: 14px;
   font-weight: 600;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .Check_info-card input {
   width: 100%;
-  height: 36px;
-  border: 1px solid #231f20;
-  border-radius: 4px;
-  padding: 0 12px;
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 14px;
   outline: none;
   font-family: inherit;
-  font-size: 12px;
-  background: #fff9fb;
+  font-size: 13px;
+  background: #ffffff;
   box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.Check_info-card input:focus {
+  border-color: #850018;
+  box-shadow: 0 0 0 2px rgba(133, 0, 24, 0.1);
+}
+
+.Check_info-card input[readOnly] {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #64748b;
+  cursor: not-allowed;
 }
 
 .Check_info-card input::placeholder {
-  color: #8c8585;
+  color: #94a3b8;
 }
 
-.Check_location-row {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
 .Asave-info {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 4px;
 }
 
 .Asave-info input[type="checkbox"] {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   margin: 0;
   cursor: pointer;
+  accent-color: #850018;
 }
 
 .Asave-info label {
-  font-size: 8px;
-  color: var(--color-wine);
+  font-size: 12px;
+  color: #475569;
   cursor: pointer;
-  line-height: 1.4;
+  user-select: none;
+  font-weight: 500;
 }
 
 .Check_order-card {
   width: 100%;
-  min-height: 363px;
-  background: #ccc9c9;
-  border-radius: 11px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: sticky;
+  top: 40px; /* Locks right column in view on desktop scroll loops */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .Check_product-row {
   display: grid;
-  grid-template-columns: 50px 1fr auto;
-  gap: 12px;
+  grid-template-columns: 56px 1fr auto;
+  gap: 16px;
   align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .Check_product-row img {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
 }
 
 .Check_product-row h3 {
   margin: 0;
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.4;
   font-weight: 600;
+  color: #1a1a1a;
 }
 
 .Check_price {
   margin: 0;
-  color: #ff0000;
-  font-size: 13px;
-  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
   white-space: nowrap;
 }
 
 .Check_summary {
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
 }
 
@@ -164,95 +167,119 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 18px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .Check_summary-label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .Check_summary-value {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
   white-space: nowrap;
 }
 
 .Check_total-row {
-  margin-top: 8px;
+  margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+  border-top: 1px dashed #cbd5e1;
   margin-bottom: 0;
 }
 
 .Check_total-row .Check_summary-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
+  color: #1a1a1a;
 }
 
 .Check_total-value {
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
+  color: #850018;
   white-space: nowrap;
 }
 
 .Check_total-value small {
-  color: #8a8585;
-  font-size: 10px;
-  font-weight: 400;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 500;
+  margin-right: 2px;
 }
 
 .Check_order-card button {
   width: 100%;
-  height: 44px;
-  margin-top: 40px;
+  height: 46px;
+  margin-top: 24px;
   border: none;
   border-radius: 6px;
   background: #850018;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  transition: background 0.2s ease;
+  transition: background-color 0.15s ease;
 }
 
-.Check_order-card button:hover {
+.Check_order-card button:hover:not(:disabled) {
   background: #6f0014;
 }
 
-@media (max-width: 768px) {
-  .Check_main {
-    padding: 16px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
   }
-
-  .Check_page {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 16px;
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
 /* =========================
-   MOBILE (480px and below)
+     TABLET & MOBILE
    ========================= */
-@media (max-width: 480px) {
-  .Check_location-row {
+@media (max-width: 868px) {
+  .Check_main {
+    padding: 20px 16px;
+  }
+
+  .Check_page {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 24px;
+  }
+
+  .Check_order-card {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .Check_info-card {
+    padding: 16px;
+    gap: 14px;
   }
 
   .Check_product-row {
     grid-template-columns: 48px 1fr;
-    gap: 10px;
+    gap: 12px;
+  }
+
+  .Check_product-row img {
+    width: 48px;
+    height: 48px;
   }
 
   .Check_price {
     grid-column: 2;
     justify-self: start;
+    margin-top: -4px;
   }
 }
