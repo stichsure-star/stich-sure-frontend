@@ -14,7 +14,7 @@ const RequestDetails = () => {
   const fileInputRef = useRef(null);
   const dateInputRef = useRef(null);
   const user = useSelector((state) => state.auth.user);
-  console.log("user", user);
+
   const derivedFullName = user
     ? `${user.firstName} ${user.lastName}`.trim()
     : "Guest User";
@@ -26,7 +26,6 @@ const RequestDetails = () => {
 
   const location = useLocation();
   const holding = location.state;
-  console.log("holding", holding);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -44,11 +43,12 @@ const RequestDetails = () => {
     "Hip",
   ];
 
+  // Initialize measurement as an empty object so tracking nested keys doesn't break
   const [formData, setFormData] = useState({
-    fullName: user?.lastName,
+    fullName: user?.lastName || "",
     deadLine: "",
     description: "",
-    measurement: "",
+    measurement: {},
   });
 
   const handleMeasurementChange = (e) => {
@@ -92,14 +92,16 @@ const RequestDetails = () => {
       newErrors.deadLine = "Deadline is required";
     }
 
-    const hasEmptyField = Object.values(formData.measurement).some(
-      (value) => value.trim() === "",
+    // Check if any of the defined fields are missing/empty in the state object
+    const hasEmptyField = measurementFields.some(
+      (field) =>
+        !formData.measurement[field] ||
+        formData.measurement[field].trim() === "",
     );
 
     if (hasEmptyField) {
       newErrors.measurement = "All measurements are required";
     }
-    // console.log("Form Data: ", formData.measurement);
 
     if (!formData.description.trim()) {
       newErrors.description = "Description is required";
@@ -108,7 +110,6 @@ const RequestDetails = () => {
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
@@ -119,11 +120,9 @@ const RequestDetails = () => {
   const handleDateClick = () => {
     if (!dateInputRef.current) return;
 
-    // best modern browsers
     if (dateInputRef.current.showPicker) {
       dateInputRef.current.showPicker();
     } else {
-      // fallback
       dateInputRef.current.focus();
       dateInputRef.current.click();
     }
@@ -135,10 +134,13 @@ const RequestDetails = () => {
     setLoading(true);
 
     try {
+      // FIX: Convert the measurement object into a string to satisfy backend rules
+      const stringifiedMeasurements = JSON.stringify(formData.measurement);
+
       const payload = {
-        fullName: formData.fullName,
-        deadLine: formData.deadLine, // already YYYY-MM-DD
-        measurement: formData.measurement,
+        fullName: derivedFullName, // Using derived full name instead of just last name
+        deadLine: formData.deadLine,
+        measurement: stringifiedMeasurements, // Now a clean string payload
         description: formData.description,
         amount: holding?.amount ? parseInt(holding.amount, 10) : 0,
         designId: holding?.designId,
@@ -146,24 +148,21 @@ const RequestDetails = () => {
         itemName: holding?.itemName,
       };
 
-      console.log("PAYLOAD:", payload);
+      console.log("PAYLOAD BEING SENT:", payload);
 
       const response = await customerApi.request(designerId, payload);
-      console.log("res", response);
-      console.log("Id", response.data.id);
 
       setCalled(response.data);
 
+      // Cleaned up the undefined console logs and directly passed routing state context
       navigate(`/user/checkout/${response.data.id}`, {
         state: {
           ...holding,
           requestId: response.data.id,
         },
       });
-      console.log("object");
-      console.log("requestId", requestId);
     } catch (error) {
-      console.log(error?.response?.data || error);
+      console.error("Submission failed:", error?.response?.data || error);
     } finally {
       setLoading(false);
     }
@@ -202,9 +201,9 @@ const RequestDetails = () => {
               id="fullName"
               name="fullName"
               value={derivedFullName}
-              onChange={handleChange}
+              readOnly // Keeps it locked to the actual user data logged in
+              className="read-only-input"
             />
-            {errors.fullName && <p className="error-text">{errors.fullName}</p>}
           </div>
 
           {/* Deadline */}
@@ -245,7 +244,7 @@ const RequestDetails = () => {
                   <input
                     type="number"
                     name={field}
-                    value={formData.measurement[field]}
+                    value={formData.measurement[field] || ""}
                     onChange={handleMeasurementChange}
                     placeholder={`Enter ${field}`}
                     className="beep"
@@ -332,6 +331,7 @@ const RequestDetails = () => {
               type="button"
               className="rd-next-btn"
               onClick={handleSubmit}
+              disabled={loading}
             >
               {loading ? "Sending..." : "Next"}
             </button>
