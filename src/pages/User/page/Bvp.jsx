@@ -79,7 +79,7 @@ const BvpPage = () => {
               {targetData?.customer?.lastName || ""}
             </p>
             <p className="Bba_ordertracker-id">
-              Order ID: {targetData?.orderNumber || "N/A"}
+              Order ID: {targetData?.orderNumber || "Not available"}
             </p>
           </div>
 
