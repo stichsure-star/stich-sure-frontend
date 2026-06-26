@@ -174,7 +174,7 @@
 
 // export default Dashboard;
 
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Activetity.css";
 
 import { FiTrendingUp } from "react-icons/fi";
@@ -184,17 +184,45 @@ import { BiMoneyWithdraw } from "react-icons/bi";
 import WithdrawFunds from "../paymentInStich-sure/popups/WithdrawFunds";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { designerApi } from "../config/designer";
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
 
   const [showWithdrawal, setShowWithdrawal] = useState(false);
 
-  const wallet = user?.data || {};
+  // const wallet = user?.data || {};
 
-  const transactions = wallet.transactions || [];
+  // const transactions = wallet.transactions || [];
 
-  const designs = user?.designs || [];
+  // const designs = user?.designs || [];
+
+  const [wallet, SetUpWallet] = useState({});
+  const [transactions, setTransactions] = useState({});
+
+  const walletBal = async () => {
+    try {
+      const response = await designerApi.walletData();
+      console.log("response", response.data);
+      SetUpWallet(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const history = async () => {
+    try {
+      const response = designerApi.walletHistory();
+      console.log("response", response.data);
+      setTransactions((await response).data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    walletBal();
+  }, []);
 
   return (
     <div className="dashboard-container">

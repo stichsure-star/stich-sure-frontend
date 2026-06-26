@@ -1,5 +1,5 @@
-import React from 'react'
-import "./css/modal-responsive-screen.css"
+import React from "react";
+import "./css/modal-responsive-screen.css";
 
 const styles = {
   modal: {
@@ -37,16 +37,14 @@ const styles = {
 
 const SavedChanges = () => {
   return (
- <div className="custom-modal" style={styles.modal}>
-    <div style={styles.iconWrapper}>
-      <CheckCircle size={40} color="#34A853" />
+    <div className="custom-modal" style={styles.modal}>
+      <div style={styles.iconWrapper}>
+        <CheckCircle size={40} color="#34A853" />
+      </div>
+
+      <h2 style={styles.title}>Your Changes Has Been Saved</h2>
     </div>
+  );
+};
 
-    <h2 style={styles.title}>
-      Your Changes Has Been Saved
-    </h2>
- </div>
-  )
-}
-
-export default SavedChanges
+export default SavedChanges;

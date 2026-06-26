@@ -32,5 +32,5 @@ export const authApi = {
     return ApiClient.post("/shipment/payment/initialize", data, config);
   },
   oneOrder: (id) => ApiClient.get(`/orders/${id}`),
-  webHoo: (id) => ApiClient.post(`/shipment/payment/verify/${id}`),
+  webHooked: (id) => ApiClient.post(`/shipment/payment/verify/${id}`),
 };

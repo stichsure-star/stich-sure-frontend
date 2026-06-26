@@ -1,57 +1,65 @@
+/* ==========================================================================
+   1. Layout & Page Shell
+   ========================================================================== */
+
 .Bba_ordertracker-wrapper {
-  width: 100%;
-  min-height: 100vh;
-  background: #fff;
-  padding: 24px 10px;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px 16px;
+  background: #ffffff;
 }
 
 .Bba_ordertracker-page-shell {
-  width: min(100%, 1000px);
-  background: #fff;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  padding: 18px;
   box-sizing: border-box;
+  width: min(100%, 1000px);
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
 }
+
+/* ==========================================================================
+   2. Header Section
+   ========================================================================== */
 
 .Bba_ordertracker-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 52px;
-  padding: 24px 32px;
-  background: #fff;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding: 28px 32px;
+  background: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 12px;
-  box-shadow: 0 5px 14px rgba(16, 24, 40, 0.08);
+  box-shadow: 0 5px 14px rgba(16, 24, 40, 0.06);
 }
 
 .Bba_ordertracker-title {
   margin: 0 0 8px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: #161616;
 }
 
 .Bba_ordertracker-customer,
 .Bba_ordertracker-id {
-  margin: 2px 0;
-  font-size: 10px;
+  margin: 4px 0;
+  font-size: 13px;
   color: #4d4d4d;
 }
 
 .Bba_ordertracker-header-right {
   text-align: right;
-  min-width: 120px;
+  min-width: 140px;
 }
 
 .Bba_ordertracker-price {
-  margin: 0 0 7px;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 18px;
   font-weight: 800;
   color: #121212;
 }
@@ -59,60 +67,68 @@
 .Bba_ordertracker-status-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 20px;
-  padding: 0 13px;
-  border-radius: 5px;
+  min-height: 24px;
+  padding: 0 14px;
   background: #d8f8d6;
   color: #247f2f;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
+  border-radius: 6px;
 }
 
 .Bba_ordertracker-due {
-  margin: 7px 0 0;
-  font-size: 10px;
+  margin: 8px 0 0;
+  font-size: 13px;
   color: #5c5c5c;
 }
 
+/* ==========================================================================
+   3. Main Card & Shared Components
+   ========================================================================== */
+
 .Bba_ordertracker-card {
-  background: #fff;
+  padding: 28px 24px;
+  background: #ffffff;
   border: 1px solid #cfcfcf;
   border-radius: 12px;
-  padding: 24px 18px 18px;
-  box-shadow: 0 5px 12px rgba(16, 24, 40, 0.14);
+  box-shadow: 0 5px 12px rgba(16, 24, 40, 0.1);
 }
 
 .Bba_section-title {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin: 0 0 12px;
-  font-size: 11px;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 14px;
   font-weight: 800;
   color: #2a1420;
 }
 
 .Bba_section-title svg {
-  color: #8a0020;
   flex: 0 0 auto;
+  color: #8a0020;
 }
 
+/* ==========================================================================
+   4. Measurements Section
+   ========================================================================== */
+
 .Bba_measurements-card {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 .Bba_measurement-note {
   display: flex;
   align-items: center;
-  gap: 6px;
-  min-height: 24px;
-  margin-bottom: 14px;
-  padding: 0 10px;
-  border-radius: 6px;
+  gap: 8px;
+  min-height: 32px;
+  margin-bottom: 18px;
+  padding: 6px 12px;
   background: #eaf3ff;
   color: #2360ba;
-  font-size: 9px;
-  line-height: 1.2;
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: 6px;
 }
 
 .Bba_measurement-note svg {
@@ -121,32 +137,19 @@
 
 .Bba_measurement-design-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 32px;
   align-items: start;
 }
 
+/* Scroll Containers */
 .Bba_measurements-scroll {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 28px;
-  max-height: 138px;
+  gap: 20px 32px;
+  max-height: 180px;
   overflow-y: auto;
-  padding-right: 8px;
-}
-
-.Bba_measurements-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.Bba_measurements-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 999px;
-}
-
-.Bba_measurements-scroll::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
-  border-radius: 999px;
+  padding-right: 12px;
 }
 
 .Bba_measurement-row {
@@ -160,27 +163,31 @@
 .Bba_measurement-row span {
   display: block;
   margin-bottom: 4px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  color: #222;
+  color: #222222;
 }
 
 .Bba_measurement-row small {
   display: block;
-  font-size: 8px;
+  font-size: 11px;
   color: #747474;
 }
 
 .Bba_measurement-row strong {
-  min-width: 36px;
-  padding: 4px 7px;
-  border-radius: 4px;
+  min-width: 42px;
+  padding: 6px 10px;
   background: #fff0f3;
   color: #8a0020;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   text-align: center;
+  border-radius: 6px;
 }
+
+/* ==========================================================================
+   5. Design Panel & Media
+   ========================================================================== */
 
 .Bba_your-design-panel {
   min-width: 0;
@@ -188,8 +195,8 @@
 
 .Bba_design-preview-button,
 .Bba_inspiration-image-button {
-  border: 1px solid #cfcfcf;
   background: #f7f5f5;
+  border: 1px solid #cfcfcf;
   border-radius: 8px;
   cursor: pointer;
   overflow: hidden;
@@ -198,63 +205,53 @@
 
 .Bba_design-preview-button {
   width: 100%;
-  height: 126px;
+  height: 150px;
 }
 
 .Bba_design-preview-button img,
 .Bba_inspiration-image-button img {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
 }
 
+/* ==========================================================================
+   6. Descriptions & Bottom Gallery
+   ========================================================================== */
+
 .Bba_description-section {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 .Bba_description-section p {
   margin: 0;
   min-height: 92px;
   padding: 18px;
+  background: #f7f7f7;
   border: 1px solid #dddddd;
   border-radius: 8px;
-  background: #f7f7f7;
-  color: #333;
-  font-size: 11px;
-  line-height: 1.65;
+  color: #333333;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .Bba_image-scroll {
-  height: 126px;
-  border: 1px solid #cfcfcf;
-  border-radius: 8px;
-  background: #f7f5f5;
   display: flex;
   justify-content: center;
   align-items: stretch;
   overflow-x: auto;
   overflow-y: hidden;
-}
-
-.Bba_image-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-
-.Bba_image-scroll::-webkit-scrollbar-track {
-  background: #eeeeee;
-  border-radius: 999px;
-}
-
-.Bba_image-scroll::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
-  border-radius: 999px;
+  height: 140px;
+  background: #f7f5f5;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
 }
 
 .Bba_inspiration-image-button {
-  width: 82px;
-  height: 100%;
   flex: 0 0 auto;
+  width: 92px;
+  height: 100%;
   border-top: 0;
   border-bottom: 0;
   border-radius: 0;
@@ -262,55 +259,84 @@
 
 .Bba_image-helper-text {
   margin: 12px 0 0;
-  font-size: 9px;
+  font-size: 11px;
   color: #8a8a8a;
 }
 
+/* ==========================================================================
+   7. Interactive Elements
+   ========================================================================== */
+
 .Bba_ordertracker-done-btn {
   width: 100%;
-  height: 42px;
-  margin-top: 56px;
-  border: 0;
-  border-radius: 4px;
+  height: 48px;
+  margin-top: 48px;
   background: #85001f;
-  color: #fff;
-  font-size: 13px;
+  color: #ffffff;
+  font-size: 14px;
   font-weight: 700;
+  border: 0;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .Bba_ordertracker-done-btn:hover {
   background: #6f001a;
 }
 
+/* Custom Scrollbars */
+.Bba_measurements-scroll::-webkit-scrollbar,
+.Bba_image-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.Bba_measurements-scroll::-webkit-scrollbar-track,
+.Bba_image-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 999px;
+}
+
+.Bba_measurements-scroll::-webkit-scrollbar-thumb,
+.Bba_image-scroll::-webkit-scrollbar-thumb {
+  background: #c9c9c9;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   8. Responsive Media Queries
+   ========================================================================== */
+
 @media screen and (max-width: 768px) {
   .Bba_ordertracker-wrapper {
-    padding: 14px 8px;
+    padding: 16px 12px;
   }
 
   .Bba_ordertracker-page-shell {
-    padding: 14px;
+    padding: 16px;
   }
 
   .Bba_ordertracker-header {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     padding: 20px;
   }
 
   .Bba_measurement-design-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .Bba_measurements-scroll {
-    max-height: 170px;
+    max-height: 200px;
   }
 
   .Bba_your-design-panel {
-    max-width: 260px;
+    max-width: 100%;
   }
 
   .Bba_ordertracker-done-btn {
-    margin-top: 34px;
+    margin-top: 32px;
   }
 }
 
@@ -326,9 +352,5 @@
 
   .Bba_measurements-scroll {
     grid-template-columns: 1fr;
-  }
-
-  .Bba_description-section p {
-    padding: 14px;
   }
 }
