@@ -29,6 +29,9 @@ const BvpPage = () => {
       setLoading(false);
     }
   };
+  console.log("order", order);
+
+  const measurements = order?.data?.design?.measurements;
 
   useEffect(() => {
     fetchData();
