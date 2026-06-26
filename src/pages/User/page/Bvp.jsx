@@ -13,7 +13,7 @@ const BvpPage = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchDara = async () => {
+  const fetchData = async () => {
     if (!orderId) return;
     try {
       setLoading(true);
@@ -31,7 +31,7 @@ const BvpPage = () => {
   };
 
   useEffect(() => {
-    fetchDara();
+    fetchData();
   }, [orderId]);
 
   if (loading) {
@@ -128,7 +128,7 @@ const BvpPage = () => {
                 ) : (
                   <p
                     style={{
-                      fontSize: "11px",
+                      fontSize: "13px",
                       color: "#8a8a8a",
                       margin: 0,
                       gridColumn: "span 2",
@@ -159,13 +159,13 @@ const BvpPage = () => {
                   <div
                     style={{
                       width: "100%",
-                      height: "126px",
+                      height: "150px",
                       border: "1px dashed #cfcfcf",
                       borderRadius: "8px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "11px",
+                      fontSize: "13px",
                       color: "#8a8a8a",
                       background: "#f7f5f5",
                     }}
@@ -183,9 +183,7 @@ const BvpPage = () => {
               Design Description
             </h3>
             <p>
-              {targetData?.request.description ||
-                targetData?.request?.description ||
-                "No description provided."}
+              {targetData?.request?.description || "No description provided."}
             </p>
           </section>
 
@@ -196,8 +194,8 @@ const BvpPage = () => {
             </h3>
 
             <div className="Bba_image-scroll">
-              {targetData?.request.inspirationalImage ? (
-                Array.isArray(targetData?.request.inspirationalImage) ? (
+              {targetData?.request?.inspirationalImage ? (
+                Array.isArray(targetData.request.inspirationalImage) ? (
                   targetData.request.inspirationalImage.map((imgUrl, index) => (
                     <button
                       className="Bba_inspiration-image-button"
@@ -216,13 +214,19 @@ const BvpPage = () => {
                     type="button"
                   >
                     <img
-                      src={targetData.inspirationalImage}
+                      src={targetData.request.inspirationalImage}
                       alt="Inspiration reference look"
                     />
                   </button>
                 )
               ) : (
-                <p style={{ fontSize: "11px", color: "#8a8a8a", margin: 0 }}>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#8a8a8a",
+                    margin: "auto 18px",
+                  }}
+                >
                   No optional inspiration references uploaded by client.
                 </p>
               )}
