@@ -29,9 +29,6 @@ const BvpPage = () => {
       setLoading(false);
     }
   };
-  console.log("order", order);
-
-  const measurements = order?.data?.design?.measurements;
 
   useEffect(() => {
     fetchData();
@@ -79,7 +76,7 @@ const BvpPage = () => {
               {targetData?.customer?.lastName || ""}
             </p>
             <p className="Bba_ordertracker-id">
-              Order ID: {targetData?.orderNumber || "Not available"}
+              Order ID: {targetData?.orderNumber || "N/A"}
             </p>
           </div>
 
