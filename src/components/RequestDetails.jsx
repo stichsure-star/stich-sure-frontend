@@ -20,8 +20,6 @@ const RequestDetails = () => {
     : "Guest User";
 
   const navigate = useNavigate();
-
-  const [called, setCalled] = useState("");
   const { id: designerId } = useParams();
 
   const location = useLocation();
@@ -43,9 +41,8 @@ const RequestDetails = () => {
     "Hip",
   ];
 
-  // Initialize measurement as an empty object so tracking nested keys doesn't break
   const [formData, setFormData] = useState({
-    fullName: user?.lastName || "",
+    fullName: derivedFullName,
     deadLine: "",
     description: "",
     measurement: {},
@@ -53,7 +50,6 @@ const RequestDetails = () => {
 
   const handleMeasurementChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       measurement: {
@@ -73,12 +69,10 @@ const RequestDetails = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-
     setErrors((prev) => ({
       ...prev,
       [name]: "",
@@ -92,7 +86,6 @@ const RequestDetails = () => {
       newErrors.deadLine = "Deadline is required";
     }
 
-    // Check if any of the defined fields are missing/empty in the state object
     const hasEmptyField = measurementFields.some(
       (field) =>
         !formData.measurement[field] ||
@@ -119,7 +112,6 @@ const RequestDetails = () => {
 
   const handleDateClick = () => {
     if (!dateInputRef.current) return;
-
     if (dateInputRef.current.showPicker) {
       dateInputRef.current.showPicker();
     } else {
@@ -130,35 +122,61 @@ const RequestDetails = () => {
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
-
     setLoading(true);
 
     try {
-      // FIX: Convert the measurement object into a string to satisfy backend rules
-      const stringifiedMeasurements = JSON.stringify(formData.measurement);
+      // 1. Convert measurement dictionary into the API required structure: Array of objects
+      const formattedMeasurementsArray = Object.entries(
+        formData.measurement,
+      ).map(([key, val]) => ({
+        name: key,
+        value: val,
+      }));
+      const stringifiedMeasurements = JSON.stringify(
+        formattedMeasurementsArray,
+      );
 
-      const payload = {
-        fullName: derivedFullName, // Using derived full name instead of just last name
-        deadLine: formData.deadLine,
-        measurement: stringifiedMeasurements, // Now a clean string payload
-        description: formData.description,
-        amount: holding?.amount ? parseInt(holding.amount, 10) : 0,
-        designId: holding?.designId,
-        designImg: holding?.design,
-        itemName: holding?.itemName,
-      };
+      // 2. Build FormData matching your Swagger schema keys exactly
+      const dataPayload = new FormData();
+      dataPayload.append("fullName", derivedFullName);
+      dataPayload.append("deadLine", formData.deadLine); // Passed as 'YYYY-MM-DD', backend converts to ISO Date-Time
+      dataPayload.append("measurement", stringifiedMeasurements);
+      dataPayload.append("description", formData.description);
+      dataPayload.append(
+        "amount",
+        holding?.amount ? parseInt(holding.amount, 10) : 0,
+      );
+      dataPayload.append("itemName", holding?.itemName || "Custom Outfit");
 
-      console.log("PAYLOAD BEING SENT:", payload);
+      // If the original base design template ID or image exists from routing state:
+      if (holding?.designId) {
+        dataPayload.append("designId", holding.designId);
+      }
 
-      const response = await customerApi.request(designerId, payload);
+      // If you want to forward the catalogue layout image URL/file if present:
+      if (holding?.design) {
+        dataPayload.append("designImage", holding.design);
+      }
 
-      setCalled(response.data);
+      // 3. Append the uploaded user inspiration image file matching Swagger
+      if (selectedFile) {
+        dataPayload.append("inspirationalImage", selectedFile);
+      }
 
-      // Cleaned up the undefined console logs and directly passed routing state context
-      navigate(`/user/checkout/${response.data.id}`, {
+      console.log("Submitting perfectly matched multi-part form payload...");
+
+      const response = await customerApi.request(designerId, dataPayload);
+
+      // Extract the fallback ID value safely from data nesting structures
+      const targetId =
+        response.data?.id ||
+        response.data?.data?.id ||
+        response.data?.data?._id;
+
+      navigate(`/user/checkout/${targetId}`, {
         state: {
           ...holding,
-          requestId: response.data.id,
+          requestId: targetId,
         },
       });
     } catch (error) {
@@ -170,7 +188,6 @@ const RequestDetails = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-
     if (file) {
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
@@ -181,7 +198,6 @@ const RequestDetails = () => {
     e.stopPropagation();
     setSelectedFile(null);
     setImagePreview(null);
-
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -193,7 +209,6 @@ const RequestDetails = () => {
         <h2 className="rd-title">Request Details</h2>
 
         <form onSubmit={(e) => e.preventDefault()} className="rd-form">
-          {/* Full Name */}
           <div className="rd-form-group">
             <label htmlFor="fullName">Full Name</label>
             <input
@@ -201,22 +216,19 @@ const RequestDetails = () => {
               id="fullName"
               name="fullName"
               value={derivedFullName}
-              readOnly // Keeps it locked to the actual user data logged in
+              readOnly
               className="read-only-input"
             />
           </div>
 
-          {/* Deadline */}
           <div className="rd-form-group rd-relative">
             <label htmlFor="deadline">DeadLine</label>
-
             <div className="rd-input-icon-wrapper">
               <HiOutlineCalendar
                 className="rd-calendar-icon"
                 onClick={handleDateClick}
                 style={{ cursor: "pointer" }}
               />
-
               <input
                 ref={dateInputRef}
                 type="date"
@@ -228,19 +240,15 @@ const RequestDetails = () => {
                 className="Date-pick"
               />
             </div>
-
             {errors.deadLine && <p className="error-text">{errors.deadLine}</p>}
           </div>
 
-          {/* Measurements */}
           <div className="rd-form-group">
             <label>Input needed measurement from Designer</label>
-
             {measurementFields.map((field) => (
               <div key={field} className="measurement-row">
                 <div className="Blopp">
-                  <label className="Blop">{field}</label>
-
+                  <label className="Blop  ">{field}</label>
                   <input
                     type="number"
                     name={field}
@@ -252,16 +260,13 @@ const RequestDetails = () => {
                 </div>
               </div>
             ))}
-
             {errors.measurement && (
               <p className="error-text">{errors.measurement}</p>
             )}
           </div>
 
-          {/* Description */}
           <div className="rd-form-group">
             <label htmlFor="description">Description</label>
-
             <textarea
               id="description"
               name="description"
@@ -270,16 +275,13 @@ const RequestDetails = () => {
               value={formData.description}
               onChange={handleChange}
             />
-
             {errors.description && (
               <p className="error-text">{errors.description}</p>
             )}
           </div>
 
-          {/* Upload */}
           <div className="rd-form-group">
             <label>Upload Inspiration Images (Optional)</label>
-
             <input
               type="file"
               ref={fileInputRef}
@@ -287,7 +289,6 @@ const RequestDetails = () => {
               accept="image/png,image/jpeg,image/jpg"
               onChange={handleFileChange}
             />
-
             <div className="rd-upload-zone" onClick={handleUploadClick}>
               {imagePreview ? (
                 <div className="rd-preview-wrapper">
@@ -296,7 +297,6 @@ const RequestDetails = () => {
                     alt="preview"
                     className="rd-image-preview"
                   />
-
                   <button
                     type="button"
                     className="rd-remove-img-btn"
@@ -304,7 +304,6 @@ const RequestDetails = () => {
                   >
                     <HiXMark />
                   </button>
-
                   <p className="rd-preview-filename">{selectedFile?.name}</p>
                 </div>
               ) : (
@@ -317,7 +316,6 @@ const RequestDetails = () => {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="rd-action-footer">
             <button
               type="button"
@@ -326,7 +324,6 @@ const RequestDetails = () => {
             >
               Back
             </button>
-
             <button
               type="button"
               className="rd-next-btn"

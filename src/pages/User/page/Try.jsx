@@ -89,7 +89,7 @@ const Try = () => {
                 <span className="Act_status">{order?.status}</span>
               </div>
 
-              <div className="Act_progress_row">
+              {/* <div className="Act_progress_row">
                 <span>Progress</span>
                 <span>{order?.progress || 0}%</span>
               </div>
@@ -101,7 +101,7 @@ const Try = () => {
                     width: `${order?.progress || 0}%`,
                   }}
                 />
-              </div>
+              </div> */}
 
               <p className="Act_due">🕒 Due: {formatDate(order?.placedAt)}</p>
             </div>

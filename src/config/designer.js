@@ -55,5 +55,11 @@ export const designerApi = {
   // Shipment Validation & Processing
   shipPy: (data) => ApiClient.post("/shipment/validate-address", data),
   Valid: (data) => ApiClient.post("/shipment/shipment", data),
-  delTe: (id) => ApiClient.delete(`/designs/delete/${id}`),
+  delTe: (id) =>
+    ApiClient.delete(
+      `/deswalletData: ApiClient.get("/withdrawaligns/delete/${id}`,
+    ),
+  walletData: (data) => ApiClient.get("/withdrawal/balance", data),
+  walletHistory: (data) => ApiClient.get("/withdrawal/history", data),
+  allDesigns: (id) => ApiClient.get(`/designs/getDesignerDesigns/${id}`),
 };

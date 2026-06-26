@@ -31,30 +31,6 @@ export default function DashboardOverview() {
     },
   ];
 
-  const designers = [
-    {
-      id: 1,
-      name: "Emeka Tailoring",
-      specialty: "Corporate Attire",
-      rating: 4.8,
-      image: ladyhairtire,
-    },
-    {
-      id: 2,
-      name: "Grace Fashion",
-      specialty: "Casual Wear",
-      rating: 4.9,
-      image: greenman,
-    },
-    {
-      id: 3,
-      name: "Kings Couture",
-      specialty: "Traditional Wear",
-      rating: 5,
-      image: queen,
-    },
-  ];
-
   const [product, setProduct] = useState([]);
   const user = useSelector((state) => state.auth.user);
   const [dabby, setDab] = useState([]);
@@ -63,6 +39,7 @@ export default function DashboardOverview() {
   const userId = user?.id;
   console.log("userId", userId);
 
+  const [bappy, setBappy] = useState({});
   // Date formatting helper function
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
@@ -93,6 +70,7 @@ export default function DashboardOverview() {
     try {
       const res = await customerApi.topThreee();
       console.log("res", res.data);
+      setBappy(res);
     } catch (error) {
       console.log(error);
     }
@@ -219,7 +197,7 @@ export default function DashboardOverview() {
                   </div>
                   <span className="status-badge">{order?.status}</span>
                 </div>
-
+                {/* 
                 <div className="progress-container">
                   <div className="progress-text">
                     <span>Progress</span>
@@ -231,7 +209,7 @@ export default function DashboardOverview() {
                       style={{ width: `${order.progress || 0}%` }}
                     ></div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* <div className="due-date">
                   <span className="clock-icon">🕒</span> Due:{" "}
@@ -248,7 +226,7 @@ export default function DashboardOverview() {
           <h2>Recommended Designers</h2>
         </div>
         <div className="designers-grid-layout">
-          {designers.map((designer) => (
+          {bappy.map((designer) => (
             <div key={designer.id} className="designer-card-item">
               <div className="avatar-container">
                 <img

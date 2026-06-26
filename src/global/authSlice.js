@@ -27,10 +27,7 @@ const authSlice = createSlice({
         ...action.payload,
       };
     },
-    // setPaymentData: (state, action) => {
-    //   // FIXED: Safely mutates tracked state property
-    //   state.paymentData = action.payload;
-    // },
+
     setPaymentData: (state, action) => {
       state.paymentData = action.payload;
     },
