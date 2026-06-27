@@ -182,7 +182,7 @@ const Dashboard = () => {
                 </p>
 
                 <p>
-                  <b>Time placed:</b> {formatDashboardDate(order?.pickupDate)}
+                  <b>Time placed:</b> {formatDashboardDate(order?.placedAt)}
                 </p>
               </div>
             ))

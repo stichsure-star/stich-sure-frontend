@@ -32,6 +32,9 @@ const authSlice = createSlice({
     setShipmentReceipt: (state, action) => {
       state.resp = action.payload;
     },
+    clearShipmentReceipt: (state) => {
+      state.resp = null; // or state.resp = {}; depending on your initial state setup
+    },
 
     setPaymentData: (state, action) => {
       state.paymentData = action.payload;
@@ -52,5 +55,6 @@ export const {
   logout,
   setPaymentData,
   setShipmentReceipt,
+  clearShipmentReceipt,
 } = authSlice.actions;
 export default authSlice.reducer;
