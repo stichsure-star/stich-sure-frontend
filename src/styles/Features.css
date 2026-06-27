@@ -142,5 +142,43 @@
   }
   .fg-wrapper {
     padding: 40px 16px;
+    min-height: auto;
+    background-position: center top;
+  }
+
+  .fg-card {
+    min-height: auto;
+    padding: 24px 18px;
+  }
+
+  .fg-card-header {
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  .fg-title {
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .fg-description {
+    display: block;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  .fg-wrapper {
+    padding: 32px 12px;
+  }
+
+  .fg-card-header {
+    flex-direction: column;
+  }
+
+  .fg-tag {
+    white-space: normal;
+    line-height: 1.25;
   }
 }

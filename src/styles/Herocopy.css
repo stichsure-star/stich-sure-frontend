@@ -1,6 +1,6 @@
 .features-hero {
     width: 100%;
-    height: 70vh;
+    min-height: 70vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -9,6 +9,7 @@
   .feature-overlay {
     width: 100%;
     height: 100%;
+    min-height: inherit;
     background: rgba(0, 0, 0, 0.45);
   
     display: flex;
@@ -18,6 +19,7 @@
   
     text-align: center;
     padding: 20px;
+    box-sizing: border-box;
   }
   
   .feature-overlay h1 {
@@ -25,6 +27,8 @@
     font-size: 55px;
     margin-top:60px;
     padding-right:50px;
+    line-height: 1.12;
+    max-width: 980px;
 
   }
   
@@ -34,3 +38,51 @@
     line-height: 1.6;
     font-size: 20px;
   }
+
+@media (max-width: 768px) {
+  .features-hero {
+    min-height: 620px;
+    height: auto;
+    background-position: center top;
+  }
+
+  .feature-overlay {
+    justify-content: center;
+    padding: 112px 20px 48px;
+  }
+
+  .feature-overlay h1 {
+    max-width: 680px;
+    margin: 0 0 18px;
+    padding-right: 0;
+    font-size: 40px;
+    line-height: 1.15;
+  }
+
+  .feature-overlay p {
+    max-width: 560px;
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-hero {
+    min-height: 560px;
+  }
+
+  .feature-overlay {
+    padding: 104px 16px 40px;
+  }
+
+  .feature-overlay h1 {
+    font-size: 32px;
+    line-height: 1.18;
+  }
+
+  .feature-overlay p {
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+}

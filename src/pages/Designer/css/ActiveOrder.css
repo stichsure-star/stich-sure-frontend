@@ -78,7 +78,7 @@
 .collab_tableBody {
   width: 100%;
   flex: 1;
-  overflow-y: auto;
+  overflow: auto;
   border: 1px solid #ddd;
   border-radius: 10px;
 }
@@ -96,4 +96,68 @@
 .collab_row div {
   width: 20%;
   padding-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .collab_container {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .collab_search {
+    width: 100%;
+    max-width: none;
+  }
+
+  .collab_tableHeader,
+  .collab_row {
+    min-width: 620px;
+  }
+
+  .collab_tableHeader {
+    height: auto;
+    min-height: 45px;
+    align-items: stretch;
+    overflow-x: auto;
+  }
+
+  .collab_row {
+    height: auto;
+    min-height: 60px;
+    align-items: stretch;
+  }
+
+  .collab_tableHeader div,
+  .collab_row div {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.35;
+  }
+}
+
+@media (max-width: 480px) {
+  .collab_container {
+    padding: 16px;
+  }
+
+  .collab_tabs {
+    gap: 10px;
+    overflow-x: auto;
+    min-height: 44px;
+  }
+
+  .collab_tab {
+    flex: 0 0 auto;
+  }
+
+  .collab_tableHeader,
+  .collab_row {
+    min-width: 560px;
+  }
 }

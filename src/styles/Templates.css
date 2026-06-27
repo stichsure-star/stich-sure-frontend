@@ -1,9 +1,10 @@
 .Templates_container {
-  width: 1000px;
+  width: min(100%, 1000px);
   height: auto;
 
   font-family: "El Messiri", sans-serif;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 /* HEADER */
@@ -21,6 +22,7 @@
 .Templates_stats {
   display: flex;
   justify-content: space-around;
+  gap: 12px;
   margin-top: 10px;
 }
 
@@ -241,6 +243,26 @@
 
   .Templates_card p {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Templates_container {
+    padding: 8px;
+  }
+
+  .Templates_header {
+    padding: 16px;
+  }
+
+  .Templates_buttons {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .Templates_buttons button {
+    flex: 0 0 auto;
   }
 }
 

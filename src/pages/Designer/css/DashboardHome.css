@@ -438,7 +438,26 @@
   }
 
   .mobile-icon-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    min-width: 42px;
+    max-width: 42px;
+    height: 42px;
+    min-height: 42px;
+    max-height: 42px;
+    flex: 0 0 42px;
+    padding: 0;
+    border-radius: 50%;
+    line-height: 1;
+    box-sizing: border-box;
+  }
+
+  .mobile-icon-menu-btn svg {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
   }
 
   .Picky {
@@ -472,7 +491,9 @@
   }
 
   .mobile-icon-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .Picky {
