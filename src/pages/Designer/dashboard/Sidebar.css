@@ -22,7 +22,6 @@
   justify-content: center;
   align-items: center;
   padding-bottom: 20px;
- 
 
   .imgt {
     width: 100px;
@@ -35,13 +34,12 @@
   }
 
   .Goldied {
-  
     width: 100px;
     height: 100px;
     justify-content: center;
     align-items: center;
     display: flex;
- 
+
     border-radius: 50px;
     background-color: #5a5a5a;
     color: #fff;
@@ -67,6 +65,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .link {
@@ -89,6 +90,9 @@
 .link:hover {
   background: #ce7386;
   color: white;
+  transform: translateY(-5px);
+
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 
   .trd {
     width: 12%;

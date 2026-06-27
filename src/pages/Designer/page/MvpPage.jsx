@@ -32,6 +32,7 @@ const MvpPage = () => {
     }
   };
 
+  console.log("order", order);
   const fetcUser = async () => {
     if (!order) return;
     const payload = {
@@ -40,6 +41,7 @@ const MvpPage = () => {
       address: order?.customer?.address || "",
       phone: order?.customer?.phone || "",
     };
+    console.log("payload", payload);
     try {
       const res = await designerApi.shipPy(payload);
       console.log("customer shipping", res.data);
@@ -53,9 +55,10 @@ const MvpPage = () => {
     const payloaded = {
       name: `${order?.designer?.firstName || ""} ${order?.designer?.lastName || ""}`.trim(),
       email: order?.designer?.email || "",
-      address: order?.designer?.address || "",
-      phone: order?.designer?.phone || "",
+      address: order?.designer?.profile.address || "",
+      phone: order?.designer?.profile.phoneNumber || "",
     };
+    console.log("payloaded", payloaded);
     try {
       const res = await designerApi.shipPy(payloaded);
       console.log("designer shipping", res.data);
@@ -63,6 +66,10 @@ const MvpPage = () => {
       console.log(error);
     }
   };
+
+  console.log("order", order?.designer?.profile.phoneNumber);
+
+  console.log("order", order?.designer?.profile.address);
 
   const formatDashboardDate = (dateString) => {
     if (!dateString) return "Pending Arrangement";
@@ -83,13 +90,6 @@ const MvpPage = () => {
       fetchDara();
     }
   }, [orderId]);
-
-  useEffect(() => {
-    if (order) {
-      fetcUser();
-      fetcDes();
-    }
-  }, [order]);
 
   if (loading) {
     return (
@@ -126,7 +126,8 @@ const MvpPage = () => {
               {order?.status}
             </span>
             <p className="bot_ordertracker-due">
-              Due: {formatDashboardDate(order?.pickupDate || order?.deadLine)}
+              Due:{" "}
+              {formatDashboardDate(order?.request.deadLine || order?.deadLine)}
             </p>
           </div>
         </div>
@@ -263,7 +264,12 @@ const MvpPage = () => {
           Done
         </button>
         <div className="Warni">
-          <Warning onClose={() => Donar(false)} />
+          {/* Replace the bottom warning div in your return statement with this */}
+          {Dobbe && (
+            <div className="Warni">
+              <Warning onClose={() => Donar(false)} orderData={order} />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,102 +1,86 @@
 import React, { useState } from "react";
-import "./css/modal-responsive-screen.css";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiWarningOutline } from "react-icons/ti";
+import Swal from "sweetalert2"; // Added SweetAlert2
+import "./css/War.css";
+import { designerApi } from "../../config/designer";
 
-const styles = {
-  modal: {
-    width: "448px",
-    height: "246px",
-    borderRadius: "16px",
-    padding: "24px",
-    background: "#FFFFFF",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    border: "1px solid #1E1E1E",
-  },
-
-  iconWrapper: {
-    marginBottom: "10px",
-    fontSize: "50px",
-    color: "#8B0021",
-  },
-
-  title: {
-    fontSize: "20px",
-    fontWeight: 600,
-    textAlign: "center",
-    lineHeight: "30px",
-    color: "#1E1E1E",
-    marginBottom: "40px",
-  },
-
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: "auto",
-  },
-
-  yesButton: {
-    width: "84px",
-    height: "40px",
-    borderRadius: "8px",
-    border: "none",
-    background: "#8B0021",
-    color: "#FFFFFF",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-
-  noButton: {
-    width: "84px",
-    height: "40px",
-    borderRadius: "8px",
-    border: "1px solid #8B0021",
-    background: "#FFFFFF",
-    color: "#1E1E1E",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-};
-
-const Warning = () => {
+const Warning = ({ onClose, orderData }) => {
   const [loading, setLoading] = useState(false);
-  const shipPing = async ({ onClose }) => {
+  const navigate = useNavigate();
+  const [recep, Reciept] = useState({});
+
+  const handleConfirm = async () => {
     setLoading(true);
-    const payloa = {
-      request_token: "",
-      courier_id: "",
-      service_code: "",
-      is_cod_label: "",
+
+    // Safely mapping your dynamic payload structure
+    const payload = {
+      request_token: orderData?.payment.pickup.request_token,
+      courier_id: orderData?.payment.pickup.courier_id,
+      service_code: orderData?.payment.pickup.service_code,
+      is_cod_label: "false",
     };
+
     try {
-      await designerApi.Valid(payloa);
-      if (onClose) onClose();
+      const response = await designerApi.Valid(payload);
+      Reciept(response.data);
+
+      // Assuming your backend sends a status of 200/true or success field
+      if (response.data) {
+        Swal.fire({
+          icon: "success",
+          title: "Production Completed!",
+          text: "The shipping details have been verified successfully.",
+          timer: 2000, // Auto closes after 2 seconds
+          showConfirmButton: false,
+        });
+
+        // Trigger auto-close of modal and redirect after alert finishes
+
+        if (onClose) onClose();
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Validation error:", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          error?.response?.data?.message ||
+          "Something went wrong tracking this order.",
+        confirmButtonColor: "#8B0021",
+      });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  const handleCancel = () => {
-    navigate("/designer/active");
-  };
+  console.log("recep", recep);
+
+  console.log("orderData", orderData);
 
   return (
-    <div className="custom-modal" style={styles.modal}>
-      <div style={styles.iconWrapper}>
+    <div className="custom-modal modal">
+      <div className="iconWrapper">
         <TiWarningOutline />
       </div>
 
-      <h2 style={styles.title}>Are you sure this production is done</h2>
+      <h2 className="title">Are you sure this production is done?</h2>
 
-      <div style={styles.buttonContainer}>
-        <button style={styles.yesButton} onClick={shipPing}>
-          {loading ? <AiOutlineLoading3Quarters /> : <h4>Yes</h4>}
+      <div className="buttonContainer">
+        <button
+          className="yesButton"
+          onClick={handleConfirm}
+          disabled={loading}
+        >
+          {loading ? (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          ) : (
+            <span>Yes</span>
+          )}
         </button>
-        <button style={styles.noButton} onClick={handleCancel}>
+        <button className="noButton" onClick={onClose}>
           No
         </button>
       </div>
