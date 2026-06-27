@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   role: null,
   paymentData: null,
+  resp: null,
 };
 
 const authSlice = createSlice({
@@ -28,6 +29,10 @@ const authSlice = createSlice({
       };
     },
 
+    setShipmentReceipt: (state, action) => {
+      state.resp = action.payload;
+    },
+
     setPaymentData: (state, action) => {
       state.paymentData = action.payload;
     },
@@ -40,6 +45,12 @@ const authSlice = createSlice({
 });
 
 // 2. Fixed spelling here too
-export const { setCredentials, setRole, updateUser, logout, setPaymentData } =
-  authSlice.actions;
+export const {
+  setCredentials,
+  setRole,
+  updateUser,
+  logout,
+  setPaymentData,
+  setShipmentReceipt,
+} = authSlice.actions;
 export default authSlice.reducer;
