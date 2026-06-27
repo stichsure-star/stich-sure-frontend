@@ -35,6 +35,7 @@
 
 .search-bar-input-box {
   flex-grow: 1;
+  min-width: 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -43,8 +44,11 @@
 .search-input-icon {
   position: absolute;
   left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #888888;
   font-size: 16px;
+  pointer-events: none;
 }
 
 .search-bar-input-box input {
@@ -296,6 +300,25 @@
     flex-direction: column-reverse;
     gap: 16px;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-search-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-bar-input-box,
+  .catalog-filter-trigger-btn {
+    width: 100%;
+    min-width: 0;
+    flex: 0 0 auto;
+  }
+
+  .catalog-filter-trigger-btn {
+    justify-content: center;
   }
 }
 

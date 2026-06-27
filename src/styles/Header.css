@@ -247,6 +247,10 @@
 
 /* TABLETS */
 @media (max-width: 768px) {
+  .Header_con {
+    height: 72px;
+  }
+
   .Header_text {
     display: none;
   }
@@ -257,12 +261,43 @@
   }
 
   .Header_three {
-    display: block;
+    display: flex;
     color: #6c0319;
   }
 
   .Header_button {
     width: auto;
+    height: auto;
+    gap: 10px;
+    flex: 0 0 auto;
+  }
+
+  .Header_notification,
+  .Header_three {
+    width: 42px;
+    min-width: 42px;
+    max-width: 42px;
+    height: 42px;
+    min-height: 42px;
+    max-height: 42px;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(112, 0, 20, 0.08);
+    color: #6c0319;
+    line-height: 1;
+    box-sizing: border-box;
+  }
+
+  .Header_notification {
+    display: flex;
+    font-size: 1.35rem;
+  }
+
+  .Header_three {
+    font-size: 1.35rem;
   }
 }
 
@@ -280,32 +315,13 @@
     width: 150px;
     height: 50px;
   }
-  .Header_notification {
-    width: 90px;
-    height: 40px;
-    font-size: 1rem;
-    background-color: #6c0319;
-    border-radius: 10px;
-    color: white;
-  }
-
   .Header_button {
-    width: 30%;
+    width: auto;
   }
 
-  .Header_three {
-    font-size: 2rem;
-    background-color: #6c0319;
-    border-radius: 10px;
-    color: white;
-  }
-
+  .Header_three,
   .Header_notification {
-    font-size: 1rem;
     display: flex;
-    background-color: #6c0319;
-    border-radius: 10px;
-    color: white;
   }
 }
 
@@ -319,13 +335,14 @@
     width: 100px;
   }
 
-  .Header_notification {
-    width: 90px;
+  .Header_notification,
+  .Header_three {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
     height: 40px;
-    font-size: 1rem;
-    display: flex;
-    background-color: #6c0319;
-    border-radius: 10px;
-    color: white;
+    min-height: 40px;
+    max-height: 40px;
+    flex-basis: 40px;
   }
 }
