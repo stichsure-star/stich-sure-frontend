@@ -2,19 +2,33 @@
   width: 100%;
   min-height: 100vh;
   background: #fff;
-  padding: 24px 10px;
+  padding: 24px 16px;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 .bot_ordertracker-page-shell {
   width: min(100%, 1000px);
   background: #fff;
   border: 1px solid #dddddd;
-  border-radius: 10px;
-  padding: 18px;
+  border-radius: 12px;
+  padding: 24px;
   box-sizing: border-box;
+  position: relative;
+}
+
+.Warni {
+  position: absolute;
+  bottom: 10px;
+  right: 120px;
 }
 
 .bot_ordertracker-header {
@@ -22,97 +36,102 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  margin-bottom: 52px;
-  padding: 24px 32px;
+  margin-bottom: 36px;
+  padding: 28px 36px;
+
   background: #fff;
-  border: 1px solid #dddddd;
-  border-radius: 12px;
-  box-shadow: 0 5px 14px rgba(16, 24, 40, 0.08);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(16, 24, 40, 0.06);
 }
 
 .bot_ordertracker-title {
   margin: 0 0 8px;
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 700;
-  color: #161616;
+  color: #1a1a1a;
 }
 
 .bot_ordertracker-customer,
 .bot_ordertracker-id {
-  margin: 2px 0;
-  font-size: 10px;
-  color: #4d4d4d;
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555555;
 }
 
 .bot_ordertracker-header-right {
   text-align: right;
-  min-width: 120px;
+  min-width: 140px;
 }
 
 .bot_ordertracker-price {
-  margin: 0 0 7px;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 22px;
   font-weight: 800;
-  color: #121212;
+  color: #111111;
 }
 
 .bot_ordertracker-status-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 20px;
-  padding: 0 13px;
-  border-radius: 5px;
-  background: #d8f8d6;
-  color: #247f2f;
-  font-size: 10px;
-  font-weight: 700;
+  justify-content: center;
+  min-height: 26px;
+  padding: 0 16px;
+  border-radius: 20px;
+  background: #def7ec;
+  color: #03543f;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .bot_ordertracker-due {
-  margin: 7px 0 0;
-  font-size: 10px;
-  color: #5c5c5c;
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #666666;
 }
 
 .bot_ordertracker-card {
   background: #fff;
-  border: 1px solid #cfcfcf;
-  border-radius: 12px;
-  padding: 24px 18px 18px;
-  box-shadow: 0 5px 12px rgba(16, 24, 40, 0.14);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.04);
 }
 
 .bot_section-title {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin: 0 0 12px;
-  font-size: 11px;
-  font-weight: 800;
-  color: #2a1420;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f121a;
 }
 
 .bot_section-title svg {
   color: #8a0020;
   flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
 }
 
 .bot_measurements-card {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 .bot_measurement-note {
   display: flex;
   align-items: center;
-  gap: 6px;
-  min-height: 24px;
-  margin-bottom: 14px;
-  padding: 0 10px;
-  border-radius: 6px;
-  background: #eaf3ff;
-  color: #2360ba;
-  font-size: 9px;
-  line-height: 1.2;
+  gap: 8px;
+  min-height: 32px;
+  margin-bottom: 18px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .bot_measurement-note svg {
@@ -120,19 +139,21 @@
 }
 
 .bot_measurement-design-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  width: calc(60% - 12px);
   gap: 24px;
   align-items: start;
+  vertical-align: top;
 }
 
 .bot_measurements-scroll {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 28px;
-  max-height: 138px;
+  gap: 20px 32px;
+  max-height: 190px;
   overflow-y: auto;
-  padding-right: 8px;
+  padding-right: 12px;
 }
 
 .bot_measurements-scroll::-webkit-scrollbar {
@@ -140,45 +161,45 @@
 }
 
 .bot_measurements-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f3f4f6;
   border-radius: 999px;
 }
 
 .bot_measurements-scroll::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
+  background: #d1d5db;
   border-radius: 999px;
 }
 
 .bot_measurement-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   min-width: 0;
 }
 
 .bot_measurement-row span {
   display: block;
-  margin-bottom: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #222;
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 .bot_measurement-row small {
   display: block;
-  font-size: 8px;
-  color: #747474;
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .bot_measurement-row strong {
-  min-width: 36px;
-  padding: 4px 7px;
-  border-radius: 4px;
-  background: #fff0f3;
-  color: #8a0020;
-  font-size: 11px;
-  font-weight: 800;
+  min-width: 42px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #fff1f2;
+  color: #9f1239;
+  font-size: 14px;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -188,17 +209,19 @@
 
 .bot_design-preview-button,
 .bot_inspiration-image-button {
-  border: 1px solid #cfcfcf;
-  background: #f7f5f5;
-  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 12px;
   cursor: pointer;
   overflow: hidden;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .bot_design-preview-button {
   width: 100%;
-  height: 126px;
+  height: 160px;
 }
 
 .bot_design-preview-button img,
@@ -209,32 +232,55 @@
   object-fit: cover;
 }
 
-.bot_description-section {
-  margin-bottom: 18px;
+/* --- BOTTOM FLEX CONTAINER --- */
+.bot_desc-inspire-flex {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  margin-top: 28px;
+}
+
+.bot_description-section,
+.bot_images-section {
+  width: 100%;
+  margin: 0;
 }
 
 .bot_description-section p {
   margin: 0;
-  min-height: 92px;
-  padding: 18px;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  background: #f7f7f7;
-  color: #333;
-  font-size: 11px;
-  line-height: 1.65;
+  min-height: 160px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.6;
+  box-sizing: border-box;
 }
 
 .bot_image-scroll {
-  height: 126px;
-  border: 1px solid #cfcfcf;
-  border-radius: 8px;
-  background: #f7f5f5;
-  display: flex;
+  height: 160px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+  display: inline-flex;
   justify-content: center;
   align-items: stretch;
   overflow-x: auto;
   overflow-y: hidden;
+  width: calc(40% - 12px);
+  margin-left: 24px;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.bot_desc-inspire-flex .bot_image-scroll {
+  width: 100%;
+  margin-left: 0;
+  display: flex;
 }
 
 .bot_image-scroll::-webkit-scrollbar {
@@ -242,75 +288,91 @@
 }
 
 .bot_image-scroll::-webkit-scrollbar-track {
-  background: #eeeeee;
+  background: #f3f4f6;
   border-radius: 999px;
 }
 
 .bot_image-scroll::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
+  background: #d1d5db;
   border-radius: 999px;
 }
 
 .bot_inspiration-image-button {
-  width: 82px;
+  width: 120px;
   height: 100%;
   flex: 0 0 auto;
-  border-top: 0;
-  border-bottom: 0;
+  border: 0;
+  border-right: 1px solid #e5e7eb;
   border-radius: 0;
 }
 
 .bot_image-helper-text {
   margin: 12px 0 0;
-  font-size: 9px;
-  color: #8a8a8a;
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .bot_ordertracker-done-btn {
   width: 100%;
-  height: 42px;
-  margin-top: 56px;
+  height: 48px;
+  margin-top: 48px;
   border: 0;
-  border-radius: 4px;
+  border-radius: 8px;
   background: #85001f;
   color: #fff;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .bot_ordertracker-done-btn:hover {
   background: #6f001a;
 }
 
+/* --- RESPONSIVE MEDIA QUERIES --- */
 @media screen and (max-width: 768px) {
   .bot_ordertracker-wrapper {
-    padding: 14px 8px;
+    padding: 16px 12px;
   }
 
   .bot_ordertracker-page-shell {
-    padding: 14px;
+    padding: 18px;
   }
 
   .bot_ordertracker-header {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     padding: 20px;
   }
 
   .bot_measurement-design-grid {
+    display: grid;
+    width: 100%;
+  }
+
+  .bot_image-scroll {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 18px;
+  }
+
+  .bot_desc-inspire-flex {
     grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 20px;
   }
 
   .bot_measurements-scroll {
-    max-height: 170px;
+    max-height: 220px;
   }
 
   .bot_your-design-panel {
-    max-width: 260px;
+    max-width: 320px;
   }
 
   .bot_ordertracker-done-btn {
-    margin-top: 34px;
+    margin-top: 36px;
   }
 }
 
@@ -329,6 +391,6 @@
   }
 
   .bot_description-section p {
-    padding: 14px;
+    padding: 16px;
   }
 }

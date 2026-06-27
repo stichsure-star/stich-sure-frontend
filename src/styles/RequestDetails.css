@@ -50,23 +50,58 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
 }
 
+/* Scroll wrapper container for measurements */
+.measurement-grid-container {
+  max-height: 190px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding-right: 6px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #fafafa;
+}
+
+.measurement-row {
+  width: 100%;
+}
+
+/* Aligns the fields label and input side by side */
 .Blopp {
   width: 100%;
-  height: 50px;
-
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .Blop {
-  width: 20%;
+  width: 40%;
+  font-size: 13px;
+  color: #333333;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .beep {
-  height: 90%;
+  width: 60%;
+  height: 38px;
   background-color: white;
   padding-left: 10px;
-  border: 1px solid #9e9e9e;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.beep:focus {
+  border-color: #cccccc;
 }
 
 .rd-form-group label {
@@ -124,11 +159,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   pointer-events: none;
 }
 
-/* Upload Dropzone styling wrapper configuration layout */
+/* Upload Dropzone styling layout */
 .rd-upload-zone {
   border: 1px dashed #cccccc;
   border-radius: 12px;
-  padding: 32px 20px;
+  padding: 20px;
   text-align: center;
   background-color: #ffffff;
   cursor: pointer;
@@ -164,46 +199,71 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: 0;
 }
 
-/* New active preview frame rules */
+/* Container displaying dynamic previews side by side */
+.rd-images-row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .rd-preview-wrapper {
   position: relative;
-  width: 100%;
+  width: 45%;
+  max-width: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .rd-image-preview {
-  max-height: 100px;
-  max-width: 100%;
-  object-fit: contain;
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
   border-radius: 6px;
+  border: 1px solid #e5e5e5;
 }
 
 .rd-preview-filename {
-  font-size: 13px;
+  font-size: 11px;
   color: #4b5563;
   margin: 0;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+}
+
+.rd-add-more-hint {
+  font-size: 12px;
+  color: #6c0319;
+  font-weight: 600;
+  margin: 0;
 }
 
 .rd-remove-img-btn {
   position: absolute;
-  top: -20px;
-  right: 0;
+  top: -8px;
+  right: -8px;
   background: #6c0319;
   color: #ffffff;
   border: none;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
 .rd-remove-img-btn:hover {

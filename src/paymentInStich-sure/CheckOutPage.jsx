@@ -25,6 +25,9 @@ const CheckOutPage = () => {
   const [orderPreparing, setOrderPreparing] = useState(true);
   const [errors, setErrors] = useState({});
 
+  // 1. STATE FOR SAVE FOR LATER CHECKBOX
+  const [saveInfo, setSaveInfo] = useState(false);
+
   const [formData, setFormData] = useState({
     address: "",
     email: user?.email || "",
@@ -93,7 +96,6 @@ const CheckOutPage = () => {
   const syncCustomerProfile = async (phone) => {
     const deliveryAddress = getDeliveryAddress();
 
-    // SANITIZATION FIX: Strips out numbers/special symbols and guarantees non-empty fallbacks
     const cleanFirstName =
       (user?.firstName || "John").replace(/[^a-zA-Z\s]/g, "").trim() || "John";
     const cleanLastName =
@@ -131,10 +133,8 @@ const CheckOutPage = () => {
       address: savedAddress,
     };
 
-    // 1. SAVE TO REDUX
     dispatch(updateUser(updatedUserData));
 
-    // 2. SAVE TO LOCAL STORAGE (Double Backup)
     try {
       localStorage.setItem("user", JSON.stringify(updatedUserData));
     } catch (e) {
@@ -195,7 +195,11 @@ const CheckOutPage = () => {
     const deliveryAddress = getDeliveryAddress();
 
     try {
-      await syncCustomerProfile(phone);
+      // 2. CONDITIONAL SAVE CHECK: Only update database and redux profile if checkbox is true
+      if (saveInfo) {
+        await syncCustomerProfile(phone);
+      }
+
       const currentOrderId = await createOrder();
       const payload = buildPaymentPayload(
         currentOrderId,
@@ -208,10 +212,8 @@ const CheckOutPage = () => {
       const response = await authApi.finalPay(payload);
       console.log("FULL PAYMENT RESPONSE:", response);
 
-      // 1. SAVE TO REDUX
       dispatch(setPaymentData(response.data));
 
-      // 2. SAVE TO LOCAL STORAGE (Double Backup)
       try {
         if (response?.data) {
           localStorage.setItem("paymentData", JSON.stringify(response.data));
@@ -299,7 +301,6 @@ const CheckOutPage = () => {
                 </span>
               )}
 
-              {/* FIXED VALUE BINDING: Changed from user?.phoneNumber to formData.phone */}
               <input
                 name="phone"
                 placeholder="07056491653"
@@ -356,8 +357,14 @@ const CheckOutPage = () => {
                 </span>
               )}
 
+              {/* 3. CONTROLLED INPUT STATE LINK BINDING */}
               <div className="Asave-info">
-                <input type="checkbox" id="saveInfo" />
+                <input
+                  type="checkbox"
+                  id="saveInfo"
+                  checked={saveInfo}
+                  onChange={(e) => setSaveInfo(e.target.checked)}
+                />
                 <label htmlFor="saveInfo">
                   Save this information for a faster next time
                 </label>

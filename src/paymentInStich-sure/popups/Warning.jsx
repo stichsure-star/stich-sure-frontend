@@ -1,81 +1,38 @@
-import React from 'react'
-import "./css/modal-responsive-screen.css"
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TiWarningOutline } from "react-icons/ti";
+import "./css/War.css";
 
-const styles = {
-  modal: {
-    width: "448px",
-    height: "246px",
-    borderRadius: "16px",
-    padding: "24px",
-    background: "#FFFFFF",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+// 1. Accept 'loading' as a prop from the parent component instead of a local state
+const Warning = ({ onClose, orderData, handleConfirm, loading }) => {
+  return (
+    <div className="custom-modal modal">
+      <div className="iconWrapper">
+        <TiWarningOutline />
+      </div>
 
-  iconWrapper: {
-    marginBottom: "20px",
-  },
+      <h2 className="title">Are you sure this production is done?</h2>
 
-  title: {
-    fontSize: "20px",
-    fontWeight: 600,
-    textAlign: "center",
-    lineHeight: "30px",
-    color: "#1E1E1E",
-    marginBottom: "40px",
-  },
-
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: "auto",
-  },
-
-  yesButton: {
-    width: "84px",
-    height: "40px",
-    borderRadius: "8px",
-    border: "none",
-    background: "#8B0021",
-    color: "#FFFFFF",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-
-  noButton: {
-    width: "84px",
-    height: "40px",
-    borderRadius: "8px",
-    border: "1px solid #8B0021",
-    background: "#FFFFFF",
-    color: "#1E1E1E",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
+      <div className="buttonContainer">
+        <button
+          className="yesButton"
+          onClick={handleConfirm}
+          disabled={loading} // Now properly disables when parent API is running
+          type="button"
+        >
+          {loading ? (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          ) : (
+            <span>Yes</span>
+          )}
+        </button>
+        <button className="noButton" onClick={onClose} disabled={loading}>
+          No
+        </button>
+      </div>
+    </div>
+  );
 };
 
-const Warning = () => {
-  return (
-    <div className="custom-modal" style={styles.modal}>
-  <div style={styles.iconWrapper}>
-    <WarningIcon />
-  </div>
-
-  <h2 style={styles.title}>
-    Are you sure this production is done
-  </h2>
-
-  <div style={styles.buttonContainer}>
-    <button style={styles.yesButton}>Yes</button>
-    <button style={styles.noButton}>No</button>
-  </div>
-</div>
-
-    
-      
-  )
-}
-
-export default Warning
+export default Warning;

@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   role: null,
   paymentData: null,
+  resp: null,
 };
 
 const authSlice = createSlice({
@@ -27,10 +28,14 @@ const authSlice = createSlice({
         ...action.payload,
       };
     },
-    // setPaymentData: (state, action) => {
-    //   // FIXED: Safely mutates tracked state property
-    //   state.paymentData = action.payload;
-    // },
+
+    setShipmentReceipt: (state, action) => {
+      state.resp = action.payload;
+    },
+    clearShipmentReceipt: (state) => {
+      state.resp = null; // or state.resp = {}; depending on your initial state setup
+    },
+
     setPaymentData: (state, action) => {
       state.paymentData = action.payload;
     },
@@ -43,6 +48,13 @@ const authSlice = createSlice({
 });
 
 // 2. Fixed spelling here too
-export const { setCredentials, setRole, updateUser, logout, setPaymentData } =
-  authSlice.actions;
+export const {
+  setCredentials,
+  setRole,
+  updateUser,
+  logout,
+  setPaymentData,
+  setShipmentReceipt,
+  clearShipmentReceipt,
+} = authSlice.actions;
 export default authSlice.reducer;

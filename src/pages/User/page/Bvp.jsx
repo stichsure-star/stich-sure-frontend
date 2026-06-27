@@ -2,43 +2,39 @@ import React, { useEffect, useState } from "react";
 import { FiImage, FiInfo } from "react-icons/fi";
 import { FaRulerCombined } from "react-icons/fa";
 import "../css/Bvp.css";
-import designImage from "../../../assets/daniel/Colorful Ankara.png";
-import { designerApi } from "../../../config/designer";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
-import { useSelector } from "react-redux";
 import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 
 const BvpPage = () => {
   const location = useLocation();
-
   const orderId = location.state?.orderId;
-
-  console.log("orderId", orderId);
-  console.log("orderId");
 
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchDara = async () => {
+  const fetchData = async () => {
+    if (!orderId) return;
     try {
       setLoading(true);
       const response = await authApi.oneOrder(orderId);
-      console.log("response", response.data.data);
-      setOrder(response.data);
+      console.log("CUSTOMER DATABASE RESPONSE:", response.data);
+
+      if (response.data?.data) {
+        setOrder(response.data.data);
+      } else {
+        setOrder(response.data);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching single order data:", error);
     } finally {
       setLoading(false);
     }
   };
-  console.log("order", order);
-
-  const measurements = order?.data?.design?.measurements;
 
   useEffect(() => {
-    fetchDara();
-  }, []);
+    fetchData();
+  }, [orderId]);
 
   if (loading) {
     return (
@@ -49,8 +45,14 @@ const BvpPage = () => {
       </div>
     );
   }
+
+  // Safely extract paths regardless of wrapper nests
+  const targetData = order?.data || order;
+  const measurements =
+    targetData?.measurement || targetData?.design?.measurements;
+
   const formatDashboardDate = (dateString) => {
-    if (!dateString) return "N/A";
+    if (!dateString) return "Pending Arrangement";
     try {
       const date = new Date(dateString);
       return date.toLocaleDateString("en-GB", {
@@ -63,28 +65,50 @@ const BvpPage = () => {
     }
   };
 
+  // 🚀 CLEAN BACKEND STATUS BADGE (No Redux leaks)
+  const currentStatus =
+    targetData?.status === "Completed" ||
+    targetData?.status?.toLowerCase() === "completed" ||
+    order?.status === "Completed" ||
+    order?.status?.toLowerCase() === "completed"
+      ? "Completed"
+      : "Pending";
+
+  // 🚀 EXTRACT LOGISTICS STRAIGHT FROM DATABASE RESPONSE
+  const shipmentInfo =
+    targetData?.shipment || targetData?.payment?.pickup || order?.shipment;
+
   return (
     <div className="Bba_ordertracker-wrapper">
       <div className="Bba_ordertracker-page-shell">
         <div className="Bba_ordertracker-header">
           <div>
-            <h2 className="Bba_ordertracker-title">{order?.data.itemName}</h2>
+            <h2 className="Bba_ordertracker-title">
+              {targetData?.itemName || "Custom Garment"}
+            </h2>
             <p className="Bba_ordertracker-customer">
-              for:{order?.data?.customer?.firstName}{" "}
-              {order?.data?.customer?.lastName}
+              for: {targetData?.customer?.firstName || "Guest"}{" "}
+              {targetData?.customer?.lastName || ""}
             </p>
             <p className="Bba_ordertracker-id">
-              Order ID: {order?.data?.orderNumber}
+              Order ID: {targetData?.orderNumber || "N/A"}
             </p>
           </div>
 
           <div className="Bba_ordertracker-header-right">
-            <h3 className="Bba_ordertracker-price">{order?.amount}</h3>
+            <h3 className="Bba_ordertracker-price">
+              ₦{new Intl.NumberFormat("en-NG").format(targetData?.amount || 0)}
+            </h3>
             <span className="Bba_ordertracker-status-badge">
-              {order?.data.status}
+              {currentStatus}
             </span>
             <p className="Bba_ordertracker-due">
-              Due: {formatDashboardDate(order?.data.placedAt)}
+              Due:{" "}
+              {formatDashboardDate(
+                targetData?.pickupDate ||
+                  targetData?.request?.deadLine ||
+                  targetData?.placedAt,
+              )}
             </p>
           </div>
         </div>
@@ -92,24 +116,24 @@ const BvpPage = () => {
         <div className="Bba_ordertracker-card">
           <section className="Bba_measurements-card">
             <h3 className="Bba_section-title">
-              <FaRulerCombined />
-              Body Measurements
+              <FaRulerCombined /> Body Measurements
             </h3>
 
             <div className="Bba_measurement-note">
-              <FiInfo />
-              All measurements are in inches unless otherwise stated.
+              <FiInfo /> All measurements are in inches unless otherwise stated.
             </div>
 
             <div className="Bba_measurement-design-grid">
               <div className="Bba_measurements-scroll">
-                {/* Measurements Quick Empty State */}
                 {measurements && measurements.length > 0 ? (
-                  measurements.map((item) => (
-                    <div key={item.label} className="Bba_measurement-row">
+                  measurements.map((item, index) => (
+                    <div
+                      key={item.name || item.label || index}
+                      className="Bba_measurement-row"
+                    >
                       <div>
-                        <span>{item.label}</span>
-                        <small>{item.note}</small>
+                        <span>{item.name || item.label}</span>
+                        {item.note && <small>{item.note}</small>}
                       </div>
                       <strong>{item.value}</strong>
                     </div>
@@ -117,7 +141,7 @@ const BvpPage = () => {
                 ) : (
                   <p
                     style={{
-                      fontSize: "11px",
+                      fontSize: "13px",
                       color: "#8a8a8a",
                       margin: 0,
                       gridColumn: "span 2",
@@ -130,73 +154,143 @@ const BvpPage = () => {
 
               <div className="Bba_your-design-panel">
                 <h3 className="Bba_section-title">
-                  <FiImage />
-                  Your Design
+                  <FiImage /> Your Design
                 </h3>
-                {/* Your Design Image Quick Empty State */}
-                {order?.data?.designImage ||
-                order?.data?.design?.designImage ? (
+                {targetData?.designImage || targetData?.design?.designImage ? (
                   <button className="Bba_design-preview-button" type="button">
                     <img
                       src={
-                        order?.data?.designImage ||
-                        order?.data.design.designImage
+                        targetData?.designImage ||
+                        targetData?.design?.designImage
                       }
-                      alt="Selected bridal gown design"
+                      alt={targetData?.itemName || "Garment catalog look"}
                     />
-                    <p>{order?.data.design.category}</p>
+                    <p>{targetData?.design?.category || "Standard Template"}</p>
                   </button>
                 ) : (
                   <div
                     style={{
                       width: "100%",
-                      height: "126px",
+                      height: "150px",
                       border: "1px dashed #cfcfcf",
                       borderRadius: "8px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "11px",
+                      fontSize: "13px",
                       color: "#8a8a8a",
                       background: "#f7f5f5",
                     }}
                   >
-                    No image uploaded
+                    No profile base template layout
                   </div>
                 )}
               </div>
             </div>
           </section>
-          Creator
+
+          {/* 🚀 RESTORED DYNAMIC LOGISTICS PANEL */}
+          {shipmentInfo &&
+            (shipmentInfo.trackingCode || shipmentInfo.tracking_code) && (
+              <section
+                className="Bba_description-section"
+                style={{
+                  borderLeft: "4px solid #8B0021",
+                  background: "#fdfbfff",
+                }}
+              >
+                <h3 className="Bba_section-title" style={{ color: "#8B0021" }}>
+                  Logistics & Tracking Details
+                </h3>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    fontSize: "14px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <p>
+                    <strong>Tracking Number:</strong>{" "}
+                    {shipmentInfo.trackingCode || shipmentInfo.tracking_code}
+                  </p>
+                  <p>
+                    <strong>Courier Service:</strong>{" "}
+                    {shipmentInfo.courier || shipmentInfo.courier_name}
+                  </p>
+                  {(shipmentInfo.trackingUrl || shipmentInfo.tracking_url) && (
+                    <a
+                      href={
+                        shipmentInfo.trackingUrl || shipmentInfo.tracking_url
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: "#8B0021",
+                        textDecoration: "underline",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Track Package on Shipbubble →
+                    </a>
+                  )}
+                </div>
+              </section>
+            )}
+
           <section className="Bba_description-section">
             <h3 className="Bba_section-title">
-              <FiImage />
-              Design Description
+              <FiImage /> Design Description
             </h3>
-
             <p>
-              {order?.data.design.description || "No description provided."}
+              {targetData?.request?.description || "No description provided."}
             </p>
           </section>
+
           <section className="Bba_images-section">
             <h3 className="Bba_section-title">
-              <FiImage />
-              Inspiration Images
+              <FiImage /> Inspiration Images
             </h3>
 
             <div className="Bba_image-scroll">
-              <button className="Bba_inspiration-image-button" type="button">
-                <img
-                  src={order?.data.status}
-                  alt="Inspiration for bridal gown"
-                />
-              </button>
+              {targetData?.request?.inspirationalImage ? (
+                Array.isArray(targetData.request.inspirationalImage) ? (
+                  targetData.request.inspirationalImage.map((imgUrl, index) => (
+                    <button
+                      className="Bba_inspiration-image-button"
+                      type="button"
+                      key={index}
+                    >
+                      <img
+                        src={imgUrl}
+                        alt={`Inspiration reference look ${index + 1}`}
+                      />
+                    </button>
+                  ))
+                ) : (
+                  <button
+                    className="Bba_inspiration-image-button"
+                    type="button"
+                  >
+                    <img
+                      src={targetData.request.inspirationalImage}
+                      alt="Inspiration reference look"
+                    />
+                  </button>
+                )
+              ) : (
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#8a8a8a",
+                    margin: "auto 18px",
+                  }}
+                >
+                  No optional inspiration references uploaded by client.
+                </p>
+              )}
             </div>
-
-            <p className="Bba_image-helper-text">
-              Client has uploaded reference images to guide the design. Click
-              each image to view full size.
-            </p>
           </section>
         </div>
       </div>

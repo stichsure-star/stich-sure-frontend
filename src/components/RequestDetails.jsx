@@ -20,15 +20,13 @@ const RequestDetails = () => {
     : "Guest User";
 
   const navigate = useNavigate();
-
-  const [called, setCalled] = useState("");
   const { id: designerId } = useParams();
 
   const location = useLocation();
   const holding = location.state;
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -43,9 +41,8 @@ const RequestDetails = () => {
     "Hip",
   ];
 
-  // Initialize measurement as an empty object so tracking nested keys doesn't break
   const [formData, setFormData] = useState({
-    fullName: user?.lastName || "",
+    fullName: derivedFullName,
     deadLine: "",
     description: "",
     measurement: {},
@@ -53,7 +50,6 @@ const RequestDetails = () => {
 
   const handleMeasurementChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       measurement: {
@@ -63,22 +59,20 @@ const RequestDetails = () => {
     }));
   };
 
-  const getTomorrowDate = () => {
+  const getMinAllowedDate = () => {
     const d = new Date();
-    d.setDate(d.getDate() + 1);
+    d.setDate(d.getDate() + 2);
     return d.toISOString().split("T")[0];
   };
 
-  const minDate = getTomorrowDate();
+  const minDate = getMinAllowedDate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-
     setErrors((prev) => ({
       ...prev,
       [name]: "",
@@ -90,9 +84,10 @@ const RequestDetails = () => {
 
     if (!formData.deadLine) {
       newErrors.deadLine = "Deadline is required";
+    } else if (formData.deadLine < minDate) {
+      newErrors.deadLine = "Deadline must be at least 2 days from today";
     }
 
-    // Check if any of the defined fields are missing/empty in the state object
     const hasEmptyField = measurementFields.some(
       (field) =>
         !formData.measurement[field] ||
@@ -119,7 +114,6 @@ const RequestDetails = () => {
 
   const handleDateClick = () => {
     if (!dateInputRef.current) return;
-
     if (dateInputRef.current.showPicker) {
       dateInputRef.current.showPicker();
     } else {
@@ -130,35 +124,55 @@ const RequestDetails = () => {
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
-
     setLoading(true);
 
     try {
-      // FIX: Convert the measurement object into a string to satisfy backend rules
-      const stringifiedMeasurements = JSON.stringify(formData.measurement);
+      const formattedMeasurementsArray = Object.entries(
+        formData.measurement,
+      ).map(([key, val]) => ({
+        name: key,
+        value: val,
+      }));
+      const stringifiedMeasurements = JSON.stringify(
+        formattedMeasurementsArray,
+      );
 
-      const payload = {
-        fullName: derivedFullName, // Using derived full name instead of just last name
-        deadLine: formData.deadLine,
-        measurement: stringifiedMeasurements, // Now a clean string payload
-        description: formData.description,
-        amount: holding?.amount ? parseInt(holding.amount, 10) : 0,
-        designId: holding?.designId,
-        designImg: holding?.design,
-        itemName: holding?.itemName,
-      };
+      const dataPayload = new FormData();
+      dataPayload.append("fullName", derivedFullName);
+      dataPayload.append("deadLine", formData.deadLine);
+      dataPayload.append("measurement", stringifiedMeasurements);
+      dataPayload.append("description", formData.description);
+      dataPayload.append(
+        "amount",
+        holding?.amount ? parseInt(holding.amount, 10) : 0,
+      );
+      dataPayload.append("itemName", holding?.itemName || "Custom Outfit");
 
-      console.log("PAYLOAD BEING SENT:", payload);
+      if (holding?.designId) {
+        dataPayload.append("designId", holding.designId);
+      }
 
-      const response = await customerApi.request(designerId, payload);
+      if (holding?.design) {
+        dataPayload.append("designImage", holding.design);
+      }
 
-      setCalled(response.data);
+      selectedFiles.forEach((file) => {
+        dataPayload.append("inspirationalImage", file);
+      });
 
-      // Cleaned up the undefined console logs and directly passed routing state context
-      navigate(`/user/checkout/${response.data.id}`, {
+      console.log("Submitting perfectly matched multi-part form payload...");
+
+      const response = await customerApi.request(designerId, dataPayload);
+
+      const targetId =
+        response.data?.id ||
+        response.data?.data?.id ||
+        response.data?.data?._id;
+
+      navigate(`/user/checkout/${targetId}`, {
         state: {
           ...holding,
-          requestId: response.data.id,
+          requestId: targetId,
         },
       });
     } catch (error) {
@@ -169,18 +183,23 @@ const RequestDetails = () => {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      const newFiles = [...selectedFiles, ...files].slice(0, 2);
+      setSelectedFiles(newFiles);
 
-    if (file) {
-      setSelectedFile(file);
-      setImagePreview(URL.createObjectURL(file));
+      const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+      setImagePreviews(newPreviews);
     }
   };
 
-  const handleRemoveImage = (e) => {
+  const handleRemoveImage = (index, e) => {
     e.stopPropagation();
-    setSelectedFile(null);
-    setImagePreview(null);
+    const newFiles = selectedFiles.filter((_, i) => i !== index);
+    const newPreviews = imagePreviews.filter((_, i) => i !== index);
+
+    setSelectedFiles(newFiles);
+    setImagePreviews(newPreviews);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -193,7 +212,6 @@ const RequestDetails = () => {
         <h2 className="rd-title">Request Details</h2>
 
         <form onSubmit={(e) => e.preventDefault()} className="rd-form">
-          {/* Full Name */}
           <div className="rd-form-group">
             <label htmlFor="fullName">Full Name</label>
             <input
@@ -201,22 +219,19 @@ const RequestDetails = () => {
               id="fullName"
               name="fullName"
               value={derivedFullName}
-              readOnly // Keeps it locked to the actual user data logged in
+              readOnly
               className="read-only-input"
             />
           </div>
 
-          {/* Deadline */}
           <div className="rd-form-group rd-relative">
             <label htmlFor="deadline">DeadLine</label>
-
             <div className="rd-input-icon-wrapper">
               <HiOutlineCalendar
                 className="rd-calendar-icon"
                 onClick={handleDateClick}
                 style={{ cursor: "pointer" }}
               />
-
               <input
                 ref={dateInputRef}
                 type="date"
@@ -228,40 +243,36 @@ const RequestDetails = () => {
                 className="Date-pick"
               />
             </div>
-
             {errors.deadLine && <p className="error-text">{errors.deadLine}</p>}
           </div>
 
-          {/* Measurements */}
           <div className="rd-form-group">
             <label>Input needed measurement from Designer</label>
-
-            {measurementFields.map((field) => (
-              <div key={field} className="measurement-row">
-                <div className="Blopp">
-                  <label className="Blop">{field}</label>
-
-                  <input
-                    type="number"
-                    name={field}
-                    value={formData.measurement[field] || ""}
-                    onChange={handleMeasurementChange}
-                    placeholder={`Enter ${field}`}
-                    className="beep"
-                  />
+            {/* Added scrollable grid container element */}
+            <div className="measurement-grid-container">
+              {measurementFields.map((field) => (
+                <div key={field} className="measurement-row">
+                  <div className="Blopp">
+                    <label className="Blop">{field}</label>
+                    <input
+                      type="number"
+                      name={field}
+                      value={formData.measurement[field] || ""}
+                      onChange={handleMeasurementChange}
+                      placeholder={`Enter ${field}`}
+                      className="beep"
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-
+              ))}
+            </div>
             {errors.measurement && (
               <p className="error-text">{errors.measurement}</p>
             )}
           </div>
 
-          {/* Description */}
           <div className="rd-form-group">
             <label htmlFor="description">Description</label>
-
             <textarea
               id="description"
               name="description"
@@ -270,54 +281,60 @@ const RequestDetails = () => {
               value={formData.description}
               onChange={handleChange}
             />
-
             {errors.description && (
               <p className="error-text">{errors.description}</p>
             )}
           </div>
 
-          {/* Upload */}
           <div className="rd-form-group">
-            <label>Upload Inspiration Images (Optional)</label>
-
+            <label>Upload Inspiration Images (Optional, Max 2)</label>
             <input
               type="file"
               ref={fileInputRef}
               style={{ display: "none" }}
               accept="image/png,image/jpeg,image/jpg"
+              multiple
               onChange={handleFileChange}
             />
-
             <div className="rd-upload-zone" onClick={handleUploadClick}>
-              {imagePreview ? (
-                <div className="rd-preview-wrapper">
-                  <img
-                    src={imagePreview}
-                    alt="preview"
-                    className="rd-image-preview"
-                  />
-
-                  <button
-                    type="button"
-                    className="rd-remove-img-btn"
-                    onClick={handleRemoveImage}
-                  >
-                    <HiXMark />
-                  </button>
-
-                  <p className="rd-preview-filename">{selectedFile?.name}</p>
+              {imagePreviews.length > 0 ? (
+                /* Changed container layout to side-by-side configuration */
+                <div className="rd-images-row-container">
+                  {imagePreviews.map((preview, index) => (
+                    <div className="rd-preview-wrapper" key={index}>
+                      <img
+                        src={preview}
+                        alt={`preview ${index + 1}`}
+                        className="rd-image-preview"
+                      />
+                      <button
+                        type="button"
+                        className="rd-remove-img-btn"
+                        onClick={(e) => handleRemoveImage(index, e)}
+                      >
+                        <HiXMark />
+                      </button>
+                      <p className="rd-preview-filename">
+                        {selectedFiles[index]?.name}
+                      </p>
+                    </div>
+                  ))}
+                  {imagePreviews.length < 2 && (
+                    <p className="rd-add-more-hint">+ Add 2nd image</p>
+                  )}
                 </div>
               ) : (
                 <div className="rd-upload-placeholder">
                   <HiOutlineCloudArrowUp className="rd-upload-icon" />
                   <p className="rd-upload-text">Click to upload</p>
-                  <p className="rd-upload-subtext">PNG, JPG up to 10MB</p>
+                  <p className="rd-upload-subtext">
+                    PNG, JPG up to 10MB (Limit 2)
+                  </p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Footer */}
           <div className="rd-action-footer">
             <button
               type="button"
@@ -326,7 +343,6 @@ const RequestDetails = () => {
             >
               Back
             </button>
-
             <button
               type="button"
               className="rd-next-btn"
