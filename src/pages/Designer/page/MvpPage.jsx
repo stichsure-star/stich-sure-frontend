@@ -5,9 +5,8 @@ import "../css/mvp.css";
 import { designerApi } from "../../../config/designer";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import { setShipmentReceipt } from "../../../global/authSlice";
 import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 import Warning from "../../../paymentInStich-sure/popups/Warning";
@@ -15,11 +14,10 @@ import Warning from "../../../paymentInStich-sure/popups/Warning";
 const MvpPage = () => {
   const location = useLocation();
   const orderId = location.state?.orderId;
-  const [Dobbe, Donar] = useState(false);
-  const [recep, Reciept] = useState({});
   const dispatch = useDispatch();
 
-  const paylo = useSelector((state) => state.auth.setPaymentData);
+  const [Dobbe, Donar] = useState(false);
+  const [recep, Reciept] = useState({});
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +27,8 @@ const MvpPage = () => {
       const response = await authApi.oneOrder(orderId);
       if (response.data?.data) {
         setOrder(response.data.data);
+      } else {
+        setOrder(response.data);
       }
     } catch (error) {
       console.error("Error fetching order tracking info:", error);
@@ -37,44 +37,107 @@ const MvpPage = () => {
     }
   };
 
-  console.log("order", order);
-  const fetcUser = async () => {
-    if (!order) return;
+  useEffect(() => {
+    if (orderId) {
+      fetchDara();
+    }
+  }, [orderId]);
+
+  const handleConfirm = async (e) => {
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
+
+    setLoading(true);
+
     const payload = {
-      name: `${order?.customer?.firstName || ""} ${order?.customer?.lastName || ""}`.trim(),
-      email: order?.customer?.email || "",
-      address: order?.customer?.address || "",
-      phone: order?.customer?.phone || "",
+      request_token:
+        order?.payment?.pickup?.request_token || order?.shipment?.request_token,
+      courier_id:
+        order?.payment?.pickup?.courier_id || order?.shipment?.courier_id,
+      service_code:
+        order?.payment?.pickup?.service_code || order?.shipment?.service_code,
+      is_cod_label: "false",
     };
-    console.log("payload", payload);
+
     try {
-      const res = await designerApi.shipPy(payload);
-      console.log("customer shipping", res.data);
-    } catch (error) {
-      console.log(error);
+      // 1. Create the shipment with Shipbubble
+      const response = await designerApi.Valid(payload);
+
+      if (response.data && response.data.success === true) {
+        const freshShipment =
+          response.data?.shipment || response.data?.data?.shipment;
+
+        // 2. Fire database state switch
+        try {
+          await authApi.updateOrderStatus(orderId, { status: "completed" });
+        } catch (statusError) {
+          console.error(
+            "Shipment succeeded, but database status update failed:",
+            statusError,
+          );
+        }
+
+        // 3. Update local sync states & Redux slices
+        Reciept(response.data);
+        dispatch(setShipmentReceipt(response.data));
+
+        // 🚀 THE FIX: Merge the status AND the fresh shipment payload safely into state
+        setOrder((prev) => ({
+          ...prev,
+          status: "Completed",
+          shipment: freshShipment || prev?.shipment || prev?.payment?.pickup,
+        }));
+
+        Donar(false);
+
+        Swal.fire({
+          icon: "success",
+          title: "Production Completed!",
+          text: "Shipment created successfully and database record updated.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          icon: "warning",
+          title: "Shipment Issue",
+          text:
+            response.data?.message || "Failed to finalize shipment records.",
+          confirmButtonColor: "#8B0021",
+        });
+      }
+    } catch (errors) {
+      console.error("Actual JS Crash Details:", errors);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          errors?.response?.data?.message ||
+          errors.message ||
+          "Something went wrong.",
+        confirmButtonColor: "#8B0021",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const fetcDes = async () => {
-    if (!order) return;
-    const payloaded = {
-      name: `${order?.designer?.firstName || ""} ${order?.designer?.lastName || ""}`.trim(),
-      email: order?.designer?.email || "",
-      address: order?.designer?.profile.address || "",
-      phone: order?.designer?.profile.phoneNumber || "",
-    };
-    console.log("payloaded", payloaded);
-    try {
-      const res = await designerApi.shipPy(payloaded);
-      console.log("designer shipping", res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const currentStatus =
+    order?.status === "Completed" ||
+    order?.status?.toLowerCase() === "completed"
+      ? "Completed"
+      : "Pending";
 
-  console.log("order", order?.designer?.profile.phoneNumber);
-
-  console.log("order", order?.designer?.profile.address);
+  if (loading) {
+    return (
+      <div className="bot_ordertracker-wrapper">
+        <div className="bot_ordertracker-page-shell">
+          <SkeletonOrderTracker />
+        </div>
+      </div>
+    );
+  }
 
   const formatDashboardDate = (dateString) => {
     if (!dateString) return "Pending Arrangement";
@@ -89,89 +152,6 @@ const MvpPage = () => {
       return dateString;
     }
   };
-
-  const handleConfirm = async () => {
-    setLoading(true);
-
-    const payload = {
-      request_token: order?.payment.pickup.request_token,
-      courier_id: order?.payment.pickup.courier_id,
-      service_code: order?.payment.pickup.service_code,
-      is_cod_label: "false",
-    };
-
-    try {
-      const response = await designerApi.Valid(payload);
-
-      // Storing data into state
-      Reciept(response.data);
-      dispatch(setShipmentReceipt(response.data));
-
-      if (response.data && response.data.success === true) {
-        // 1. Save the FULL raw API response straight to Redux for your own custom display layouts
-        dispatch(setShipmentReceipt(response.data));
-
-        // 2. Instantly update the parent UI state to toggle the status string from "Pending" to "Completed"
-        if (typeof updateStatusOnUI === "function") {
-          updateStatusOnUI("Completed");
-        }
-
-        Swal.fire({
-          icon: "success",
-          title: "Production Completed!",
-          text: "Marked as Completed and tracking details loaded.",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-
-        if (onClose) onClose();
-
-        Swal.fire({
-          icon: "success",
-          title: "Production Completed!",
-          text: "Shipment created successfully and order marked as Completed",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-
-        // Optional: Remove if you want the user to stay and read the tracking numbers
-        // on the current screen before closing
-        if (onClose) {
-          setTimeout(() => {
-            onClose();
-          }, 2000);
-        }
-      }
-    } catch (errors) {
-      console.error("Validation error:", errors);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text:
-          errors?.response?.data?.message ||
-          "Something went wrong tracking this order.",
-        confirmButtonColor: "#8B0021",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (orderId) {
-      fetchDara();
-    }
-  }, [orderId]);
-
-  if (loading) {
-    return (
-      <div className="bot_ordertracker-wrapper">
-        <div className="bot_ordertracker-page-shell">
-          <SkeletonOrderTracker />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bot_ordertracker-wrapper">
@@ -195,11 +175,11 @@ const MvpPage = () => {
               ₦{new Intl.NumberFormat("en-NG").format(order?.amount || 0)}
             </h3>
             <span className="bot_ordertracker-status-badge">
-              {order?.status}
+              {currentStatus}
             </span>
             <p className="bot_ordertracker-due">
               Due:{" "}
-              {formatDashboardDate(order?.request.deadLine || order?.deadLine)}
+              {formatDashboardDate(order?.request?.deadLine || order?.deadLine)}
             </p>
           </div>
         </div>
@@ -207,13 +187,11 @@ const MvpPage = () => {
         <div className="bot_ordertracker-card">
           <section className="bot_measurements-card">
             <h3 className="bot_section-title">
-              <FaRulerCombined />
-              Body Measurements
+              <FaRulerCombined /> Body Measurements
             </h3>
 
             <div className="bot_measurement-note">
-              <FiInfo />
-              All measurements are in inches unless otherwise stated.
+              <FiInfo /> All measurements are in inches unless otherwise stated.
             </div>
 
             <div className="bot_measurement-design-grid">
@@ -245,6 +223,7 @@ const MvpPage = () => {
                 )}
               </div>
             </div>
+
             <div className="bot_image-scroll">
               {order?.inspirationalImage &&
               order.inspirationalImage.length > 0 ? (
@@ -271,7 +250,9 @@ const MvpPage = () => {
               )}
             </div>
           </section>
-          {recep.success && (
+
+          {/* DYNAMIC SHIPMENT DETAILS RECEIPT PANEL */}
+          {(recep?.success || order?.shipment || order?.payment?.pickup) && (
             <div
               className="shipping-receipt-card"
               style={{
@@ -294,23 +275,38 @@ const MvpPage = () => {
                 }}
               >
                 <p>
-                  <strong>Tracking Code:</strong> {recep.shipment?.trackingCode}
+                  <strong>Tracking Code:</strong>{" "}
+                  {recep?.shipment?.trackingCode ||
+                    order?.shipment?.trackingCode ||
+                    order?.shipment?.tracking_code ||
+                    order?.payment?.pickup?.tracking_code}
                 </p>
                 <p>
-                  <strong>Courier:</strong> {recep.shipment?.courier}
+                  <strong>Courier:</strong>{" "}
+                  {recep?.shipment?.courier ||
+                    order?.shipment?.courier ||
+                    order?.shipment?.courier_name ||
+                    order?.payment?.pickup?.courier_name}
                 </p>
-                <p>
-                  <strong>Shipping Fee:</strong> {recep.shipment?.currency}{" "}
-                  {recep.shipment?.shippingFee}
-                </p>
-                <p>
-                  <strong>Pickup Address:</strong>{" "}
-                  {recep.data?.ship_from?.address}
-                </p>
+                {(recep?.shipment?.shippingFee ||
+                  order?.shipment?.shippingFee) && (
+                  <p>
+                    <strong>Shipping Fee:</strong>{" "}
+                    {recep?.shipment?.currency || "₦"}{" "}
+                    {recep?.shipment?.shippingFee ||
+                      order?.shipment?.shippingFee}
+                  </p>
+                )}
 
-                {recep.shipment?.trackingUrl && (
+                {(recep?.shipment?.trackingUrl ||
+                  order?.shipment?.trackingUrl ||
+                  order?.shipment?.tracking_url) && (
                   <a
-                    href={recep.shipment?.trackingUrl}
+                    href={
+                      recep?.shipment?.trackingUrl ||
+                      order?.shipment?.trackingUrl ||
+                      order?.shipment?.tracking_url
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -330,26 +326,23 @@ const MvpPage = () => {
           <div className="bot_desc-inspire-flex">
             <section className="bot_description-section">
               <h3 className="bot_section-title">
-                <FiImage />
-                Design Description
+                <FiImage /> Design Description
               </h3>
               <p>
-                {order?.request.description ||
-                  order?.request?.description ||
+                {order?.request?.description ||
                   "No specific tailoring notes provided."}
               </p>
             </section>
 
             <section className="bot_images-section">
               <h3 className="bot_section-title">
-                <FiImage />
-                Inspiration Images
+                <FiImage /> Inspiration Images
               </h3>
 
               <div className="bot_image-scroll">
-                {order?.request.inspirationalImage &&
+                {order?.request?.inspirationalImage &&
                 order.request.inspirationalImage.length > 0 ? (
-                  order?.request.inspirationalImage.map((imgUrl, idx) => (
+                  order.request.inspirationalImage.map((imgUrl, idx) => (
                     <button
                       className="bot_inspiration-image-button"
                       type="button"
@@ -373,25 +366,45 @@ const MvpPage = () => {
           </div>
         </div>
 
-        <button
-          className="bot_ordertracker-done-btn"
-          type="button"
-          onClick={() => Donar(true)}
-        >
-          Done
-        </button>
-        <div className="Warni">
-          {/* Replace the bottom warning div in your return statement with this */}
-          {Dobbe && (
-            <div className="Warni">
-              <Warning
-                onClose={() => Donar(false)}
-                orderData={order}
-                handleConfirm={handleConfirm}
-              />
-            </div>
-          )}
-        </div>
+        {currentStatus === "Completed" ? (
+          <div
+            className="bot_task-completed-msg"
+            style={{
+              marginTop: "20px",
+              padding: "12px 20px",
+              backgroundColor: "#f4f4f4",
+              borderLeft: "4px solid #00c851",
+              borderRight: "4px solid #00c851",
+              color: "#00c851",
+              fontWeight: "500",
+              borderRadius: "0 4px 4px 0",
+              fontSize: "14px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            This Order has already been completed
+          </div>
+        ) : (
+          <button
+            className="bot_ordertracker-done-btn"
+            type="button"
+            onClick={() => Donar(true)}
+          >
+            Done
+          </button>
+        )}
+
+        {Dobbe && (
+          <div className="Warni">
+            <Warning
+              onClose={() => Donar(false)}
+              orderData={order}
+              handleConfirm={handleConfirm}
+              loading={loading}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

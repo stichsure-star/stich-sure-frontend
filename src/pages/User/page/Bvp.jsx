@@ -18,6 +18,8 @@ const BvpPage = () => {
     try {
       setLoading(true);
       const response = await authApi.oneOrder(orderId);
+      console.log("CUSTOMER DATABASE RESPONSE:", response.data);
+
       if (response.data?.data) {
         setOrder(response.data.data);
       } else {
@@ -63,6 +65,19 @@ const BvpPage = () => {
     }
   };
 
+  // 🚀 CLEAN BACKEND STATUS BADGE (No Redux leaks)
+  const currentStatus =
+    targetData?.status === "Completed" ||
+    targetData?.status?.toLowerCase() === "completed" ||
+    order?.status === "Completed" ||
+    order?.status?.toLowerCase() === "completed"
+      ? "Completed"
+      : "Pending";
+
+  // 🚀 EXTRACT LOGISTICS STRAIGHT FROM DATABASE RESPONSE
+  const shipmentInfo =
+    targetData?.shipment || targetData?.payment?.pickup || order?.shipment;
+
   return (
     <div className="Bba_ordertracker-wrapper">
       <div className="Bba_ordertracker-page-shell">
@@ -85,13 +100,13 @@ const BvpPage = () => {
               ₦{new Intl.NumberFormat("en-NG").format(targetData?.amount || 0)}
             </h3>
             <span className="Bba_ordertracker-status-badge">
-              {targetData?.status}
+              {currentStatus}
             </span>
             <p className="Bba_ordertracker-due">
               Due:{" "}
               {formatDashboardDate(
                 targetData?.pickupDate ||
-                  targetData?.request.deadLine ||
+                  targetData?.request?.deadLine ||
                   targetData?.placedAt,
               )}
             </p>
@@ -101,13 +116,11 @@ const BvpPage = () => {
         <div className="Bba_ordertracker-card">
           <section className="Bba_measurements-card">
             <h3 className="Bba_section-title">
-              <FaRulerCombined />
-              Body Measurements
+              <FaRulerCombined /> Body Measurements
             </h3>
 
             <div className="Bba_measurement-note">
-              <FiInfo />
-              All measurements are in inches unless otherwise stated.
+              <FiInfo /> All measurements are in inches unless otherwise stated.
             </div>
 
             <div className="Bba_measurement-design-grid">
@@ -141,8 +154,7 @@ const BvpPage = () => {
 
               <div className="Bba_your-design-panel">
                 <h3 className="Bba_section-title">
-                  <FiImage />
-                  Your Design
+                  <FiImage /> Your Design
                 </h3>
                 {targetData?.designImage || targetData?.design?.designImage ? (
                   <button className="Bba_design-preview-button" type="button">
@@ -177,10 +189,59 @@ const BvpPage = () => {
             </div>
           </section>
 
+          {/* 🚀 RESTORED DYNAMIC LOGISTICS PANEL */}
+          {shipmentInfo &&
+            (shipmentInfo.trackingCode || shipmentInfo.tracking_code) && (
+              <section
+                className="Bba_description-section"
+                style={{
+                  borderLeft: "4px solid #8B0021",
+                  background: "#fdfbfff",
+                }}
+              >
+                <h3 className="Bba_section-title" style={{ color: "#8B0021" }}>
+                  Logistics & Tracking Details
+                </h3>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    fontSize: "14px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <p>
+                    <strong>Tracking Number:</strong>{" "}
+                    {shipmentInfo.trackingCode || shipmentInfo.tracking_code}
+                  </p>
+                  <p>
+                    <strong>Courier Service:</strong>{" "}
+                    {shipmentInfo.courier || shipmentInfo.courier_name}
+                  </p>
+                  {(shipmentInfo.trackingUrl || shipmentInfo.tracking_url) && (
+                    <a
+                      href={
+                        shipmentInfo.trackingUrl || shipmentInfo.tracking_url
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: "#8B0021",
+                        textDecoration: "underline",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Track Package on Shipbubble →
+                    </a>
+                  )}
+                </div>
+              </section>
+            )}
+
           <section className="Bba_description-section">
             <h3 className="Bba_section-title">
-              <FiImage />
-              Design Description
+              <FiImage /> Design Description
             </h3>
             <p>
               {targetData?.request?.description || "No description provided."}
@@ -189,8 +250,7 @@ const BvpPage = () => {
 
           <section className="Bba_images-section">
             <h3 className="Bba_section-title">
-              <FiImage />
-              Inspiration Images
+              <FiImage /> Inspiration Images
             </h3>
 
             <div className="Bba_image-scroll">
@@ -231,11 +291,6 @@ const BvpPage = () => {
                 </p>
               )}
             </div>
-
-            <p className="Bba_image-helper-text">
-              Client has uploaded reference images to guide the design. Click
-              each image to view full size.
-            </p>
           </section>
         </div>
       </div>

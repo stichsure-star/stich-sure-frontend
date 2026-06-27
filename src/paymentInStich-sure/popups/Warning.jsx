@@ -1,20 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiWarningOutline } from "react-icons/ti";
-import Swal from "sweetalert2"; // Added SweetAlert2
 import "./css/War.css";
-import { designerApi } from "../../config/designer";
 
-const Warning = ({ onClose, orderData, handleConfirm }) => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [recep, Reciept] = useState({});
-
-  console.log("recep", recep);
-
-  console.log("orderData", orderData);
-
+// 1. Accept 'loading' as a prop from the parent component instead of a local state
+const Warning = ({ onClose, orderData, handleConfirm, loading }) => {
   return (
     <div className="custom-modal modal">
       <div className="iconWrapper">
@@ -27,7 +18,8 @@ const Warning = ({ onClose, orderData, handleConfirm }) => {
         <button
           className="yesButton"
           onClick={handleConfirm}
-          disabled={loading}
+          disabled={loading} // Now properly disables when parent API is running
+          type="button"
         >
           {loading ? (
             <AiOutlineLoading3Quarters className="animate-spin" />
@@ -35,7 +27,7 @@ const Warning = ({ onClose, orderData, handleConfirm }) => {
             <span>Yes</span>
           )}
         </button>
-        <button className="noButton" onClick={onClose}>
+        <button className="noButton" onClick={onClose} disabled={loading}>
           No
         </button>
       </div>
