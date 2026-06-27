@@ -91,7 +91,7 @@ const BvpPage = () => {
               Due:{" "}
               {formatDashboardDate(
                 targetData?.pickupDate ||
-                  targetData?.deadLine ||
+                  targetData?.request.deadLine ||
                   targetData?.placedAt,
               )}
             </p>
