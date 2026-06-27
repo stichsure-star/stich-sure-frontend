@@ -6,6 +6,9 @@ import { designerApi } from "../../../config/designer";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { setShipmentReceipt } from "../../../global/authSlice";
 import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 import Warning from "../../../paymentInStich-sure/popups/Warning";
 
@@ -13,6 +16,8 @@ const MvpPage = () => {
   const location = useLocation();
   const orderId = location.state?.orderId;
   const [Dobbe, Donar] = useState(false);
+  const [recep, Reciept] = useState({});
+  const dispatch = useDispatch();
 
   const paylo = useSelector((state) => state.auth.setPaymentData);
   const [order, setOrder] = useState(null);
@@ -82,6 +87,73 @@ const MvpPage = () => {
       });
     } catch (error) {
       return dateString;
+    }
+  };
+
+  const handleConfirm = async () => {
+    setLoading(true);
+
+    const payload = {
+      request_token: order?.payment.pickup.request_token,
+      courier_id: order?.payment.pickup.courier_id,
+      service_code: order?.payment.pickup.service_code,
+      is_cod_label: "false",
+    };
+
+    try {
+      const response = await designerApi.Valid(payload);
+
+      // Storing data into state
+      Reciept(response.data);
+      dispatch(setShipmentReceipt(response.data));
+
+      if (response.data && response.data.success === true) {
+        // 1. Save the FULL raw API response straight to Redux for your own custom display layouts
+        dispatch(setShipmentReceipt(response.data));
+
+        // 2. Instantly update the parent UI state to toggle the status string from "Pending" to "Completed"
+        if (typeof updateStatusOnUI === "function") {
+          updateStatusOnUI("Completed");
+        }
+
+        Swal.fire({
+          icon: "success",
+          title: "Production Completed!",
+          text: "Marked as Completed and tracking details loaded.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        if (onClose) onClose();
+
+        Swal.fire({
+          icon: "success",
+          title: "Production Completed!",
+          text: "Shipment created successfully and order marked as Completed",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        // Optional: Remove if you want the user to stay and read the tracking numbers
+        // on the current screen before closing
+        if (onClose) {
+          setTimeout(() => {
+            onClose();
+          }, 2000);
+        }
+      }
+    } catch (errors) {
+      console.error("Validation error:", errors);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text:
+          errors?.response?.data?.message ||
+          "Something went wrong tracking this order.",
+        confirmButtonColor: "#8B0021",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -199,6 +271,61 @@ const MvpPage = () => {
               )}
             </div>
           </section>
+          {recep.success && (
+            <div
+              className="shipping-receipt-card"
+              style={{
+                marginTop: "20px",
+                padding: "15px",
+                border: "1px solid #e5e5e5",
+                borderRadius: "8px",
+              }}
+            >
+              <h3 style={{ margin: "0 0 10px 0", color: "#6c0319" }}>
+                Shipment Details
+              </h3>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "6px",
+                  fontSize: "14px",
+                }}
+              >
+                <p>
+                  <strong>Tracking Code:</strong> {recep.shipment?.trackingCode}
+                </p>
+                <p>
+                  <strong>Courier:</strong> {recep.shipment?.courier}
+                </p>
+                <p>
+                  <strong>Shipping Fee:</strong> {recep.shipment?.currency}{" "}
+                  {recep.shipment?.shippingFee}
+                </p>
+                <p>
+                  <strong>Pickup Address:</strong>{" "}
+                  {recep.data?.ship_from?.address}
+                </p>
+
+                {recep.shipment?.trackingUrl && (
+                  <a
+                    href={recep.shipment?.trackingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: "#6c0319",
+                      fontWeight: "600",
+                      textDecoration: "underline",
+                      marginTop: "4px",
+                    }}
+                  >
+                    Track Shipment on Shipbubble →
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="bot_desc-inspire-flex">
             <section className="bot_description-section">
@@ -231,16 +358,6 @@ const MvpPage = () => {
                       <img src={imgUrl} alt="Inspiration asset" />
                     </button>
                   ))
-                ) : order?.designImage || order?.design?.designImage ? (
-                  <button
-                    className="bot_inspiration-image-button"
-                    type="button"
-                  >
-                    <img
-                      src={order?.designImage || order?.design?.designImage}
-                      alt={order?.itemName || "Catalog standard image view"}
-                    />
-                  </button>
                 ) : (
                   <p style={{ fontSize: "11px", color: "#8a8a8a" }}>
                     No upload preview references available.
@@ -267,7 +384,11 @@ const MvpPage = () => {
           {/* Replace the bottom warning div in your return statement with this */}
           {Dobbe && (
             <div className="Warni">
-              <Warning onClose={() => Donar(false)} orderData={order} />
+              <Warning
+                onClose={() => Donar(false)}
+                orderData={order}
+                handleConfirm={handleConfirm}
+              />
             </div>
           )}
         </div>
