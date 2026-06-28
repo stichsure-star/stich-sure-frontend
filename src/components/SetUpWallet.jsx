@@ -6,48 +6,47 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
   const [errors, setErrors] = useState({});
 
   const banks = [
-    "Access Bank",
-    "GTBank",
-    "First Bank",
-    "Zenith Bank",
-    "UBA",
-    "Kuda Bank",
-    "Opay",
-    "PalmPay",
-    "Moniepoint",
-    "Polaris Bank",
-    "Fidelity Bank",
-    "FCMB",
-    "Stanbic IBTC Bank",
-    "Sterling Bank",
-    "Wema Bank",
-    "Union Bank",
-    "Ecobank",
-    "Keystone Bank",
-    "Heritage Bank",
-    "Providus Bank",
-    "Titan Trust Bank",
-    "Globus Bank",
-    "Nova Bank",
-    "Parallex Bank",
-    "Premium Trust Bank",
-    "Signature Bank",
-    "Jaiz Bank",
-    "Lotus Bank",
-    "TAJ Bank",
-    "SunTrust Bank",
-    "Sparkle Bank",
-    "Rubies Bank",
-    "Mintyn Bank",
-    "Eyowo",
-    "Carbon",
-    "FairMoney",
-    "VFD Microfinance Bank",
-    "Branch",
-    "Renmoney",
-    "Quickteller Paypoint",
+    { name: "Access Bank", code: "044" },
+    { name: "GTBank", code: "058" },
+    { name: "First Bank", code: "011" },
+    { name: "Zenith Bank", code: "057" },
+    { name: "UBA", code: "033" },
+    { name: "Kuda Bank", code: "50211" },
+    { name: "Opay", code: "999992" },
+    { name: "PalmPay", code: "999991" },
+    { name: "Moniepoint", code: "50515" },
+    { name: "Polaris Bank", code: "076" },
+    { name: "Fidelity Bank", code: "070" },
+    { name: "FCMB", code: "214" },
+    { name: "Stanbic IBTC Bank", code: "221" },
+    { name: "Sterling Bank", code: "232" },
+    { name: "Wema Bank", code: "035" },
+    { name: "Union Bank", code: "032" },
+    { name: "Ecobank", code: "050" },
+    { name: "Keystone Bank", code: "082" },
+    { name: "Heritage Bank", code: "030" }, // Note: Heritage Bank's license was revoked in 2024, but code is kept for legacy systems
+    { name: "Providus Bank", code: "101" },
+    { name: "Titan Trust Bank", code: "102" },
+    { name: "Globus Bank", code: "103" },
+    { name: "Nova Bank", code: "561" },
+    { name: "Parallex Bank", code: "104" },
+    { name: "Premium Trust Bank", code: "105" },
+    { name: "Signature Bank", code: "000034" },
+    { name: "Jaiz Bank", code: "301" },
+    { name: "Lotus Bank", code: "303" },
+    { name: "TAJ Bank", code: "302" },
+    { name: "SunTrust Bank", code: "100" },
+    { name: "Sparkle Bank", code: "51310" },
+    { name: "Rubies Bank", code: "125" },
+    { name: "Mintyn Bank", code: "50304" },
+    { name: "Eyowo", code: "50126" },
+    { name: "Carbon", code: "565" },
+    { name: "FairMoney", code: "090551" },
+    { name: "VFD Microfinance Bank", code: "566" },
+    { name: "Branch", code: "050006" },
+    { name: "Renmoney", code: "090198" },
+    { name: "Quickteller Paypoint", code: "311" },
   ];
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -113,8 +112,8 @@ const SetUpWallet = ({ onNext, onPrev, designerInfo, setDesignerInfo }) => {
             <option value="">Select bank</option>
 
             {banks.map((bank) => (
-              <option key={bank} value={bank}>
-                {bank}
+              <option key={bank.code} value={bank.name}>
+                {bank.name}
               </option>
             ))}
           </select>

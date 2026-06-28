@@ -130,13 +130,9 @@ const router = createBrowserRouter([
 
           // { path: "/checkoutpayment", element: <CheckoutPayment /> },
           { path: "informationdesigner", element: <InformationDesigner /> },
-          { path: "designerverification", element: <DesignerVerification /> },
-          { path: "identitydesigner", element: <IdentityDesignerPage /> },
+
+          ,
           { path: "successfull", element: <SuccessfulDesignerPage /> },
-          {
-            path: "designerVerified",
-            element: <DesignerIsVerifiedSuccessfullyPage />,
-          },
 
           { path: "successfulpayment", element: <PaymentSuccessful /> },
 
@@ -150,6 +146,11 @@ const router = createBrowserRouter([
         path: "/designer",
         element: <ProtectedRoutes role="designer" />,
         children: [
+          { path: "identitydesigner", element: <IdentityDesignerPage /> },
+          {
+            path: "designerVerified",
+            element: <DesignerIsVerifiedSuccessfullyPage />,
+          },
           {
             element: <DashboardLayout />,
             children: [
@@ -194,6 +195,11 @@ const router = createBrowserRouter([
               { path: "logout", element: <Logout /> },
 
               { path: "mvp", element: <MvpPage /> },
+              {
+                path: "designerverification",
+                element: <DesignerVerification />,
+              },
+
               // { path: "checkout", element: <CheckoutPage /> },wrong
 
               // { path: "checkout", element: <CheckoutPage /> },

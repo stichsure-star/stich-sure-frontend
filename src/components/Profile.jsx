@@ -128,13 +128,6 @@ const Profile = ({ onNext, onPrev, designerInfo }) => {
       dispatch(updateUser(res.data.data));
 
       onNext();
-
-      Swal.fire({
-        icon: "success",
-        title: "Profile Completed",
-        timer: 1500,
-        showConfirmButton: false,
-      });
     } catch (error) {
       console.log(error?.response?.data || error);
       Swal.fire({
