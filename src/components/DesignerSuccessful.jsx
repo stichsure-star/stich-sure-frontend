@@ -28,7 +28,7 @@ const Desgn = ({ onNext, onPrev }) => {
         <button
           className="successful-btn"
           onClick={() => {
-            navigate("/login");
+            navigate("/designer/dashboard");
           }}
         >
           Proceed to dashboard

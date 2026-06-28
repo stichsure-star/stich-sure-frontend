@@ -35,7 +35,7 @@ const Header = () => {
 
           <div className="Picky" onClick={() => setOpen(true)}>
             <img
-              src={user.profile.profilePhoto || user?.lastName.concat(0, 1)}
+              src={user?.profile?.profilePhoto || user?.profilePhoto || empty}
               alt="Logo"
               className="Goldie"
             />

@@ -32,7 +32,6 @@ export const authApi = {
     return ApiClient.post("/shipment/payment/initialize", data, config);
   },
   oneOrder: (id) => ApiClient.get(`/orders/${id}`),
-  webHooked: (id) => ApiClient.post(`/shipment/payment/verify/${id}`),
-  // Example of how it should look in your API client setup file:
+  webHooked: (id) => ApiClient.get(`/shipment/payment/verify/${id}`),
   updateOrderStatus: (id, data) => ApiClient.put(`/orders/${id}/status`, data),
 };
