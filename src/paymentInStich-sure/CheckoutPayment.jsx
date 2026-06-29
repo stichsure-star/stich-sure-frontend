@@ -39,7 +39,7 @@ const CheckoutPayment = () => {
 
         <p className="description">
           Your order has been successfully confirmed, and your designer will
-          begin processing it shortly.
+          begin processing it shortly and we Got u.
         </p>
 
         <button
