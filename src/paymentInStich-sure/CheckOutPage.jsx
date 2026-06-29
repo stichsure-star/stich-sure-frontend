@@ -127,13 +127,12 @@ const CheckOutPage = () => {
       );
     }
 
-    const updatedUserData = {
-      ...profile,
-      phone: savedPhone,
-      address: savedAddress,
-    };
-
-    dispatch(updateUser(updatedUserData));
+    // const updatedUserData = {
+    //   ...profile,
+    //   phone: savedPhone,
+    //   address: savedAddress,
+    // };
+    dispatch(setPaymentData(response.data));
 
     try {
       localStorage.setItem("user", JSON.stringify(updatedUserData));
@@ -228,11 +227,19 @@ const CheckOutPage = () => {
         response?.data?.payment?.checkoutUrl;
 
       if (checkoutUrl) {
+        console.log(
+          "⏳ Payment initialized. Holding for 10 seconds before redirecting...",
+        );
+
+        // 10-second timeout delay wrapper
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+
+        console.log("🚀 Redirecting to gateway now:", checkoutUrl);
         window.location.assign(checkoutUrl);
         return;
       }
 
-      alert("Unable to start payment. Checkout URL missing.");
+      navigate("/user/checkoutpayment");
     } catch (error) {
       console.log(
         "Payment error response:",

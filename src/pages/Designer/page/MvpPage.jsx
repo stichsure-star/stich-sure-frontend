@@ -82,7 +82,6 @@ const MvpPage = () => {
         Reciept(response.data);
         dispatch(setShipmentReceipt(response.data));
 
-        // 🚀 THE FIX: Merge the status AND the fresh shipment payload safely into state
         setOrder((prev) => ({
           ...prev,
           status: "Completed",

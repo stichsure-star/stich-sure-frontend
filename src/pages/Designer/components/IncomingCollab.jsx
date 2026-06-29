@@ -5,6 +5,7 @@ import { IoCubeOutline, IoCalendarOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { designerApi } from "../../../config/designer";
 import { SkeletonOrderList } from "../../../components/reuasbleComponents/Skeleton";
+import { TbCurrencyNaira } from "react-icons/tb";
 
 const CollabCard = () => {
   const [collaby, setCollaby] = useState([]);
@@ -78,71 +79,68 @@ const CollabCard = () => {
         <SkeletonOrderList count={3} />
       ) : (
         collaby.map((item) => (
-        <div className="collab_card" key={item.id}>
-          {/* TOP */}
-          <div className="collab_top">
-            <div className="profile">
-              <img
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
-                alt="profile"
-              />
-            </div>
-
-            <div className="info">
-              <div className="name">
-                {item.sender?.lastName} {item.sender?.firstName}
+          <div className="collab_card" key={item.id}>
+            {/* TOP */}
+            <div className="collab_top">
+              <div className="profile">
+                <img src="" alt="profile" />
               </div>
 
-              <div className="location">
-                <FaLocationDot />
-                <span>{item.sender?.location || "Lagos State"}</span>
+              <div className="info">
+                <div className="name">
+                  {item.sender?.lastName} {item.sender?.firstName}
+                </div>
+
+                <div className="location">
+                  <FaLocationDot />
+                  <span>Lagos State</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* MESSAGE */}
-          <div className="message_box">{item.taskDetails}</div>
+            {/* MESSAGE */}
+            <div className="message_box">{item.taskDetails}</div>
 
-          {/* TAGS */}
-          <div className="tags">
-            <div className="tag">
-              <FaScissors />
-              {item.taskType}
+            {/* TAGS */}
+            <div className="tags">
+              <div className="tag">
+                <FaScissors />
+                {item.taskType}
+              </div>
+
+              <div className="tag">
+                <TbCurrencyNaira />
+                {item.offeredPayment || "N/A"}
+              </div>
+
+              <div className="tag">
+                <IoCalendarOutline />
+                {formatDate(item.deadline)}
+              </div>
             </div>
 
-            <div className="tag">
-              <IoCubeOutline />
-              {item.quantity || "N/A"}
-            </div>
+            {/* BUTTONS */}
+            <div className="actions">
+              <button
+                className="accept"
+                disabled={item.status === "accepted"}
+                onClick={() => acceptCollab(item.id)}
+              >
+                {item.status === "accepted" ? "Accepted" : "Accept"}
+              </button>
 
-            <div className="tag">
-              <IoCalendarOutline />
-              {formatDate(item.deadline)}
+              <button
+                className="decline"
+                disabled={
+                  item.status === "rejected" || item.status === "accepted"
+                }
+                onClick={() => rejectCollab(item.id)}
+              >
+                Decline
+              </button>
             </div>
           </div>
-
-          {/* BUTTONS */}
-          <div className="actions">
-            <button
-              className="accept"
-              disabled={item.status === "accepted"}
-              onClick={() => acceptCollab(item.id)}
-            >
-              {item.status === "accepted" ? "Accepted" : "Accept"}
-            </button>
-
-            <button
-              className="decline"
-              disabled={
-                item.status === "rejected" || item.status === "accepted"
-              }
-              onClick={() => rejectCollab(item.id)}
-            >
-              Decline
-            </button>
-          </div>
-        </div>
-      ))
+        ))
       )}
     </div>
   );
