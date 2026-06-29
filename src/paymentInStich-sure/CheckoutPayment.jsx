@@ -15,27 +15,34 @@ const CheckoutPayment = () => {
   console.log("paymentData recovered on success screen layout:", paymentData);
 
   const handleSubmit = async () => {
-    if (!paymentData) {
-      Swal.fire({
-        icon: "error",
-        title: "Data Not Ready",
-        text: "Payment details are still loading or missing. Please try again in a moment.",
-        confirmButtonColor: "#3085d6",
-      });
-      return;
-    }
+    if (!paymentData) return;
 
-    const reference =
+    // 1. Try gathering standard references
+    let reference =
       paymentData?.payment?.reference ||
+      paymentData?.payment?.transactionReference ||
       paymentData?.data?.payment?.reference ||
       paymentData?.data?.reference ||
       paymentData?.reference;
+
+    // 2. Fallback: If Korapay requires the KPY Invoice reference string from the URL layout
+    if (!reference && paymentData?.checkoutUrl) {
+      const match = paymentData.checkoutUrl.match(/(KPY-[A-Z0-9_-]+)/i);
+      if (match) {
+        reference = match[1];
+      }
+    }
+
+    console.log(
+      "🔍 EXTRACTED KORAPAY REFERENCE SENDING TO BACKEND:",
+      reference,
+    );
 
     if (!reference) {
       Swal.fire({
         icon: "warning",
         title: "Missing Reference",
-        text: "Could not locate transaction credentials in Redux state configuration.",
+        text: "Could not locate transaction reference credentials.",
         confirmButtonColor: "#3085d6",
       });
       return;
@@ -46,7 +53,7 @@ const CheckoutPayment = () => {
     try {
       Swal.fire({
         title: "Verifying Transaction...",
-        text: "Please wait while we secure your layout order properties.",
+        text: "Please wait while we confirm your payment status with Korapay.",
         allowOutsideClick: false,
         didOpen: () => {
           Swal.showLoading();
@@ -57,15 +64,11 @@ const CheckoutPayment = () => {
       console.log("✅ Verification Response:", res.data);
 
       Swal.close();
-
-      // ✅ Wipe clean from storage now that confirmation passed successfully
       dispatch(clearPaymentData());
-
-      // ✅ Route the user to their orders dashboard automatically on success
       navigate("/user/myorders");
     } catch (error) {
       console.error(
-        "💥 Verification Error:",
+        "💥 Verification Error Details:",
         error?.response?.data || error.message,
       );
       const apiError = error?.response?.data;
@@ -75,8 +78,7 @@ const CheckoutPayment = () => {
         title: "Verification Failed",
         text:
           apiError?.message ||
-          error.message ||
-          "Failed to complete payment verification layout.",
+          "Korapay hasn't finalized this transaction record yet. Please click again in 3 seconds.",
         confirmButtonColor: "#d33",
       });
     }
