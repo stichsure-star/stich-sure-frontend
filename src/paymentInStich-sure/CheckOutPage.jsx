@@ -10,22 +10,18 @@ import { customerApi } from "../config/customer";
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [Appy, setAppy] = useState({});
-  const [demmy, Reppy] = useState(null);
   const dispatch = useDispatch();
 
+  const [Appy, setAppy] = useState({});
+  const [demmy, Reppy] = useState(null);
   const [orderId, setOrder] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  console.log("user", user);
 
   let finalState = location.state;
-  console.log("finalState", finalState);
 
   const [loading, setLoading] = useState(false);
   const [orderPreparing, setOrderPreparing] = useState(true);
   const [errors, setErrors] = useState({});
-
-  // 1. STATE FOR SAVE FOR LATER CHECKBOX
   const [saveInfo, setSaveInfo] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -36,7 +32,6 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     if (!user) return;
-
     setFormData((prev) => ({
       ...prev,
       email: prev.email || user.email || "",
@@ -64,11 +59,7 @@ const CheckOutPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -85,7 +76,6 @@ const CheckOutPage = () => {
       itemName: finalState.itemName,
       requestId: finalState.requestId,
     };
-
     const response = await authApi.profileOrder(payload);
     setAppy(response.data);
     const id = response.data.data?.id || response.data.id;
@@ -95,7 +85,6 @@ const CheckOutPage = () => {
 
   const syncCustomerProfile = async (phone) => {
     const deliveryAddress = getDeliveryAddress();
-
     const cleanFirstName =
       (user?.firstName || "John").replace(/[^a-zA-Z\s]/g, "").trim() || "John";
     const cleanLastName =
@@ -115,80 +104,50 @@ const CheckOutPage = () => {
     const savedPhone = profile.phone?.trim();
     const savedAddress = profile.address?.trim();
 
-    if (!savedPhone) {
-      throw new Error(
-        "Your phone could not be saved to your profile. Please update your profile and try again.",
-      );
-    }
-
-    if (!savedAddress) {
-      throw new Error(
-        "Your address could not be saved to your profile. Please update your profile and try again.",
-      );
+    if (!savedPhone || !savedAddress) {
+      throw new Error("Your profile details could not be saved correctly.");
     }
 
     const updatedUserData = {
+      ...user,
       ...profile,
       phone: savedPhone,
       address: savedAddress,
     };
 
     dispatch(updateUser(updatedUserData));
-    dispatch(setPaymentData(response.data));
 
     try {
       localStorage.setItem("user", JSON.stringify(updatedUserData));
     } catch (e) {
-      console.error("Local storage backup failed:", e);
+      console.error("Local storage user save failed:", e);
     }
-
     return { phone: savedPhone, address: savedAddress };
   };
 
-  const buildPaymentPayload = (currentOrderId, email, deliveryAddress) => ({
-    orderId: currentOrderId,
-    email,
-    deliveryAddress,
-  });
-
   const validateForm = () => {
     let tempErrors = {};
-
     const email = (formData.email || user?.email || "").trim();
-    if (!email) {
-      tempErrors.email = "Email address is required.";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    if (!email) tempErrors.email = "Email address is required.";
+    else if (!/\S+@\S+\.\S+/.test(email))
       tempErrors.email = "Please enter a valid email address.";
-    }
 
     const cleanPhone = (formData.phone || "").replace(/\s/g, "");
-    if (!cleanPhone) {
-      tempErrors.phone = "Phone number is required.";
-    } else if (!/^0\d{10}$/.test(cleanPhone)) {
+    if (!cleanPhone) tempErrors.phone = "Phone number is required.";
+    else if (!/^0\d{10}$/.test(cleanPhone))
       tempErrors.phone = "Enter a valid Nigerian phone number.";
-    }
 
-    if (!formData.address.trim()) {
+    if (!formData.address.trim())
       tempErrors.address = "Full delivery address is required.";
-    } else if (formData.address.trim().length < 10) {
-      tempErrors.address =
-        "Please enter a complete address layout (Street, City, State).";
-    }
+    else if (formData.address.trim().length < 10)
+      tempErrors.address = "Enter a complete layout address.";
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
-  const verifyAddress = async () => {
-    return true;
-  };
-
   const finalPayment = async () => {
     if (!validateForm()) return;
-
-    const addressValid = await verifyAddress();
-    if (!addressValid) return;
-
     setLoading(true);
 
     const phone = (formData.phone || "").trim();
@@ -196,31 +155,20 @@ const CheckOutPage = () => {
     const deliveryAddress = getDeliveryAddress();
 
     try {
-      // 2. CONDITIONAL SAVE CHECK: Only update database and redux profile if checkbox is true
       if (saveInfo) {
         await syncCustomerProfile(phone);
       }
 
       const currentOrderId = await createOrder();
-      const payload = buildPaymentPayload(
-        currentOrderId,
-        email,
-        deliveryAddress,
-      );
-
-      console.log("Payment initialize payload:", payload);
+      const payload = { orderId: currentOrderId, email, deliveryAddress };
 
       const response = await authApi.finalPay(payload);
       console.log("FULL PAYMENT RESPONSE:", response);
 
+      // ✅ Store response block simultaneously to Redux and LocalStorage
       dispatch(setPaymentData(response.data));
-
-      try {
-        if (response?.data) {
-          localStorage.setItem("paymentData", JSON.stringify(response.data));
-        }
-      } catch (e) {
-        console.error("Local storage payment backup failed:", e);
+      if (response?.data) {
+        localStorage.setItem("paymentData", JSON.stringify(response.data));
       }
 
       const checkoutUrl =
@@ -230,31 +178,20 @@ const CheckOutPage = () => {
 
       if (checkoutUrl) {
         console.log(
-          "⏳ Payment initialized. Holding for 10 seconds before redirecting...",
+          "⏳ Holding 10 seconds before external gateway redirect...",
         );
-
-        // 10-second timeout delay wrapper
         await new Promise((resolve) => setTimeout(resolve, 10000));
-
-        console.log("🚀 Redirecting to gateway now:", checkoutUrl);
         window.location.assign(checkoutUrl);
         return;
       }
 
       navigate("/user/checkoutpayment");
     } catch (error) {
-      console.log(
+      console.error(
         "Payment error response:",
         error?.response?.data || error.message,
       );
-      const apiError = error?.response?.data;
-
-      alert(
-        apiError?.action ||
-          apiError?.message ||
-          error.message ||
-          "Failed to initialize payment.",
-      );
+      alert(error?.response?.data?.message || "Failed to initialize payment.");
     } finally {
       setLoading(false);
     }
@@ -264,7 +201,6 @@ const CheckOutPage = () => {
     if (location.state) {
       sessionStorage.setItem("checkoutState", JSON.stringify(location.state));
     }
-
     setOrderPreparing(false);
   }, [location.state]);
 
@@ -285,7 +221,6 @@ const CheckOutPage = () => {
           <div className="Check_left">
             <div className="Check_info-card">
               <h4>Personal Information</h4>
-
               <input
                 value={
                   `${user?.firstName || ""} ${user?.lastName || ""}`.trim() ||
@@ -299,13 +234,7 @@ const CheckOutPage = () => {
                 readOnly
               />
               {errors.email && (
-                <span
-                  style={{
-                    color: "#ff0000",
-                    fontSize: "10px",
-                    marginTop: "-10px",
-                  }}
-                >
+                <span style={{ color: "#ff0000", fontSize: "10px" }}>
                   {errors.email}
                 </span>
               )}
@@ -315,29 +244,17 @@ const CheckOutPage = () => {
                 placeholder="07056491653"
                 value={formData.phone}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-
                   setFormData((prev) => ({
                     ...prev,
-                    phone: value,
+                    phone: e.target.value.replace(/\D/g, ""),
                   }));
-
-                  setErrors((prev) => ({
-                    ...prev,
-                    phone: "",
-                  }));
+                  setErrors((prev) => ({ ...prev, phone: "" }));
                 }}
                 maxLength={11}
                 style={errors.phone ? { borderColor: "#ff0000" } : {}}
               />
               {errors.phone && (
-                <span
-                  style={{
-                    color: "#ff0000",
-                    fontSize: "10px",
-                    marginTop: "-10px",
-                  }}
-                >
+                <span style={{ color: "#ff0000", fontSize: "10px" }}>
                   {errors.phone}
                 </span>
               )}
@@ -345,10 +262,9 @@ const CheckOutPage = () => {
 
             <div className="Check_info-card">
               <h4>Address Information</h4>
-
               <input
                 name="address"
-                placeholder="60, Idowu Street, Ajegunle, Lagos, Nigeria"
+                placeholder="60, Idowu Street, Ajegunle, Lagos"
                 value={formData.address}
                 onChange={handleChange}
                 style={errors.address ? { borderColor: "#ff0000" } : {}}
@@ -358,7 +274,6 @@ const CheckOutPage = () => {
                   style={{
                     color: "#ff0000",
                     fontSize: "10px",
-                    marginTop: "-10px",
                     display: "block",
                   }}
                 >
@@ -366,7 +281,6 @@ const CheckOutPage = () => {
                 </span>
               )}
 
-              {/* 3. CONTROLLED INPUT STATE LINK BINDING */}
               <div className="Asave-info">
                 <input
                   type="checkbox"
@@ -390,21 +304,15 @@ const CheckOutPage = () => {
 
             <div className="Check_summary">
               <div className="Check_summary-row">
-                <span className="Check_summary-label">Subtotal</span>
-                <span className="Check_summary-value">
-                  {formatNaira(subtotal)}
-                </span>
+                <span>Subtotal</span>
+                <span>{formatNaira(subtotal)}</span>
               </div>
-
               <div className="Check_summary-row">
-                <span className="Check_summary-label">Shipping</span>
-                <span className="Check_summary-value">
-                  {formatNaira(shipping)}
-                </span>
+                <span>Shipping</span>
+                <span>{formatNaira(shipping)}</span>
               </div>
-
               <div className="Check_summary-row Check_total-row">
-                <span className="Check_summary-label">Total</span>
+                <span>Total</span>
                 <span className="Check_total-value">
                   <small>NGN</small>
                   {formatNaira(total)}
@@ -414,10 +322,10 @@ const CheckOutPage = () => {
 
             <button
               onClick={finalPayment}
-              disabled={loading || orderPreparing}
+              disabled={loading}
               style={{
-                cursor: loading || orderPreparing ? "not-allowed" : "pointer",
-                opacity: loading || orderPreparing ? 0.6 : 1,
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading ? 0.6 : 1,
               }}
             >
               {loading ? "Completing Order..." : "Complete Order"}
