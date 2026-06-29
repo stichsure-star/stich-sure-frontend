@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdVerifiedUser } from "react-icons/md";
 import Swal from "sweetalert2";
@@ -11,12 +10,20 @@ const CheckoutPayment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // ✅ Seamlessly reads rehydrated state on landing redirect
+  // ✅ Reads rehydrated state on landing redirect
   const paymentData = useSelector((state) => state.auth.paymentData);
   console.log("paymentData recovered on success screen layout:", paymentData);
 
   const handleSubmit = async () => {
-    if (!paymentData) return;
+    if (!paymentData) {
+      Swal.fire({
+        icon: "error",
+        title: "Data Not Ready",
+        text: "Payment details are still loading or missing. Please try again in a moment.",
+        confirmButtonColor: "#3085d6",
+      });
+      return;
+    }
 
     const reference =
       paymentData?.payment?.reference ||
@@ -53,6 +60,9 @@ const CheckoutPayment = () => {
 
       // ✅ Wipe clean from storage now that confirmation passed successfully
       dispatch(clearPaymentData());
+
+      // ✅ Route the user to their orders dashboard automatically on success
+      navigate("/user/myorders");
     } catch (error) {
       console.error(
         "💥 Verification Error:",
@@ -72,10 +82,6 @@ const CheckoutPayment = () => {
     }
   };
 
-  useEffect(() => {
-    handleSubmit();
-  }, [paymentData]);
-
   return (
     <div className="checkoutPayment-page">
       <div className="verification-card">
@@ -90,10 +96,8 @@ const CheckoutPayment = () => {
           begin processing it shortly.
         </p>
 
-        <button
-          onClick={() => navigate("/user/myorders")}
-          className="payment-btn"
-        >
+        {/* ✅ Directly bound to handleSubmit trigger */}
+        <button onClick={handleSubmit} className="payment-btn">
           Go to My Orders
         </button>
       </div>
