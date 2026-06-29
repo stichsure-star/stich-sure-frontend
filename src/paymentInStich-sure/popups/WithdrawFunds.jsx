@@ -1,7 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./css/modal-responsive-screen.css";
 import WithdrawalSuccessful from "./WithdrawalSuccessful";
+import Swal from "sweetalert2";
+import { designerApi } from "../../config/designer"; // Adjust paths based on layout
 
 const styles = {
   modal: {
@@ -96,25 +97,77 @@ const styles = {
   },
 };
 
-// ✅ Destructured the walleted prop passed down from Dashboard
 const WithdrawFunds = ({ onClose, walleted }) => {
   const [showSuccessful, setShowSuccessful] = useState(false);
   const [amount, setAmount] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // ✅ Extract data fields directly from the real-time API response structure
+  // Extract profiles safely out of dynamic payload values
   const availableBalance = Number(walleted?.data?.availableBalance) || 0;
-  const bankName = walleted?.data?.bankName || "Not Linked";
-  const accountNumber = walleted?.data?.accountNumber || "******";
+  const bankName = walleted?.data?.bankName || "";
+  const accountNumber = walleted?.data?.accountNumber || "";
+  const accountName = walleted?.data?.accountName || "";
+  const bankCode = walleted?.data?.bankCode || "";
 
-  // Helper utility to format raw numbers to clean currency view string layouts
   const formatNaira = (value) => {
     return `₦${new Intl.NumberFormat("en-NG", {
       maximumFractionDigits: 0,
     }).format(value)}`;
   };
 
-  // Condition layouts to disable button triggers dynamically
-  const isWithdrawalDisabled = availableBalance === 0;
+  const handleWithdrawalSubmit = async () => {
+    const numericAmount = Number(amount);
+
+    // Frontend sanity checks before making API requests
+    if (!numericAmount || numericAmount <= 0) {
+      alert("Please enter a valid withdrawal amount.");
+      return;
+    }
+
+    if (numericAmount > availableBalance) {
+      alert("Insufficient funds for this withdrawal value.");
+      return;
+    }
+
+    // Prepare matching payload properties
+    const payload = {
+      amount: numericAmount,
+      useNewAccount: false,
+      bankName: bankName,
+      accountNumber: accountNumber,
+      accountName: accountName,
+      bankCode: bankCode,
+    };
+
+    setLoading(true);
+
+    try {
+      // Hit the post route wrapper you mapped out in your config structure
+      const response = await designerApi.requestWithdrawal(payload);
+      console.log("✅ Withdrawal Initialized Successfully:", response.data);
+
+      // Open success modal if api responds with successful status flags
+      setShowSuccessful(true);
+    } catch (error) {
+      console.error(
+        "💥 Withdrawal Execution Failure:",
+        error?.response?.data || error.message,
+      );
+
+      Swal.fire({
+        icon: "error",
+        title: "Transaction Denied",
+        text:
+          error?.response?.data?.message ||
+          "Failed to finalize payout processing routines.",
+        confirmButtonColor: "#d33",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const isWithdrawalDisabled = availableBalance === 0 || loading;
 
   return (
     <div className="modal-overlay">
@@ -124,7 +177,6 @@ const WithdrawFunds = ({ onClose, walleted }) => {
         <div style={styles.balanceSection}>
           <span style={styles.balanceLabel}>Available Balance</span>
           <span style={styles.balanceAmount}>
-            {/* ✅ Displays real-time API data cleanly */}
             {formatNaira(availableBalance)}
           </span>
         </div>
@@ -138,6 +190,7 @@ const WithdrawFunds = ({ onClose, walleted }) => {
             style={styles.input}
             value={amount}
             onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
+            disabled={loading}
           />
 
           <span style={styles.feeText}>• Charge Fee: ₦100</span>
@@ -147,13 +200,17 @@ const WithdrawFunds = ({ onClose, walleted }) => {
           <p style={styles.accountLabel}>Withdraw to</p>
 
           <p style={styles.accountName}>
-            {/* ✅ Populates dynamic settlement profiles */}
-            {bankName} • {accountNumber}
+            {bankName || "No Bank Bound"} • {accountNumber || "******"}
           </p>
         </div>
 
         <div className="modal-footer" style={styles.footer}>
-          <button type="button" style={styles.cancelButton} onClick={onClose}>
+          <button
+            type="button"
+            style={styles.cancelButton}
+            onClick={onClose}
+            disabled={loading}
+          >
             Cancel
           </button>
 
@@ -165,15 +222,20 @@ const WithdrawFunds = ({ onClose, walleted }) => {
               color: isWithdrawalDisabled ? "#666666" : "#FFFFFF",
               cursor: isWithdrawalDisabled ? "not-allowed" : "pointer",
             }}
-            onClick={() => setShowSuccessful(true)}
+            onClick={handleWithdrawalSubmit}
             disabled={isWithdrawalDisabled}
           >
-            Confirm Withdrawal
+            {loading ? "Processing..." : "Confirm Withdrawal"}
           </button>
         </div>
 
         {showSuccessful && (
-          <WithdrawalSuccessful onClose={() => setShowSuccessful(false)} />
+          <WithdrawalSuccessful
+            onClose={() => {
+              setShowSuccessful(false);
+              onClose(); // Auto-closes back to fresh main layout after success confirmation hooks
+            }}
+          />
         )}
       </div>
     </div>
