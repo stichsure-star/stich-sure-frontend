@@ -127,11 +127,13 @@ const CheckOutPage = () => {
       );
     }
 
-    // const updatedUserData = {
-    //   ...profile,
-    //   phone: savedPhone,
-    //   address: savedAddress,
-    // };
+    const updatedUserData = {
+      ...profile,
+      phone: savedPhone,
+      address: savedAddress,
+    };
+
+    dispatch(updateUser(updatedUserData));
     dispatch(setPaymentData(response.data));
 
     try {
