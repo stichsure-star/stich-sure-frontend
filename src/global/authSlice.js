@@ -4,7 +4,10 @@ const initialState = {
   user: null,
   token: null,
   role: null,
-  paymentData: null,
+  // ✅ Instantly restore payment data from disk memory on reload or gateway redirect
+  paymentData: localStorage.getItem("paymentData")
+    ? JSON.parse(localStorage.getItem("paymentData"))
+    : null,
   resp: null,
 };
 
@@ -32,29 +35,40 @@ const authSlice = createSlice({
     setShipmentReceipt: (state, action) => {
       state.resp = action.payload;
     },
+
     clearShipmentReceipt: (state) => {
-      state.resp = null; // or state.resp = {}; depending on your initial state setup
+      state.resp = null;
     },
 
     setPaymentData: (state, action) => {
       state.paymentData = action.payload;
     },
+
+    // ✅ Clean up both the Redux state and the browser memory after verification
+    clearPaymentData: (state) => {
+      state.paymentData = null;
+      localStorage.removeItem("paymentData");
+    },
+
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.role = null;
+      state.paymentData = null;
+      localStorage.removeItem("paymentData");
     },
   },
 });
 
-// 2. Fixed spelling here too
 export const {
   setCredentials,
   setRole,
   updateUser,
   logout,
   setPaymentData,
+  clearPaymentData, // ✅ Added to your exports
   setShipmentReceipt,
   clearShipmentReceipt,
 } = authSlice.actions;
+
 export default authSlice.reducer;
