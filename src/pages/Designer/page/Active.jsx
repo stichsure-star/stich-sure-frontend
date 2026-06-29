@@ -18,12 +18,12 @@ export default function Orders() {
   const user = useSelector((state) => state.auth.user);
   const designerId = user?.id;
 
-  const handleSubmit = async (status) => {
+  const handleSubmit = async () => {
     try {
       if (!designerId) return;
 
       setLoading(true);
-      const response = await designerApi.allAders(designerId, status);
+      const response = await designerApi.allAders(designerId);
 
       console.log("Full Axios Response Structure:", response);
 
