@@ -1,180 +1,4 @@
-// import React from "react";
-// import "../styles/Activetity.css";
-
-// import { FaWallet } from "react-icons/fa";
-// import { BsCashCoin } from "react-icons/bs";
-// import { IoMdDownload } from "react-icons/io";
-// import { FiTrendingUp } from "react-icons/fi";
-// import { IoStatsChartOutline } from "react-icons/io5";
-// import { MdAccountBalanceWallet } from "react-icons/md";
-// import { BiMoneyWithdraw } from "react-icons/bi";
-// import WithdrawFunds from "../popups/WithdrawFunds";
-// import { useState } from "react";
-// import { useSelector } from "react-redux";
-
-// const Dashboard = () => {
-//   const user = useSelector((state) => state.auth.user);
-//   console.log("user", user);
-
-//   const [showWithdrawal, setShowWithdrawal] = useState(false);
-
-//   return (
-//     <div className="dashboard-container">
-//       {/* HEADER */}
-//       <div className="top-header">
-//         <h2>Earnings & Wallet</h2>
-//         <p>Overview of earnings and wallet</p>
-//       </div>
-
-//       {/* STATS CARDS */}
-//       <div className="stats-row">
-//         <div className="stats-card">
-//           <p className="card-icon">
-//             <IoStatsChartOutline />
-//           </p>
-//           <div className="card-info">
-//             <h3>{user.data.totalEarnings}</h3>
-
-//             <p>Total Earnings</p>
-//           </div>
-//         </div>
-
-//         <div className="stats-card">
-//           <MdAccountBalanceWallet className="card-icon" />
-//           <div className="card-info">
-//             <h3>{user.data.availableBalance}</h3>
-//             <p>Wallet Balance</p>
-//           </div>
-//         </div>
-
-//         <div className="stats-card withdraw-card">
-//           <BiMoneyWithdraw className="card-icon" />
-//           <div className="card-info">
-//             <h3>{user.data.withdrawn}</h3>
-//             <p>Withdrawable</p>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* HISTORY HEADER */}
-//       <div className="history-header">
-//         <h3>Recent Transactions</h3>
-
-//         <div className="">
-//           <button
-//             onClick={() => setShowWithdrawal(true)}
-//             className="withdraw-btn"
-//           >
-//             Withdraw
-//           </button>
-//         </div>
-//         {showWithdrawal && (
-//           <WithdrawFunds onClose={() => setShowWithdrawal(false)} />
-//         )}
-//       </div>
-
-//       {/* SCROLLABLE HISTORY */}
-
-//       <div className="transactions-wrapper">
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-
-//         <div className="transaction-item">
-//           <div className="transaction-left">
-//             <div className="trend-icon">
-//               <FiTrendingUp />
-//             </div>
-//             <div>
-//               <h4>Bridal Gown for Faith E.</h4>
-//               <small>May 15, 2026 • ORD-101</small>
-//             </div>
-//           </div>
-//           <div className="transaction-right">+₦180,000</div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Dashboard;
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Activetity.css";
 
 import { FiTrendingUp } from "react-icons/fi";
@@ -182,46 +6,49 @@ import { IoStatsChartOutline } from "react-icons/io5";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import WithdrawFunds from "../paymentInStich-sure/popups/WithdrawFunds";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 import { designerApi } from "../config/designer";
 
 const Dashboard = () => {
-  // const user = useSelector((state) => state.auth.user);
-
   const [showWithdrawal, setShowWithdrawal] = useState(false);
+  const [wallet, SetUpWallet] = useState(null); // Changed to null for easier loading states
+  const [transactions, setTransactions] = useState([]); // Initialized as an array since we map over it
 
-  // const wallet = user?.data || {};
-
-  // const transactions = wallet.transactions || [];
-
-  // const designs = user?.designs || [];
-
-  const [wallet, SetUpWallet] = useState({});
-  const [transactions, setTransactions] = useState({});
+  // Helper utility to format raw numeric string inputs to Naira currency style layouts
+  const formatNaira = (value) => {
+    const num = Number(value) || 0;
+    return `₦${new Intl.NumberFormat("en-NG", {
+      maximumFractionDigits: 0,
+    }).format(num)}`;
+  };
 
   const walletBal = async () => {
     try {
       const response = await designerApi.walletData();
-      console.log("response", response.data);
+      console.log("Wallet Balance API Response:", response.data);
       SetUpWallet(response.data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching wallet balance:", error);
     }
   };
 
   const history = async () => {
     try {
-      const response = designerApi.walletHistory();
-      console.log("response", response.data);
-      setTransactions((await response).data);
+      // ✅ Added await keyword directly to handle server response before reading properties
+      const response = await designerApi.walletHistory();
+      console.log("Wallet History API Response:", response.data);
+
+      // Target the exact array block depending on whether your backend returns it nested in .data or .data.data
+      const historyArray = response?.data?.data || response?.data || [];
+      setTransactions(historyArray);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching transaction history:", error);
     }
   };
 
   useEffect(() => {
+    // ✅ Trigger both network handshakes when the dashboard mounts
     walletBal();
+    history();
   }, []);
 
   return (
@@ -232,32 +59,38 @@ const Dashboard = () => {
       </div>
 
       <div className="stats-row">
+        {/* Total Earnings Card */}
         <div className="stats-card">
           <IoStatsChartOutline className="card-icon" />
-
           <div className="card-info">
-            <h3>₦{wallet.totalEarnings || 0}</h3>
-
+            {/* ✅ Safe structural checks using optional chaining fallbacks */}
+            <h3>
+              {formatNaira(
+                wallet?.data?.totalEarnings || wallet?.totalEarnings,
+              )}
+            </h3>
             <p>Total Earnings</p>
           </div>
         </div>
 
+        {/* Wallet Balance Card */}
         <div className="stats-card">
           <MdAccountBalanceWallet className="card-icon" />
-
           <div className="card-info">
-            <h3>₦{wallet.availableBalance || 0}</h3>
-
+            <h3>
+              {formatNaira(
+                wallet?.data?.availableBalance || wallet?.availableBalance,
+              )}
+            </h3>
             <p>Wallet Balance</p>
           </div>
         </div>
 
+        {/* Withdrawable Balance Card */}
         <div className="stats-card withdraw-card">
           <BiMoneyWithdraw className="card-icon" />
-
           <div className="card-info">
-            <h3>₦{wallet.withdrawn || 0}</h3>
-
+            <h3>{formatNaira(wallet?.data?.withdrawn || wallet?.withdrawn)}</h3>
             <p>Withdrawable</p>
           </div>
         </div>
@@ -275,31 +108,48 @@ const Dashboard = () => {
         </button>
 
         {showWithdrawal && (
-          <WithdrawFunds onClose={() => setShowWithdrawal(false)} />
+          <WithdrawFunds
+            onClose={() => setShowWithdrawal(false)}
+            walleted={wallet}
+          />
         )}
       </div>
 
+      {/* SCROLLABLE HISTORY WRAPPER */}
       <div className="transactions-wrapper">
-        {transactions.length > 0 ? (
+        {Array.isArray(transactions) && transactions.length > 0 ? (
           transactions.map((item) => (
-            <div className="transaction-item" key={item.id}>
+            <div className="transaction-item" key={item.id || item._id}>
               <div className="transaction-left">
                 <div className="trend-icon">
                   <FiTrendingUp />
                 </div>
 
                 <div>
-                  <h4>{item.title}</h4>
-
-                  <small>{item.date}</small>
+                  <h4>
+                    {item.title ||
+                      item.itemName ||
+                      item.description ||
+                      "Order Payment"}
+                  </h4>
+                  <small>
+                    {item.date || new Date(item.createdAt).toLocaleDateString()}
+                  </small>
                 </div>
               </div>
 
-              <div className="transaction-right">+₦{item.amount}</div>
+              <div className="transaction-right">
+                +{formatNaira(item.amount)}
+              </div>
             </div>
           ))
         ) : (
-          <p>No transactions yet</p>
+          <p
+            className="no-data-text"
+            style={{ padding: "20px", color: "#888", textAlign: "center" }}
+          >
+            No transactions recorded yet.
+          </p>
         )}
       </div>
     </div>
