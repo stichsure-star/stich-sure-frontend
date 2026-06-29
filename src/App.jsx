@@ -200,6 +200,8 @@ const router = createBrowserRouter([
                 element: <DesignerVerification />,
               },
 
+              { path: "checkout2/:id", element: <CheckOut2 /> },
+
               // { path: "checkout", element: <CheckoutPage /> },wrong
 
               // { path: "checkout", element: <CheckoutPage /> },
@@ -261,11 +263,8 @@ const router = createBrowserRouter([
               // { path: "rating-adebayor",   element: <RatingAdebayor /> },
               { path: `designer-profile/:id`, element: <DanDesignerProfile /> },
               { path: "setting", element: <Settings /> },
-              { path: "checkout", element: <CheckOutPage /> },
+              { path: "checkout44", element: <CheckOutPage /> },
               { path: "checkout/:id", element: <CheckOutPage /> },
-
-              // i just added this one please check throgh @gbenga
-              { path: "checkout2", element: <CheckOut2 /> },
 
               { path: "secondtracker", element: <SecondTracker /> },
               { path: "checkoutpayment", element: <CheckoutPayment /> },

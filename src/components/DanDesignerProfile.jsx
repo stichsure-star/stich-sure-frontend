@@ -232,7 +232,11 @@ function DanDesignerProfile() {
         {profile?.designs?.length > 0 ? (
           <div className="dp-portfolio-grid">
             {profile.designs.map((item) => (
-              <div key={item.id} className="dp-portfolio-card">
+              <div
+                key={item.id}
+                className="dp-portfolio-card"
+                onClick={() => navigate("/user/checkout")}
+              >
                 <div className="dp-image-container">
                   <img
                     src={item.designImage}
