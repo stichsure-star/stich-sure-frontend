@@ -26,9 +26,18 @@
 }
 
 .Warni {
-  position: absolute;
-  bottom: 10px;
-  right: 120px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Dimmed background layer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensures it sits on top of all other content */
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .bot_ordertracker-header {

@@ -1,13 +1,12 @@
-import React from 'react'
-import DesignersUploadCatlog from '../../../components/DesignersUploadCatlog'
+import React from "react";
+import DesignersUploadCatlog from "../../../components/DesignersUploadCatlog";
 
 const DesignerUploadedDesigners = () => {
   return (
-    <div>
-        <DesignersUploadCatlog/>
-      
+    <div className="global-slide-up">
+      <DesignersUploadCatlog />
     </div>
-  )
-}
+  );
+};
 
-export default DesignerUploadedDesigners
+export default DesignerUploadedDesigners;

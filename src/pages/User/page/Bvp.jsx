@@ -4,37 +4,95 @@ import { FaRulerCombined } from "react-icons/fa";
 import "../css/Bvp.css";
 import { useLocation } from "react-router-dom";
 import { authApi } from "../../../config/auth";
+import { useSelector } from "react-redux"; // 🚀 Added to listen to instant cross-app state
 import { SkeletonOrderTracker } from "../../../components/reuasbleComponents/Skeleton";
 
-const BvpPage = () => {
+const BvpPage = ({ onStatusFetched }) => {
   const location = useLocation();
   const orderId = location.state?.orderId;
+
+  const globalShipmentReceipt = useSelector(
+    (state) => state.auth?.shipmentReceipt,
+  );
+
+  // 👇 ADD THIS LOG HERE 👇
+  console.log("👉 BVP PAGE READ FROM REDUX STATE:", globalShipmentReceipt);
 
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
+  // Extracted core fetch logic so it can run during initial mount AND polling cycles
+  const fetchData = async (isBackground = false) => {
     if (!orderId) return;
     try {
-      setLoading(true);
+      if (!isBackground) setLoading(true); // Don't trigger skeleton loader on background polls
       const response = await authApi.oneOrder(orderId);
       console.log("CUSTOMER DATABASE RESPONSE:", response.data);
 
+      let orderData = null;
       if (response.data?.data) {
-        setOrder(response.data.data);
+        orderData = response.data.data;
       } else {
-        setOrder(response.data);
+        orderData = response.data;
+      }
+
+      setOrder(orderData);
+
+      const targetData = orderData?.data || orderData;
+      const liveStatus =
+        orderData?.status || response.data?.status || "Pending";
+
+      const orderPayload = {
+        status: liveStatus,
+        orderId: targetData?._id || orderId,
+        itemName: targetData?.itemName || "Custom Garment",
+        amount: targetData?.amount || 0,
+        designerName:
+          targetData?.designer?.businessName ||
+          targetData?.designer?.firstName ||
+          "Professional Designer",
+        designerId: targetData?.designer?._id || targetData?.designerId,
+      };
+
+      if (onStatusFetched) {
+        onStatusFetched(orderPayload);
       }
     } catch (error) {
       console.error("Error fetching single order data:", error);
     } finally {
-      setLoading(false);
+      if (!isBackground) setLoading(false);
     }
   };
 
+  // 🚀 Effect 1: Handles Initial Load & Real-Time Client DB Polling
   useEffect(() => {
-    fetchData();
-  }, [orderId]);
+    fetchData(); // Initial data fetch
+
+    // Poll the database silently every 10 seconds for remote status changes
+    const pollInterval = setInterval(() => {
+      const activeData = order?.data || order;
+
+      // 🚀 Also parse localstorage during loop check to safeguard background polls
+      const savedShipmentRaw = localStorage.getItem(`shipment_${orderId}`);
+      const savedShipment = savedShipmentRaw
+        ? JSON.parse(savedShipmentRaw)
+        : null;
+
+      const activeShipment =
+        activeData?.shipment ||
+        activeData?.payment?.pickup ||
+        globalShipmentReceipt ||
+        savedShipment?.shipment ||
+        savedShipment;
+
+      // Stop checking once tracking parameters show up
+      if (!activeShipment?.trackingCode && !activeShipment?.tracking_code) {
+        fetchData(true); // pass true to fetch silently in the background
+      }
+    }, 10000);
+
+    return () => clearInterval(pollInterval);
+  }, [orderId, order?.status]);
 
   if (loading) {
     return (
@@ -46,7 +104,6 @@ const BvpPage = () => {
     );
   }
 
-  // Safely extract paths regardless of wrapper nests
   const targetData = order?.data || order;
   const measurements =
     targetData?.measurement || targetData?.design?.measurements;
@@ -65,18 +122,29 @@ const BvpPage = () => {
     }
   };
 
-  // 🚀 CLEAN BACKEND STATUS BADGE (No Redux leaks)
+  // 🚀 1. READ FROM LOCALSTORAGE AS A SAFEGUARD AGAINST FULL APP REFRESHES
+  const savedShipmentRaw = localStorage.getItem(`shipment_${orderId}`);
+  const savedShipment = savedShipmentRaw ? JSON.parse(savedShipmentRaw) : null;
+
   const currentStatus =
     targetData?.status === "Completed" ||
     targetData?.status?.toLowerCase() === "completed" ||
     order?.status === "Completed" ||
-    order?.status?.toLowerCase() === "completed"
+    order?.status?.toLowerCase() === "completed" ||
+    globalShipmentReceipt?.success ||
+    savedShipment?.success
       ? "Completed"
       : "Pending";
 
-  // 🚀 EXTRACT LOGISTICS STRAIGHT FROM DATABASE RESPONSE
+  // 🚀 2. INJECTED SAVEDSHIPMENT FALLBACKS INTO THE SHIPMENT INFO CHAIN
   const shipmentInfo =
-    targetData?.shipment || targetData?.payment?.pickup || order?.shipment;
+    globalShipmentReceipt?.shipment ||
+    globalShipmentReceipt ||
+    savedShipment?.shipment || // 🚀 If page refreshed, it grabs it from here!
+    savedShipment || // 🚀 Just in case payload structures vary
+    targetData?.shipment ||
+    targetData?.payment?.pickup ||
+    order?.shipment;
 
   return (
     <div className="Bba_ordertracker-wrapper">
@@ -189,18 +257,26 @@ const BvpPage = () => {
             </div>
           </section>
 
-          {/* 🚀 RESTORED DYNAMIC LOGISTICS PANEL */}
+          {/* 🚀 LOGISTICS COMPONENT READS DYNAMIC SYNCED STATE WITH LOCALSTORAGE RESILIENCE */}
           {shipmentInfo &&
-            (shipmentInfo.trackingCode || shipmentInfo.tracking_code) && (
+            (shipmentInfo.trackingCode ||
+              shipmentInfo.tracking_code ||
+              shipmentInfo.trackingCode) && (
               <section
                 className="Bba_description-section"
                 style={{
                   borderLeft: "4px solid #8B0021",
-                  background: "#fdfbfff",
+                  background: "#fdfbff",
+                  padding: "15px",
+                  borderRadius: "0 8px 8px 0",
+                  marginBottom: "20px",
                 }}
               >
-                <h3 className="Bba_section-title" style={{ color: "#8B0021" }}>
-                  Logistics & Tracking Details
+                <h3
+                  className="Bba_section-title"
+                  style={{ color: "#8B0021", margin: 0 }}
+                >
+                  <FaRulerCombined /> Logistics & Tracking Details
                 </h3>
                 <div
                   style={{

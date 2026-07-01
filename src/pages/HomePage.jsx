@@ -11,7 +11,7 @@ import Ratings from "../components/Ratings";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <HeroSection />
       <HowItWorks />
       <FeaturedDesigners />

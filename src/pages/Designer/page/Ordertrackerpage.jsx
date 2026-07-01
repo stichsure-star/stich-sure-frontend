@@ -3,7 +3,7 @@ import OrderTracker from "../../../components/OrderTracker";
 
 const Ordertrackerpage = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <OrderTracker />
     </div>
   );

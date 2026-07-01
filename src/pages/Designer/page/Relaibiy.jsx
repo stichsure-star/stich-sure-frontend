@@ -3,7 +3,7 @@ import Reliability from "../../../components/Reliability";
 
 const Relaibiy = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Reliability />
     </div>
   );

@@ -63,5 +63,7 @@ export const designerApi = {
   walletHistory: (data) => ApiClient.get("/withdrawal/history", data),
   allDesigns: (id) => ApiClient.get(`/designs/getDesignerDesigns/${id}`),
   requestWithdrawal: (payload) =>
-    API.post("/api/v1/withdrawal/withdraw", payload),
+    ApiClient.post("/withdrawal/withdraw", payload),
+  WithdrawalWithdrawal: (payload) =>
+    ApiClient.post("/withdrawal/verify-account", payload),
 };

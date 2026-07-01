@@ -35,4 +35,5 @@ export const authApi = {
   webHooked: (reference) =>
     ApiClient.get(`/shipment/payment/verify/${reference}`),
   updateOrderStatus: (id, data) => ApiClient.put(`/orders/${id}/status`, data),
+  orderRating: (id, body) => ApiClient.put(`/request/rate/${id}`, body),
 };

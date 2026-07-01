@@ -22,7 +22,7 @@ const CustomerProfile = () => {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    // email: "",
     phone: "",
     address: "",
     profilePhoto: "",
@@ -33,7 +33,7 @@ const CustomerProfile = () => {
       setForm({
         firstName: user.firstName || "",
         lastName: user.lastName || "",
-        email: user.email || "",
+        // email: user.email || "",
         phone: user.phone || "",
         address: user.address || "",
         profilePhoto: user.profilePhoto || "",
@@ -79,11 +79,11 @@ const CustomerProfile = () => {
       temp.lastName = "Last name is required";
     }
 
-    if (!form.email.trim()) {
-      temp.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-      temp.email = "Enter a valid email";
-    }
+    // if (!form.email.trim()) {
+    //   temp.email = "Email is required";
+    // } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+    //   temp.email = "Enter a valid email";
+    // }
 
     const cleanPhone = form.phone.replace(/\s/g, "");
 
@@ -124,7 +124,7 @@ const CustomerProfile = () => {
 
       formData.append("firstName", form.firstName);
       formData.append("lastName", form.lastName);
-      formData.append("email", form.email);
+      // formData.append("email", form.email);
       formData.append("phone", form.phone);
       formData.append("address", form.address);
 
@@ -140,7 +140,7 @@ const CustomerProfile = () => {
         updateUser({
           firstName: form.firstName,
           lastName: form.lastName,
-          email: form.email,
+          // email: form.email,
           phone: form.phone,
           address: form.address,
           profilePhoto: image ? URL.createObjectURL(image) : user?.profilePhoto,
@@ -235,9 +235,10 @@ const CustomerProfile = () => {
             <input
               name="email"
               type="email"
-              value={form.email}
-              onChange={handleChange}
+              value={user.email}
+              // onChange={handleChange}
               placeholder="Email"
+              readOnly
             />
 
             {errors.email && <p className="error">{errors.email}</p>}

@@ -3,7 +3,7 @@ import SecondTracker from "../../../components/SecondTracker";
 import Try from "../page/Try";
 const MyOrders = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       {/* <SecondTracker /> */}
       <Try />
     </div>

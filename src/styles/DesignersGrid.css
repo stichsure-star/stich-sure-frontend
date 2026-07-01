@@ -284,6 +284,7 @@
   .dg-page-wrapper .search-bar-input-box {
     align-items: stretch;
     flex-direction: column;
+
     gap: 12px;
   }
 
@@ -294,7 +295,8 @@
 
   .dg-page-wrapper .search-input-icon {
     left: 14px;
-    top: 22px;
+
+    bottom: 40px;
     transform: translateY(-50%);
   }
 

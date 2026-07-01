@@ -6,7 +6,7 @@ import Footer from "../components/reuasbleComponents/Footer";
 
 const Featurepage = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Herocopy />
       <Features />
     </div>

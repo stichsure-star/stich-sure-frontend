@@ -3,8 +3,8 @@ import DashboardOverview from "../../../components/DashboardOverview";
 
 const UserDashboard = () => {
   return (
-    <div>
-     <DashboardOverview />
+    <div className="global-slide-up">
+      <DashboardOverview />
     </div>
   );
 };

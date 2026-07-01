@@ -17,7 +17,6 @@ import { MdLogout } from "react-icons/md";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
-
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -44,7 +43,7 @@ const Header = () => {
               <img src={user.profilePhoto} alt="Profile" className="Goldie" />
             ) : (
               <div className="Goldie-initials">
-                 {user?.firstName?.charAt(0).toUpperCase()}
+                {user?.firstName?.charAt(0).toUpperCase()}
                 {user?.lastName?.charAt(0).toUpperCase()}
               </div>
             )}
@@ -76,7 +75,6 @@ const Header = () => {
             </NavLink>
           </li>
 
-         
           <li>
             {" "}
             <NavLink
@@ -89,7 +87,7 @@ const Header = () => {
             </NavLink>
           </li>
 
-           <li>
+          <li>
             {" "}
             <NavLink
               to="/user/browsedesigners"
@@ -100,7 +98,6 @@ const Header = () => {
               Browse Designers
             </NavLink>
           </li>
-
 
           <li>
             {" "}
@@ -127,7 +124,7 @@ const Header = () => {
 
           <li>
             <NavLink
-              to="/settings"
+              to="/user/setting"
               className="link"
               onClick={() => setOpen(false)}
             >

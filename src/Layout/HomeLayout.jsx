@@ -9,7 +9,7 @@ const HomeLayout = () => {
     <div className="HomeLayout">
       <Header />
       <main className="HomeLayout_main">
-        <Outlet />
+        <Outlet className="global-slide-up" />
       </main>
       <Footer />
     </div>

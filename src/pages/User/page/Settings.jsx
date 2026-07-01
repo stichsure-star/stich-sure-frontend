@@ -4,7 +4,7 @@ import CustomerSecurity from "../profile/CustomerSecurity";
 
 const Settings = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <CustomerProfile />
     </div>
   );
