@@ -5,7 +5,7 @@ import Footer from "../components/reuasbleComponents/Footer";
 
 const StartedPage = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Started />
     </div>
   );

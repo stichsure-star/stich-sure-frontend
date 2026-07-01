@@ -180,7 +180,7 @@ const CheckOutPage = () => {
         console.log(
           "⏳ Holding 10 seconds before external gateway redirect...",
         );
-        await new Promise((resolve) => setTimeout(resolve, 10000));
+
         window.location.assign(checkoutUrl);
         return;
       }

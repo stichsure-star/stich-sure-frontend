@@ -4,7 +4,7 @@ import DesignersCatalog from "../../../components/DesignersCatalog";
 
 const BrowseDesigners = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <DesignersGrid />
     </div>
   );

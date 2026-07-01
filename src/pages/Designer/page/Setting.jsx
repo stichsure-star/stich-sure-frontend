@@ -5,7 +5,7 @@ import Security from "../profile/DesignerSecurity";
 
 const Setting = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Profile />
     </div>
   );

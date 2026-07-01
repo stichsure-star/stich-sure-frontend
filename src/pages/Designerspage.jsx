@@ -6,7 +6,7 @@ import Footer from "../components/reuasbleComponents/Footer";
 
 const Designerspage = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Hero />
       <Designer />
     </div>

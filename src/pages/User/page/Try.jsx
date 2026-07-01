@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { customerApi } from "../../../config/customer";
 import "../css/Tryed.css";
 import { useNavigate } from "react-router-dom";
+import { ClockLoader } from "react-spinners";
 
 const Try = () => {
   const user = useSelector((state) => state.auth.user);
@@ -82,7 +83,9 @@ const Try = () => {
                   </span>
                 </div>
 
-                <p className="Act_due">🕒 Due: {formatDate(order?.placedAt)}</p>
+                <p className="Act_due">
+                  <ClockLoader size={20} /> Due: {formatDate(order?.placedAt)}
+                </p>
               </div>
             );
           })

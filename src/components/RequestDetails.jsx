@@ -30,7 +30,6 @@ const RequestDetails = () => {
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
   const measurementFields = [
     "Chest",
     "Shoulder",
@@ -38,7 +37,10 @@ const RequestDetails = () => {
     "Top Length",
     "Neck",
     "Bust",
+    "Waist",
     "Hip",
+    "Thigh",
+    "Trouser Length",
   ];
 
   const [formData, setFormData] = useState({

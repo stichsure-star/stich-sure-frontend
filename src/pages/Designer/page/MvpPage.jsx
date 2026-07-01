@@ -64,18 +64,25 @@ const MvpPage = () => {
       // 1. Create the shipment with Shipbubble
       const response = await designerApi.Valid(payload);
 
+      // 🚀 LOG 1: See absolutely everything coming back from your API
+      console.log("👉 RAW SHIPBUBBLE RESPONSE ON DESIGNER SIDE:", response);
+      console.log("👉 RESPONSE DATA STACK:", response?.data);
+
       if (response.data && response.data.success === true) {
         const freshShipment =
           response.data?.shipment || response.data?.data?.shipment;
+
+        // 👇 ADD THIS LINE RIGHT HERE 👇
+        localStorage.setItem(
+          `shipment_${orderId}`,
+          JSON.stringify(response.data),
+        );
 
         // 2. Fire database state switch
         try {
           await authApi.updateOrderStatus(orderId, { status: "completed" });
         } catch (statusError) {
-          console.error(
-            "Shipment succeeded, but database status update failed:",
-            statusError,
-          );
+          console.error("Database status update failed:", statusError);
         }
 
         // 3. Update local sync states & Redux slices
@@ -98,6 +105,12 @@ const MvpPage = () => {
           showConfirmButton: false,
         });
       } else {
+        // 🚀 LOG 3: See why the success flag failed if it missed the true check
+        console.log(
+          "⚠️ API returned success false or bad structure:",
+          response?.data,
+        );
+
         Swal.fire({
           icon: "warning",
           title: "Shipment Issue",

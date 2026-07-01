@@ -3,7 +3,7 @@ import Collab from "../../../components/Collab";
 
 const Collaboration = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Collab />
     </div>
   );

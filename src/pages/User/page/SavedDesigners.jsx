@@ -8,7 +8,7 @@ import DesignerProfile from "../../../components/DanDesignerProfile";
 
 const SavedDesigners = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <SaveDesign />
     </div>
   );

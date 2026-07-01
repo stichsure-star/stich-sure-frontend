@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/modal-responsive-screen.css";
 import WithdrawalSuccessful from "./WithdrawalSuccessful";
 import Swal from "sweetalert2";
@@ -101,18 +101,50 @@ const WithdrawFunds = ({ onClose, walleted }) => {
   const [showSuccessful, setShowSuccessful] = useState(false);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verifiedName, setVerifiedName] = useState("");
 
   // Extract profiles safely out of dynamic payload values
   const availableBalance = Number(walleted?.data?.availableBalance) || 0;
   const bankName = walleted?.data?.bankName || "";
   const accountNumber = walleted?.data?.accountNumber || "";
-  const accountName = walleted?.data?.accountName || "";
+  const initialAccountName = walleted?.data?.accountName || "";
   const bankCode = walleted?.data?.bankCode || "";
 
   const formatNaira = (value) => {
     return `₦${new Intl.NumberFormat("en-NG", {
       maximumFractionDigits: 0,
     }).format(value)}`;
+  };
+
+  // Implemented: Verification API integration
+  const verifyAccc = async () => {
+    if (!accountNumber || !bankCode) return;
+
+    setIsVerifying(true);
+    try {
+      // Constructs payload using documentation fields: "account" and "bank"
+      const verificationPayload = {
+        account: accountNumber,
+        bank: bankCode,
+      };
+
+      // Ensure this matches your API client method mapping for /api/v1/withdrawal/verify-account
+      const res = await designerApi.verifyAccount(verificationPayload);
+      console.log("✅ Account Verified Successfully:", res.data);
+
+      // Update state with verified name if returned by your API structure
+      if (res.data?.accountName) {
+        setVerifiedName(res.data.accountName);
+      }
+    } catch (error) {
+      console.error(
+        "💥 Verification Error:",
+        error?.response?.data || error.message,
+      );
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   const handleWithdrawalSubmit = async () => {
@@ -129,13 +161,13 @@ const WithdrawFunds = ({ onClose, walleted }) => {
       return;
     }
 
-    // Prepare matching payload properties
+    // Prepare matching payload properties for /api/v1/withdrawal/withdraw
     const payload = {
       amount: numericAmount,
       useNewAccount: false,
       bankName: bankName,
       accountNumber: accountNumber,
-      accountName: accountName,
+      accountName: verifiedName || initialAccountName,
       bankCode: bankCode,
     };
 
@@ -167,7 +199,11 @@ const WithdrawFunds = ({ onClose, walleted }) => {
     }
   };
 
-  const isWithdrawalDisabled = availableBalance === 0 || loading;
+  useEffect(() => {
+    verifyAccc();
+  }, [accountNumber, bankCode]);
+
+  const isWithdrawalDisabled = availableBalance === 0 || loading || isVerifying;
 
   return (
     <div className="modal-overlay">
@@ -202,6 +238,11 @@ const WithdrawFunds = ({ onClose, walleted }) => {
           <p style={styles.accountName}>
             {bankName || "No Bank Bound"} • {accountNumber || "******"}
           </p>
+          <span style={{ fontSize: "12px", color: "#666666" }}>
+            {isVerifying
+              ? "Verifying account details..."
+              : `Account Name: ${verifiedName || initialAccountName || "Fetching..."}`}
+          </span>
         </div>
 
         <div className="modal-footer" style={styles.footer}>

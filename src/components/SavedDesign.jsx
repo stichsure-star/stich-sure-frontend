@@ -4,6 +4,7 @@ import "../styles/SavedDesign.css";
 import { useNavigate } from "react-router-dom";
 import { customerApi } from "../config/customer";
 import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
+import { PropagateLoader } from "react-spinners";
 
 function SavedDesign() {
   const navigate = useNavigate();
@@ -36,11 +37,10 @@ function SavedDesign() {
           <SkeletonCardGrid count={6} />
         ) : designers.length === 0 ? (
           // 2. Clear empty fallback state view layout
-          <div
-            style={{ textAlign: "center", padding: "40px", color: "#6b7280" }}
-          >
+          <div className="Loader">
             <h3>No saved designers yet</h3>
             <p>Designers you save will show up right here.</p>
+            <PropagateLoader size={30} />
           </div>
         ) : (
           // 3. Render list normally if array has elements

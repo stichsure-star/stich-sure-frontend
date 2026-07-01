@@ -71,4 +71,6 @@
 .Act_due {
   margin-top: 18px;
   color: #475569;
+  display: flex;
+  gap: 10px;
 }

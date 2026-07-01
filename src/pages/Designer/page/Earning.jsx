@@ -3,7 +3,7 @@ import Activetity from "../../../components/Activetity";
 
 const Earning = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Activetity />
     </div>
   );

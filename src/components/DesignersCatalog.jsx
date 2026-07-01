@@ -5,6 +5,7 @@ import { FaHeart } from "react-icons/fa";
 import { customerApi } from "../config/customer";
 import { SkeletonCardGrid } from "./reuasbleComponents/Skeleton";
 import { useNavigate } from "react-router-dom";
+import { GridLoader } from "react-spinners";
 
 const DesignersCatalog = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import Uploaded from "../../../components/Uploaded";
 
 const Upload = () => {
   return (
-    <div>
+    <div className="global-slide-up">
       <Uploaded />
     </div>
   );

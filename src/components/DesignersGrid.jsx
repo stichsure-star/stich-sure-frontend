@@ -3,11 +3,13 @@ import { HiMapPin, HiStar, HiOutlineHeart, HiHeart } from "react-icons/hi2";
 import { FiSearch, FiSliders, FiLoader } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 import "../styles/DesignersGrid.css";
 
 import { authApi } from "../config/auth";
 import { customerApi } from "../config/customer";
+import { SyncLoader } from "react-spinners";
 
 const DEFAULT_CATEGORIES = [
   "All",
@@ -297,85 +299,98 @@ const DesignersGrid = () => {
 
         {/* CARDS */}
         {loading ? (
-          <h4>Loading....</h4>
-        ) : (
-          <div className="dg-cards-grid">
-            {filteredDesigners.map((designer) => {
-              // Graceful fallback helper for database fields
-              const designerId = designer._id || designer.id;
-
-              return (
-                <div key={designerId} className="dg-designer-card">
-                  <div className="dg-card-image-wrap">
-                    <img
-                      src={designer.profile?.profilePhoto}
-                      alt={designer.profile?.businessName}
-                      className="dg-card-img"
-                    />
-
-                    <button
-                      disabled={loadingFav[designerId]}
-                      className={`dg-heart-btn ${
-                        favorites[designerId] ? "is-active" : ""
-                      } ${animatingHeart[designerId] ? "heart-pop" : ""}`}
-                      onClick={() => toggleFavorite(designerId)}
-                    >
-                      {loadingFav[designerId] ? (
-                        <FiLoader className="heart-spinner" />
-                      ) : favorites[designerId] ? (
-                        <HiHeart />
-                      ) : (
-                        <HiOutlineHeart />
-                      )}
-                    </button>
-                  </div>
-
-                  <div className="dg-card-info">
-                    <div className="dg-name-rating-row">
-                      <h3 className="dg-designer-name">
-                        {designer.profile?.businessName}
-                      </h3>
-
-                      <div className="dg-rating-badge">
-                        <HiStar />
-                        <span>{designer.profile?.ratingCount || 0}</span>
-                      </div>
-                    </div>
-
-                    <p className="dg-designer-specialty">
-                      {getDesignerCategories(designer).join(", ")}
-                    </p>
-
-                    <p className="dg-designer-desc">
-                      {designer.profile?.shortBio}
-                    </p>
-
-                    <div className="dg-meta-row">
-                      <span className="dg-meta-item">
-                        <HiMapPin />
-                        {designer.profile?.state}, {designer.profile?.country}
-                      </span>
-
-                      <span className="dg-meta-divider">•</span>
-
-                      <span className="dg-meta-item">
-                        {designer.profile?.completedOrders || 0} orders
-                      </span>
-                    </div>
-
-                    <button
-                      className="dg-profile-btn"
-                      onClick={() =>
-                        navigate(`/user/designer-profile/${designerId}`)
-                      }
-                    >
-                      View Profile
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="Loader">
+            <h4>Loading....</h4>
+            <SyncLoader size={40} />
           </div>
+        ) : (
+          <motion.div
+            // 1. Starts hidden, scaled down, and pushed lower down the screen
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            // 2. Automatically animates to full size, visibility, and its original position
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            // 3. Tweaks the speed and smoothness
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="your-css-card-class"
+          >
+            <div className="dg-cards-grid">
+              {filteredDesigners.map((designer) => {
+                // Graceful fallback helper for database fields
+                const designerId = designer._id || designer.id;
+
+                return (
+                  <div key={designerId} className="dg-designer-card">
+                    <div className="dg-card-image-wrap">
+                      <img
+                        src={designer.profile?.profilePhoto}
+                        alt={designer.profile?.businessName}
+                        className="dg-card-img"
+                      />
+
+                      <button
+                        disabled={loadingFav[designerId]}
+                        className={`dg-heart-btn ${
+                          favorites[designerId] ? "is-active" : ""
+                        } ${animatingHeart[designerId] ? "heart-pop" : ""}`}
+                        onClick={() => toggleFavorite(designerId)}
+                      >
+                        {loadingFav[designerId] ? (
+                          <FiLoader className="heart-spinner" />
+                        ) : favorites[designerId] ? (
+                          <HiHeart />
+                        ) : (
+                          <HiOutlineHeart />
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="dg-card-info">
+                      <div className="dg-name-rating-row">
+                        <h3 className="dg-designer-name">
+                          {designer.profile?.businessName}
+                        </h3>
+
+                        <div className="dg-rating-badge">
+                          <HiStar />
+                          <span>{designer.profile?.ratingCount || 0}</span>
+                        </div>
+                      </div>
+
+                      <p className="dg-designer-specialty">
+                        {getDesignerCategories(designer).join(", ")}
+                      </p>
+
+                      <p className="dg-designer-desc">
+                        {designer.profile?.shortBio}
+                      </p>
+
+                      <div className="dg-meta-row">
+                        <span className="dg-meta-item">
+                          <HiMapPin />
+                          {designer.profile?.state}, {designer.profile?.country}
+                        </span>
+
+                        <span className="dg-meta-divider">•</span>
+
+                        <span className="dg-meta-item">
+                          {designer.profile?.completedOrders || 0} orders
+                        </span>
+                      </div>
+
+                      <button
+                        className="dg-profile-btn"
+                        onClick={() =>
+                          navigate(`/user/designer-profile/${designerId}`)
+                        }
+                      >
+                        View Profile
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
         )}
       </main>
     </div>

@@ -23,8 +23,7 @@ import { SkeletonProfile } from "../components/reuasbleComponents/Skeleton";
 
 function DanDesignerProfile() {
   const navigate = useNavigate();
-
-  const { id } = useParams();
+  const { id } = useParams(); // This 'id' is the designerId from the URL path parameter
 
   const [profile, setProf] = useState({});
   const [loading, setLoading] = useState(true);
@@ -32,12 +31,25 @@ function DanDesignerProfile() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favLoading, setFavLoading] = useState(false);
 
+  // 🚀 SYNCHRONIZED NAVIGATION FUNCTION (Matches your Catalog pattern)
+  const goToRequestDetails = (item) => {
+    const targetDesignerId = item.designerId || id;
+
+    navigate(`/user/requiredetails/${targetDesignerId}`, {
+      state: {
+        designId: item.id,
+        designerId: targetDesignerId,
+        itemName: item.designTitle,
+        amount: Number(item.price || 0),
+        design: item.designImage,
+      },
+    });
+  };
+
   const fetchData = async () => {
     try {
       setLoading(true);
-
       const response = await designerApi.getOne(id);
-
       setProf(response.data.data);
     } catch (error) {
       console.log(error);
@@ -49,11 +61,9 @@ function DanDesignerProfile() {
   const checkFavorite = async () => {
     try {
       const res = await customerApi.savedDesigner();
-
       const saved = res.data.data.some(
         (item) => item.designerId === id || item._id === id,
       );
-
       setIsFavorite(saved);
     } catch (error) {
       console.log(error);
@@ -73,9 +83,7 @@ function DanDesignerProfile() {
 
       if (isFavorite) {
         await customerApi.removeDesigner(id);
-
         setIsFavorite(false);
-
         Swal.fire({
           icon: "success",
           title: "Removed",
@@ -84,9 +92,7 @@ function DanDesignerProfile() {
         });
       } else {
         await customerApi.saveDesigner(id);
-
         setIsFavorite(true);
-
         Swal.fire({
           icon: "success",
           title: "Saved",
@@ -96,7 +102,6 @@ function DanDesignerProfile() {
       }
     } catch (error) {
       console.log(error);
-
       Swal.fire({
         icon: "error",
         title: "Failed",
@@ -166,7 +171,6 @@ function DanDesignerProfile() {
                 <div className="dp-stars">
                   {[1, 2, 3, 4, 5].map((star) => {
                     const rating = Number(profile?.profile?.ratingAverage) || 0;
-
                     return (
                       <HiStar
                         key={star}
@@ -183,8 +187,7 @@ function DanDesignerProfile() {
                 </span>
 
                 <span className="dp-review-count">
-                  ({profile?.profile?.ratingCount || 0}
-                  reviews)
+                  ({profile?.profile?.ratingCount || 0} reviews)
                 </span>
 
                 {profile?.profile?.isKycVerified && (
@@ -199,7 +202,6 @@ function DanDesignerProfile() {
 
               <div className="dp-specializations">
                 <span className="dp-spec-label">Specializations:</span>
-
                 <div className="dp-spec-tags">
                   <span className="dp-spec-tag">
                     {profile?.profile?.specialization}
@@ -212,7 +214,6 @@ function DanDesignerProfile() {
           <div className="dp-reliability-section">
             <div className="dp-reliability-labels">
               <span className="dp-reliability-title">Reliability Score</span>
-
               <span className="dp-reliability-value">
                 {profile?.profile?.reliabilityScore ?? 0}%
               </span>
@@ -235,7 +236,8 @@ function DanDesignerProfile() {
               <div
                 key={item.id}
                 className="dp-portfolio-card"
-                onClick={() => navigate("/user/checkout")}
+                onClick={() => goToRequestDetails(item)} // 🚀 INTERCEPT CLICK DYNAMICALLY
+                style={{ cursor: "pointer" }}
               >
                 <div className="dp-image-container">
                   <img
@@ -247,8 +249,19 @@ function DanDesignerProfile() {
 
                 <div className="dp-portfolio-details">
                   <h3 className="dp-item-title">{item.designTitle}</h3>
-
                   <p className="dp-item-category">{item.category}</p>
+                  {item.price && (
+                    <span
+                      className="dp-item-price"
+                      style={{
+                        fontWeight: "600",
+                        display: "block",
+                        marginTop: "4px",
+                      }}
+                    >
+                      ₦{new Intl.NumberFormat("en-NG").format(item.price)}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

@@ -211,10 +211,10 @@ export default function DashboardOverview() {
                   </div>
                 </div> */}
 
-                {/* <div className="due-date">
+                <div className="due-date">
                   <span className="clock-icon">🕒</span> Due:{" "}
                   {formatDate(order.placedAt)}
-                </div> */}
+                </div>
               </div>
             ))}
           </div>

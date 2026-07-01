@@ -1,23 +1,29 @@
 .dashboard {
   width: 100%;
   min-height: 100vh;
-
   padding: 30px;
-
   background: #fafafa;
-
   box-sizing: border-box;
+  animation: slideUpFade 0.5s ease-out forwards;
+}
+
+@keyframes slideUpFade {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* =====================
    TITLE
 ===================== */
-
 .dashboard h2 {
   margin: 0;
-
   font-size: 42px;
-
   font-weight: 700;
 }
 
@@ -27,39 +33,27 @@
 
 .dashboard p {
   font-size: 18px;
-
   color: #555;
 }
 
 /* =====================
    STATS
 ===================== */
-
 .stats {
   width: 100%;
-
   display: flex;
-
   gap: 35px;
-
   margin-top: 45px;
 }
 
 .cardww {
   width: 25%;
-
   height: 170px;
-
   background: white;
-
   border-radius: 18px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-around;
-
   box-shadow: 0 8px 20px #0002;
 }
 
@@ -69,128 +63,90 @@
 
 .cardww span {
   width: 55px;
-
   height: 55px;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
   background: #00800033;
-
   border-radius: 14px;
-
   font-size: 24px;
 }
 
 .father {
   width: 55px;
-
   height: 55px;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
   background: #c8a96b;
-
   border-radius: 14px;
-
   font-size: 24px;
   font-weight: bolder;
 }
 
 .cardww b {
   font-size: 30px;
-
   font-weight: 700;
 }
 
 .cardww small {
   font-size: 13px;
-
   color: #777;
 }
 
 /* =====================
    BUSINESS
 ===================== */
-
 .business {
   margin-top: 35px;
-
   width: 100%;
-
   height: 190px;
-
   background: #790019;
-
   border-radius: 16px;
-
   padding: 35px;
-
   color: white;
-
   box-sizing: border-box;
 }
 
 .business h3 {
   margin: 0;
-
   font-size: 28px;
 }
 
 .business p {
   color: white;
-
   font-size: 18px;
 }
 
 .business button {
   width: 150px;
-
   height: 50px;
-
   border: none;
-
   border-radius: 10px;
-
   background: white;
-
   font-size: 16px;
 }
 
 /* =====================
    ORDERS
 ===================== */
-
 .orders {
   margin-top: 40px;
-
   width: 100%;
-
   background: white;
-
   padding: 35px;
-
   border-radius: 16px;
-
   box-sizing: border-box;
 }
 
 .orders h3 {
   font-size: 28px;
+  margin-top: 0;
 }
 
 .order-list {
   display: flex;
-
   flex-direction: column;
-
   gap: 18px;
 }
 
@@ -243,41 +199,34 @@
 
 .order-carded {
   width: 100%;
-
   background: white;
-
   border: 1px solid #eee;
-
   border-radius: 14px;
-
   padding: 20px;
   display: flex;
-
+  flex-wrap: wrap; /* 🚀 Added to allow text items to flow nicely */
   box-sizing: border-box;
   gap: 20px;
-  justify-content: center;
   align-items: center;
-
+  justify-content: space-between; /* 🚀 Spreads items evenly on desktop */
   box-shadow: 0 5px 15px #0001;
 }
 
 .order-carded h4 {
+  margin: 0;
   font-size: 20px;
+  min-width: 150px;
 }
 
 .order-carded p {
-  margin: 8px 0;
-
+  margin: 0; /* 🚀 Fixed vertical spacing jumping on desktop grids */
   font-size: 15px;
-
   color: #555;
 }
 
 .order-carded b {
   color: #111;
 }
-
-/* hide old table */
 
 .orders table {
   display: flex;
@@ -286,7 +235,6 @@
 /* =====================
    TABLET
 ===================== */
-
 @media (max-width: 1000px) {
   .dashboard {
     padding: 25px 20px;
@@ -294,9 +242,7 @@
 
   .stats {
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
     gap: 20px;
   }
 
@@ -312,7 +258,6 @@
 /* =====================
    MOBILE
 ===================== */
-
 @media (max-width: 600px) {
   .dashboard {
     padding: 75px 15px 30px;
@@ -326,27 +271,18 @@
     font-size: 14px;
   }
 
-  /* stats */
-
   .stats {
     display: flex;
-
     flex-direction: column;
-
     gap: 18px;
-
     margin-top: 25px;
   }
 
   .cardww {
     width: 100%;
-
     height: 160px;
-
     border-radius: 16px;
-
     padding: 25px;
-
     box-sizing: border-box;
   }
 
@@ -356,9 +292,7 @@
 
   .cardww span {
     width: 55px;
-
     height: 55px;
-
     font-size: 22px;
   }
 
@@ -370,13 +304,9 @@
     font-size: 32px;
   }
 
-  /* business */
-
   .business {
     height: auto;
-
     padding: 25px 20px;
-
     margin-top: 25px;
   }
 
@@ -390,38 +320,36 @@
 
   .business button {
     width: 130px;
-
     height: 42px;
-
     font-size: 13px;
   }
 
-  /* orders */
-
   .orders {
     margin-top: 30px;
-
-    padding: 15px;
+    padding: 20px 15px;
   }
 
   .orders h3 {
     font-size: 22px;
   }
 
-  .order-card {
+  /* 🚀 FIXED: Target the right card name from your JSX */
+  .order-carded {
     padding: 18px;
-
     border-radius: 14px;
+    flex-direction: column; /* 🚀 Stacks parameters on mobile screens */
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .order-card h4 {
+  .order-carded h4 {
     font-size: 18px;
+    margin-bottom: 5px;
   }
 
-  .order-card p {
+  .order-carded p {
     font-size: 14px;
-
-    margin: 10px 0;
+    margin: 0;
   }
 
   .designer-empty-orders-state {
@@ -466,11 +394,9 @@
 }
 
 /* SMALL PHONE */
-
 @media (max-width: 380px) {
   .dashboard {
     padding-left: 10px;
-
     padding-right: 10px;
   }
 
@@ -486,7 +412,8 @@
     padding: 20px 15px;
   }
 
-  .order-card {
+  /* 🚀 FIXED: Changed class target to match carded */
+  .order-carded {
     padding: 15px;
   }
 
